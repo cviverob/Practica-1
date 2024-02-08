@@ -4,9 +4,9 @@
 
 #### index.html (hasta 0.5 puntos)
 Contenido solicitado:
-- [ ] Incluye título
-- [ ] Incluye logotipo
-- [ ] Incluye descripción / breve resumen
+- [-] Incluye título
+- [-] Incluye logotipo
+- [-] Incluye descripción / breve resumen
 
 Evaluación de este apartado:
 - [ ] No se incluye el contenido solicitado en el enunciado (0 puntos)
