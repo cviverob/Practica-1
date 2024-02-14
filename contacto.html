@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacta con nosotros</title>
+</head>
+<body>
+    <h1>Formulario de contacto</h1>
+    <p>Nombre:</p>
+    <input type="text" name="nombre" value="Nombre"/>
+    <p>Dirección de correo:</p>
+    <input type="text" name="correo" value="Email"/>
+    <p>Motivo de consulta:</p>
+       <!--de momento no se que tienen que hacer asi que se quedan como botón genérico--> 
+       <label><input type="evaluacion" name="tipo_consulta" value="evaluacion"/>Evaluación</label>
+       lo mismo con sugerencias y criticas
+
+    <p></p>
+
+    <!--checkbox-->
+    <input name="check" type="checkbox" value=""/> Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio
+    <p></p>
+    <!--cuadro de texto, el nombre asignado (Consulta) debe coincidir con el que se use en la app del servidor-->
+    <label for="consulta">Escriba aquí su consulta:</label>
+    <input id="consulta" type="text" name="Consulta" value=""/>
+
+    <!--enviar o borrar formulario-->
+    <input type="submit" name="enviar" value="Enviar formulario"/>
+    <input type="reset" name="borrar" value="Borrar formulario"/>
+</body>
+</html>
