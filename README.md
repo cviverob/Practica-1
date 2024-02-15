@@ -84,3 +84,8 @@ Comentarios:
 - [ ] La descripción es suficiente para entender la idea general de la aplicación (+0.5 puntos)
 - [ ] El HTML es adecuado (+0.25 puntos)
 - [ ] La página valida en el validador del W3C (+0.25 puntos)
+
+# Practica-1
+
+Vamos apuntando los datos que modifiquemos
+
