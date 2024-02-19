@@ -6,27 +6,30 @@
     <title>Contacta con nosotros</title>
 </head>
 <body>
+    <form action="mailto:chricaba@ucm.es" enctype="text/plain">
     <h1>Formulario de contacto</h1>
-    <p>Nombre:</p>
-    <input type="text" name="nombre" value="Nombre"/>
-    <p>Dirección de correo:</p>
-    <input type="text" name="correo" value="Email"/>
-    <p>Motivo de consulta:</p>
-       <!--de momento no se que tienen que hacer asi que se quedan como botón genérico--> 
-       <label><input type="evaluacion" name="tipo_consulta" value="evaluacion"/>Evaluación</label>
-       lo mismo con sugerencias y criticas
-
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" name="nombre"/>
     <p></p>
-
+    <label for="correo">E-mail:  </label>
+    <input id="correo" type="text" name="correo"/>
+    <p></p>
+    <label for="tipo_consulta">Motivo de consulta:</label>
+       <!--radio buttons, grupo de selección exclusiva "tipo_consulta"--> 
+       <label><input type="radio" name="tipo_consulta"/>Evaluación</label>
+       <label><input type="radio" name="tipo_consulta"/>Sugerencias</label>
+       <label><input type="radio" name="tipo_consulta"/>Críticas</label>
+    <p></p>
+    <!--cuadro de texto-->
+    <p>Escriba aquí su consulta:</p>
+    <textarea name="consulta" rows="4" cols="50"></textarea>
+    <p></p>
     <!--checkbox-->
-    <input name="check" type="checkbox" value=""/> Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio
+    <input name="check" type="checkbox"/> Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio
     <p></p>
-    <!--cuadro de texto, el nombre asignado (Consulta) debe coincidir con el que se use en la app del servidor-->
-    <label for="consulta">Escriba aquí su consulta:</label>
-    <input id="consulta" type="text" name="Consulta" value=""/>
-
     <!--enviar o borrar formulario-->
-    <input type="submit" name="enviar" value="Enviar formulario"/>
-    <input type="reset" name="borrar" value="Borrar formulario"/>
+    <button type="submit" name="enviar">Enviar formulario</button>
+    <button type="reset" name="borrar">Borrar formulario</button>
+    </form>
 </body>
 </html>
