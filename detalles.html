@@ -1,60 +1,60 @@
 <!DOCTYPE html>
-<html>
-    <html lang "es">
-    <head>
-        <title>Elmo cines</title>
-        <meta charset = "utf-8">
-    </head>
-    <body>
-        <h1>Descripción detallada de Elmo cines</h1>
-        <p><a href = "#Introducción">1. Introducción</a></p>
-        <p><a href = "#Tipos de usuario">2. Tipos de usuario</a></p>
-        <p><a href = "#Funcionalidades">3. Funcionalidades</a></p>
-        <h2 id = "Introducción">1. Introducción</h2>
-        <p>Nuestra página web va a tener una gestión de películas, para poder darlas de alta, baja, y modificarlas, 
-            podiendo incluir una foto, trailer, título, sinopsis, duración, étc. Por otro lado, estará la gestión de 
-            la cartelera, para poder modificar los horarios de las películas del cine y coordinar las sesiones de 
-            las salas. Adicionalmente tendrá la gestión de las salas, para poder darlas de alta, de baja, y 
-            modificarlas con el tamaño y asientos que queramos. Todo esto estará a cargo del staff, mientras que un 
-            usuario normal podrá consultar las películas y sus sesiones. Los usuarios registrados en la web podrán 
-            finalizar el proceso de compra y consultar su historial.
-        </p>
-        
-        <h2 id = "Tipos de usuario">2. Tipos de usuario</h2>
-        <p>Nuestra página distingue tres tipos de usuarios:</p>
-        <p><strong>- Usuario no registrado:</strong> tendrá acceso limitado a la página, podiendo consultar el 
-            catálogo de películas pero sin poder comprar las entradas. Cuando se seleccione una película y su hora, 
-            en la pantalla de selección de butacas no podrá llevar a cabo ninguna acción hasta registrarse, lo cual 
-            se le indicará en un mensaje.</p>
-        <p><strong>- Usuario registrado:</strong> hilándolo con lo anterior, este usuario sí que podrá seleccionar 
-            las butacas y completar el proceso de compra. Sus datos para las entradas se rellenarán automáticamente, 
-            pero podrá modificarlos. Las entradas les llegarán al correo, pero también podrá acceder a ellas en un 
-            historial de compra que tendrá en su perfil.
-        </p>
-        <p><strong>- Staff:</strong> los administradores tendrán botones adicionales manteniendo el aspecto general de
-            la página para poder tener una vista previa. Estos botones en cuestión serán para poder añadir nuevas 
-            películas, asignar salas y horarios a las mismas, y crear salas nuevas.
-        </p>
-        
-        <h2 id = "Funcionalidades">3. Funcionalidades</h2>
-        <p><strong>-Compra de entradas:</strong> esta funcionalidad será parcialmente accesible para usuarios no 
-            registrados, pero el paso final solo podrá realizarlo un usuario registrado. Consiste en la selección de 
-            una película, su fecha y hora, y finalmente el asiento. A partir de aquí solo un usuario registrado podrá 
-            continuar, generándose un pdf con la información de su entrada y guardando en su historial la compra.
-        </p>
-        <p><strong>-Gestión de salas:</strong> el staff podrá acceder a esta funcionalidad a través de su correspondiente 
-            botón. Se le pedirá al usuario que indique el número de filas y columnas que tendrá la sala, y se le 
-            mostrará una matriz de asientos que podrá desactivar o activar en función de las necesidades. El punto de 
-            referencia será la pantalla, que estará situada en la parte inferior de la matriz. También podrá acceder a una 
-            sala previamente creada para modificarla o borrarla.
-        </p>
-        <p><strong>-Gestión de películas:</strong> los adminitradores podrán añadir una película nueva rellenando los
-            campos obligatorios correspondientes. Por otro lado también podrán buscar una película por cualquier 
-            parámetro y se le mostrará una tabla con las coincidencias. Tras seleccionar una, se podrá modificar o borrar.
-        </p>
-        <p><strong>-Gestión de cartelera:</strong> los encargados podrán asignar a una película, una fecha, hora, y 
-            sala, guardándose la sesión en la base de datos. Posteriormente podrán buscar la sesión para para 
-            modificarla o borrarla.
-        </p>
-    </body>
+
+<html lang="es">
+<head>
+    <title>Elmo cines</title>
+    <meta charset = "utf-8">
+</head>
+<body>
+    <h1>Descripción detallada de Elmo cines</h1>
+    <p><a href = "#Introducción">1. Introducción</a></p>
+    <p><a href = "#TiposDeUsuario">2. Tipos de usuario</a></p>
+    <p><a href = "#Funcionalidades">3. Funcionalidades</a></p>
+    <h2 id = "Introducción">1. Introducción</h2>
+    <p>Nuestra página web va a tener una gestión de películas, para poder darlas de alta, baja, y modificarlas, 
+        podiendo incluir una foto, trailer, título, sinopsis, duración, étc. Por otro lado, estará la gestión de 
+        la cartelera, para poder modificar los horarios de las películas del cine y coordinar las sesiones de 
+        las salas. Adicionalmente tendrá la gestión de las salas, para poder darlas de alta, de baja, y 
+        modificarlas con el tamaño y asientos que queramos. Todo esto estará a cargo del staff, mientras que un 
+        usuario normal podrá consultar las películas y sus sesiones. Los usuarios registrados en la web podrán 
+        finalizar el proceso de compra y consultar su historial.
+    </p>
+    
+    <h2 id = "TiposDeUsuario">2. Tipos de usuario</h2>
+    <p>Nuestra página distingue tres tipos de usuarios:</p>
+    <p><strong>- Usuario no registrado:</strong> tendrá acceso limitado a la página, podiendo consultar el 
+        catálogo de películas pero sin poder comprar las entradas. Cuando se seleccione una película y su hora, 
+        en la pantalla de selección de butacas no podrá llevar a cabo ninguna acción hasta registrarse, lo cual 
+        se le indicará en un mensaje.</p>
+    <p><strong>- Usuario registrado:</strong> hilándolo con lo anterior, este usuario sí que podrá seleccionar 
+        las butacas y completar el proceso de compra. Sus datos para las entradas se rellenarán automáticamente, 
+        pero podrá modificarlos. Las entradas les llegarán al correo, pero también podrá acceder a ellas en un 
+        historial de compra que tendrá en su perfil.
+    </p>
+    <p><strong>- Staff:</strong> los administradores tendrán botones adicionales manteniendo el aspecto general de
+        la página para poder tener una vista previa. Estos botones en cuestión serán para poder añadir nuevas 
+        películas, asignar salas y horarios a las mismas, y crear salas nuevas.
+    </p>
+    
+    <h2 id = "Funcionalidades">3. Funcionalidades</h2>
+    <p><strong>-Compra de entradas:</strong> esta funcionalidad será parcialmente accesible para usuarios no 
+        registrados, pero el paso final solo podrá realizarlo un usuario registrado. Consiste en la selección de 
+        una película, su fecha y hora, y finalmente el asiento. A partir de aquí solo un usuario registrado podrá 
+        continuar, generándose un pdf con la información de su entrada y guardando en su historial la compra.
+    </p>
+    <p><strong>-Gestión de salas:</strong> el staff podrá acceder a esta funcionalidad a través de su correspondiente 
+        botón. Se le pedirá al usuario que indique el número de filas y columnas que tendrá la sala, y se le 
+        mostrará una matriz de asientos que podrá desactivar o activar en función de las necesidades. El punto de 
+        referencia será la pantalla, que estará situada en la parte inferior de la matriz. También podrá acceder a una 
+        sala previamente creada para modificarla o borrarla.
+    </p>
+    <p><strong>-Gestión de películas:</strong> los adminitradores podrán añadir una película nueva rellenando los
+        campos obligatorios correspondientes. Por otro lado también podrán buscar una película por cualquier 
+        parámetro y se le mostrará una tabla con las coincidencias. Tras seleccionar una, se podrá modificar o borrar.
+    </p>
+    <p><strong>-Gestión de cartelera:</strong> los encargados podrán asignar a una película, una fecha, hora, y 
+        sala, guardándose la sesión en la base de datos. Posteriormente podrán buscar la sesión para para 
+        modificarla o borrarla.
+    </p>
+</body>
 </html>
