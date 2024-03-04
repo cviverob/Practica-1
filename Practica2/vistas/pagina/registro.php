@@ -9,10 +9,16 @@
     <body>
         <?php require("../comun/cabecera.php") ?>
         <main>
-            <form action = "procesarLogin.php" method = "post">
+            <form action = "procesarRegistro.php" method = "post">
                 <p></p>
-                <a href = ""><button type = "button">Conectarse</button></a>
-                <a href = "registro.php"><button type = "button">Registrarse</button></a>
+                <a href = "login.php"><button type = "button">Conectarse</button></a>
+                <a href = ""><button type = "button">Registrarse</button></a>
+                <p></p>
+                *Nombre:
+                <input type="text" name="nombre" value="<?php echo isset($_SESSION["nombre"]) ? $_SESSION["nombre"] : '' ?>" />
+                <p></p>
+                *Edad:
+                <input type="text" name="edad" value="<?php echo isset($_SESSION["edad"]) ? $_SESSION["edad"] : '' ?>" />
                 <p></p>
                 *Correo:
                 <input type="text" name="correo" value="<?php echo isset($_SESSION["correo"]) ? $_SESSION["correo"] : '' ?>" />
@@ -22,7 +28,7 @@
                 <p></p>
                 *Campo obligatorio
                 <p></p>
-                <button type = "submit">Iniciar sesión</button>
+                <button type = "submit">Registrarse</button>
             </form>
         </main>
         <?php require("../comun/pie.php") ?>

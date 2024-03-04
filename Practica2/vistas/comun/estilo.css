@@ -4,6 +4,10 @@ header {
 	text-align: left;
 }
 
+main {
+	text-align: center;
+}
+
 footer	 {
 	background-color: #303030;
 	color: white;

@@ -1,14 +1,18 @@
-<?php session_start() ?>
+<?php 
+    session_start();
+    require_once("../../src/usuarios/usuarios.php");    
+?>
 <header>
     <img src = "../../img/ElmoCines.png" alt = "Título de la página">
     <img src = "../../img/Logo.png" alt = "Logo de la página">
         
     <?php
-        if (!isset($_SESSION["login"]) || !$_SESSION["login"]) {
-            echo "Usuario desconocido. <a href=\"\">Registrarse</a>";
+        if (!isset($_SESSION["usuario"]) || !$_SESSION["usuario"]) {
+            echo "Usuario desconocido. <a href=\"../pagina/registro.php\">Registrarse</a>";
         }
         else {
-            echo "Bienvenido {$_SESSION["usuario"]} <a href=\"\">(salir)</a>";
+            $usuario = $_SESSION["usuario"];
+            echo "Bienvenido " . $usuario->getNombre() . "<a href=\"\">(salir)</a>";
         }
     ?>
 </header>

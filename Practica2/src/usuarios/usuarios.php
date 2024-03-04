@@ -32,14 +32,14 @@ class Usuario {
 
     /* Funciones públicas */
 
-    public static function crea($nombre, $email, $contrasenia, $edad, $rol = ROL_USUARIO) {
+    public static function crea($nombre, $email, $contrasenia, $edad, $rol = self::ROL_USUARIO) {
         $usuario = new Usuario($nombre, $email, self::hashContrasenia($contrasenia), $edad, $rol);
         $usuario->guardarUsuario();
         return $usuario;
     }
 
-    public static function login($nombre, $contrasenia) {
-        $usuario = self::buscaUsuario($nombre);
+    public static function login($correo, $contrasenia) {
+        $usuario = self::buscaUsuario($correo);
         if ($usuario && $usuario->comprobarContrasenia($contrasenia)) {
             return $usuario;
         }
@@ -66,7 +66,7 @@ class Usuario {
 
     /* Funciones de la BD */
 
-    private static function buscaUsuario($nombreUsuario) {
+    private static function buscaUsuario($correo) {
         
     }
 
