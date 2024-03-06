@@ -4,7 +4,7 @@ require_once("../../src/usuarios/usuarios.php");
 
 $rutaEstilos = '../comun/estilo.css';
 
-$tituloPagina = 'Buscar sesión';
+$tituloPagina = 'Tabla de salas';
 
 // Temporal, para tener permisos
 $_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
@@ -17,26 +17,18 @@ if (!$usuario->esAdmin()) {
     EOS;
 }
 else {
+    /*
+        Aquí se mostrará una tabla con las coincidencias enontradas y sus respectivos datos,
+        guardando en la sesión la sala seleccionada para redirigirnos a aniadirPelicula.php
+        con los datos de la misma preescritos. Además, dejará borrar una fila.
+    */
     $contenidoPrincipal = <<< EOS
-        <form action = "procesarBusquedaSesiones.php" method = "POST">
-            <p></p>
-            Nombre:
-            <input type='text' name='nombre' value="" />
-            <p></p>
-            Sala:
-            <input type = "text" name = "sala" value = "" />
-            <p></p>
-            Fecha:
-            <input type='text' name='fecha' value="" />
-            <p></p>
-            Hora:
-            <input type='text' name='hora' value="" />
-            <p></p>
-            Duración:
-            <input type='text' name='duracion' value="" /> minutos
-            <p></p>
-            <button type = "submit">Buscar</button>
-        </form>
+        <h3>Tabla con las coincidencias:<h3>
+        <a href = aniadirSala.php><button type = 'button'>Coincidencia 1</button></a>
+        <p></p>
+        <a href = aniadirSala.php><button type = 'button'>Coincidencia 2</button></a>
+        <p></p>
+        <a href = aniadirSala.php><button type = 'button'>Coincidencia 3</button></a>
         <p></p>
         <a href = 'administracion.php'><button type = 'button'>Cancelar</button></a>
     EOS;

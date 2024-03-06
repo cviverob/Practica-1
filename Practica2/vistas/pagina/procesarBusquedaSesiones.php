@@ -19,7 +19,7 @@ if (!$usuario->esAdmin()) {
 else {
     /*
         Aquí se mostrará una tabla con las coincidencias enontradas y sus respectivos datos,
-        guardando en la sesión la película seleccionada para redirigirnos a aniadirPelicula.php
+        guardando en la sesión la sesión seleccionada para redirigirnos a aniadirPelicula.php
         con los datos de la misma preescritos. Además, dejará borrar una fila.
     */
     $contenidoPrincipal = <<< EOS
@@ -30,6 +30,7 @@ else {
         <p></p>
         <a href = aniadirSesion.php><button type = 'button'>Coincidencia 3</button></a>
         <p></p>
+        <a href = 'administracion.php'><button type = 'button'>Cancelar</button></a>
     EOS;
 }
 

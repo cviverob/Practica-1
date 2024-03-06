@@ -4,7 +4,7 @@ require_once("../../src/usuarios/usuarios.php");
 
 $rutaEstilos = '../comun/estilo.css';
 
-$tituloPagina = 'Buscar sesión';
+$tituloPagina = 'Añadir sala';
 
 // Temporal, para tener permisos
 $_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
@@ -17,25 +17,20 @@ if (!$usuario->esAdmin()) {
     EOS;
 }
 else {
+    // Si estamos modificando una sala, deben salir los valores de dicha peli
     $contenidoPrincipal = <<< EOS
-        <form action = "procesarBusquedaSesiones.php" method = "POST">
+        <form action = "modificarSala.php" method = "POST">
             <p></p>
-            Nombre:
-            <input type='text' name='nombre' value="" />
+            *Sala:
+            <input type='text' name='sala' value="" required />
             <p></p>
-            Sala:
-            <input type = "text" name = "sala" value = "" />
+            *Número de filas:
+            <input type = "text" name = "filas" value = "" required />
             <p></p>
-            Fecha:
-            <input type='text' name='fecha' value="" />
+            *Número de columnas:
+            <input type='text' name='columnas' value="" required />
             <p></p>
-            Hora:
-            <input type='text' name='hora' value="" />
-            <p></p>
-            Duración:
-            <input type='text' name='duracion' value="" /> minutos
-            <p></p>
-            <button type = "submit">Buscar</button>
+            <button type = "submit">Generar</button>
         </form>
         <p></p>
         <a href = 'administracion.php'><button type = 'button'>Cancelar</button></a>

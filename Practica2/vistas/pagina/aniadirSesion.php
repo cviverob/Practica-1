@@ -41,6 +41,8 @@ else {
             <p></p>
             <button type = "submit">Confirmar</button>
         </form>
+        <p></p>
+        <a href = 'administracion.php'><button type = 'button'>Cancelar</button></a>
     EOS;
 }
 

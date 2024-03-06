@@ -4,7 +4,7 @@ require_once("../../src/usuarios/usuarios.php");
 
 $rutaEstilos = '../comun/estilo.css';
 
-$tituloPagina = 'Tabla de películas';
+$tituloPagina = 'Modificar sala';
 
 // Temporal, para tener permisos
 $_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
@@ -17,19 +17,10 @@ if (!$usuario->esAdmin()) {
     EOS;
 }
 else {
-    /*
-        Aquí se mostrará una tabla con las coincidencias enontradas y sus respectivos datos,
-        guardando en la sesión la película seleccionada para redirigirnos a aniadirPelicula.php
-        con los datos de la misma preescritos. Además, dejará borrar una fila.
-    */
+    // Matriz de butacas para marcarlas o desmarcarlas
     $contenidoPrincipal = <<< EOS
-        <h3>Tabla con las coincidencias:<h3>
-        <a href = aniadirPelicula.php><button type = 'button'>Coincidencia 1</button></a>
-        <p></p>
-        <a href = aniadirPelicula.php><button type = 'button'>Coincidencia 2</button></a>
-        <p></p>
-        <a href = aniadirPelicula.php><button type = 'button'>Coincidencia 3</button></a>
-        <p></p>
+        <h2>Matriz de butacas</h2>
+        <a href = 'administracion.php'><button type = 'button'>Confirmar</button></a>
         <a href = 'administracion.php'><button type = 'button'>Cancelar</button></a>
     EOS;
 }
