@@ -1,5 +1,4 @@
 <?php 
-    session_start();
     require_once("../../src/usuarios/usuarios.php");    
 ?>
 <header>
@@ -12,7 +11,7 @@
         }
         else {
             $usuario = $_SESSION["usuario"];
-            echo "Bienvenido " . $usuario->getNombre() . "<a href=\"\">(salir)</a>";
+            echo "Bienvenido " . $usuario->getNombre() . " <a href=\"\"><button type = 'button'>Salir</button></a>";
             // Pendiente de mirar
             if ($usuario->esAdmin()) {
                 echo "<a href = \"administracion.php\"><button type = \"button\">Admin</button></a>";

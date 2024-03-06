@@ -47,7 +47,7 @@ class Usuario {
     }
 
     public function esAdmin() {
-        return $this->rol == ROL_ADMIN;
+        return $this->rol == self::ROL_ADMIN;
     }
 
     public function getNombre() {
