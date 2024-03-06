@@ -25,6 +25,8 @@ else {
         <a href = 'aniadirSesion.php'><button type = 'button'>Añadir</button></a>
         <a href = 'buscarSesion.php'><button type = 'button'>Buscar</button></a>
         <h2>Gestión de salas<h2>
+        <a href = 'aniadirSala.php'><button type = 'button'>Añadir</button></a>
+        <a href = 'buscarSala.php'><button type = 'button'>Buscar</button></a>
     EOS;
 }
 
