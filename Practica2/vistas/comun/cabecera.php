@@ -13,6 +13,10 @@
         else {
             $usuario = $_SESSION["usuario"];
             echo "Bienvenido " . $usuario->getNombre() . "<a href=\"\">(salir)</a>";
+            // Pendiente de mirar
+            if ($usuario->esAdmin()) {
+                echo "<a href = \"administracion.php\"><button type = \"button\">Admin</button></a>";
+            }
         }
     ?>
 </header>
