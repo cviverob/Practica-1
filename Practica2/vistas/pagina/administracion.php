@@ -1,30 +1,29 @@
 <?php
-    require_once("../../src/usuarios/usuarios.php"); 
-    $_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
-?>
+require_once('../../includes/config.php');
+require_once("../../src/usuarios/usuarios.php"); 
 
-<!DOCTYPE html>
-<html>
-    <html lang "es">
-    <header>
-        <meta charset="utf8mb4">
-		<link rel="stylesheet" type="text/css" href="../comun/estilo.css" />
-        <title>Elmo cines</title>
-    </header>
-    <body>
-        <?php require("../comun/cabecera.php") ?>
-        <main>
-            <?php
-                if (!$usuario->esAdmin()) {
-                    echo "<h1>No tienes acceso a esta página</h1>";
-                }
-                else {
-                    echo "<h2>Gestión de películas</h2>";
-                    echo "<a href = \"administracion.php\"><button type = \"button\">Admin</button></a>";
-                }
-            ?>
-            <h1>Administración</h1>
-        </main>
-        <?php require("../comun/pie.php") ?>
-    </body>
-</html>
+$rutaEstilos = '../comun/estilo.css';
+
+$tituloPagina = 'Administración';
+
+// Temporal, para tener permisos
+$_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
+
+$usuario = $_SESSION["usuario"];
+if (!$usuario->esAdmin()) {
+    $contenidoPrincipal = <<< EOS
+        <h1>No tienes permisos para usar esta página</h1>
+        <a href = 'menuPrincipal.php'><button type = 'button'>Volver al menú principal</button></a>
+    EOS;
+}
+else {
+    $contenidoPrincipal = <<< EOS
+        <h2>Gestión de películas<h2>
+        <a href = 'aniadirPelicula.php'><button type = 'button'>Añadir</button></a>
+        <a href = 'buscarPelicula.php'><button type = 'button'>Buscar</button></a>
+        <h2>Gestión de cartelera<h2>
+        <h2>Gestión de salas<h2>
+    EOS;
+}
+
+require('../comun/plantilla.php');
