@@ -4,7 +4,7 @@ require_once("../../src/usuarios/usuarios.php");
 
 $rutaEstilos = '../comun/estilo.css';
 
-$tituloPagina = 'Añadir película';
+$tituloPagina = 'Añadir sesión';
 
 // Temporal, para tener permisos
 $_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
@@ -24,23 +24,18 @@ else {
             *Nombre:
             <input type='text' name='nombre' value="" required />
             <p></p>
-            *Sinópsis:
-            <input type = "text" name = "sinopsis" value = "" required />
+            *Sala:
+            <input type = "text" name = "sala" value = "" required />
             <p></p>
-            Póster:
-            <input type='button' name='poster' value="" />
+            *Fecha:
+            <input type='text' name='fecha' value="" required />
             <p></p>
-            Tráiler:
-            <input type='button' name='trailer' value="" />
+            *Hora:
+            <input type='text' name='hora' value="" required />
             <p></p>
-            *Edad:
-            <input type='text' name='edad' value="" required />
-            <p></p>
-            *Género:
-            <input type='text' name='genero' value="" required />
-            <p></p>
-            *Duración:
-            <input type='text' name='duracion' value="" required /> minutos
+            Oculto:
+            <input type='button' name='ocultoSi' value="Sí" />
+            <input type='button' name='ocultoNo' value="No" />
             <p></p>
             *Campo obligatorio
             <p></p>

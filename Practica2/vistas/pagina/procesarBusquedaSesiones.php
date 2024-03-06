@@ -4,7 +4,7 @@ require_once("../../src/usuarios/usuarios.php");
 
 $rutaEstilos = '../comun/estilo.css';
 
-$tituloPagina = 'Tabla de películas';
+$tituloPagina = 'Tabla de sesiones';
 
 // Temporal, para tener permisos
 $_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
@@ -24,11 +24,11 @@ else {
     */
     $contenidoPrincipal = <<< EOS
         <h3>Tabla con las coincidencias:<h3>
-        <a href = aniadirPelicula.php><button type = 'button'>Coincidencia 1</button></a>
+        <a href = aniadirSesion.php><button type = 'button'>Coincidencia 1</button></a>
         <p></p>
-        <a href = aniadirPelicula.php><button type = 'button'>Coincidencia 2</button></a>
+        <a href = aniadirSesion.php><button type = 'button'>Coincidencia 2</button></a>
         <p></p>
-        <a href = aniadirPelicula.php><button type = 'button'>Coincidencia 3</button></a>
+        <a href = aniadirSesion.php><button type = 'button'>Coincidencia 3</button></a>
         <p></p>
     EOS;
 }

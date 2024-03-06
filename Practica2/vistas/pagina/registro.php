@@ -17,16 +17,16 @@ $contenidoPrincipal = <<< EOS
     <a href = ""><button type = "button">Registrarse</button></a>
     <p></p>
     *Nombre:
-    <input type="text" name="nombre" value="" />
+    <input type="text" name="nombre" value="" required />
     <p></p>
     *Edad:
-    <input type="text" name="edad" value="" />
+    <input type="text" name="edad" value="" required />
     <p></p>
     *Correo:
-    <input type="text" name="correo" value="" />
+    <input type="text" name="correo" value="" required />
     <p></p>
     *Contraseña:
-    <input type = "password" name = "contraseña" value = "" />
+    <input type = "password" name = "contraseña" value = "" required />
     <p></p>
     *Campo obligatorio
     <p></p>

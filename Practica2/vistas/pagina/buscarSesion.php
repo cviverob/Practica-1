@@ -4,7 +4,7 @@ require_once("../../src/usuarios/usuarios.php");
 
 $rutaEstilos = '../comun/estilo.css';
 
-$tituloPagina = 'Buscar película';
+$tituloPagina = 'Buscar sesión';
 
 // Temporal, para tener permisos
 $_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
@@ -18,19 +18,19 @@ if (!$usuario->esAdmin()) {
 }
 else {
     $contenidoPrincipal = <<< EOS
-        <form action = "procesarBusquedaPeliculas.php" method = "POST">
+        <form action = "procesarBusquedaSesiones.php" method = "POST">
             <p></p>
             Nombre:
             <input type='text' name='nombre' value="" />
             <p></p>
-            Sinópsis:
-            <input type = "text" name = "sinopsis" value = "" />
+            Sala:
+            <input type = "text" name = "sala" value = "" />
             <p></p>
-            Edad:
-            <input type='text' name='edad' value="" />
+            Fecha:
+            <input type='text' name='fecha' value="" />
             <p></p>
-            Género:
-            <input type='text' name='genero' value="" />
+            Hora:
+            <input type='text' name='hora' value="" />
             <p></p>
             Duración:
             <input type='text' name='duracion' value="" /> minutos
