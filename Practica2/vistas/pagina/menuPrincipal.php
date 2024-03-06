@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html>
-    <html lang "es">
-    <header>
-        <meta charset="utf8mb4">
-		<link rel="stylesheet" type="text/css" href="../comun/estilo.css" />
-        <title>Elmo cines</title>
-    </header>
-    <body>
-        <?php require("../comun/cabecera.php") ?>
-        <main>
-        isset($_SESSION['correo']) ? $_SESSION['correo'] : ''
-        </main>
-        <?php require("../comun/pie.php") ?>
-    </body>
-</html>
+<?php 
+
+    $rutaEstilos = '../comun/estilo.css';
+    $tituloPagina = 'Cartelera';
+
+    $contenidoPrincipal = <<<EOS
+        <img src = "../../img/Dune.png">
+
+        <a href = "consultaPelicula.php"><button type = "button">Ir a la peli</button>
+    EOS;
+
+    require '../comun/plantilla.php';
+?>

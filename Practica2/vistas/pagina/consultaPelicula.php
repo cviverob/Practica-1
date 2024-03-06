@@ -4,7 +4,7 @@ require_once('../../src/peliculas/peliculas.php');
 
 $rutaEstilos = '../comun/estilo.css';
 
-$tituloPagina = 'Proceso de login';
+$tituloPagina = 'Consultar película';
 
 // Película de ejemplo
 $pelicula = Pelicula::crea("Dune", "El duque Paul Atreides se une a los Fremen y comienza un 
@@ -37,6 +37,7 @@ $contenidoPrincipal = <<< EOS
     <p> Edad mínima: {$pelicula->getPegi()} </p>
     <p> Género:  {$pelicula->getGenero()} </p>
     <p> Género: {$pelicula->getDuracion()} minutos </p>
+    <a href  = 'seleccionDeButacas.php'><button type = 'button'>Seleccionar butacas</button></a>
 EOS;
 
 require('../comun/plantilla.php');
