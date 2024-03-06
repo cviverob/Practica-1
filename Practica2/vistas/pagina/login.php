@@ -15,10 +15,10 @@ $contenidoPrincipal = <<< EOS
         <a href = "registro.php"><button type = "button">Registrarse</button></a>
         <p></p>
         *Correo:
-        <input type='text' name='correo' value="" />
+        <input type='text' name='correo' value="" required />
         <p></p>
         *Contraseña:
-        <input type = "password" name = "contraseña" value = "" />
+        <input type = "password" name = "contraseña" value = "" required />
         <p></p>
         *Campo obligatorio
         <p></p>
