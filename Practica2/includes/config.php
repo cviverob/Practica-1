@@ -31,7 +31,7 @@ define('RUTA_CSS', RUTA_VSTA_CMN . '/estilo.css');
 define('BD_HOST', 'localhost');
 define('BD_NAME', 'cines');
 define('BD_USER', 'root');
-define('BD_PASS', '');
+define('BD_PASS', ' ');
 
 /* */
 /* Utilidades básicas de la aplicación */
