@@ -1,5 +1,5 @@
 <?php 
-    $rutaEstilos = '../comun/estilo.css'
+    $rutaEstilos = '../comun/estilo.css';
     $tituloPagina = 'Cartelera';
 
     $contenidoPrincipal = <<<EOS
