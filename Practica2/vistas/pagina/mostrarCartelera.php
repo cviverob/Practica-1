@@ -25,4 +25,4 @@
         <?php require("../comun/pie.php") ?>
     EOS;
 
-    require('../comun/plantilla.php');
+    require_once(RUTA_RAIZ . RUTA_PLNT);

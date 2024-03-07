@@ -1,17 +1,17 @@
 <?php 
-    require_once('C:\xampp\htdocs\Practica-SW\Practica2\src/usuarios/usuarios.php');    
+    require_once(RUTA_RAIZ . RUTA_USU);    
 ?>
 <header>
-    <img src="/Practica-SW/Practica2/img/ElmoCines.png" alt="Título de la página">
-    <img src="/Practica-SW/Practica2/img/Logo.png" alt = "Logo de la página">
+    <img src = "<?php echo RUTA_APP . RUTA_IMGS ?>/ElmoCines.png" alt="Título de la página">
+    <img src = "<?php echo RUTA_APP . RUTA_IMGS ?>/Logo.png" alt = "Logo de la página">
         
     <?php
         if (!isset($_SESSION["usuario"]) || !$_SESSION["usuario"]) {
-            echo "Usuario desconocido. <a href='/Practica-SW/Practica2/vistas/pagina/usuario/registro.php'><button type = 'button'>Registrarse</button></a>";
+            echo "Usuario desconocido. <a href = " . RUTA_APP . RUTA_REG . "><button type = 'button'>Registrarse</button></a>";
         }
         else {
-            //$usuario = $_SESSION["usuario"];
-            //echo "Bienvenido " . $usuario->getNombre() . " <a href=''><button type = 'button'>Salir</button></a>";
+            $usuario = $_SESSION["usuario"];
+            echo "Bienvenido " /*. $usuario->getNombre()*/ . " <a href= " . RUTA_APP . RUTA_LGOUT . "><button type = 'button'>Salir</button></a>";
             // Pendiente de mirar
             /*if ($usuario->esAdmin()) {
                 echo "<a href = 'vistas/Administracion/administracion.php'><button type = 'button'>Admin</button></a>";
