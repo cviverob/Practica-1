@@ -1,6 +1,8 @@
 <?php
-
+    require_once('../../includes/config.php');
+    
     $rutaEstilos = '../comun/estilo.css';
+    
     $tituloPagina = 'Seleccion de Butacas';
 
     $contenidoPrincipal = <<< EOS
