@@ -1,11 +1,10 @@
-<?php
-require_once 'includes/config.php';
-require("../comun/cabecera.php");
+<?php 
+    $rutaEstilos = '../comun/estilo.css';
+    $tituloPagina = 'Cartelera';
 
-$tituloPagina = 'Página de inicio';
+    $contenidoPrincipal = <<<EOS
+        <img src = "../../img/Dune.png"><p></p>
+        <a href = "consultaPelicula.php"><button type = "button">Ir a la peli</button>
+    EOS;
 
-$contenidoPrincipal=<<<EOS
-	<p>Aquí debe incluirse todo lo que se quiera enseñar en la página de inicio</p>
-EOS;
-
-require("../comun/pie.php")
+    require '../comun/plantilla.php';
