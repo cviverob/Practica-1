@@ -1,7 +1,6 @@
 <?php
-require_once('../../includes/config.php');
-
-$rutaEstilos = '../comun/estilo.css';
+require_once('C:\xampp\htdocs\Practica-SW\Practica2\includes/config.php');
+require_once('C:\xampp\htdocs\Practica-SW\Practica2\src/usuarios/usuarios.php');
 
 $tituloPagina = 'Proceso de login';
 
@@ -25,4 +24,4 @@ else {
     EOS;
 }
 
-require('../comun/plantilla.php');
+require('C:\xampp\htdocs\Practica-SW\Practica2\vistas/comun/plantilla.php');

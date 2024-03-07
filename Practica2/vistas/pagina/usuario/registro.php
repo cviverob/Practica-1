@@ -1,7 +1,5 @@
 <?php
-require_once('../../includes/config.php');
-
-$rutaEstilos = '../comun/estilo.css';
+   
 
 $tituloPagina = 'Registro';
 
@@ -34,4 +32,4 @@ $contenidoPrincipal = <<< EOS
     </form>
 EOS;
 
-require('../comun/plantilla.php');
+require('../../comun/plantilla.php');

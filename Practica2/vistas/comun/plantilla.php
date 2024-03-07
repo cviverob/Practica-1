@@ -4,18 +4,18 @@
     <meta charset="utf8mb4">
     <meta http-equip="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href=<?= RUTA_CSS ?> />
+    <link rel="stylesheet" type="text/css" href="/Practica-SW/Practica2/vistas/comun/estilo.css"/>
     <title><?= $tituloPagina ?></title>
 </head>
 <body>
     <div id="contenedor">
-        <?php require_once(RUTA_CBZ); ?>
+        <?php require('cabecera.php'); ?>
         <main>
             <article>
                 <?= $contenidoPrincipal ?>
             </article>
         </main>
-        <?php  require_once(RUTA_PIE); ?>
+        <?php  require('pie.php'); ?>
     </div>
 </body>
 </html>

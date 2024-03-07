@@ -1,7 +1,5 @@
 <?php
-require_once('../../includes/config.php');
-
-$rutaEstilos = '../comun/estilo.css';
+require_once('C:\xampp\htdocs\Practica-SW\Practica2\includes/config.php');
 
 $tituloPagina = 'Login';
 
@@ -29,4 +27,4 @@ $contenidoPrincipal = <<< EOS
     </form>
 EOS;
 
-require('../comun/plantilla.php');
+require('../../comun/plantilla.php');
