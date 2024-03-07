@@ -14,14 +14,14 @@ $_SESSION["correo"] = $correo;
 if ($_SESSION["usuario"]) {
     $contenidoPrincipal = <<< EOS
         <h1>Bienvenido {$_SESSION["usuario"]->getNombre()}</h1>
-        <a href = \"menuPrincipal.php\"><button type = \"button\">Menú principal</button></a>
+        <a href = "menuPrincipal.php"><button type = "button">Menú principal</button></a>
     EOS;
 }
 else {
     $contenidoPrincipal = <<< EOS
         <h1>Error:</h1>
         <p>Usuario o contraseñas incorrectos</p>
-        <a href = \"login.php\"><button type = \"button\">Reintentar</button></a>
+        <a href = "login.php"><button type = "button">Reintentar</button></a>
     EOS;
 }
 
