@@ -70,10 +70,71 @@ class Pelicula {
 
     private static function buscaPelicula($titulo) {
         
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM peliculas U WHERE U.Nombre='%s'", $conn->real_escape_string($titulo));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Pelicula( $fila['Nombre'], $fila['Genero'], $fila['Edad'],$fila['Duracion'] $fila['Descripcion'], $fila['Imagen'], $fila['Trailer']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
     }
 
     private function guardarPelicula() {
-
+        if ($this->Nombre !== null) {
+            return self::actualizaPelicula($this);
+        }
+        return self::insertaPelicula($this);
     }
+
+    private static function insertaPelicula($pelicula)
+    {
+        $result = false;
+        $conn = BD::getInstance()->getConexionBd();
+        $query=sprintf("INSERT INTO peliculas(Nombre, Genero, Edad, Duracion, Descripcion, Imagen, Trailer) VALUES ('%s','%s','%s','%s', '%s', '%s', '%s')"
+            , $conn->real_escape_string($pelicula->titulo)
+            , $conn->real_escape_string($pelicula->genero)
+            , $conn->real_escape_string($pelicula->pegi)
+            , $conn->real_escape_string($pelicula->duracion)
+            , $conn->real_escape_string($pelicula->sinopsis)
+            , $conn->real_escape_string($pelicula->rutaPoster)
+            , $conn->real_escape_string($pelicula->rutaTrailer)
+        );
+        if ( $conn->query($query) ) {
+            $result = $this;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+     private static function actualizaPelicula($pelicula) {
+         $result = false;
+         $conn = BD::getInstance()->getConexionBd();
+         $query = sprintf("UPDATE peliculas SET nombre = '%s', genero = '%s', edad = '%s', duracion = '%s', descripcion = '%s', imagen = '%s', trailer = '%s' WHERE nombre = '%s'"
+            , $conn->real_escape_string($pelicula->titulo)
+            , $conn->real_escape_string($pelicula->genero)
+            , $conn->real_escape_string($pelicula->pegi)
+            , $conn->real_escape_string($pelicula->duracion)
+            , $conn->real_escape_string($pelicula->sinopsis)
+            , $conn->real_escape_string($pelicula->rutaPoster)
+            , $conn->real_escape_string($pelicula->rutaTrailer)
+            , $conn->real_escape_string($pelicula->titulo)
+        );
+
+         if ( $conn->query($query) ) {
+            $result = $this;
+         } else {
+             error_log("Error BD ({$conn->errno}): {$conn->error}");
+         }
+        
+         return $result;
+     }
 
 }
