@@ -4,5 +4,6 @@
     unset($_SESSION["correo"]);
     unset($_SESSION["nombre"]);
     unset($_SESSION["edad"]);
+    unset($_SESSION["pelicula"]);
     session_destroy();
 ?>

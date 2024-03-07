@@ -1,5 +1,4 @@
 <?php 
-
     $rutaEstilos = '../comun/estilo.css'
     $tituloPagina = 'Cartelera';
 
