@@ -1,10 +1,9 @@
 <?php 
-    $rutaEstilos = '../comun/estilo.css';
     $tituloPagina = 'Cartelera';
 
     $contenidoPrincipal = <<<EOS
-        <img src = "../../img/Dune.png"><p></p>
-        <a href = "consultaPelicula.php"><button type = "button">Ir a la peli</button>
+        <img src = RUTA_IMGS . /Dune.png><p></p>
+        <a href = "./consultaPelicula.php"><button type = "button">Ir a la peli</button>
     EOS;
 
-    require '../comun/plantilla.php';
+    require_once(RUTA_PLNT);

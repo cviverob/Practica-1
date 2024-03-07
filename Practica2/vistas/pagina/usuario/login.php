@@ -8,6 +8,9 @@ $tituloPagina = 'Login';
 // Ver por qué no funciona
 // $correo = isset($_SESSION["correo"]) ?? "";
 
+// Usar div en vez de <p></p>
+// Hacer función para generar formulario, que reciba un parámetro y se pueda llamar en procesarLogin
+
 $contenidoPrincipal = <<< EOS
     <form action = "procesarLogin.php" method = "POST">
         <p></p>

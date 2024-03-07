@@ -1,9 +1,9 @@
 <?php 
-    require_once("../../src/usuarios/usuarios.php");    
+    require_once(RUTA_USU);    
 ?>
 <header>
-    <img src = "../../img/ElmoCines.png" alt = "Título de la página">
-    <img src = "../../img/Logo.png" alt = "Logo de la página">
+    <img src = RUTA_IMGS . '/ElmoCines.png' alt = "Título de la página">
+    <img src = RUTA_IMGS . '/Logo.png' alt = "Logo de la página">
         
     <?php
         if (!isset($_SESSION["usuario"]) || !$_SESSION["usuario"]) {
