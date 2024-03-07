@@ -4,34 +4,17 @@
 /* */
 
 // Parámetros de configuración generales
-define('RUTA_APP', dirname(__DIR__));
+//define('RUTA_APP', dirname(__DIR__));
 
-// img
+define('RUTA_APP', '/Practica-SW/Practica2');
 define('RUTA_IMGS', RUTA_APP . '/img');
-// img/Posters
-define('RUTA_PSTR', RUTA_IMGS . '/Posters');
 
-// src
-define('RUTA_SRC', RUTA_APP . '/src');
-define('RUTA_CRTLR', RUTA_SRC . '/cartelera/cartelera.php');
-define('RUTA_PLCL', RUTA_SRC . '/peliculas/peliculas.php');
-define('RUTA_SALA', RUTA_SRC . '/salas/salas.php');
-define('RUTA_USU', RUTA_SRC . '/usuarios/usuarios.php');
-
-// vistas
-define('RUTA_VSTA', RUTA_APP . '/vistas');
-// vistas/comun
-define('RUTA_VSTA_CMN', RUTA_VSTA . '/comun');
-define ('RUTA_PLNT', RUTA_VSTA_CMN . '/plantilla.php');
-define ('RUTA_CBZ', RUTA_VSTA_CMN . '/cabecera.php');
-define ('RUTA_PIE', RUTA_VSTA_CMN . '/pie.php');
-define('RUTA_CSS', RUTA_VSTA_CMN . '/estilo.css');
 
 // Parámetros de configuración de la BD ??
 define('BD_HOST', 'localhost');
 define('BD_NAME', 'cines');
-define('BD_USER', 'root');
-define('BD_PASS', '');
+define('BD_USER', 'cines');
+define('BD_PASS', 'cines');
 
 /* */
 /* Utilidades básicas de la aplicación */

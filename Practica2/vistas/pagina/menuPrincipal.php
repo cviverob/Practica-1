@@ -1,9 +1,11 @@
 <?php 
+    require_once 'includes/config.php';
+
     $tituloPagina = 'Cartelera';
 
     $contenidoPrincipal = <<<EOS
-        <img src = RUTA_IMGS . /Dune.png><p></p>
-        <a href = "./consultaPelicula.php"><button type = "button">Ir a la peli</button>
+        <img src="img/Posters/Dune.png"><p></p>
+        <a href = "vistas/pagina/consultaPelicula.php"><button type = "button">Ir a la peli</button>
     EOS;
 
-    require_once(RUTA_PLNT);
+    require('vistas/comun/plantilla.php');

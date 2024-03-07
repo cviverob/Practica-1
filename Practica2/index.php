@@ -1,4 +1,4 @@
 <?php
-    require_once(__DIR__.'/includes/config.php');
-    require_once(RUTA_APP . '/vistas/pagina/menuPrincipal.php');
+    require_once('includes/config.php');
+    require_once('vistas/pagina/menuPrincipal.php');
 ?>

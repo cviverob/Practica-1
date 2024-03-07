@@ -1,8 +1,5 @@
 <?php
-require_once('../../includes/config.php');
 require_once('../../src/peliculas/peliculas.php');
-
-$rutaEstilos = '../comun/estilo.css';
 
 $tituloPagina = 'Consultar película';
 
@@ -10,8 +7,7 @@ $tituloPagina = 'Consultar película';
 $pelicula = Pelicula::crea("Dune", "El duque Paul Atreides se une a los Fremen y comienza un 
 viaje espiritual y marcial para convertirse en Muad'dib, mientras intenta evitar el horrible 
 pero inevitable futuro que ha presenciado: una Guerra Santa en su nombre, que se extiende por
- todo el universo conocido. Secuela de la película estrenada en 2021.", "../../img/Dune.png", 
- "", 18, "acción", 120);
+ todo el universo conocido. Secuela de la película estrenada en 2021.", "/Practica-SW/Practica2/img/Posters/Dune.png", "", 18, "acción", 120);
 
 // Faltan las sesiones y el trailer
 /*
@@ -32,7 +28,7 @@ pero inevitable futuro que ha presenciado: una Guerra Santa en su nombre, que se
 */
 $contenidoPrincipal = <<< EOS
     <h1>{$pelicula->getTitulo()}</h1>
-    <img src = "{$pelicula->getRutaPoster()}" alt = \"Póster de la película\">";
+    <img src = "{$pelicula->getRutaPoster()}" alt = 'Póster de la película'>";
     <p> Sinopsis: {$pelicula->getSinopsis()} </p>
     <p> Edad mínima: {$pelicula->getPegi()} </p>
     <p> Género:  {$pelicula->getGenero()} </p>
