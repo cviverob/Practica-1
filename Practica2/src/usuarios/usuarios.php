@@ -1,5 +1,7 @@
 <?php
 
+require_once(RUTA_RAIZ . '\src/BD.php');
+
 class Usuario
 {
 
@@ -46,7 +48,7 @@ class Usuario
 
     public static function crea($nombre, $email, $contrasenia, $edad, $rol = self::ROL_USUARIO) {
         $usuario = new Usuario(null, $nombre, $email, self::hashContrasenia($contrasenia), $edad, $rol);
-        $usuario->guardarUsuario();
+        $usuario = self::insertaUsuario($usuario);
         return $usuario;
     }
     
@@ -69,12 +71,11 @@ class Usuario
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
-        $conn->cierraConexion();
+        //$conn->cierraConexion();
         return $result;
     }
    
-    private static function insertaUsuario($usuario)
-    {
+    private static function insertaUsuario($usuario) {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
         $query=sprintf("INSERT INTO usuario(id, nombre, email, contraseña, edad, rol) VALUES ('%s','%s','%s','%s', '%s', '%s')"
@@ -126,15 +127,6 @@ class Usuario
         return $this->id;
     }
 
-    public function getNombre()
-    {
-        return $this->nombreUsuario;
-    }
-
-    private function comprobarContrasenia($contrasen) {
-        return password_verify($contrasen, $this->contrasenia);
-    }
-
     //Esta funcion de momento no sabemos si la vamos a usar
     public static function buscaPorId($idUsuario)
     {
@@ -145,7 +137,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['id'], $fila['nombre'], $fila['email'],$fila['contraseña'] $fila['edad'], $fila['rol']);
+                $result = new Usuario($fila['id'], $fila['nombre'], $fila['email'],$fila['contraseña'], $fila['edad'], $fila['rol']);
             }
             $rs->free();
         } else {
@@ -157,68 +149,10 @@ class Usuario
     private static function hashContrasenia($contrasenia) {
         return password_hash($contrasenia, PASSWORD_DEFAULT);
     }
-   
-    private static function insertaUsuario($usuario)
-    {
-        $result = false;
-        $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO usuario(id, nombre, email, contraseña, edad, rol) VALUES ('%s','%s','%s','%s', '%s', '%s')"
-            , $conn->real_escape_string(null)
-            , $conn->real_escape_string($usuario->nombre)
-            , $conn->real_escape_string($usuario->email)
-            , $conn->real_escape_string($usuario->contrasenia)
-            , $conn->real_escape_string($usuario->edad)
-            , $conn->real_escape_string($usuario->rol)//seguramente haya que cambiarlo y simplemente poner 0
-        );
-        if ( $conn->query($query) ) {
-            $usuario->id = $conn->id;
-            //$result = self::insertaRoles($usuario);
-            $result = $this;
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-        }
-        return $result;
-    }
-    
-    private static function borra($usuario)
-    {
-        return self::borraPorId($usuario->id);
-    }
-    
-
-    //De momento no la usamos, ya la usaremos mas adelante
-    private static function borraPorId($idUsuario)
-    {
-        if (!$idUsuario) {
-            return false;
-        } 
-        /* Los roles se borran en cascada por la FK
-         * $result = self::borraRoles($usuario) !== false;
-         */
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM usuario U WHERE U.id = %d"
-            , $idUsuario
-        );
-        if ( ! $conn->query($query) ) {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return false;
-        }
-        return true;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getNombreUsuario()
-    {
-        return $this->nombreUsuario;
-    }
 
     public function getNombre()
     {
-        return $this->nombre;
+        return $this->nombreUsuario;
     }
 
 
