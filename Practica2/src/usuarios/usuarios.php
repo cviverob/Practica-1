@@ -1,6 +1,5 @@
 <?php
 
-    require_once ('C:\xampp\htdocs\Practica-SW\Practica2\src\BD.php');
 class Usuario
 {
 
@@ -44,7 +43,7 @@ class Usuario
         }
         return false;
     }
-
+  
     public static function crea($nombre, $email, $contrasenia, $edad) {
         $usuario = new Usuario(null, $nombre, $email, self::hashContrasenia($contrasenia), $edad, self::ROL_USUARIO);
         $usuario = self::insertaUsuario($usuario);
@@ -89,12 +88,54 @@ class Usuario
         if ( $conn->query($query) ) {
             $usuario->id = sprintf("SELECT id FROM usuario WHERE nombre = %d", $usuario->nombre);
             $result = $usuario;
+        return $result;
+    }
+
+
+    //Esta funcion de momento no sabemos si la vamos a usar
+    public static function buscaPorId($idUsuario)
+    {
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM usuario WHERE id=%d", $idUsuario);
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Usuario($fila['id'], $fila['nombre'], $fila['email'],$fila['contraseña'] $fila['edad'], $fila['rol']);
+            }
+            $rs->free();
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
     }
-
+    
+    private static function hashContrasenia($contrasenia) {
+        return password_hash($contrasenia, PASSWORD_DEFAULT);
+    }
+   
+    private static function insertaUsuario($usuario)
+    {
+        $result = false;
+        $conn = BD::getInstance()->getConexionBd();
+        $query=sprintf("INSERT INTO usuario(id, nombre, email, contraseña, edad, rol) VALUES ('%s','%s','%s','%s', '%s', '%s')"
+            , $conn->real_escape_string(null)
+            , $conn->real_escape_string($usuario->nombre)
+            , $conn->real_escape_string($usuario->email)
+            , $conn->real_escape_string($usuario->contrasenia)
+            , $conn->real_escape_string($usuario->edad)
+            , $conn->real_escape_string($usuario->rol)//seguramente haya que cambiarlo y simplemente poner 0
+        );
+        if ( $conn->query($query) ) {
+            $usuario->id = $conn->id;
+            //$result = self::insertaRoles($usuario);
+            $result = $this;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
     
     private static function borra($usuario)
     {
@@ -122,13 +163,11 @@ class Usuario
         return true;
     }
 
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombreUsuario;
     }
 

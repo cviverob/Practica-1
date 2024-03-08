@@ -62,8 +62,8 @@ define('RUTA_REG', RUTA_PGN_USU . '/registro.php');
 // Parámetros de configuración de la BD ??
 define('BD_HOST', 'localhost');
 define('BD_NAME', 'cines');
-define('BD_USER', 'root');
-define('BD_PASS', ' ');
+define('BD_USER', 'cines');
+define('BD_PASS', 'cines');
 
 /* */
 /* Utilidades básicas de la aplicación */
