@@ -28,7 +28,7 @@ pero inevitable futuro que ha presenciado: una Guerra Santa en su nombre, que se
 */
 $contenidoPrincipal = <<< EOS
     <h1>{$pelicula->getTitulo()}</h1>
-    <img src = "{$pelicula->getRutaPoster()}" alt = 'Póster de la película'>";
+    <img src = "{$pelicula->getRutaPoster()}" alt = 'Póster de la película'>
     <p> Sinopsis: {$pelicula->getSinopsis()} </p>
     <p> Edad mínima: {$pelicula->getPegi()} </p>
     <p> Género:  {$pelicula->getGenero()} </p>

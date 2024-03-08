@@ -1,8 +1,9 @@
 
 <?php
-require_once('../../../src/usuarios/usuarios.php');
+require_once('C:\xampp\htdocs\Practica-SW\Practica2\includes/config.php');
+require_once('C:\xampp\htdocs\Practica-SW\Practica2\src/usuarios/usuarios.php');
 
-$tituloPagina = 'Proceso de login';
+$tituloPagina = 'Proceso de Registro';
 
 $nombre = htmlspecialchars(strip_tags($_POST["nombre"]));
 $edad = htmlspecialchars(strip_tags($_POST["edad"]));
@@ -17,7 +18,7 @@ $_SESSION["correo"] = $correo;
 if ($_SESSION["usuario"]) {
     $contenidoPrincipal = <<< EOS
         <h1>Bienvenido {$_SESSION["usuario"]->getNombre()}</h1>
-        <a href = '/Practica-SW/Practica2/vistas/pagina/menuPrincipal.php'><button type = 'button'>Menú principal</button></a>
+        <a href = 'vistas/pagina/menuPrincipal.php'><button type = 'button'>Menú principal</button></a>
     EOS;
 }
 else {
@@ -27,4 +28,4 @@ else {
     EOS;
 }
 
-require('../../comun/plantilla.php');
+require('C:\xampp\htdocs\Practica-SW\Practica2\vistas/comun/plantilla.php');

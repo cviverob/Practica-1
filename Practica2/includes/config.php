@@ -66,5 +66,5 @@ Mensaje::init();
 /* */
 /* Clases que usan una BD para almacenar el estado */
 /* */
-//require_once '../src/BD.php';
-//require_once 'src/usuarios/Usuario.php';
+require_once 'C:\xampp\htdocs\Practica-SW\Practica2\src/BD.php';
+require_once 'C:\xampp\htdocs\Practica-SW\Practica2\src/usuarios/usuarios.php';

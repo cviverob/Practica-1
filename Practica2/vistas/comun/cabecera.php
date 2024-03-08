@@ -11,7 +11,9 @@
         }
         else {
             //$usuario = $_SESSION["usuario"];
-            //echo "Bienvenido " . $usuario->getNombre() . " <a href=''><button type = 'button'>Salir</button></a>";
+            //echo "Bienvenido \$_SESSION['usuario'] <button type = 'button'>Salir</button>";
+            //echo "Bienvenido " . $usuario->nombreUsuario . " <a href = 'vistas/pagina/usuario/logout.php><button type = 'button'>Salir</button></";
+
             // Pendiente de mirar
             /*if ($usuario->esAdmin()) {
                 echo "<a href = 'vistas/Administracion/administracion.php'><button type = 'button'>Admin</button></a>";
