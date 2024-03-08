@@ -1,27 +1,30 @@
 <?php
-require_once('C:\xampp\htdocs\Practica-SW\Practica2\includes/config.php');
-require_once('C:\xampp\htdocs\Practica-SW\Practica2\src/usuarios/usuarios.php');
+    require_once('../../../includes/config.php');
+    require_once(RUTA_RAIZ . RUTA_USU);
 
-$tituloPagina = 'Proceso de login';
+    $tituloPagina = 'Proceso de login';
 
-$correo = htmlspecialchars(strip_tags($_POST["correo"]));
-$contraseña = htmlspecialchars(strip_tags($_POST["contraseña"]));
-$usuario = Usuario::login($correo, $contraseña);
-$_SESSION["usuario"] = $usuario;
-$_SESSION["correo"] = $correo;
+    $correo = htmlspecialchars(strip_tags($_POST["correo"]));
+    $contraseña = htmlspecialchars(strip_tags($_POST["contraseña"]));
+    $usuario = Usuario::login($correo, $contraseña);
+    $_SESSION["usuario"] = $usuario;
+    $_SESSION["correo"] = $correo;
 
-if ($_SESSION["usuario"]) {
-    $contenidoPrincipal = <<< EOS
-        <h1>Bienvenido {$_SESSION["usuario"]->getNombre()}</h1>
-        <a href = "menuPrincipal.php"><button type = "button">Menú principal</button></a>
-    EOS;
-}
-else {
-    $contenidoPrincipal = <<< EOS
-        <h1>Error:</h1>
-        <p>Usuario o contraseñas incorrectos</p>
-        <a href = "login.php"><button type = "button">Reintentar</button></a>
-    EOS;
-}
+    $ruta_menu_prncpl = RUTA_APP . RUTA_MENU_PRNCPL;
+    $ruta_lgin = RUTA_APP . RUTA_LGIN;
 
-require('C:\xampp\htdocs\Practica-SW\Practica2\vistas/comun/plantilla.php');
+    if ($_SESSION["usuario"]) {
+        $contenidoPrincipal = <<< EOS
+            <h1>Bienvenido {$_SESSION["usuario"]->getNombre()}</h1>
+            <a href = "$ruta_menu_prncpl"><button type = "button">Menú principal</button></a>
+        EOS;
+    }
+    else {
+        $contenidoPrincipal = <<< EOS
+            <h1>Error:</h1>
+            <p>Usuario o contraseñas incorrectos</p>
+            <a href = "$ruta_lgin"><button type = "button">Reintentar</button></a>
+        EOS;
+    }
+
+    require_once(RUTA_RAIZ . RUTA_PLNT);

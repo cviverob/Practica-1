@@ -1,13 +1,14 @@
 <?php
-require_once('../../src/peliculas/peliculas.php');
+    require_once('../../includes/config.php');
+    require_once(RUTA_RAIZ . RUTA_PLCL);
 
-$tituloPagina = 'Consultar película';
+    $tituloPagina = 'Consultar película';
 
-// Película de ejemplo
-$pelicula = Pelicula::crea("Dune", "El duque Paul Atreides se une a los Fremen y comienza un 
-viaje espiritual y marcial para convertirse en Muad'dib, mientras intenta evitar el horrible 
-pero inevitable futuro que ha presenciado: una Guerra Santa en su nombre, que se extiende por
- todo el universo conocido. Secuela de la película estrenada en 2021.", "/Practica-SW/Practica2/img/Posters/Dune.png", "", 18, "acción", 120);
+    // Película de ejemplo
+    $pelicula = Pelicula::crea("Dune", "El duque Paul Atreides se une a los Fremen y comienza un 
+    viaje espiritual y marcial para convertirse en Muad'dib, mientras intenta evitar el horrible 
+    pero inevitable futuro que ha presenciado: una Guerra Santa en su nombre, que se extiende por
+    todo el universo conocido. Secuela de la película estrenada en 2021.", RUTA_APP . RUTA_PSTR . "/Dune.png", "", 18, "acción", 120);
 
 // Faltan las sesiones y el trailer
 /*
@@ -36,4 +37,16 @@ $contenidoPrincipal = <<< EOS
     <a href  = 'seleccionDeButacas.php'><button type = 'button'>Seleccionar butacas</button></a>
 EOS;
 
-require('../comun/plantilla.php');
+    $ruta_selc_but = RUTA_APP . RUTA_SELC_BUT;
+
+    $contenidoPrincipal = <<< EOS
+        <h1>{$pelicula->getTitulo()}</h1>
+        <img src = "{$pelicula->getRutaPoster()}" alt = 'Póster de la película'>
+        <p> Sinopsis: {$pelicula->getSinopsis()} </p>
+        <p> Edad mínima: {$pelicula->getPegi()} </p>
+        <p> Género:  {$pelicula->getGenero()} </p>
+        <p> Género: {$pelicula->getDuracion()} minutos </p>
+        <a href  = "$ruta_selc_but"><button type = 'button'>Seleccionar butacas</button></a>
+    EOS;
+
+    require_once(RUTA_RAIZ . RUTA_PLNT);
