@@ -4,11 +4,60 @@
 /* */
 
 // Parámetros de configuración generales
+ /***** IMPORTANTE: debe actualizarse al abrirlo por primera vez *****/
+define('RUTA_RAIZ', 'C:\xampp\htdocs\Practica-SW\Practica2');
 define('RUTA_APP', '/Practica-SW/Practica2');
-define('RUTA_IMGS', RUTA_APP . '/img');
-define('RUTA_CSS', RUTA_APP . '/css');
-define('RUTA_JS', RUTA_APP . '/js');
-define('INSTALADA', true);
+
+// img
+define('RUTA_IMGS', '/img');
+// img/Posters
+define('RUTA_PSTR', RUTA_IMGS . '/posters');
+
+//includes
+define('RUTA_INCL', '/includes');
+define('RUTA_CNFG', RUTA_INCL . '/config.php');
+
+// src
+define('RUTA_SRC', '/src');
+define('RUTA_CRTLR', RUTA_SRC . '/cartelera/cartelera.php');
+define('RUTA_PLCL', RUTA_SRC . '/peliculas/peliculas.php');
+define('RUTA_SALA', RUTA_SRC . '/salas/salas.php');
+define('RUTA_USU', RUTA_SRC . '/usuarios/usuarios.php');
+
+// vistas
+define('RUTA_VSTA', '/vistas');
+// vistas/comun
+define('RUTA_VSTA_CMN', RUTA_VSTA . '/comun');
+define('RUTA_PLNT', RUTA_VSTA_CMN . '/plantilla.php');
+define('RUTA_CBZ', RUTA_VSTA_CMN . '/cabecera.php');
+define('RUTA_PIE', RUTA_VSTA_CMN . '/pie.php');
+define('RUTA_CSS', RUTA_VSTA_CMN . '/estilo.css');
+// vistas/pagina
+define('RUTA_PGN', RUTA_VSTA . '\pagina');
+define('RUTA_MENU_PRNCPL', RUTA_PGN . '\menuPrincipal.php');
+define('RUTA_CONS_PELI', RUTA_PGN . '\consultaPelicula.php');
+define('RUTA_SELC_BUT', RUTA_PGN . '\seleccionDeButacas.php');
+define('RUTA_PROC_COMP', RUTA_PGN . '\procesarCompra.php');
+// vistas/pagina/administracion
+define('RUTA_PGN_ADMN', RUTA_PGN . '/administracion');
+define('RUTA_ADMN', RUTA_PGN_ADMN . '/administracion.php');
+define('RUTA_AND_PEL', RUTA_PGN_ADMN . '/aniadirPelicula.php');
+define('RUTA_AND_SALA', RUTA_PGN_ADMN . '/aniadirSala.php');
+define('RUTA_AND_SES', RUTA_PGN_ADMN . '/aniadirSesion.php');
+define('RUTA_BSC_PEL', RUTA_PGN_ADMN . '/buscarPelicula.php');
+define('RUTA_BSC_SALA', RUTA_PGN_ADMN . '/buscarSala.php');
+define('RUTA_BSC_SES', RUTA_PGN_ADMN . '/buscarSesion.php');
+define('RUTA_MOD_SALA', RUTA_PGN_ADMN . '/modificarSala.php');
+define('RUTA_PROC_BSC_PEL', RUTA_PGN_ADMN . '/procesarBusquedaPelicula.php');
+define('RUTA_PROC_BSC_SALA', RUTA_PGN_ADMN . '/procesarBusquedaSala.php');
+define('RUTA_PROC_BSC_SES', RUTA_PGN_ADMN . '/procesarBusquedaSesion.php');
+// vistas/pagina/usuario
+define('RUTA_PGN_USU', RUTA_PGN . '/usuario');
+define('RUTA_LGIN', RUTA_PGN_USU . '/login.php');
+define('RUTA_LGOUT', RUTA_PGN_USU . '/logout.php');
+define('RUTA_PROC_LOG', RUTA_PGN_USU . '/procesarLogin.php');
+define('RUTA_PROC_REG', RUTA_PGN_USU . '/procesarRegistro.php');
+define('RUTA_REG', RUTA_PGN_USU . '/registro.php');
 
 // Parámetros de configuración de la BD ??
 define('BD_HOST', 'localhost');
@@ -66,5 +115,5 @@ Mensaje::init();
 /* */
 /* Clases que usan una BD para almacenar el estado */
 /* */
-//require_once '../src/BD.php';
-//require_once 'src/usuarios/Usuario.php';
+require_once 'C:\xampp\htdocs\Practica-SW\Practica2\src/BD.php';
+require_once 'C:\xampp\htdocs\Practica-SW\Practica2\src/usuarios/usuarios.php';

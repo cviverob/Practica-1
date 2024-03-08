@@ -1,8 +1,6 @@
 <?php
 require_once('../../includes/config.php');
-require_once("../../src/usuarios/usuarios.php"); 
-
-$rutaEstilos = '../comun/estilo.css';
+require_once("../../src/usuarios/usuarios.php");
 
 $tituloPagina = 'Administración';
 
