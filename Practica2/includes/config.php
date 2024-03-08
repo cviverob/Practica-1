@@ -5,7 +5,7 @@
 
 // Parámetros de configuración generales
  /***** IMPORTANTE: debe actualizarse al abrirlo por primera vez *****/
-define('RUTA_RAIZ', 'C:\xampp\htdocs\Practica-SW\Practica2');
+define('RUTA_RAIZ', dirname(__DIR__));
 define('RUTA_APP', '/Practica-SW/Practica2');
 
 // img
@@ -33,11 +33,11 @@ define('RUTA_CBZ', RUTA_VSTA_CMN . '/cabecera.php');
 define('RUTA_PIE', RUTA_VSTA_CMN . '/pie.php');
 define('RUTA_CSS', RUTA_VSTA_CMN . '/estilo.css');
 // vistas/pagina
-define('RUTA_PGN', RUTA_VSTA . '\pagina');
-define('RUTA_MENU_PRNCPL', RUTA_PGN . '\menuPrincipal.php');
-define('RUTA_CONS_PELI', RUTA_PGN . '\consultaPelicula.php');
-define('RUTA_SELC_BUT', RUTA_PGN . '\seleccionDeButacas.php');
-define('RUTA_PROC_COMP', RUTA_PGN . '\procesarCompra.php');
+define('RUTA_PGN', RUTA_VSTA . '/pagina');
+define('RUTA_MENU_PRNCPL', RUTA_PGN . '/menuPrincipal.php');
+define('RUTA_CONS_PELI', RUTA_PGN . '/consultaPelicula.php');
+define('RUTA_SELC_BUT', RUTA_PGN . '/seleccionDeButacas.php');
+define('RUTA_PROC_COMP', RUTA_PGN . '/procesarCompra.php');
 // vistas/pagina/administracion
 define('RUTA_PGN_ADMN', RUTA_PGN . '/administracion');
 define('RUTA_ADMN', RUTA_PGN_ADMN . '/administracion.php');
@@ -48,9 +48,9 @@ define('RUTA_BSC_PEL', RUTA_PGN_ADMN . '/buscarPelicula.php');
 define('RUTA_BSC_SALA', RUTA_PGN_ADMN . '/buscarSala.php');
 define('RUTA_BSC_SES', RUTA_PGN_ADMN . '/buscarSesion.php');
 define('RUTA_MOD_SALA', RUTA_PGN_ADMN . '/modificarSala.php');
-define('RUTA_PROC_BSC_PEL', RUTA_PGN_ADMN . '/procesarBusquedaPelicula.php');
+define('RUTA_PROC_BSC_PEL', RUTA_PGN_ADMN . '/procesarBusquedaPeliculas.php');
 define('RUTA_PROC_BSC_SALA', RUTA_PGN_ADMN . '/procesarBusquedaSala.php');
-define('RUTA_PROC_BSC_SES', RUTA_PGN_ADMN . '/procesarBusquedaSesion.php');
+define('RUTA_PROC_BSC_SES', RUTA_PGN_ADMN . '/procesarBusquedaSesiones.php');
 // vistas/pagina/usuario
 define('RUTA_PGN_USU', RUTA_PGN . '/usuario');
 define('RUTA_LGIN', RUTA_PGN_USU . '/login.php');
