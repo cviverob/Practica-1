@@ -1,13 +1,15 @@
 <?php
+    require_once('../../includes/config.php');
 
-    $rutaEstilos = '../comun/estilo.css';
     $tituloPagina = 'Procesar la Compra';
+
+    $ruta_reg = RUTA_APP . RUTA_REG;
 
     if (!isset($_SESSION["usuario"]) || !$_SESSION["usuario"]) {
         $contenidoPrincipal = <<< EOS
         <h1>Error:</h1>
         <p>Debes estar registrado para realizar la compra</p>
-        <a href = "Practica-SW/Practica2/vistas/pagina/registro.php"><button type = "button">Registrarse</button></a>
+        <a href = "$ruta_reg"><button type = "button">Registrarse</button></a>
         EOS;
     }/*
     else if (Algún error al seleccionar las butacas) {
@@ -22,4 +24,4 @@
         EOS;
     }
 
-    require '../comun/plantilla.php';
+    require_once(RUTA_RAIZ . RUTA_PLNT);

@@ -5,7 +5,6 @@ class BD
     private static $instancia = null;
 // creamos una instancia estatica de la base de datos
 
-
     public static function getInstance(){
         if (self::$instancia === null) {self::$instancia = new self;}
         return self::$instancia;

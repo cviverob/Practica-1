@@ -1,8 +1,6 @@
 <?php
     require_once('../../includes/config.php');
 
-    $rutaEstilos = '../comun/estilo.css';
-
     $tituloPagina = 'Consulta de películas';
 
     // Ver Qué usar de aquí
@@ -25,4 +23,4 @@
         <?php require("../comun/pie.php") ?>
     EOS;
 
-    require('../comun/plantilla.php');
+    require_once(RUTA_RAIZ . RUTA_PLNT);

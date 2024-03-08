@@ -1,8 +1,6 @@
 <?php
     require_once('../../includes/config.php');
 
-    $rutaEstilos = '../comun/estilo.css';
-
     $tituloPagina = 'Selección de butacas';
 
     // Ver qué usar de aquí
