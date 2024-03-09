@@ -3,7 +3,8 @@
 
     $tituloPagina = 'Logout';
     
-    $ruta_menu_prncpl = RUTA_APP . RUTA_MENU_PRNCPL;
+    $ruta_menu_prncpl = RUTA_APP . '/index.php';
+    echo RUTA_APP . "index.php";
 
     $contenidoPrincipal = <<< EOS
         <h1>Hasta la próxima!!</h1>

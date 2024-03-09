@@ -34,7 +34,8 @@ class Pelicula {
 
     public static function crea($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion) {
         $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
-        $pelicula->guardarPelicula();
+        //$pelicula->guardarPelicula();
+        self::insertaPelicula($pelicula);
         return $pelicula;
     }
 
@@ -68,16 +69,16 @@ class Pelicula {
 
     /* Funciones de la BD */
 
-    private static function buscaPelicula($titulo) {
+    public static function buscaPelicula($titulo) {
         
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM peliculas U WHERE U.Nombre='%s'", $conn->real_escape_string($titulo));
+        $query = sprintf("SELECT * FROM peliculas WHERE Nombre='%s'", $conn->real_escape_string($titulo));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Pelicula( $fila['Nombre'], $fila['Genero'], $fila['Edad'],$fila['Duracion'], $fila['Descripcion'], $fila['Imagen'], $fila['Trailer']);
+                $result = new Pelicula($fila['Nombre'], $fila['Descripcion'], $fila['Imagen'], $fila['Trailer'], $fila['Edad'], $fila['Genero'], $fila['Duracion']);
             }
             $rs->free();
         } else {
@@ -87,7 +88,7 @@ class Pelicula {
     }
 
     private function guardarPelicula() {
-        if ($this->titulo !== null) {
+        if ($this->titulo != null) {
             return self::actualizaPelicula($this);
         }
         return self::insertaPelicula($this);
@@ -103,11 +104,11 @@ class Pelicula {
             , $conn->real_escape_string($pelicula->pegi)
             , $conn->real_escape_string($pelicula->duracion)
             , $conn->real_escape_string($pelicula->sinopsis)
-            , $conn->real_escape_string($pelicula->rutaPoster)
+            , "img/posters/" . $conn->real_escape_string($pelicula->rutaPoster)
             , $conn->real_escape_string($pelicula->rutaTrailer)
         );
         if ( $conn->query($query) ) {
-            $result = $this;
+            $result = $pelicula;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
@@ -136,5 +137,44 @@ class Pelicula {
         
         return $result;
     }
+    //echo "<img src='" . $row["imagen"] . "' alt='" . $row["titulo"] . "'>";
+    public static function mostrarPeliculas(){
+        $conn = BD::getInstance()->getConexionBd();
+        $query = "SELECT imagen, nombre FROM peliculas";
+        $result = $conn->query($query);
+        $link = '';
+        if ($result->num_rows > 0) {
+            // Mostrar cada película y su imagen
+            while($row = $result->fetch_assoc()) {
+                $nombre = $row["nombre"];
+                //$prueba = "<a href = 'vistas/pagina/consultaPelicula.php?n=$nombre' ><img src = 'img/posters/" . $row["imagen"] ."'></a>";
+                $prueba = "<a href = 'vistas/pagina/consultaPelicula.php?n=$nombre' ><img src = '". $row["imagen"] ."'></a>";
+                $link .= $prueba . ' ';
+            }
+        }
+        return $link;
+    }
 
+    public static function pintarTablas(){
+        $conn = BD::getInstance()->getConexionBd();
+        $query = "SELECT nombre FROM peliculas";
+        $result = $conn->query($query);
+        $link = ' ';
+        if ($result->num_rows > 0) {
+            // Mostrar titulos y botones
+            while($row = $result->fetch_assoc()) {
+                $nombre = $row["nombre"];
+                $prueba = <<<EOS
+                    <tr>
+                    <td> $nombre</td>
+                    <td>mod</td>
+                    <td>bor</td>
+                    </tr>
+                EOS;
+                $link .= $prueba ;
+            }
+        }
+        return $link;
+
+    }
 }

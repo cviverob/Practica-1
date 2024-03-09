@@ -10,7 +10,7 @@
     $_SESSION["usuario"] = $usuario;
     $_SESSION["correo"] = $correo;
 
-    $ruta_menu_prncpl = RUTA_APP . RUTA_MENU_PRNCPL;
+    $ruta_menu_prncpl = RUTA_APP . '/index.php';
     $ruta_lgin = RUTA_APP . RUTA_LGIN;
 
     if ($_SESSION["usuario"]) {
