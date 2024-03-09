@@ -1,8 +1,6 @@
 <?php
     require_once('../../includes/config.php');
 
-    $rutaEstilos = '../comun/estilo.css';
-
     $tituloPagina = 'Consulta de películas';
 
     // Ver Qué usar de aquí
