@@ -32,7 +32,7 @@
         else {
             $nombre = $_GET['nombre'];
             // Recuperar los datos de la película de la base de datos
-            $pelicula = Pelicula::buscarPelicula($nombre);
+            $pelicula = Pelicula::buscaPelicula($nombre);
             
             // Verificar si se encontró la película
             if ($pelicula) {
@@ -79,6 +79,8 @@
                     <p></p>
                     
                     EOS;
+
+            }
         }
     //<a href = "$ruta_admn"><button type = 'button'>Cancelar</button></a>
     require(RUTA_RAIZ . RUTA_PLNT);
