@@ -14,13 +14,13 @@
     $_SESSION["edad"] = $edad;
     $_SESSION["correo"] = $correo;
 
-    $ruta_menu_prncpl = RUTA_APP . RUTA_MENU_PRNCPL;
+    $ruta_indx = RUTA_APP . RUTA_INDX;
     $ruta_reg = RUTA_APP . RUTA_REG;
 
     if ($_SESSION["usuario"]) {
         $contenidoPrincipal = <<< EOS
             <h1>Bienvenido {$_SESSION["usuario"]->getNombre()}</h1>
-            <a href = "$ruta_menu_prncpl"><button type = 'button'>Menú principal</button></a>
+            <a href = "$ruta_indx"><button type = 'button'>Menú principal</button></a>
         EOS;
     }
     else {

@@ -137,7 +137,7 @@ class Pelicula {
         
         return $result;
     }
-    //echo "<img src='" . $row["imagen"] . "' alt='" . $row["titulo"] . "'>";
+    
     public static function mostrarPeliculas(){
         $conn = BD::getInstance()->getConexionBd();
         $query = "SELECT imagen, nombre FROM peliculas";
@@ -147,8 +147,7 @@ class Pelicula {
             // Mostrar cada película y su imagen
             while($row = $result->fetch_assoc()) {
                 $nombre = $row["nombre"];
-                //$prueba = "<a href = 'vistas/pagina/consultaPelicula.php?n=$nombre' ><img src = 'img/posters/" . $row["imagen"] ."'></a>";
-                $prueba = "<a href = 'vistas/pagina/consultaPelicula.php?n=$nombre' ><img src = '". $row["imagen"] ."'></a>";
+                $prueba = "<a href = 'vistas/pagina/consultaPelicula.php?n=$nombre' ><img src = '". $row["imagen"] ."' width = '150' height = '200'></a>";
                 $link .= $prueba . ' ';
             }
         }

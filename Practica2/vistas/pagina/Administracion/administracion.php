@@ -3,16 +3,13 @@
     require_once(RUTA_RAIZ . RUTA_USU);
 
     $tituloPagina = 'Administración';
-
-    // Temporal, para tener permisos
-    //$_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
-
-    /*$usuario = $_SESSION["usuario"];
-    if (!!$usuario->esAdmin()) {
-        $ruta_menu_prncpl = RUTA_APP . RUTA_MENU_PRNCPL;
+/*
+    $usuario = $_SESSION["usuario"];
+    if (!$usuario->esAdmin()) {
+        $ruta_indx = RUTA_APP . RUTA_INDX;
         $contenidoPrincipal = <<< EOS
             <h1>No tienes permisos para usar esta página</h1>
-            <a href = "$ruta_menu_prncpl"><button type = 'button'>Volver al menú principal</button></a>
+            <a href = "$ruta_indx"><button type = 'button'>Volver al menú principal</button></a>
         EOS;
     }
     else {*/

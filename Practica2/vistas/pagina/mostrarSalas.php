@@ -4,7 +4,7 @@
     $tituloPagina = 'Selección de butacas';
 
     // Ver qué usar de aquí
-
+    /*
     $contenidoPrincipal = <<< EOS
         $datos = json_decode($json_data, true);
 
@@ -19,12 +19,12 @@
             echo "\n";
         }
 
-        /*for ($i = 1; $i <= $total_asientos; $i++) {
+        for ($i = 1; $i <= $total_asientos; $i++) {
         if (in_array($i, $asientos_ocupados)) {
             echo "X ";
         } else {
             echo "- ";
-        }*/
+        }
         ?>
 
         <p>Pantalla</p>
@@ -34,4 +34,4 @@
         </form>
     EOS;
 
-    require('../comun/plantilla.php');
+    require('../comun/plantilla.php');*/

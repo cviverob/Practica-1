@@ -7,11 +7,14 @@
  /***** IMPORTANTE: debe actualizarse al abrirlo por primera vez *****/
 define('RUTA_RAIZ', dirname(__DIR__));
 define('RUTA_APP', '/Practica-SW/Practica2');
+define('RUTA_INDX', '/index.php');
 
 // img
 define('RUTA_IMGS', '/img');
 // img/Posters
 define('RUTA_PSTR', RUTA_IMGS . '/posters');
+// img/Trailers
+define('RUTA_TRL', RUTA_IMGS . '/trailers');
 
 //includes
 define('RUTA_INCL', '/includes');
@@ -23,6 +26,7 @@ define('RUTA_CRTLR', RUTA_SRC . '/cartelera/cartelera.php');
 define('RUTA_PLCL', RUTA_SRC . '/peliculas/peliculas.php');
 define('RUTA_SALA', RUTA_SRC . '/salas/salas.php');
 define('RUTA_USU', RUTA_SRC . '/usuarios/usuarios.php');
+define('RUTA_BD', RUTA_SRC . '/BD.php');
 
 // vistas
 define('RUTA_VSTA', '/vistas');
@@ -34,7 +38,6 @@ define('RUTA_PIE', RUTA_VSTA_CMN . '/pie.php');
 define('RUTA_CSS', RUTA_VSTA_CMN . '/estilo.css');
 // vistas/pagina
 define('RUTA_PGN', RUTA_VSTA . '/pagina');
-define('RUTA_MENU_PRNCPL', RUTA_PGN . '/menuPrincipal.php');
 define('RUTA_CONS_PELI', RUTA_PGN . '/consultaPelicula.php');
 define('RUTA_SELC_BUT', RUTA_PGN . '/seleccionDeButacas.php');
 define('RUTA_PROC_COMP', RUTA_PGN . '/procesarCompra.php');
@@ -115,5 +118,5 @@ Mensaje::init();
 /* */
 /* Clases que usan una BD para almacenar el estado */
 /* */
-require_once 'C:\xampp\htdocs\Practica-SW\Practica2\src/BD.php';
-require_once 'C:\xampp\htdocs\Practica-SW\Practica2\src/usuarios/usuarios.php';
+require_once(RUTA_RAIZ . RUTA_BD);
+require_once(RUTA_RAIZ . RUTA_USU);
