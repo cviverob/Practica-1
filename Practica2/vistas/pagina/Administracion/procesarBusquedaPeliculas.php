@@ -30,85 +30,55 @@
             require('administracion.php');
         }
         else {
-        
-            <form action = "procesarAniadirPelicula.php" method = "POST">
-                <p></p>
-                *Nombre:
-                <input type='text' name='nombre' value="" required />
-                <p></p>
-                *Sinópsis:
-                <input type = "text" name = "sinopsis" value = "" required />
-                <p></p>
-                Póster:
-                <input type='file' name='poster' value="" />
-                <p></p>
-                Tráiler:
-                <input type='file' name='trailer' value="" />
-                <p></p>
-                *Edad:
-                <input type='text' name='edad' value="" required />
-                <p></p>
-                *Género:
-                <input type='text' name='genero' value="" required />
-                <p></p>
-                *Duración:
-                <input type='text' name='duracion' value="" required /> minutos
-                <p></p>
-                *Campo obligatorio
-                <p></p>
-                <button type = "submit">Confirmar</button>
-            </form>
-            <p></p>
-
-    $nombre = $_GET['nombre'];
-    // Recuperar los datos de la película de la base de datos
-    $pelicula = Pelicula::buscarPelicula($nombre);
-    
-    // Verificar si se encontró la película
-    if ($pelicula) {
-        // Establecer los valores predeterminados de los campos del formulario
-        $nombre = $pelicula->getNombre();
-        $sinopsis = $pelicula->getSinopsis();
-        $poster = $pelicula->getRutaPoster();
-        $trailer = $pelicula->getRutaTrailer();
-        $edad = $pelicula->getPegi();
-        $genero = $pelicula->getGenero();
-        $duracion = $pelicula->getDuracion();
-        
-        // Generar el formulario con los valores predeterminados
-        $contenidoPrincipal = <<<EOS
-            <form action="procesarAniadirPelicula.php" method="POST">
-                <p></p>
-                *Nombre:
-                <input type="text" name="nombre" value="$nombre" required />
-                <p></p>
-                *Sinópsis:
-                <input type="text" name="sinopsis" value="$sinopsis" required />
-                <p></p>
-                *Campo obligatorio
-                <p></p>
-                Póster:
-                <input type='file' name='poster' value="$poster" />
-                <p></p>
-                Tráiler:
-                <input type='file' name='trailer' value="$trailer" />
-                <p></p>
-                *Edad:
-                <input type='text' name='edad' value="$edad" required />
-                <p></p>
-                *Género:
-                <input type='text' name='genero' value="$genero" required />
-                <p></p>
-                *Duración:
-                <input type='text' name='duracion' value="$duracion" required /> minutos
-                <p></p>
-                *Campo obligatorio
-                <p></p>
-                <button type = "submit">Confirmar</button>
-            </form>
-            <p></p>
+            $nombre = $_GET['nombre'];
+            // Recuperar los datos de la película de la base de datos
+            $pelicula = Pelicula::buscarPelicula($nombre);
             
-            EOS;
+            // Verificar si se encontró la película
+            if ($pelicula) {
+                // Establecer los valores predeterminados de los campos del formulario
+                $nombre = $pelicula->getNombre();
+                $sinopsis = $pelicula->getSinopsis();
+                $poster = $pelicula->getRutaPoster();
+                $trailer = $pelicula->getRutaTrailer();
+                $edad = $pelicula->getPegi();
+                $genero = $pelicula->getGenero();
+                $duracion = $pelicula->getDuracion();
+                
+                // Generar el formulario con los valores predeterminados
+                $contenidoPrincipal = <<<EOS
+                    <form action="procesarAniadirPelicula.php" method="POST">
+                        <p></p>
+                        *Nombre:
+                        <input type="text" name="nombre" value="$nombre" required />
+                        <p></p>
+                        *Sinópsis:
+                        <input type="text" name="sinopsis" value="$sinopsis" required />
+                        <p></p>
+                        *Campo obligatorio
+                        <p></p>
+                        Póster:
+                        <input type='file' name='poster' value="$poster" />
+                        <p></p>
+                        Tráiler:
+                        <input type='file' name='trailer' value="$trailer" />
+                        <p></p>
+                        *Edad:
+                        <input type='text' name='edad' value="$edad" required />
+                        <p></p>
+                        *Género:
+                        <input type='text' name='genero' value="$genero" required />
+                        <p></p>
+                        *Duración:
+                        <input type='text' name='duracion' value="$duracion" required /> minutos
+                        <p></p>
+                        *Campo obligatorio
+                        <p></p>
+                        <button type = "submit">Confirmar</button>
+                    </form>
+                    <p></p>
+                    
+                    EOS;
         }
     //<a href = "$ruta_admn"><button type = 'button'>Cancelar</button></a>
     require(RUTA_RAIZ . RUTA_PLNT);
