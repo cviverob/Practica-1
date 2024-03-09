@@ -1,6 +1,6 @@
 <?php
     require_once('../../../includes/config.php');
-    require_once('src/peliculas/peliculas.php');
+    require_once('../../../src/peliculas/peliculas.php');
     
     $tituloPagina = 'Buscar película';
     /*
@@ -20,40 +20,20 @@
         $ruta_admn = RUTA_APP . RUTA_ADMN;
         $info = Pelicula::pintarTablas();
         $contenidoPrincipal = <<< EOS
+        <p></p>
         <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Modificar</th>
-                <th>Borrar</th>
-            </tr>
-        </thead>
-        <tbody>
-            $info 
-        </tbody>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Modificar</th>
+                    <th>Borrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                $info 
+            </tbody>
         </table>
-
-            <form action = "$ruta_proc_bsc_pel" method = "POST">
-                <p></p>
-                Nombre:
-                <input type='text' name='nombre' value="" />
-                <p></p>
-                Sinópsis:
-                <input type = "text" name = "sinopsis" value = "" />
-                <p></p>
-                Edad:
-                <input type='text' name='edad' value="" />
-                <p></p>
-                Género:
-                <input type='text' name='genero' value="" />
-                <p></p>
-                Duración:
-                <input type='text' name='duracion' value="" /> minutos
-                <p></p>
-                <button type = "submit">Buscar</button>
-            </form>
-            <p></p>
-            <a href = "$ruta_admn"><button type = 'button'>Cancelar</button></a>
+        <p></p>
         EOS;
     //}
 

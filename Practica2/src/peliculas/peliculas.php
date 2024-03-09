@@ -167,8 +167,8 @@ class Pelicula {
                 $prueba = <<<EOS
                     <tr>
                     <td> $nombre</td>
-                    <td>mod</td>
-                    <td>bor</td>
+                    <td><a href='procesarBusquedaPeliculas.php?nombre=$nombre&accion=M'><button>Mod</button></a></td>
+                    <td><a href='procesarBusquedaPeliculas.php?nombre=$nombre&accion=B'><button>Bor</button></a></td>
                     </tr>
                 EOS;
                 $link .= $prueba ;
@@ -176,5 +176,11 @@ class Pelicula {
         }
         return $link;
 
+    }
+
+    public static function borrarPelicula($titulo) {
+        $conn = BD::getInstance()->getConexionBd();
+        $query=sprintf("DELETE FROM Peliculas WHERE nombre = '%s'" , $titulo);
+        $result = $conn->query($query);
     }
 }
