@@ -11,7 +11,8 @@
         }
         else {
             $usuario = $_SESSION["usuario"];
-            echo "Bienvenido " /*. $usuario->getNombre()*/ . " <a href= " . RUTA_APP . RUTA_LGOUT . "><button type = 'button'>Salir</button></a>";
+            echo "Bienvenido  <a href= " . RUTA_APP . RUTA_LGOUT . "><button type = 'button'>Salir</button></a>";
+            echo "<a href= " . RUTA_APP . RUTA_ADMN . "><button type = 'button'>Admin</button></a>";
             // Pendiente de mirar
             /*if ($usuario->esAdmin()) {
                 echo "<a href = 'vistas/Administracion/administracion.php'><button type = 'button'>Admin</button></a>";

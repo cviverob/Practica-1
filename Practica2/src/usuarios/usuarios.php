@@ -1,5 +1,7 @@
 <?php
 
+require_once(RUTA_RAIZ . '\src/BD.php');
+
 class Usuario
 {
 
@@ -20,8 +22,6 @@ class Usuario
       private $edad;
   
       private $rol; // Admin o usuario normal
-
-  
 
       /* Constructor */
 
@@ -69,12 +69,11 @@ class Usuario
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
-        $conn->cierraConexion();
+        //$conn->cierraConexion();
         return $result;
     }
    
-    private static function insertaUsuario($usuario)
-    {
+    private static function insertaUsuario($usuario) {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
         $query=sprintf("INSERT INTO usuario(id, nombre, email, contraseña, edad, rol) VALUES ('%s','%s','%s','%s', '%s', '%s')"
@@ -88,25 +87,6 @@ class Usuario
         if ( $conn->query($query) ) {
             $usuario->id = sprintf("SELECT id FROM usuario WHERE nombre = %d", $usuario->nombre);
             $result = $usuario;
-        return $result;
-    }
-
-
-    //Esta funcion de momento no sabemos si la vamos a usar
-    public static function buscaPorId($idUsuario)
-    {
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM usuario WHERE id=%d", $idUsuario);
-        $rs = $conn->query($query);
-        $result = false;
-        if ($rs) {
-            $fila = $rs->fetch_assoc();
-            if ($fila) {
-                $result = new Usuario($fila['id'], $fila['nombre'], $fila['email'],$fila['contraseña'] $fila['edad'], $fila['rol']);
-            }
-            $rs->free();
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
     }
@@ -114,53 +94,9 @@ class Usuario
     private static function hashContrasenia($contrasenia) {
         return password_hash($contrasenia, PASSWORD_DEFAULT);
     }
-   
-    private static function insertaUsuario($usuario)
-    {
-        $result = false;
-        $conn = BD::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO usuario(id, nombre, email, contraseña, edad, rol) VALUES ('%s','%s','%s','%s', '%s', '%s')"
-            , $conn->real_escape_string(null)
-            , $conn->real_escape_string($usuario->nombre)
-            , $conn->real_escape_string($usuario->email)
-            , $conn->real_escape_string($usuario->contrasenia)
-            , $conn->real_escape_string($usuario->edad)
-            , $conn->real_escape_string($usuario->rol)//seguramente haya que cambiarlo y simplemente poner 0
-        );
-        if ( $conn->query($query) ) {
-            $usuario->id = $conn->id;
-            //$result = self::insertaRoles($usuario);
-            $result = $this;
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-        }
-        return $result;
-    }
     
-    private static function borra($usuario)
-    {
-        return self::borraPorId($usuario->id);
-    }
-    
-
-    //De momento no la usamos, ya la usaremos mas adelante
-    private static function borraPorId($idUsuario)
-    {
-        if (!$idUsuario) {
-            return false;
-        } 
-        /* Los roles se borran en cascada por la FK
-         * $result = self::borraRoles($usuario) !== false;
-         */
-        $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM usuario U WHERE U.id = %d"
-            , $idUsuario
-        );
-        if ( ! $conn->query($query) ) {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return false;
-        }
-        return true;
+    private function comprobarContrasenia($contrasenia) {
+        return password_verify($contrasenia, $this->contrasenia);
     }
 
     public function getId() {
@@ -169,13 +105,5 @@ class Usuario
 
     public function getNombre() {
         return $this->nombreUsuario;
-    }
-
-    private function comprobarContrasenia($contrasen) {
-        return password_verify($contrasen, $this->contrasenia);
-    }
-
-    private static function hashContrasenia($contrasenia) {
-        return password_hash($contrasenia, PASSWORD_DEFAULT);
     }
 }
