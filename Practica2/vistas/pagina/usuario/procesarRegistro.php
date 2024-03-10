@@ -10,7 +10,6 @@
     $correo = htmlspecialchars(strip_tags($_POST["correo"]));
     $contraseña = htmlspecialchars(strip_tags($_POST["contraseña"]));
     if (!is_numeric($edad)) {
-        $usuario = false;
         $error = "La edad debe ser un número";
     }
     else {

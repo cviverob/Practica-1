@@ -23,7 +23,7 @@
     }
     else {
         $contenidoPrincipal = <<< EOS
-            <h1>Error al logearse</h1>
+            <h1>Usuario o contraseña incorrecto</h1>
         EOS;
         $contenidoPrincipal .= creaFormularioLogin($correo);
     }

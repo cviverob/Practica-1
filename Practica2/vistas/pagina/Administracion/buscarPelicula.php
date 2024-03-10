@@ -1,18 +1,12 @@
 <?php
     require_once('../../../includes/config.php');
-    require_once('../../../src/peliculas/peliculas.php');
+    require_once(RUTA_RAIZ . RUTA_PLCL);
+    require_once(RUTA_RAIZ . RUTA_COMP_PERM);
     
     $tituloPagina = 'Buscar película';
-    /*
-    $usuario = $_SESSION["usuario"];
-    if (!$usuario->esAdmin()) {
-        $ruta_indx = RUTA_APP . RUTA_INDX;
-        $contenidoPrincipal = <<< EOS
-            <h1>No tienes permisos para usar esta página</h1>
-            <a href = "$ruta_indx"><button type = 'button'>Volver al menú principal</button></a>
-        EOS;
-    }
-    else {*/
+
+    $contenidoPrincipal = comprobarPermisos($_SESSION["usuario_admin"]);
+    if (!$contenidoPrincipal) {
         $ruta_proc_bsc_pel = RUTA_APP . RUTA_PROC_BSC_PEL;
         $ruta_admn = RUTA_APP . RUTA_ADMN;
         $info = Pelicula::pintarTablas();
@@ -32,6 +26,6 @@
         </table>
         <p></p>
         EOS;
-    //}
+    }
 
     require_once(RUTA_RAIZ . RUTA_PLNT);
