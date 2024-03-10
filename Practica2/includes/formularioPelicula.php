@@ -6,7 +6,7 @@
         if (isset($_GET['nombre']) && isset($_GET['accion'])) {
             $ruta_proc_and_pel .= '?nombre=' . $_GET['nombre'] . '&accion=' . $_GET['accion'];
         }
-        $ruta_admn = RUTA_RAIZ . RUTA_ADMN;
+        $ruta_admn = RUTA_APP . RUTA_ADMN;
         return <<<EOS
             <form action = "$ruta_proc_and_pel" method = "POST" enctype = "multipart/form-data">
                 <fieldset>
@@ -25,11 +25,11 @@
                     </div>
                     <div>
                         *Póster:
-                        <input type = 'file' name = 'poster' value = "$poster" required />
+                        <input type = 'file' name = 'poster' required />
                     </div>
                     <div>
                         *Trailer:
-                        <input type = 'file' name = 'trailer' value = "$trailer" required />
+                        <input type = 'file' name = 'trailer' required />
                     </div>
                     <div>
                         *Género:

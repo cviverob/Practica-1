@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2024 a las 20:36:43
+-- Tiempo de generación: 10-03-2024 a las 23:09:40
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,50 +20,15 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `cines`
 --
-CREATE DATABASE IF NOT EXISTS `cines` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `cines`;
 
---
--- Truncar tablas antes de insertar `cartelera`
---
-
-TRUNCATE TABLE `cartelera`;
---
--- Truncar tablas antes de insertar `compras`
---
-
-TRUNCATE TABLE `compras`;
---
--- Truncar tablas antes de insertar `peliculas`
---
-
-TRUNCATE TABLE `peliculas`;
 --
 -- Volcado de datos para la tabla `peliculas`
 --
 
 INSERT INTO `peliculas` (`Nombre`, `Genero`, `Edad`, `Duracion`, `Descripcion`, `Imagen`, `Trailer`) VALUES
-('Dune', 'acción', 18, 120, 'El duque Paul Atreides se une a los Fremen y comienza un \r\n    viaje espiritual y marcial para conve', 'img/posters/Dune.png', ''),
-('Infiltrados en la universidad', 'Comedia', 16, 112, 'Tras hacerse pasar por estudiantes de instituto y lograr desarticular a una banda de narcotraficantes, los oficiales de policía Schmidt y Jenko deben volver a las aulas como policías encubiertos, pero esta vez su destino será la Universidad.', 'img/posters/InfiltradosEnLaUniversidad.jpg', 'InfiltradosEnLaUniversidad.jpg'),
-('Pitch Black', 'Ciencia-Ficcion', 16, 109, 'Una nave espacial averiada, que lleva a bordo a un prisionero extremadamente peligroso, se estrella en un planeta desconocido. La tripulación y los desafortunados viajeros que van en ella tendrán que luchar por sobrevivir en un nuevo mundo.', 'img/posters/PitchBlack.jpg', 'PitchBlack.jpg');
-
---
--- Truncar tablas antes de insertar `salas`
---
-
-TRUNCATE TABLE `salas`;
---
--- Truncar tablas antes de insertar `usuario`
---
-
-TRUNCATE TABLE `usuario`;
---
--- Volcado de datos para la tabla `usuario`
---
-
-INSERT INTO `usuario` (`id`, `nombre`, `edad`, `email`, `contraseña`, `rol`) VALUES
-(82, 'admin', 18, 'admin@ucm.es', '$2y$10$mNCZb8xiiXYicNHyNm.7QuOYhHZFzOXy3ork.sNbcSgbTBcruVpdm', 1),
-(84, 'user', 18, 'user@ucm.es', '$2y$10$YxparQBwB3HagIyq/3m2CeIY31ZKMWFx1VC2ZrG4pa58du5ucHrfa', 0);
+('Dune', 'Acción', 18, 120, 'En el Año 10191 el desértico planeta Arrakis, feudo de la familia Harkonnen desde hace generaciones, queda en manos de la Casa de los Atreides por orden del emperador. Con ello les cede la explotación de las reservas de especia, la materia prima más valiosa de la galaxia, necesaria para los viajes interestelares y también una droga capaz de amplificar la conciencia y extender la vida. El duque Leto (Oscar Isaac), la dama Jessica (Rebecca Ferguson) y el hijo de ambos, Paul Atreides (Timothée Chalamet), llegan a Arrakis con la esperanza de mantener el buen nombre de su casa y ser fieles al emperador, pero pronto se verán envueltos en una trama de traiciones y engaños que les llevará a cuestionar su confianza entre sus más allegados y a valorar a los lugareños, los Fremen, una estirpe de habitantes del desierto con una estrecha relación con la especia. ', '/Practica-SW/Practica2/img/posters/Dune.png', '/Practica-SW/Practica2/img/trailers/Dune.mp4'),
+('Infiltrados en la universidad', 'Comedia', 16, 112, 'Los agentes de policía Jenko (Channing Tatum) y Schmidt (Jonah Hill) tendrán que infiltrarse en un campus universitario para intentar desarticular una red de narcotráfico. Secuela de ', '/Practica-SW/Practica2/img/posters/InfiltradosEnLaUniversidad.jpg', '/Practica-SW/Practica2/img/trailers/InfiltradosEnLaUniversidad.mp4'),
+('Pitch Black', 'Ciencia-Ficcion', 16, 109, 'Durante un viaje interestelar, un carguero espacial sufre una avería a causa de una tormenta de asteroides, viéndose obligado a efectuar un aterrizaje de emergencia en el que muere parte del pasaje. Un asesino muy peligroso, Riddick, que formaba parte de la carga, huye del lugar dejando a los supervivientes con dos preocupaciones, él y unas peligrosas criaturas nocturnas que salen a la superficie cuando los tres soles del planeta se oscurecen a causa de un eclipse.', '/Practica-SW/Practica2/img/posters/PitchBlack.jpg', '/Practica-SW/Practica2/img/trailers/PitchBlack.mp4');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

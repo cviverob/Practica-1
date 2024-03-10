@@ -4,15 +4,23 @@
 
     $tituloPagina = 'Consultar película';
 
-// Faltan las sesiones y el trailer
-    $n = $_GET['n'];
+    // Faltan las sesiones y el trailer
+    
+    // Función urlencode extraída del chatgpt para evitar problemas con espacios en la URL
+    $n = urldecode($_GET['n']);
 
     $ruta_selc_but = RUTA_APP . RUTA_SELC_BUT;
     $pelicula = Pelicula::buscaPelicula($n);
-    $imagen = RUTA_APP . '/' . $pelicula->getRutaPoster();
+    $imagen = $pelicula->getRutaPoster();
     $contenidoPrincipal = <<< EOS
         <h1>{$pelicula->getTitulo()}</h1>
-        <img src = "{$imagen}" alt = 'Póster de la película'>
+        <div>
+            <img src = "$imagen" alt = 'Póster de la película' width = '150' height = '200'>
+            <video width = "320" height = "240" controls>
+                <source src = "{$pelicula->getRutaTrailer()}" type = "video/mp4">
+                Tu navegador no soporta este tipo de vídeo
+            </video>
+        </div>
         <p> Sinopsis: {$pelicula->getSinopsis()} </p>
         <p> Edad mínima: {$pelicula->getPegi()} </p>
         <p> Género:  {$pelicula->getGenero()} </p>

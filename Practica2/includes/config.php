@@ -3,8 +3,10 @@
 /* Parámetros de configuración de la aplicación */
 /* */
 
-// Parámetros de configuración generales
- /***** IMPORTANTE: debe actualizarse al abrirlo por primera vez *****/
+/*
+    Las funciones php utilizan rutas absolutas, por lo que se use RUTA_RAIZ, mientras que
+    las html usan relativas a localhost, por lo que se utiliza RUTA_APP
+*/
 define('RUTA_RAIZ', dirname(__DIR__));
 define('RUTA_APP', '/Practica-SW/Practica2');
 define('RUTA_INDX', '/index.php');
@@ -80,20 +82,6 @@ define('BD_USER', 'cines');
 define('BD_PASS', 'cines');
 
 /* */
-/* Utilidades básicas de la aplicación */
-/* */
-
-//requireonce _DIR.'/src/Utils.php';
-
-/* */
-/* Inicialización de la aplicación */
-/* */
-
-/*if (!INSTALADA) {
-    Utils::paginaError(502, 'Error', 'Oops', 'La aplicación no está configurada. Tienes que modificar el fichero config.php');
-}*/
-
-/* */
 /* Configuración de Codificación y timezone /
 /* */
 
@@ -104,27 +92,11 @@ date_default_timezone_set('Europe/Madrid');
 /* */
 /* Clases y Traits de la aplicación */
 /* */
-//require_once 'src/Arrays.php';
-//require_once 'src/traits/MagicProperties.php';
-
-/* */
-/* Clases que simulan una BD almacenando los datos en memoria */
-/*
-require_once 'src/usuarios/memoria/Usuario.php';
-require_once 'src/mensajes/memoria/Mensaje.php';
-*/
 
 /*Configuramos e inicializamos la sesión para todas las peticiones*/
 session_start([
     'cookie_path' => RUTA_APP, // Para evitar problemas si tenemos varias aplicaciones en htdocs
 ]);
-
-/* */
-/* Inicialización de las clases que simulan una BD en memoria */
-/*
-Usuario::init();
-Mensaje::init();
-*/
 
 /* */
 /* Clases que usan una BD para almacenar el estado */

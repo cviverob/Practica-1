@@ -10,11 +10,11 @@
         $ruta_proc_bsc_pel = RUTA_APP . RUTA_PROC_BSC_PEL;
         $ruta_admn = RUTA_APP . RUTA_ADMN;
 
-        $info = Pelicula::pintarTablas();
+        $info = Pelicula::getPeliculas();
         $pintar = '';
 
         foreach ($info as $p) {
-            $nombre = $p['nombre'];
+            $nombre = $p->getTitulo();
             $pintar .= "
                 <tr>
                 <td> $nombre</td>

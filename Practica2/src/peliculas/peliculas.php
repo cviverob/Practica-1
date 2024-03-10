@@ -105,7 +105,7 @@ class Pelicula {
             , $conn->real_escape_string($pelicula->pegi)
             , $conn->real_escape_string($pelicula->duracion)
             , $conn->real_escape_string($pelicula->sinopsis)
-            , "img/posters/" . $conn->real_escape_string($pelicula->rutaPoster)
+            , $conn->real_escape_string($pelicula->rutaPoster)
             , $conn->real_escape_string($pelicula->rutaTrailer)
         );
         if ( $conn->query($query) ) {
@@ -125,45 +125,30 @@ class Pelicula {
             , $conn->real_escape_string($pelicula->pegi)
             , $conn->real_escape_string($pelicula->duracion)
             , $conn->real_escape_string($pelicula->sinopsis)
-            ,  "img/posters/" . $conn->real_escape_string($pelicula->rutaPoster)
+            , $conn->real_escape_string($pelicula->rutaPoster)
             , $conn->real_escape_string($pelicula->rutaTrailer)
             , $conn->real_escape_string($titulo)
         );
-
         if ( $conn->query($query) ) {
             $result = $pelicula;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
-        
         return $result;
     }
     
-    public static function mostrarPeliculas(){
+    public static function getPeliculas(){
         $conn = BD::getInstance()->getConexionBd();
-        $query = "SELECT imagen, nombre FROM peliculas";
+        $query = "SELECT nombre, descripcion, imagen, trailer, edad, genero, duracion FROM peliculas";
         $result = $conn->query($query);
         $link = array();
         if ($result->num_rows > 0) {
             // Mostrar cada película y su imagen
             while($row = $result->fetch_assoc()) {
-                $link[] = $row;
+                $link[] = new Pelicula($row["nombre"], $row["descripcion"], $row["imagen"], $row["trailer"], $row["edad"], $row["genero"], $row["duracion"]);
             }
         }
-        return $link;
-    }
-
-    public static function pintarTablas(){
-        $conn = BD::getInstance()->getConexionBd();
-        $query = "SELECT nombre FROM peliculas";
-        $result = $conn->query($query);
-        $link = array();
-        if ($result->num_rows > 0) {
-            // Mostrar titulos y botones
-            while($row = $result->fetch_assoc()) {
-                $link[] = $row;
-            }
-        }
+        $result->free();
         return $link;
     }
 
@@ -171,6 +156,7 @@ class Pelicula {
         $conn = BD::getInstance()->getConexionBd();
         $query=sprintf("DELETE FROM Peliculas WHERE nombre = '%s'" , $titulo);
         $result = $conn->query($query);
+        $result->free();
         return true;
     }
 }

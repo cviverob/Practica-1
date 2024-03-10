@@ -8,7 +8,7 @@
     $contenidoPrincipal = comprobarPermisos($_SESSION["usuario_admin"]);
     if (!$contenidoPrincipal) {
         // Si estamos modificando una sala, deben salir los valores de dicha peli
-        $ruta_admn = RUTA_ADMN;
+        $ruta_admn = RUTA_APP . RUTA_ADMN;
         $ruta_mod_sala = RUTA_APP . RUTA_MOD_SALA;
         $contenidoPrincipal = <<< EOS
             <form action = "$ruta_mod_sala" method = "POST">

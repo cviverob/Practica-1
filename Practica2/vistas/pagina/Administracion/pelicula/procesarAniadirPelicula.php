@@ -11,15 +11,16 @@
         $nombre = htmlspecialchars(strip_tags($_POST["nombre"]));
         $sinopsis = htmlspecialchars(strip_tags($_POST["sinopsis"]));
         /* 
-            Líneas 16-18 generadas con chatgpt, usadas para guardar en img/posters/ la imagen seleccionada 
-            Para los trailers se ha usado la misma técnica    
+            Uso de $_FILES y de move_uploaded_file realizado con chatgpt, para poder
+            mover un póster y un tráiler a su correspondiente directorio de nuestro
+            proyecto  
         */
         $rutaPoster = $_FILES['poster']['name'];
-        $ruta_destino_poster = RUTA_RAIZ . RUTA_PSTR .'/' . $rutaPoster;
-        move_uploaded_file($_FILES['poster']['tmp_name'], $ruta_destino_poster);
+        $ruta_destino_poster = RUTA_PSTR .'/' . $rutaPoster;
+        move_uploaded_file($_FILES['poster']['tmp_name'], RUTA_RAIZ . $ruta_destino_poster);
         $rutaTrailer = $_FILES['trailer']['name'];
-        $ruta_destino_trailer = RUTA_RAIZ . RUTA_TRL .'/' . $rutaTrailer;
-        move_uploaded_file($_FILES['trailer']['tmp_name'], $ruta_destino_trailer);
+        $ruta_destino_trailer = RUTA_TRL .'/' . $rutaTrailer;
+        move_uploaded_file($_FILES['trailer']['tmp_name'], RUTA_RAIZ . $ruta_destino_trailer);
         $pegi = htmlspecialchars(strip_tags($_POST['pegi']));
         $genero = htmlspecialchars(strip_tags($_POST['genero']));
         $duracion = htmlspecialchars(strip_tags($_POST['duracion']));
@@ -43,7 +44,7 @@
             else {
                 $aux = null;
             }
-            $pelicula = Pelicula::crea($nombre, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $aux);
+            $pelicula = Pelicula::crea($nombre, $sinopsis, RUTA_APP . $ruta_destino_poster, RUTA_APP . $ruta_destino_trailer, $pegi, $genero, $duracion, $aux);
         }
 
         if ($pelicula) {

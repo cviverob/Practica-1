@@ -11,14 +11,13 @@
     $ruta_Dune = RUTA_APP . RUTA_PSTR . '/Dune.png';
     $ruta_cons_peli = RUTA_APP . RUTA_CONS_PELI;
 
-    $peli = Pelicula::mostrarPeliculas();
+    $peli = Pelicula::getPeliculas();
     $pintar = '';
 
+    // Función urlencode extraída del chatgpt para evitar problemas con espacios en la URL
     foreach ($peli as $p) {
-        $pintar .= "<a href = 'vistas/pagina/consultaPelicula.php?n=" . $p["nombre"] . "' ><img src = '". $p["imagen"] ."' width = '150' height = '200'></a>;";
+        $pintar .= "<a href = " . RUTA_APP . RUTA_CONS_PELI . "?n=" . urlencode($p->getTitulo()) . " ><img src = '". $p->getRutaPoster() ."' width = '150' height = '200'></a>";
     }
-    
-
     $contenidoPrincipal =<<<EOS
         <h1>Cartelera</h1>
         $pintar

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2024 a las 20:36:27
+-- Tiempo de generación: 10-03-2024 a las 21:41:21
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -65,8 +65,8 @@ CREATE TABLE `peliculas` (
   `Edad` int(3) NOT NULL,
   `Duracion` int(3) NOT NULL,
   `Descripcion` text NOT NULL,
-  `Imagen` varchar(50) NOT NULL,
-  `Trailer` varchar(50) NOT NULL
+  `Imagen` text NOT NULL,
+  `Trailer` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
