@@ -19,6 +19,8 @@ define('RUTA_TRL', RUTA_IMGS . '/trailers');
 //includes
 define('RUTA_INCL', '/includes');
 define('RUTA_CNFG', RUTA_INCL . '/config.php');
+define('RUTA_FORM_LGIN', RUTA_INCL . '/formularioLogin.php');
+define('RUTA_FORM_REG', RUTA_INCL . '/formularioRegistro.php');
 
 // src
 define('RUTA_SRC', '/src');

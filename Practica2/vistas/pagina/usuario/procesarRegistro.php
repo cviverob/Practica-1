@@ -1,6 +1,7 @@
 <?php
     require_once('../../../includes/config.php');
     require_once(RUTA_RAIZ . RUTA_USU);
+    require_once(RUTA_RAIZ . RUTA_FORM_REG);
 
     $tituloPagina = 'Proceso de login';
 
@@ -8,26 +9,30 @@
     $edad = htmlspecialchars(strip_tags($_POST["edad"]));
     $correo = htmlspecialchars(strip_tags($_POST["correo"]));
     $contraseña = htmlspecialchars(strip_tags($_POST["contraseña"]));
-    $usuario = Usuario::crea($nombre, $correo, $contraseña, $edad);
-    $_SESSION["usuario"] = $usuario;
-    $_SESSION["nombre"] = $nombre;
-    $_SESSION["edad"] = $edad;
-    $_SESSION["correo"] = $correo;
+    if (!is_numeric($edad)) {
+        $usuario = false;
+        $error = "La edad debe ser un número";
+    }
+    else {
+        $usuario = Usuario::crea($nombre, $correo, $contraseña, $edad);
+    }   
 
-    $ruta_indx = RUTA_APP . RUTA_INDX;
-    $ruta_reg = RUTA_APP . RUTA_REG;
-
-    if ($_SESSION["usuario"]) {
+    if ($usuario) {
+        $_SESSION['usuario_nombre'] = $usuario->getNombre();
+        $_SESSION['usuario_admin'] = $usuario->esAdmin();
+        $_SESSION['usuario_id'] = $usuario->getId();
+        $ruta_indx = RUTA_APP . RUTA_INDX;
         $contenidoPrincipal = <<< EOS
-            <h1>Bienvenido {$_SESSION["usuario"]->getNombre()}</h1>
+            <h1>Bienvenido {$_SESSION["usuario_nombre"]}</h1>
             <a href = "$ruta_indx"><button type = 'button'>Menú principal</button></a>
         EOS;
     }
     else {
         $contenidoPrincipal = <<< EOS
             <h1>Error al registrarse</h1>
-            <a href = "$ruta_reg"><button type = 'button'>Reintentar</button></a>
+            <p>$error</p>
         EOS;
+        $contenidoPrincipal .= creaFormularioRegistro($nombre, $edad, $correo, $contraseña);
     }
 
     require_once(RUTA_RAIZ . RUTA_PLNT);
