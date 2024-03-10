@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: estructura
--- Tiempo de generación: 05-03-2024 a las 12:42:10
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 10-03-2024 a las 20:36:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -29,7 +29,6 @@ USE `cines`;
 -- Estructura de tabla para la tabla `cartelera`
 --
 
-DROP TABLE IF EXISTS `cartelera`;
 CREATE TABLE `cartelera` (
   `Pelicula` varchar(50) NOT NULL,
   `Fecha` date NOT NULL,
@@ -44,7 +43,6 @@ CREATE TABLE `cartelera` (
 -- Estructura de tabla para la tabla `compras`
 --
 
-DROP TABLE IF EXISTS `compras`;
 CREATE TABLE `compras` (
   `Id_compra` int(10) UNSIGNED NOT NULL,
   `id_usuario` int(10) UNSIGNED NOT NULL,
@@ -61,15 +59,14 @@ CREATE TABLE `compras` (
 -- Estructura de tabla para la tabla `peliculas`
 --
 
-DROP TABLE IF EXISTS `peliculas`;
 CREATE TABLE `peliculas` (
   `Nombre` varchar(50) NOT NULL,
   `Genero` varchar(20) NOT NULL,
   `Edad` int(3) NOT NULL,
   `Duracion` int(3) NOT NULL,
-  `Descripcion` varchar(100) NOT NULL,
+  `Descripcion` text NOT NULL,
   `Imagen` varchar(50) NOT NULL,
-  `Trailer` varchar(50) NULL
+  `Trailer` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -78,7 +75,6 @@ CREATE TABLE `peliculas` (
 -- Estructura de tabla para la tabla `salas`
 --
 
-DROP TABLE IF EXISTS `salas`;
 CREATE TABLE `salas` (
   `Num_sala` int(2) UNSIGNED NOT NULL,
   `Num_filas` int(3) NOT NULL,
@@ -92,13 +88,12 @@ CREATE TABLE `salas` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `id` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `edad` int(3) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `contraseña` varchar(50) NOT NULL,
+  `contraseña` text NOT NULL,
   `rol` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

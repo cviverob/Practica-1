@@ -12,10 +12,16 @@
     $ruta_cons_peli = RUTA_APP . RUTA_CONS_PELI;
 
     $peli = Pelicula::mostrarPeliculas();
+    $pintar = '';
+
+    foreach ($peli as $p) {
+        $pintar .= "<a href = 'vistas/pagina/consultaPelicula.php?n=" . $p["nombre"] . "' ><img src = '". $p["imagen"] ."' width = '150' height = '200'></a>;";
+    }
+    
 
     $contenidoPrincipal =<<<EOS
         <h1>Cartelera</h1>
-        $peli 
+        $pintar
     EOS;
 
     require_once(RUTA_RAIZ . RUTA_PLNT);

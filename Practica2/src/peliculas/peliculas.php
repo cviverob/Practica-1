@@ -143,13 +143,11 @@ class Pelicula {
         $conn = BD::getInstance()->getConexionBd();
         $query = "SELECT imagen, nombre FROM peliculas";
         $result = $conn->query($query);
-        $link = '';
+        $link = array();
         if ($result->num_rows > 0) {
             // Mostrar cada película y su imagen
             while($row = $result->fetch_assoc()) {
-                $nombre = $row["nombre"];
-                $prueba = "<a href = 'vistas/pagina/consultaPelicula.php?n=$nombre' ><img src = '". $row["imagen"] ."' width = '150' height = '200'></a>";
-                $link .= $prueba . ' ';
+                $link[] = $row;
             }
         }
         return $link;
@@ -159,23 +157,14 @@ class Pelicula {
         $conn = BD::getInstance()->getConexionBd();
         $query = "SELECT nombre FROM peliculas";
         $result = $conn->query($query);
-        $link = ' ';
+        $link = array();
         if ($result->num_rows > 0) {
             // Mostrar titulos y botones
             while($row = $result->fetch_assoc()) {
-                $nombre = $row["nombre"];
-                $prueba = <<<EOS
-                    <tr>
-                    <td> $nombre</td>
-                    <td><a href='procesarBusquedaPeliculas.php?nombre=$nombre&accion=M'><button>Mod</button></a></td>
-                    <td><a href='procesarBusquedaPeliculas.php?nombre=$nombre&accion=B'><button>Bor</button></a></td>
-                    </tr>
-                EOS;
-                $link .= $prueba ;
+                $link[] = $row;
             }
         }
         return $link;
-
     }
 
     public static function borrarPelicula($titulo) {

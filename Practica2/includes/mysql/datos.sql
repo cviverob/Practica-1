@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-03-2024 a las 12:46:14
+-- Tiempo de generación: 10-03-2024 a las 20:36:43
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -39,6 +39,15 @@ TRUNCATE TABLE `compras`;
 
 TRUNCATE TABLE `peliculas`;
 --
+-- Volcado de datos para la tabla `peliculas`
+--
+
+INSERT INTO `peliculas` (`Nombre`, `Genero`, `Edad`, `Duracion`, `Descripcion`, `Imagen`, `Trailer`) VALUES
+('Dune', 'acción', 18, 120, 'El duque Paul Atreides se une a los Fremen y comienza un \r\n    viaje espiritual y marcial para conve', 'img/posters/Dune.png', ''),
+('Infiltrados en la universidad', 'Comedia', 16, 112, 'Tras hacerse pasar por estudiantes de instituto y lograr desarticular a una banda de narcotraficantes, los oficiales de policía Schmidt y Jenko deben volver a las aulas como policías encubiertos, pero esta vez su destino será la Universidad.', 'img/posters/InfiltradosEnLaUniversidad.jpg', 'InfiltradosEnLaUniversidad.jpg'),
+('Pitch Black', 'Ciencia-Ficcion', 16, 109, 'Una nave espacial averiada, que lleva a bordo a un prisionero extremadamente peligroso, se estrella en un planeta desconocido. La tripulación y los desafortunados viajeros que van en ella tendrán que luchar por sobrevivir en un nuevo mundo.', 'img/posters/PitchBlack.jpg', 'PitchBlack.jpg');
+
+--
 -- Truncar tablas antes de insertar `salas`
 --
 
@@ -53,9 +62,8 @@ TRUNCATE TABLE `usuario`;
 --
 
 INSERT INTO `usuario` (`id`, `nombre`, `edad`, `email`, `contraseña`, `rol`) VALUES
-(1, 'Admin', 0, '', '', 0),
-(2, 'admin', 20, 'admin@ucm.es', 'adminpass', 1),
-(3, 'user', 20, 'user@ucm.es', 'userpass', 0);
+(82, 'admin', 18, 'admin@ucm.es', '$2y$10$mNCZb8xiiXYicNHyNm.7QuOYhHZFzOXy3ork.sNbcSgbTBcruVpdm', 1),
+(84, 'user', 18, 'user@ucm.es', '$2y$10$YxparQBwB3HagIyq/3m2CeIY31ZKMWFx1VC2ZrG4pa58du5ucHrfa', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -25,6 +25,7 @@
             <h2>Gestión de salas<h2>
             <a href = "$ruta_and_sal"><button type = 'button'>Añadir</button></a>
             <a href = "$ruta_bsc_sal"><button type = 'button'>Buscar</button></a>
+            <p></p>
         EOS;
     }
 

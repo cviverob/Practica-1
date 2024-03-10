@@ -9,7 +9,20 @@
     if (!$contenidoPrincipal) {
         $ruta_proc_bsc_pel = RUTA_APP . RUTA_PROC_BSC_PEL;
         $ruta_admn = RUTA_APP . RUTA_ADMN;
+
         $info = Pelicula::pintarTablas();
+        $pintar = '';
+
+        foreach ($info as $p) {
+            $nombre = $p['nombre'];
+            $pintar .= "
+                <tr>
+                <td> $nombre</td>
+                <td><a href='procesarBusquedaPeliculas.php?nombre=$nombre&accion=M'><button>Mod</button></a></td>
+                <td><a href='procesarBusquedaPeliculas.php?nombre=$nombre&accion=B'><button>Bor</button></a></td>
+                </tr>";
+        }
+
         $contenidoPrincipal = <<< EOS
         <p></p>
         <table>
@@ -21,7 +34,7 @@
                 </tr>
             </thead>
             <tbody>
-                $info 
+                $pintar
             </tbody>
         </table>
         <p></p>
