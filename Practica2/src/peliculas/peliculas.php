@@ -32,10 +32,10 @@ class Pelicula {
 
     /* Funciones públicas */
 
-    public static function crea($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion) {
+    public static function crea($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $aux) {
         $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
-        //$pelicula->guardarPelicula();
-        self::insertaPelicula($pelicula);
+        $pelicula->guardarPelicula($aux);
+        //self::insertaPelicula($pelicula);
         return $pelicula;
     }
 
@@ -87,9 +87,9 @@ class Pelicula {
         return $result;
     }
 
-    private function guardarPelicula() {
-        if ($this->titulo != null) {
-            return self::actualizaPelicula($this);
+    private function guardarPelicula($nombre) {
+        if ($this->titulo != null && $nombre != null) {
+            return self::actualizaPelicula($nombre, $this);
         }
         return self::insertaPelicula($this);
     }
@@ -115,7 +115,7 @@ class Pelicula {
         return $result;
     }
 
-    private static function actualizaPelicula($pelicula) {
+    private static function actualizaPelicula($titulo,$pelicula) {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf("UPDATE peliculas SET nombre = '%s', genero = '%s', edad = '%s', duracion = '%s', descripcion = '%s', imagen = '%s', trailer = '%s' WHERE nombre = '%s'"
@@ -124,9 +124,9 @@ class Pelicula {
             , $conn->real_escape_string($pelicula->pegi)
             , $conn->real_escape_string($pelicula->duracion)
             , $conn->real_escape_string($pelicula->sinopsis)
-            , $conn->real_escape_string($pelicula->rutaPoster)
+            ,  "img/posters/" . $conn->real_escape_string($pelicula->rutaPoster)
             , $conn->real_escape_string($pelicula->rutaTrailer)
-            , $conn->real_escape_string($pelicula->titulo)
+            , $conn->real_escape_string($titulo)
         );
 
         if ( $conn->query($query) ) {

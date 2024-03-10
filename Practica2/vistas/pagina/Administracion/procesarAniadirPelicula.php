@@ -32,7 +32,12 @@
             $error = "La duración debe ser un número";
         }
         else {
-            $pelicula = Pelicula::crea($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
+            $tipo = $_GET['tipo'];
+            $nom = $_GET['nom'];
+            $aux = ' ';
+            if ($tipo == 'A') $aux = null;
+            else $aux = $nom;
+            $pelicula = Pelicula::crea($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $aux);
         }
 
         if ($pelicula) {
