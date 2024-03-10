@@ -9,21 +9,21 @@ class Usuario
 
     public const ROL_ADMIN = 1;
 
-      /* Atributos del programa */   
+    /* Atributos del programa */   
 
-      private $id;
+    private $id;
 
-      private $nombreUsuario;
+    private $nombre;
 
-      private $email;
-  
-      private $contrasenia;
-  
-      private $edad;
-  
-      private $rol; // Admin o usuario normal
+    private $email;
 
-      /* Constructor */
+    private $contrasenia;
+
+    private $edad;
+
+    private $rol; // Admin o usuario normal
+
+    /* Constructor */
 
     private function __construct($id, $nombre, $email, $contrasenia, $edad, $rol) {
         $this->id = $id;
@@ -34,8 +34,8 @@ class Usuario
         $this->rol = $rol;
     }
 
-    
     /* Funciones públicas */
+
     public static function login($correo, $contrasenia) {
         $usuario = self::buscaUsuario($correo);
         if ($usuario && $usuario->comprobarContrasenia($contrasenia)) {
@@ -46,12 +46,19 @@ class Usuario
   
     public static function crea($nombre, $email, $contrasenia, $edad) {
         $usuario = new Usuario(null, $nombre, $email, self::hashContrasenia($contrasenia), $edad, self::ROL_USUARIO);
-        $usuario = self::insertaUsuario($usuario);
-        return $usuario;
+        return self::insertaUsuario($usuario);
     }
     
     public function esAdmin() {
         return $this->rol == self::ROL_ADMIN;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getNombre() {
+        return $this->nombre;
     }
 
     public static function buscaUsuario($correo)
@@ -73,6 +80,8 @@ class Usuario
         return $result;
     }
    
+    /* Funciones privadas */
+
     private static function insertaUsuario($usuario) {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
@@ -82,7 +91,7 @@ class Usuario
             , $conn->real_escape_string($usuario->email)
             , $conn->real_escape_string($usuario->contrasenia)
             , $conn->real_escape_string($usuario->edad)
-            , $conn->real_escape_string($usuario->rol)//seguramente haya que cambiarlo y simplemente poner 0
+            , $conn->real_escape_string($usuario->rol)
         );
         if ( $conn->query($query) ) {
             $usuario->id = sprintf("SELECT id FROM usuario WHERE nombre = %d", $usuario->nombre);
@@ -97,13 +106,5 @@ class Usuario
     
     private function comprobarContrasenia($contrasenia) {
         return password_verify($contrasenia, $this->contrasenia);
-    }
-
-    public function getId() {
-        return $this->id;
-    }
-
-    public function getNombre() {
-        return $this->nombreUsuario;
     }
 }

@@ -3,12 +3,11 @@
 
     $tituloPagina = 'Logout';
     
-    $ruta_menu_prncpl = RUTA_APP . '/index.php';
-    echo RUTA_APP . "index.php";
+    $ruta_indx = RUTA_APP . RUTA_INDX;
 
     $contenidoPrincipal = <<< EOS
         <h1>Hasta la próxima!!</h1>
-        <a href = "$ruta_menu_prncpl"><button type = 'button'>Volver al menú principal</button></a>
+        <a href = "$ruta_indx"><button type = 'button'>Volver al menú principal</button></a>
     EOS;
 
     require_once(RUTA_RAIZ . RUTA_PLNT);

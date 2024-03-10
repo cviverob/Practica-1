@@ -1,21 +1,12 @@
 <?php
     require_once('../../../includes/config.php');
     require_once(RUTA_RAIZ . RUTA_USU); 
+    require_once(RUTA_RAIZ . RUTA_COMP_PERM);
 
     $tituloPagina = 'Tabla de sesiones';
 
-    // Temporal, para tener permisos
-    $_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
-
-    $usuario = $_SESSION["usuario"];
-    if (!$usuario->esAdmin()) {
-        $ruta_menu_prncpl = RUTA_APP . RUTA_MENU_PRNCPL;
-        $contenidoPrincipal = <<< EOS
-            <h1>No tienes permisos para usar esta página</h1>
-            <a href = "$ruta_menu_prncpl"><button type = 'button'>Volver al menú principal</button></a>
-        EOS;
-    }
-    else {
+    $contenidoPrincipal = comprobarPermisos($_SESSION["usuario_admin"]);
+    if (!$contenidoPrincipal) {
         /*
             Aquí se mostrará una tabla con las coincidencias enontradas y sus respectivos datos,
             guardando en la sesión la sesión seleccionada para redirigirnos a aniadirPelicula.php
