@@ -30,14 +30,14 @@
             require('administracion.php');
         }
         else {
-            $nombre = $_GET['nombre'];
+            $titulo = $_GET['nombre'];
             // Recuperar los datos de la película de la base de datos
-            $pelicula = Pelicula::buscaPelicula($nombre);
+            $pelicula = Pelicula::buscaPelicula($titulo);
             
             // Verificar si se encontró la película
             if ($pelicula) {
                 // Establecer los valores predeterminados de los campos del formulario
-                $nombre = $pelicula->getNombre();
+                $nombre = $pelicula->getTitulo();
                 $sinopsis = $pelicula->getSinopsis();
                 $poster = $pelicula->getRutaPoster();
                 $trailer = $pelicula->getRutaTrailer();
@@ -47,7 +47,7 @@
                 
                 // Generar el formulario con los valores predeterminados
                 $contenidoPrincipal = <<<EOS
-                    <form action="procesarAniadirPelicula.php" method="POST">
+                    <form action="procesarAniadirPelicula.php?tipo=M&nom=$nombre" method="POST">
                         <p></p>
                         *Nombre:
                         <input type="text" name="nombre" value="$nombre" required />

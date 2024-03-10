@@ -5,7 +5,7 @@
     $tituloPagina = 'Añadir película';
 
     // Temporal, para tener permisos
-    $_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
+    /*$_SESSION["usuario"] = Usuario::crea("fede", "a", "pito", 4, Usuario::ROL_ADMIN);
 
     $usuario = $_SESSION["usuario"];
     if (!!$usuario->esAdmin()) {
@@ -15,11 +15,11 @@
             <a href = "$ruta_menu_prncpl"><button type = 'button'>Volver al menú principal</button></a>
         EOS;
     }
-    else {
+    else {*/
         // Si estamos modificando una sesión, deben salir los valores de dicha peli
         //$ruta_admn = RUTA_APP . RUTA_ADMN;
         $contenidoPrincipal = <<< EOS
-            <form action = "procesarAniadirPelicula.php" method = "POST">
+            <form action = "procesarAniadirPelicula.php?tipo=A" method = "POST">
                 <p></p>
                 *Nombre:
                 <input type='text' name='nombre' value="" required />
@@ -49,7 +49,7 @@
             <p></p>
             
         EOS;
-    }
+    //}
     //<a href = "$ruta_admn"><button type = 'button'>Cancelar</button></a>
     require(RUTA_RAIZ . RUTA_PLNT);
   
