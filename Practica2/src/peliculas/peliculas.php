@@ -35,7 +35,6 @@ class Pelicula {
     public static function crea($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $aux) {
         $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
         $pelicula->guardarPelicula($aux);
-        //self::insertaPelicula($pelicula);
         return $pelicula;
     }
 
@@ -91,7 +90,9 @@ class Pelicula {
         if ($this->titulo != null && $nombre != null) {
             return self::actualizaPelicula($nombre, $this);
         }
-        return self::insertaPelicula($this);
+        else {
+            return self::insertaPelicula($this);
+        }
     }
 
     private static function insertaPelicula($pelicula)
@@ -115,7 +116,7 @@ class Pelicula {
         return $result;
     }
 
-    private static function actualizaPelicula($titulo,$pelicula) {
+    private static function actualizaPelicula($titulo, $pelicula) {
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf("UPDATE peliculas SET nombre = '%s', genero = '%s', edad = '%s', duracion = '%s', descripcion = '%s', imagen = '%s', trailer = '%s' WHERE nombre = '%s'"
@@ -181,5 +182,6 @@ class Pelicula {
         $conn = BD::getInstance()->getConexionBd();
         $query=sprintf("DELETE FROM Peliculas WHERE nombre = '%s'" , $titulo);
         $result = $conn->query($query);
+        return true;
     }
 }

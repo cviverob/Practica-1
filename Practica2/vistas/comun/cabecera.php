@@ -1,5 +1,5 @@
 <?php
-    require_once(RUTA_RAIZ . RUTA_USU);    
+    require_once(RUTA_RAIZ . RUTA_USU); 
 ?>
 <header>
     <img src = "<?php echo RUTA_APP . RUTA_IMGS ?>/ElmoCines.png" alt="Título de la página">
@@ -12,7 +12,12 @@
         else {
             echo "Bienvenido " . $_SESSION["usuario_nombre"] . " <a href= " . RUTA_APP . RUTA_LGOUT . "><button type = 'button'>Salir</button></a>";
             if ($_SESSION["usuario_admin"]) {
-                echo "<a href = " . RUTA_APP . RUTA_ADMN . "><button type = 'button'>Admin</button></a>";
+                if (!isset($_SESSION['modo']) || $_SESSION['modo'] == 'usuario') {
+                    echo "<a href = " . RUTA_APP . RUTA_ADMN . "><button type = 'button'>Admin</button></a>";
+                }
+                else if ($_SESSION['modo'] == 'admin') {
+                    echo "<a href = " . RUTA_APP . RUTA_INDX . "><button type = 'button'>Menú principal</button></a>";
+                }
             }
         }
     ?>

@@ -5,7 +5,7 @@
 
     $ruta_reg = RUTA_APP . RUTA_REG;
 
-    if (!isset($_SESSION["usuario"]) || !$_SESSION["usuario"]) {
+    if (!isset($_SESSION["usuario_id"]) || !$_SESSION["usuario_id"]) {
         $contenidoPrincipal = <<< EOS
         <h1>Error:</h1>
         <p>Debes estar registrado para realizar la compra</p>
@@ -17,11 +17,13 @@
     }*/
     else {
         /* conectado a algo que cree PDFs */
+        $ruta_indx = RUTA_APP . RUTA_INDX;
         $contenidoPrincipal = <<< EOS
-        <h1>Compra efectuada</h1>
-        <p>Puedes consultar en tu perfil las entradas o descargarlas aquí</p>
-        <button type = "button">Descargar entradas</button>
+            <h1>Compra efectuada</h1>
+            <p>Puedes consultar en tu perfil las entradas o descargarlas aquí</p>
+            <button type = "button">Descargar entradas</button>
+            <a href = "$ruta_indx"><button type = 'button'>Volver al menú de principal</button></a>
         EOS;
     }
 
-    require_once(RUTA_RAIZ . RUTA_PLNT);
+    require_once(RUTA_RAIZ . RUTA_PLNT);        

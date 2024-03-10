@@ -2,7 +2,9 @@
     // Este fichero hará la función del menú principal, donde se muestra la cartelera
 
     require_once('includes/config.php');
-    require_once('src/peliculas/peliculas.php');
+    require_once(RUTA_RAIZ . RUTA_PLCL);
+
+    $_SESSION['modo'] = "usuario";
 
     $tituloPagina = 'Cartelera';
 

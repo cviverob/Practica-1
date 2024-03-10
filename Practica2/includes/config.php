@@ -21,6 +21,7 @@ define('RUTA_INCL', '/includes');
 define('RUTA_CNFG', RUTA_INCL . '/config.php');
 define('RUTA_FORM_LGIN', RUTA_INCL . '/formularioLogin.php');
 define('RUTA_FORM_REG', RUTA_INCL . '/formularioRegistro.php');
+define('RUTA_FORM_PLCL', RUTA_INCL . '/formularioPelicula.php');
 define('RUTA_COMP_PERM', RUTA_INCL . '/comprobarPermisos.php');
 
 // src
@@ -47,16 +48,23 @@ define('RUTA_PROC_COMP', RUTA_PGN . '/procesarCompra.php');
 // vistas/pagina/administracion
 define('RUTA_PGN_ADMN', RUTA_PGN . '/administracion');
 define('RUTA_ADMN', RUTA_PGN_ADMN . '/administracion.php');
-define('RUTA_AND_PEL', RUTA_PGN_ADMN . '/aniadirPelicula.php');
-define('RUTA_AND_SALA', RUTA_PGN_ADMN . '/aniadirSala.php');
-define('RUTA_AND_SES', RUTA_PGN_ADMN . '/aniadirSesion.php');
-define('RUTA_BSC_PEL', RUTA_PGN_ADMN . '/buscarPelicula.php');
-define('RUTA_BSC_SALA', RUTA_PGN_ADMN . '/buscarSala.php');
-define('RUTA_BSC_SES', RUTA_PGN_ADMN . '/buscarSesion.php');
-define('RUTA_MOD_SALA', RUTA_PGN_ADMN . '/modificarSala.php');
-define('RUTA_PROC_BSC_PEL', RUTA_PGN_ADMN . '/procesarBusquedaPeliculas.php');
-define('RUTA_PROC_BSC_SALA', RUTA_PGN_ADMN . '/procesarBusquedaSala.php');
-define('RUTA_PROC_BSC_SES', RUTA_PGN_ADMN . '/procesarBusquedaSesiones.php');
+// vistas/pagina/administracion/pelicula
+define('RUTA_PGN_ADMN_PEL', RUTA_PGN_ADMN . '/pelicula');
+define('RUTA_AND_PEL', RUTA_PGN_ADMN_PEL . '/aniadirPelicula.php');
+define('RUTA_BSC_PEL', RUTA_PGN_ADMN_PEL . '/buscarPelicula.php');
+define('RUTA_PROC_AND_PEL', RUTA_PGN_ADMN_PEL . '/procesarAniadirPelicula.php');
+define('RUTA_PROC_BSC_PEL', RUTA_PGN_ADMN_PEL . '/procesarBusquedaPeliculas.php');
+// vistas/pagina/administracion/sala
+define('RUTA_PGN_ADMN_SALA', RUTA_PGN_ADMN . '/sala');
+define('RUTA_AND_SALA', RUTA_PGN_ADMN_SALA . '/aniadirSala.php');
+define('RUTA_BSC_SALA', RUTA_PGN_ADMN_SALA . '/buscarSala.php');
+define('RUTA_MOD_SALA', RUTA_PGN_ADMN_SALA . '/modificarSala.php');
+define('RUTA_PROC_BSC_SALA', RUTA_PGN_ADMN_SALA . '/procesarBusquedaSala.php');
+// vistas/pagina/administracion/sesion
+define('RUTA_PGN_ADMN_SES', RUTA_PGN_ADMN . '/sesion');
+define('RUTA_AND_SES', RUTA_PGN_ADMN_SES . '/aniadirSesion.php');
+define('RUTA_BSC_SES', RUTA_PGN_ADMN_SES . '/buscarSesion.php');
+define('RUTA_PROC_BSC_SES', RUTA_PGN_ADMN_SES . '/procesarBusquedaSesiones.php');
 // vistas/pagina/usuario
 define('RUTA_PGN_USU', RUTA_PGN . '/usuario');
 define('RUTA_LGIN', RUTA_PGN_USU . '/login.php');
