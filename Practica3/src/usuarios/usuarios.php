@@ -1,6 +1,6 @@
 <?php
 
-require_once(RUTA_RAIZ . '\src/BD.php');
+require_once(RUTA_RAIZ . '/src/BD.php');
 
 class Usuario
 {
