@@ -8,7 +8,7 @@
     las html usan relativas a localhost, por lo que se utiliza RUTA_APP
 */
 define('RUTA_RAIZ', dirname(__DIR__));
-define('RUTA_APP', '/Practica-SW/Practica2');
+define('RUTA_APP', '');
 define('RUTA_INDX', '/index.php');
 
 // img
