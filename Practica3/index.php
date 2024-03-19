@@ -8,9 +8,6 @@
 
     $tituloPagina = 'Cartelera';
 
-    $ruta_Dune = RUTA_APP . RUTA_PSTR . '/Dune.png';
-    $ruta_cons_peli = RUTA_APP . RUTA_CONS_PELI;
-
     $peli = Pelicula::getPeliculas();
     $pintar = '';
 
