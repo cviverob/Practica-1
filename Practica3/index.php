@@ -2,7 +2,6 @@
     // Este fichero hará la función del menú principal, donde se muestra la cartelera
 
     require_once('includes/config.php');
-    require_once(RUTA_RAIZ . RUTA_PLCL);
 
     $_SESSION['modo'] = "usuario";
 
@@ -11,7 +10,7 @@
     $ruta_Dune = RUTA_APP . RUTA_PSTR . '/Dune.png';
     $ruta_cons_peli = RUTA_APP . RUTA_CONS_PELI;
 
-    $peli = Pelicula::getPeliculas();
+    $peli = es\ucm\fdi\aw\Pelicula::getPeliculas();
     $pintar = '';
 
     // Función urlencode extraída del chatgpt para evitar problemas con espacios en la URL
