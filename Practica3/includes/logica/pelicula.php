@@ -70,8 +70,7 @@
         /* Funciones de la BD */
 
         public static function buscaPelicula($titulo) {
-            
-            $conn = $app->getConexionBd();
+            $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM peliculas WHERE Nombre='%s'", $conn->real_escape_string($titulo));
             $rs = $conn->query($query);
             $result = false;
@@ -99,7 +98,7 @@
         private static function insertaPelicula($pelicula)
         {
             $result = false;
-            $conn = $app->getConexionBd();
+            $conn = Aplicacion::getInstance()->getConexionBd();
             $query=sprintf("INSERT INTO peliculas(Nombre, Genero, Edad, Duracion, Descripcion, Imagen, Trailer) VALUES ('%s','%s','%s','%s', '%s', '%s', '%s')"
                 , $conn->real_escape_string($pelicula->titulo)
                 , $conn->real_escape_string($pelicula->genero)
@@ -119,7 +118,7 @@
 
         private static function actualizaPelicula($titulo, $pelicula) {
             $result = false;
-            $conn = $app->getConexionBd();
+            $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("UPDATE peliculas SET nombre = '%s', genero = '%s', edad = '%s', duracion = '%s', descripcion = '%s', imagen = '%s', trailer = '%s' WHERE nombre = '%s'"
                 , $conn->real_escape_string($pelicula->titulo)
                 , $conn->real_escape_string($pelicula->genero)
@@ -138,8 +137,8 @@
             return $result;
         }
         
-        public static function getPeliculas(){
-            $conn = $app->getConexionBd();
+        public static function getPeliculas() {
+            $conn = Aplicacion::getInstance()->getConexionBd();
             $query = "SELECT nombre, descripcion, imagen, trailer, edad, genero, duracion FROM peliculas";
             $result = $conn->query($query);
             $link = array();
@@ -154,7 +153,7 @@
         }
 
         public static function borrarPelicula($titulo) {
-            $conn = $app->getConexionBd();
+            $conn = Aplicacion::getInstance()->getConexionBd();
             $query=sprintf("DELETE FROM Peliculas WHERE nombre = '%s'" , $titulo);
             $result = $conn->query($query);
             $result->free();

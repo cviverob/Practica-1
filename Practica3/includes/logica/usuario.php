@@ -9,8 +9,8 @@
         /**
          * Constantes que definen los roles de los usuarios
          */
-        private const ROL_USUARIO = 1;
-        private const ROL_ADMIN = 2;
+        private const ROL_USUARIO = 0;
+        private const ROL_ADMIN = 1;
 
         /**
          * Alias del usuario
@@ -42,7 +42,7 @@
          */
         private $rol;
 
-        private function __construct($correo, $nombre, $contraseña, $edad, $id = null, $rol = ROL_USUARIO) {
+        private function __construct($correo, $nombre, $contraseña, $edad, $id = null, $rol = self::ROL_USUARIO) {
             $this->correo = $correo;
             $this->nombre = $nombre;
             $this->contraseña = $contraseña;
@@ -83,13 +83,13 @@
          * con el parámetro $nombreUsuario, o false si no lo encuentra
          */
         private static function buscaUsuario($correo) {
-            $conn = $app->getConexionBd();
+            $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM usuario WHERE email='%s'", $conn->real_escape_string($correo));
             $rs = $conn->query($query);     // Realizamos la búsqueda
             if ($rs) {
                 if ($rs->num_rows == 1) {
                     $usuario = $rs->fetch_assoc();     // Guardamos la fila encontrada
-                    $correo = $usuario['correo'];
+                    $correo = $usuario['email'];
                     $nombre = $usuario['nombre'];
                     $contraseña = $usuario['contraseña'];
                     $edad = $usuario['edad'];
@@ -110,11 +110,11 @@
          * Función que inserta un usuario en la bd
          */
         private static function insertaUsuario($usuario) {
-            $conn = $app->getConexionBd();
-            $query=sprintf("INSERT INTO usuario(nombre, email, contraseña, edad, rol) VALUES ('%s','%s','%s','%s', '%s', '%s')"
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query=sprintf("INSERT INTO usuario(nombre, email, contraseña, edad, rol) VALUES ('%s', '%s', '%s', '%s', '%s')"
                 , $conn->real_escape_string($usuario->nombre)
-                , $conn->real_escape_string($usuario->email)
-                , $conn->real_escape_string($usuario->contrasenia)
+                , $conn->real_escape_string($usuario->correo)
+                , $conn->real_escape_string($usuario->contraseña)
                 , $conn->real_escape_string($usuario->edad)
                 , $conn->real_escape_string($usuario->rol)
             );
@@ -132,15 +132,15 @@
         /**
          * Comprueba si la contraseña pasada por parámetro coincide con la del usuario
          */
-        private function compruebaContra($contra) {
-            return password_verify($contra, $this->contra);
+        private function compruebaContraseña($contraseña) {
+            return password_verify($contraseña, $this->contraseña);
         }
 
         /**
          * Hashea la contraseña pasada por parámetro
          */
-        private static function hashContra($contra) {
-            return password_hash($contra, PASSWORD_DEFAULT);
+        private static function hashContraseña($contraseña) {
+            return password_hash($contraseña, PASSWORD_DEFAULT);
         }
 
         // Getters y setters
@@ -153,12 +153,8 @@
             return $this->nombre;
         }
 
-        public function getContra() {
-            return $this->contra;
-        }
-
         public function esAdmin() {
-            return array_search(self::ADMIN_ROLE, $this->roles);
+            return $this->rol == self::ROL_ADMIN;
         }
 
         public function setId($id) {

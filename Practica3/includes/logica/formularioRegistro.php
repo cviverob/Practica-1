@@ -7,23 +7,30 @@
     class FormularioRegistro extends Formulario {
 
         public function __construct() {
-            parent::__construct('formReg', ['urlRedireccion' => '/Ejercicio-3']);
+            parent::__construct('formReg', ['urlRedireccion' => RUTA_APP]);
         }
 
         public function generaCamposFormulario(&$datos) {
+            $correo = $datos['correo'] ?? '';
             $nombre = $datos['nombre'] ?? '';
-            $nombreUsuario = $datos['nombreUsuario'] ?? '';
             $contra1 = $datos['contra1'] ?? '';
             $contra2 = $datos['contra2'] ?? '';
+            $edad = $datos['edad'] ?? '';
             $html = <<<EOS
+                <p>¿Ya tienes un usuario? <a href = 'login.php'>¡Logeate!</a></p>
                 <fieldset>
                     <legend>Usuario, nombre y contraseñas</legend>
                     <div>
-                        <label for = "nombreUsuario">Nombre de usuario:</label>
-                        <input id = "nombreUsuario" type = "text" name = "nombreUsuario" 
-                            value = "$nombreUsuario" />
             EOS;
-            $html .= $this->mostrarError('nombreUsuario');
+            $html .= $this->mostrarErroresGlobales();   // Mostramos los errores globales
+            $html .= <<<EOS
+                    </div>
+                    <div>
+                        <label for = "correo">Correo:</label>
+                        <input id = "correo" type = "text" name = "correo" 
+                            value = "$correo" />
+            EOS;
+            $html .= $this->mostrarError('correo');
             $html .= <<<EOS
                     </div>
                     <div>
@@ -47,6 +54,13 @@
             $html.= $this->mostrarError('contra2');
             $html .= <<<EOS
                     </div>
+                    <div>
+                        <label for = "edad">Edad:</label>
+                        <input id = "edad" type = "text" name = "edad" value="$edad" />
+            EOS;
+            $html.= $this->mostrarError('edad');
+            $html .= <<<EOS
+                    </div>
                 </fieldset>
                 <div>
                     <button type = "submit" name = "registro">Entrar</button>
@@ -56,10 +70,10 @@
         }
 
         public function procesaFormulario(&$datos) {
-            $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
-            $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            if (!$nombreUsuario || empty($nombreUsuario)) {
-                $this->errores['nombreUsuario'] = 'El nombre de usuario no puede estar vacío';
+            $correo = trim($datos['correo'] ?? '');
+            $correo = filter_var($correo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$correo || empty($correo)) {
+                $this->errores['correo'] = 'El correo no puede estar vacío';
             }
             $nombre = trim($datos['nombre'] ?? '');
             $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -76,8 +90,19 @@
             if (!$contra2 || $contra1 != $contra2) {
                 $this->errores['contra2'] = 'Las contraseñas deben coincidir';
             }
+            $edad = trim($datos['edad'] ?? '');
+            $edad = filter_var($edad, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$edad || empty($edad)) {
+                $this->errores['edad'] = 'La edad no puede estar vacía';
+            }
+            else if (!is_numeric($edad)) {
+                $this->errores['edad'] = 'La edad debe ser un número';
+            }
+            else if ($edad < 0 || $edad > 125) {
+                $this->errores['edad'] = '¡Ponga su edad verdadera!';
+            }
             if (count($this->errores) === 0) {
-                $usuario = Usuario::registrar($nombreUsuario, $nombre, $contra1);
+                $usuario = Usuario::registrar($correo, $nombre, $contra1, $edad);
                 if (!$usuario) {
                     $this->errores[] = 'El usuario ya existe';
                 }

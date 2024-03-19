@@ -7,21 +7,27 @@
     class FormularioLogin extends Formulario {
 
         public function __construct() {
-            parent::__construct('formLogin', ['urlRedireccion' => '/Ejercicio-3']);
+            parent::__construct('formLogin', ['urlRedireccion' => RUTA_APP]);
         }
 
         public function generaCamposFormulario(&$datos) {
-            $nombreUsuario = $datos['nombreUsuario'] ?? '';
+            $correo = $datos['correo'] ?? '';
             $contra = $datos['contra'] ?? '';
             $html = <<<EOS
+                <p>Todavía no tienes un usuario? <a href = 'registro.php'>¡Regístrate!</a></p>
                 <fieldset>
                     <legend>Usuario y contraseña</legend>
                     <div>
-                        <label for = "nombreUsuario">Nombre de usuario:</label>
-                        <input id = "nombreUsuario" type = "text" name = "nombreUsuario" 
-                            value = "$nombreUsuario" />
             EOS;
-            $html .= $this->mostrarError('nombreUsuario');
+            $html .= $this->mostrarErroresGlobales();   // Mostramos los errores globales
+            $html .= <<<EOS
+                    </div>
+                    <div>
+                        <label for = "correo">Correo:</label>
+                        <input id = "correo" type = "text" name = "correo" 
+                            value = "$correo" />
+            EOS;
+            $html .= $this->mostrarError('correo');
             $html .= <<<EOS
                     </div>
                     <div>
@@ -40,10 +46,10 @@
         }
 
         public function procesaFormulario(&$datos) {
-            $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
-            $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            if (!$nombreUsuario || empty($nombreUsuario)) {
-                $this->errores['nombreUsuario'] = 'El nombre de usuario no puede estar vacío';
+            $correo = trim($datos['correo'] ?? '');
+            $correo = filter_var($correo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$correo || empty($correo)) {
+                $this->errores['correo'] = 'El correo no puede estar vacío';
             }
             $contra = trim($datos['contra'] ?? '');
             $contra = filter_var($contra, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -51,7 +57,7 @@
                 $this->errores['contra'] = 'La contraseña no puede estar vacía.';
             }
             if (count($this->errores) === 0) {
-                $usuario = Usuario::login($nombreUsuario, $contra);
+                $usuario = Usuario::login($correo, $contra);
                 if (!$usuario) {
                     $this->errores[] = "El usuario o contraseña no coinciden";
                 }

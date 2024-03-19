@@ -28,12 +28,10 @@
     define('RUTA_SALA', RUTA_LGC . '/salas.php');
     define('RUTA_USU', RUTA_LGC . '/usuarios.php');
     define('RUTA_BD', RUTA_LGC . '/BD.php');
-    // includes/logica/formularios
-    define('RUTA_FORM', RUTA_LGC . '/formularios');
-    define('RUTA_FORM_LGIN', RUTA_FORM . '/formularioLogin.php');
-    define('RUTA_FORM_REG', RUTA_FORM . '/formularioRegistro.php');
-    define('RUTA_FORM_PLCL', RUTA_FORM . '/formularioPelicula.php');
-    define('RUTA_COMP_PERM', RUTA_FORM . '/comprobarPermisos.php');
+    define('RUTA_FORM_LGIN', RUTA_LGC . '/formularioLogin.php');
+    define('RUTA_FORM_REG', RUTA_LGC . '/formularioRegistro.php');
+    define('RUTA_FORM_PLCL', RUTA_LGC . '/formularioPelicula.php');
+    define('RUTA_COMP_PERM', RUTA_LGC . '/comprobarPermisos.php');
     // includes/vistas
     define('RUTA_VSTA', RUTA_INCL . '/vistas');
     // includes/vistas/comun
@@ -78,16 +76,6 @@
     define('RUTA_REG', RUTA_PGN_USU . '/registro.php');
 
     /**
-     * Configuración de la BD
-     */
-    define('BD_HOST', 'localhost');
-    define('BD_NAME', 'cines');
-    define('BD_USER', 'cines');
-    define('BD_PASS', 'cines');
-    $app = es\ucm\fdi\aw\Aplicacion::getInstance();
-    $app->init(['host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS]);
-
-    /**
      * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
      */
     ini_set('default_charset', 'UTF-8');
@@ -110,7 +98,7 @@
         $prefix = 'es\\ucm\\fdi\\aw\\';
         
         // base directory for the namespace prefix
-        $base_dir = RUTA_RAIZ . RUTA_LGC;
+        $base_dir = RUTA_RAIZ . RUTA_LGC . '/';
         
         // does the class use the namespace prefix?
         $len = strlen($prefix);
@@ -131,4 +119,14 @@
             require $file;
         }
     });
+
+    /**
+     * Configuración de la BD
+     */
+    define('BD_HOST', 'localhost');
+    define('BD_NAME', 'cines');
+    define('BD_USER', 'cines');
+    define('BD_PASS', 'cines');
+    $app = es\ucm\fdi\aw\Aplicacion::getInstance();
+    $app->init(['host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS]);
     register_shutdown_function([$app, 'cierraConexion']);

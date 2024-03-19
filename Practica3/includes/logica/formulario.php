@@ -97,7 +97,7 @@
 
             $html = "<ul class=\"$this->classAtt\">";
             foreach ($clavesErroresGlobales as $clave) {
-                $html .= "<li>{$this->errores[$clave]}</li>";
+                $html .= "{$this->errores[$clave]}";
             }
             $html .= '</ul>';
             return $html;
@@ -171,7 +171,6 @@
             <form method = "{$this->method}" action = "{$this->action}" id = "{$this->idForm}" {$classAtt} {$enctypeAtt}>
                 <input type = "hidden" name = "idForm" value = "{$this->idForm}" />
             EOS;
-            $htmlForm .= $this->mostrarErroresGlobales();   // Mostramos los errores globales
             $htmlForm .= $this->generaCamposFormulario($datos); // Generamos el contenido del formulario
             $htmlForm .= <<<EOS
                 </form>

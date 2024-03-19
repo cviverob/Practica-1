@@ -10,9 +10,9 @@
         <a href = "$ruta_indx"><button type = 'button'>Volver al menú principal</button></a>
     EOS;
     
-    unset($_SESSION["usuario_id"]);
-    unset($_SESSION["usuario_nombre"]);
-    unset($_SESSION["usuario_admin"]);
+    unset($_SESSION["login"]);
+    unset($_SESSION["nombre"]);
+    unset($_SESSION["esAdmin"]);
     unset($_SESSION["modo"]);
     session_destroy();
 
