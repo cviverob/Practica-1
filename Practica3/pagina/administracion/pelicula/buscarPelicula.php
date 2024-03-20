@@ -1,25 +1,30 @@
 <?php
+
     require_once('../../../includes/config.php');
-    require_once(RUTA_RAIZ . RUTA_PLCL);
-    require_once(RUTA_RAIZ . RUTA_COMP_PERM);
-    
-    $tituloPagina = 'Buscar película';
+    require_once(RUTA_RAIZ . RUTA_UTILS);
 
-    $contenidoPrincipal = comprobarPermisos($_SESSION["usuario_admin"]);
-    if (!$contenidoPrincipal) {
-        $ruta_proc_bsc_pel = RUTA_APP . RUTA_PROC_BSC_PEL;
-        $ruta_admn = RUTA_APP . RUTA_ADMN;
+    if (comprobarPermisos($_SESSION["esAdmin"])) {
+        $tituloPagina = 'Buscar película';
 
-        $info = Pelicula::getPeliculas();
+        $listaPeliculas = es\ucm\fdi\aw\Pelicula::getPeliculas();
         $pintar = '';
 
-        foreach ($info as $p) {
-            $nombre = $p->getTitulo();
+        foreach ($listaPeliculas as $pelicula) {
             $pintar .= "
                 <tr>
-                <td> $nombre</td>
-                <td><a href='procesarBusquedaPeliculas.php?nombre=$nombre&accion=M'><button>Mod</button></a></td>
-                <td><a href='procesarBusquedaPeliculas.php?nombre=$nombre&accion=B'><button>Bor</button></a></td>
+                    <td>{$pelicula->getTitulo()}</td>
+                    <td>
+                        <form action = 'modificarPelicula.php' method = 'post'>
+                            <input type = 'hidden' name = 'id' value = {$pelicula->getId()}>
+                            <button type = 'submit'>Mod</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action = 'borrarPelicula.php' method = 'post'>
+                            <input type = 'hidden' name = 'id' value = {$pelicula->getId()}>
+                            <button type = 'submit'>Elim</button>
+                        </form>
+                    </td>
                 </tr>";
         }
 
@@ -39,6 +44,6 @@
         </table>
         <p></p>
         EOS;
+        
+        require_once(RUTA_RAIZ . RUTA_PLNT);
     }
-
-    require_once(RUTA_RAIZ . RUTA_PLNT);

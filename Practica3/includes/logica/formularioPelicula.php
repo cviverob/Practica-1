@@ -17,8 +17,6 @@
             $nombre = $datos['nombre'] ?? '';
             $sinopsis = $datos['sinopsis'] ?? '';
             $pegi = $datos['pegi'] ?? '';
-            $poster = $datos['poster'] ?? '';
-            $trailer = $datos['trailer'] ?? '';
             $genero = $datos['genero'] ?? '';
             $duracion = $datos['duracion'] ?? '';
             $html = <<<EOS
@@ -52,24 +50,29 @@
                     </div>
                     <div>
                         <label for = "poster">Póster:</label>
-                        <input id = "poster" type = "file" name = "poster" value = "$poster" />
+                        <input id = "poster" type = "file" name = "poster" />
+                        <div></div>
             EOS;
             $html.= $this->mostrarError('poster');
             $html .= <<<EOS
                     </div>
                     <div>
                         <label for = "trailer">Tráiler:</label>
-                        <input id = "trailer" type = "file" name = "trailer" value = "$trailer" required/>
+                        <input id = "trailer" type = "file" name = "trailer" />
+                        <div>
             EOS;
             $html .= $this->mostrarError('trailer');
             $html .= <<<EOS
                     </div>
+                    </div>
                     <div>
                         <label for = "genero">Género:</label>
-                        <input id = "genero" type = "text" name = "genero" value = "$genero" required/>
+                        <input id = "genero" type = "text" name = "genero" value = "$genero"/>
+                        <div>
             EOS;
             $html.= $this->mostrarError('genero');
             $html .= <<<EOS
+                        </div>
                     </div>
                     <div>
                         <label for = "duracion">Duración:</label>
@@ -151,7 +154,7 @@
                     $rutaTrailer = $_FILES['trailer']['name'];
                     $ruta_destino_trailer = RUTA_TRL .'/' . $rutaTrailer;
                     if (move_uploaded_file($_FILES['trailer']['tmp_name'], RUTA_RAIZ . $ruta_destino_trailer)) {
-                        if (Pelicula::crea($nombre, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion)) {
+                        if (Pelicula::crear($nombre, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion)) {
                             header('Location: '. RUTA_APP . RUTA_ADMN);
                         }
                         else {
