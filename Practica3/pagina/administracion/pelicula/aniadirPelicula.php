@@ -1,14 +1,17 @@
 <?php
     require_once('../../../includes/config.php');
-    require_once(RUTA_RAIZ . RUTA_USU);
-    require_once(RUTA_RAIZ . RUTA_COMP_PERM);
-    require_once(RUTA_RAIZ . RUTA_FORM_PLCL);
+    require_once(RUTA_RAIZ . RUTA_UTILS);
 
-    $tituloPagina = 'Añadir película';
+    if (comprobarPermisos($_SESSION["esAdmin"])) {
+        $tituloPagina = 'Añadir película';
 
-    $contenidoPrincipal = comprobarPermisos($_SESSION["usuario_admin"]);
-    if (!$contenidoPrincipal) {
-        $contenidoPrincipal = $contenidoPrincipal = crearFormularioPelicula();
+        $formulario = new es\ucm\fdi\aw\FormularioPelicula();
+        $htmlFormularioPelicula = $formulario->gestiona();
+        $contenidoPrincipal = <<<EOS
+            <h1>Subir película</h1>
+            $htmlFormularioPelicula
+        EOS;
+
+        require(RUTA_RAIZ . RUTA_PLNT);
     }
-    require(RUTA_RAIZ . RUTA_PLNT);
   

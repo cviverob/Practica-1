@@ -1,14 +1,12 @@
 <?php
     require_once('../../includes/config.php');
-    require_once(RUTA_RAIZ . RUTA_USU);
-    require_once(RUTA_RAIZ . RUTA_COMP_PERM);
+    require_once(RUTA_RAIZ . RUTA_UTILS);
     
     $_SESSION['modo'] = "admin";
 
-    $tituloPagina = 'Administración';
+    if (comprobarPermisos($_SESSION["esAdmin"])) {
+        $tituloPagina = 'Administración';
 
-    $contenidoPrincipal = comprobarPermisos($_SESSION["usuario_admin"]);
-    if (!$contenidoPrincipal) {
         $ruta_and_pel = RUTA_APP . RUTA_AND_PEL;
         $ruta_bsc_pel = RUTA_APP . RUTA_BSC_PEL;
         $ruta_and_ses = RUTA_APP . RUTA_AND_SES;
@@ -27,6 +25,6 @@
             <a href = "$ruta_bsc_sal"><button type = 'button'>Buscar</button></a>
             <p></p>
         EOS;
+        
+        require_once(RUTA_RAIZ . RUTA_PLNT);
     }
-
-    require_once(RUTA_RAIZ . RUTA_PLNT);

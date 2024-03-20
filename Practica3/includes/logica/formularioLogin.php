@@ -12,9 +12,9 @@
 
         public function generaCamposFormulario(&$datos) {
             $correo = $datos['correo'] ?? '';
-            $contra = $datos['contra'] ?? '';
+            $contraseña = $datos['contraseña'] ?? '';
             $html = <<<EOS
-                <p>Todavía no tienes un usuario? <a href = 'registro.php'>¡Regístrate!</a></p>
+                <p>¿Todavía no tienes un usuario? <a href = 'registro.php'>¡Regístrate!</a></p>
                 <fieldset>
                     <legend>Usuario y contraseña</legend>
                     <div>
@@ -31,10 +31,10 @@
             $html .= <<<EOS
                     </div>
                     <div>
-                        <label for = "contra">Contraseña:</label>
-                        <input id = "contra" type = "password" name = "contra" value = "$contra" />
+                        <label for = "contraseña">Contraseña:</label>
+                        <input id = "contraseña" type = "password" name = "contraseña" value = "$contraseña" />
             EOS;
-            $html.= $this->mostrarError('contra');
+            $html.= $this->mostrarError('contraseña');
             $html .= <<<EOS
                     </div>
                 </fieldset>
@@ -51,13 +51,13 @@
             if (!$correo || empty($correo)) {
                 $this->errores['correo'] = 'El correo no puede estar vacío';
             }
-            $contra = trim($datos['contra'] ?? '');
-            $contra = filter_var($contra, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            if (!$contra || empty($contra)) {
-                $this->errores['contra'] = 'La contraseña no puede estar vacía.';
+            $contraseña = trim($datos['contraseña'] ?? '');
+            $contraseña = filter_var($contraseña, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$contraseña || empty($contraseña)) {
+                $this->errores['contraseña'] = 'La contraseña no puede estar vacía.';
             }
             if (count($this->errores) === 0) {
-                $usuario = Usuario::login($correo, $contra);
+                $usuario = Usuario::login($correo, $contraseña);
                 if (!$usuario) {
                     $this->errores[] = "El usuario o contraseña no coinciden";
                 }
