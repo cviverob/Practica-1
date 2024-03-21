@@ -10,7 +10,8 @@
     $peli = es\ucm\fdi\aw\Pelicula::getPeliculas();
     $pintar = '';
     foreach ($peli as $p) {
-        $pintar .= "<a href = " . RUTA_APP . RUTA_CONS_PELI . "?n=" . urlencode($p->getTitulo()) . " ><img src = '". $p->getRutaPoster() ."' width = '150' height = '200'></a> ";
+        $pintar .= "<a href = " . RUTA_APP . RUTA_CONS_PELI . "?id=" . $p->getId() . 
+        " ><img src = '". RUTA_APP . RUTA_PSTR . '/' . $p->getRutaPoster() ."' width = '150' height = '200'></a> ";
     }
     $contenidoPrincipal =<<<EOS
         <h1>Cartelera</h1>

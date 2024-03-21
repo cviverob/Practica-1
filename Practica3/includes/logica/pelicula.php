@@ -58,7 +58,7 @@
          * @param string $genero
          * @param string $duracion
          */
-        private function __construct($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion) {
+        private function __construct($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id = null) {
             $this->titulo = $titulo;
             $this->sinopsis = $sinopsis;
             $this->rutaPoster = $rutaPoster;
@@ -66,6 +66,7 @@
             $this->pegi = $pegi;
             $this->genero = $genero;
             $this->duracion = $duracion;
+            $this->id = $id;
         }
 
         /**
@@ -94,13 +95,13 @@
             if ($rs) {
                 $pelicula = $rs->fetch_assoc();
                 if ($pelicula) {
-                    $titulo = pelicula['Nombre'];
-                    $sinopsis = pelicula['Descripcion'];
-                    $rutaPoster = pelicula['Imagen'];
-                    $rutaTrailer = pelicula['Trailer'];
-                    $pegi = pelicula['Edad'];
-                    $genero = pelicula['Genero'];
-                    $duracion = pelicula['Duracion'];
+                    $titulo = $pelicula['Titulo'];
+                    $sinopsis = $pelicula['Sinopsis'];
+                    $rutaPoster = $pelicula['Poster'];
+                    $rutaTrailer = $pelicula['Trailer'];
+                    $pegi = $pelicula['Pegi'];
+                    $genero = $pelicula['Genero'];
+                    $duracion = $pelicula['Duracion'];
                     $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
                     $rs->free();
                     return $pelicula;
@@ -118,9 +119,7 @@
         public static function borrar($id) {
             $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("DELETE FROM Peliculas WHERE id = '%s'" , $id);
-            $rs = $conn->query($query);
-            $rs->free();
-            return true;
+            return $conn->query($query);
         }
 
         /**
@@ -131,8 +130,8 @@
         public static function actualizaPelicula($id, $pelicula) {
             $result = false;
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("UPDATE peliculas SET nombre = '%s', genero = '%s', edad = '%s', 
-                duracion = '%s', descripcion = '%s', imagen = '%s', trailer = '%s' WHERE id = '%s'",
+            $query = sprintf("UPDATE peliculas SET Titulo = '%s', Genero = '%s', Pegi = '%s', 
+                Duracion = '%s', Sinopsis = '%s', Poster = '%s', Trailer = '%s' WHERE id = '%s'",
                 $conn->real_escape_string($pelicula->titulo),
                 $conn->real_escape_string($pelicula->genero),
                 $conn->real_escape_string($pelicula->pegi),
@@ -156,20 +155,21 @@
          */
         public static function getPeliculas() {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = "SELECT nombre, descripcion, imagen, trailer, edad, genero, duracion FROM peliculas";
+            $query = "SELECT * FROM peliculas";
             $rs = $conn->query($query);
             $listaPeliculas = array();
             if ($rs->num_rows > 0) {
                 // Mostrar cada película y su imagen
                 while($pelicula = $rs->fetch_assoc()) {
-                    $titulo = pelicula['Nombre'];
-                    $sinopsis = pelicula['Descripcion'];
-                    $rutaPoster = pelicula['Imagen'];
-                    $rutaTrailer = pelicula['Trailer'];
-                    $pegi = pelicula['Edad'];
-                    $genero = pelicula['Genero'];
-                    $duracion = pelicula['Duracion'];
-                    $listaPeliculas[] = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
+                    $titulo = $pelicula['Titulo'];
+                    $sinopsis = $pelicula['Sinopsis'];
+                    $rutaPoster = $pelicula['Poster'];
+                    $rutaTrailer = $pelicula['Trailer'];
+                    $pegi = $pelicula['Pegi'];
+                    $genero = $pelicula['Genero'];
+                    $duracion = $pelicula['Duracion'];
+                    $id = $pelicula['Id'];
+                    $listaPeliculas[] = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id);
                 }
             }
             $rs->free();
@@ -182,8 +182,8 @@
          */
         private static function insertaPelicula($pelicula) {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query=sprintf("INSERT INTO peliculas(Nombre, Genero, Edad, Duracion, Descripcion, 
-                Imagen, Trailer) VALUES ('%s','%s','%s','%s', '%s', '%s', '%s')",
+            $query=sprintf("INSERT INTO peliculas(Titulo, Genero, Pegi, Duracion, Sinopsis, 
+                Poster, Trailer) VALUES ('%s','%s','%s','%s', '%s', '%s', '%s')",
                 $conn->real_escape_string($pelicula->titulo),
                 $conn->real_escape_string($pelicula->genero),
                 $conn->real_escape_string($pelicula->pegi),
@@ -192,9 +192,9 @@
                 $conn->real_escape_string($pelicula->rutaPoster),
                 $conn->real_escape_string($pelicula->rutaTrailer)
             );
-            if ( $conn->query($query) ) {
+            if ($conn->query($query)) {
                 $id = $conn->insert_id;
-                $usuario->setId($id);
+                $pelicula->setId($id);
                 return $pelicula;
             } 
             else {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2024 a las 21:41:21
+-- Tiempo de generación: 21-03-2024 a las 10:52:21
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -30,10 +30,12 @@ USE `cines`;
 --
 
 CREATE TABLE `cartelera` (
-  `Pelicula` varchar(50) NOT NULL,
+  `Id` int(50) UNSIGNED NOT NULL,
+  `Id_peli` int(50) UNSIGNED NOT NULL,
   `Fecha` date NOT NULL,
   `Hora` time NOT NULL,
-  `Sala` int(2) UNSIGNED NOT NULL,
+  `Id_sala` int(50) UNSIGNED NOT NULL,
+  `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Butacas`)),
   `Visible` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -46,11 +48,11 @@ CREATE TABLE `cartelera` (
 CREATE TABLE `compras` (
   `Id_compra` int(10) UNSIGNED NOT NULL,
   `id_usuario` int(10) UNSIGNED NOT NULL,
-  `Pelicula` varchar(50) NOT NULL,
+  `Id_peli` int(50) UNSIGNED NOT NULL,
   `Fecha` date NOT NULL,
   `Hora` time NOT NULL,
   `Num_entradas_compradas` int(2) NOT NULL,
-  `Estructura` text NOT NULL
+  `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -60,12 +62,13 @@ CREATE TABLE `compras` (
 --
 
 CREATE TABLE `peliculas` (
-  `Nombre` varchar(50) NOT NULL,
+  `Id` int(50) UNSIGNED NOT NULL,
+  `Titulo` varchar(50) NOT NULL,
   `Genero` varchar(20) NOT NULL,
-  `Edad` int(3) NOT NULL,
-  `Duracion` int(3) NOT NULL,
-  `Descripcion` text NOT NULL,
-  `Imagen` text NOT NULL,
+  `Pegi` int(3) UNSIGNED NOT NULL,
+  `Duracion` int(3) UNSIGNED NOT NULL,
+  `Sinopsis` text NOT NULL,
+  `Poster` text NOT NULL,
   `Trailer` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -76,10 +79,11 @@ CREATE TABLE `peliculas` (
 --
 
 CREATE TABLE `salas` (
+  `Id` int(50) UNSIGNED NOT NULL,
   `Num_sala` int(2) UNSIGNED NOT NULL,
   `Num_filas` int(3) NOT NULL,
   `Num_columnas` int(3) NOT NULL,
-  `Estructura` text NOT NULL
+  `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Butacas`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -105,28 +109,29 @@ CREATE TABLE `usuario` (
 -- Indices de la tabla `cartelera`
 --
 ALTER TABLE `cartelera`
-  ADD PRIMARY KEY (`Pelicula`,`Fecha`,`Hora`),
-  ADD KEY `Sala` (`Sala`);
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Sala` (`Id_sala`),
+  ADD KEY `cartelera_fk_peliculas` (`Id_peli`);
 
 --
 -- Indices de la tabla `compras`
 --
 ALTER TABLE `compras`
   ADD PRIMARY KEY (`Id_compra`,`id_usuario`),
-  ADD KEY `Compras_fk_Cartelera` (`Pelicula`,`Fecha`,`Hora`),
+  ADD KEY `Compras_fk_Cartelera` (`Id_peli`,`Fecha`,`Hora`),
   ADD KEY `Compras_fk_Usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `peliculas`
 --
 ALTER TABLE `peliculas`
-  ADD PRIMARY KEY (`Nombre`);
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Indices de la tabla `salas`
 --
 ALTER TABLE `salas`
-  ADD PRIMARY KEY (`Num_sala`);
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Indices de la tabla `usuario`
@@ -139,6 +144,12 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `cartelera`
+--
+ALTER TABLE `cartelera`
+  MODIFY `Id` int(50) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
@@ -148,7 +159,7 @@ ALTER TABLE `compras`
 -- AUTO_INCREMENT de la tabla `salas`
 --
 ALTER TABLE `salas`
-  MODIFY `Num_sala` int(2) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(50) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -164,15 +175,15 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `cartelera`
 --
 ALTER TABLE `cartelera`
-  ADD CONSTRAINT `Cartelera_fk_Peliculas` FOREIGN KEY (`Pelicula`) REFERENCES `peliculas` (`Nombre`),
-  ADD CONSTRAINT `Cartelera_fk_Salas` FOREIGN KEY (`Sala`) REFERENCES `salas` (`Num_sala`);
+  ADD CONSTRAINT `cartelera_fk_peliculas` FOREIGN KEY (`Id_peli`) REFERENCES `peliculas` (`Id`),
+  ADD CONSTRAINT `cartelera_fk_salas` FOREIGN KEY (`Id_sala`) REFERENCES `salas` (`Id`);
 
 --
 -- Filtros para la tabla `compras`
 --
 ALTER TABLE `compras`
-  ADD CONSTRAINT `Compras_fk_Cartelera` FOREIGN KEY (`Pelicula`,`Fecha`,`Hora`) REFERENCES `cartelera` (`Pelicula`, `Fecha`, `Hora`),
-  ADD CONSTRAINT `Compras_fk_Usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `compras_fk_peliculas` FOREIGN KEY (`Id_peli`) REFERENCES `peliculas` (`Id`),
+  ADD CONSTRAINT `compras_fk_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -83,7 +83,7 @@
                     </div>
                 </fieldset>
                 <div>
-                    <button type = "submit" name = "login">Entrar</button>
+                    <button type = "submit" name = "login">Subir</button>
                 </div>
             EOS;
             return $html;
