@@ -109,7 +109,7 @@
             } else {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
-            return false;
+            return null;
         }
 
         /**
@@ -125,10 +125,16 @@
         /**
          * Método que actualiza la información en la bd de una película
          * @param string $id Identificador de la película a modificar
-         * @param Pelicula $pelicula Película con los nuevos datos para modificar
+         * @param string $titulo
+         * @param string $sinopsis
+         * @param string $rutaPoster
+         * @param string $rutaTrailer
+         * @param string $pegi
+         * @param string $genero
+         * @param string $duracion
          */
-        public static function actualizaPelicula($id, $pelicula) {
-            $result = false;
+        public static function actualizaPelicula($id, $titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion) {
+            $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
             $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("UPDATE peliculas SET Titulo = '%s', Genero = '%s', Pegi = '%s', 
                 Duracion = '%s', Sinopsis = '%s', Poster = '%s', Trailer = '%s' WHERE id = '%s'",

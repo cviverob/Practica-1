@@ -7,18 +7,32 @@
      */
     class FormularioPelicula extends Formulario {
 
-        public function __construct() {
+        /**
+         * @param Pelicula $pelicula Película original para modificar, o null
+         * si estamos en el caso de dar de alta
+         */
+        private $pelicula;
+
+        public function __construct($idPelicula = null) {
             parent::__construct('formPelicula', ['urlRedireccion' => RUTA_APP . RUTA_ADMN, 
                 'enctype' => 'multipart/form-data']
             );
+            $this->pelicula = $idPelicula != null ? Pelicula::buscar($idPelicula) : null;
         }
 
         public function generaCamposFormulario(&$datos) {
-            $nombre = $datos['nombre'] ?? '';
-            $sinopsis = $datos['sinopsis'] ?? '';
-            $pegi = $datos['pegi'] ?? '';
-            $genero = $datos['genero'] ?? '';
-            $duracion = $datos['duracion'] ?? '';
+            if ($this->pelicula) {
+                $nombre = $this->pelicula->getTitulo();
+                $sinopsis = $this->pelicula->getSinopsis();
+                $pegi = $this->pelicula->getPegi();
+                $genero = $this->pelicula->getGenero();
+                $duracion = $this->pelicula->getDuracion();
+            }
+            $nombre = $datos['nombre'] ?? $nombre ?? '';
+            $sinopsis = $datos['sinopsis'] ?? $sinopsis ?? '';
+            $pegi = $datos['pegi'] ?? $pegi ?? '';
+            $genero = $datos['genero'] ?? $genero ?? '';
+            $duracion = $datos['duracion'] ?? $duracion ?? '';
             $html = <<<EOS
                 <fieldset>
                     <legend>Datos de la película</legend>
@@ -113,17 +127,27 @@
             }
             $tiposPermitidos = array('image/jpeg', 'image/jpg', 'image/png');
             if (!isset($_FILES['poster']) || $_FILES['poster']['error'] !== UPLOAD_ERR_OK) {
-                $this->errores['poster'] = '';
+                if (!$this->pelicula) {
+                    $this->errores['poster'] = ' :(';
+                }
             }
             else if (!in_array($_FILES['poster']['type'], $tiposPermitidos)) {
                 $this->errores['poster'] = 'El tipo de imagen no es válido. Solo se permiten imágenes JPEG, JPG o PNG.';
             }
+            else {
+                $rutaPoster = $_FILES['poster']['name'];
+            }
             $tiposPermitidos = array('video/mp4');
             if (!isset($_FILES['trailer']) || $_FILES['trailer']['error'] !== UPLOAD_ERR_OK) {
-                $this->errores['trailer'] = '';
+                if (!$this->pelicula) {
+                    $this->errores['trailer'] = ' :(';
+                }
             }
             else if (!in_array($_FILES['trailer']['type'], $tiposPermitidos)) {
                 $this->errores['trailer'] = 'El tipo de vídeo no es válido. Solo se permiten vídeos MP4.';
+            }
+            else {
+                $rutaTrailer = $_FILES['trailer']['name'];
             }
             $genero = trim($datos['genero'] ?? '');
             $genero = filter_var($genero, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -145,16 +169,26 @@
             /* 
                 Función unlink sacada del chatgpt para borrar los archivos subidos
                 en caso de un error posterior.
+                Por otro lado, hacemos la comprobación !isset($rutaPoster)
+                que únicamente saltará si estamos en el estado de modificar y no
+                hemos subido el archivo correspondiente. En cualquier otro caso,
+                se meterá en la función de move_uploaded_file();
             */
             if (count($this->errores) === 0) {
                 // Copiamos los archivos del póster y del tráiler
-                $rutaPoster = $_FILES['poster']['name'];
-                $ruta_destino_poster = RUTA_PSTR .'/' . $rutaPoster;
-                if (move_uploaded_file($_FILES['poster']['tmp_name'], RUTA_RAIZ . $ruta_destino_poster)) {
-                    $rutaTrailer = $_FILES['trailer']['name'];
-                    $ruta_destino_trailer = RUTA_TRL .'/' . $rutaTrailer;
-                    if (move_uploaded_file($_FILES['trailer']['tmp_name'], RUTA_RAIZ . $ruta_destino_trailer)) {
-                        if (Pelicula::crear($nombre, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion)) {
+                if (!isset($rutaPoster) || move_uploaded_file($_FILES['poster']['tmp_name'], RUTA_RAIZ . RUTA_PSTR . '/' . $rutaPoster)) {
+                    if (!isset($rutaTrailer) || move_uploaded_file($_FILES['trailer']['tmp_name'], RUTA_RAIZ . RUTA_TRL . '/' . $rutaTrailer)) {
+                        if ($this->pelicula) {    // Modificar
+                            if (Pelicula::actualizaPelicula($this->idPelicula, $nombre, $sinopsis, 
+                                $rutaPoster ?? $this->pelicula->getRutaPoster(), $rutaTrailer ?? 
+                                $this->pelicula->getRutaTrailer(), $pegi, $genero, $duracion)) {
+                                header('Location: '. RUTA_APP . RUTA_ADMN);
+                            }
+                            else {
+                                $this->errores[] = "Error al modificar la película";
+                            }
+                        }   // Dar de alta
+                        else if (Pelicula::crear($nombre, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion)) {
                             header('Location: '. RUTA_APP . RUTA_ADMN);
                         }
                         else {
@@ -170,16 +204,6 @@
                 }
                 else {
                     $this->errores[] = "Error al subir el póster";
-                }
-                $usuario = Usuario::login($correo, $contra);
-                if (!$usuario) {
-                    $this->errores[] = "El usuario o contraseña no coinciden";
-                }
-                else {
-                    $_SESSION['login'] = true;
-                    $_SESSION['nombre'] = $usuario->getNombre();
-                    $_SESSION['esAdmin'] = $usuario->esAdmin();
-                    header('Location: index.php');
                 }
             }
         }

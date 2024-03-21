@@ -7,5 +7,7 @@
             header('location: ' . RUTA_APP . RUTA_ADMN);
         }
     }
-    echo 'Error al borrar la película';
-    exit();
+    else {
+        echo 'Error al borrar la película';
+        exit();
+    }

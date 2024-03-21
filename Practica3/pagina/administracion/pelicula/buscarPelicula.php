@@ -14,8 +14,7 @@
                 <tr>
                     <td>{$pelicula->getTitulo()}</td>
                     <td>
-                        <form action = 'modificarPelicula.php' method = 'post'>
-                            <input type = 'hidden' name = 'id' value = {$pelicula->getId()}>
+                        <form action = 'modificarPelicula.php?id={$pelicula->getId()}' method = 'post'>
                             <button type = 'submit'>Mod</button>
                         </form>
                     </td>

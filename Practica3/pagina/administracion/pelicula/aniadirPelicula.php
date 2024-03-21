@@ -8,7 +8,7 @@
         $formulario = new es\ucm\fdi\aw\FormularioPelicula();
         $htmlFormularioPelicula = $formulario->gestiona();
         $contenidoPrincipal = <<<EOS
-            <h1>Subir película</h1>
+            <h1>Añadir película</h1>
             $htmlFormularioPelicula
         EOS;
 
