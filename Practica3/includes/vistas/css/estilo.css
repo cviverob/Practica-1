@@ -1,15 +1,27 @@
-header {
-	background-color: #303030;
-	color: white;
-	text-align: left;
+header, footer {
+	background-color: black;
+	color: red;
 }
 
-main {
+header {text-align: left;}
+
+footer {text-align: center;}
+
+h1, h2, p {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: black;
+}
+
+h1, h2 { 
+	font-weight: bold;
 	text-align: center;
 }
 
-footer	 {
-	background-color: #303030;
-	color: white;
-	text-align: center;
-}
+h1 {font-size: 2em;}
+
+h2 {font-size: 1.5em;}
+
+a:link {color: black;}
+
+a:visited, a:hover {color: red;}
+
