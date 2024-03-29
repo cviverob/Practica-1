@@ -104,6 +104,7 @@
         }
 
         public function procesaFormulario(&$datos) {
+            
             $nombre = trim($datos['nombre'] ?? '');
             $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$nombre || empty($nombre)) {
