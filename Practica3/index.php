@@ -2,18 +2,16 @@
     // Este fichero hará la función del menú principal, donde se muestra la cartelera
 
     require_once('includes/config.php');
-    require_once(RUTA_RAIZ . RUTA_PLCL);
 
     $_SESSION['modo'] = "usuario";
 
     $tituloPagina = 'Cartelera';
 
-    $peli = Pelicula::getPeliculas();
+    $peli = es\ucm\fdi\aw\Pelicula::getPeliculas();
     $pintar = '';
-
-    // Función urlencode extraída del chatgpt para evitar problemas con espacios en la URL
     foreach ($peli as $p) {
-        $pintar .= "<a href = " . RUTA_APP . RUTA_CONS_PELI . "?n=" . urlencode($p->getTitulo()) . " ><img src = '". $p->getRutaPoster() ."' width = '150' height = '200'></a>";
+        $pintar .= "<a href = " . RUTA_APP . RUTA_CONS_PELI . "?id=" . $p->getId() . 
+        " ><img src = '". RUTA_APP . RUTA_PSTR . '/' . $p->getRutaPoster() ."' width = '150' height = '200'></a> ";
     }
     $contenidoPrincipal =<<<EOS
         <h1>Cartelera</h1>
