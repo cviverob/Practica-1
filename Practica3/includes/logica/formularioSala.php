@@ -17,7 +17,7 @@
             parent::__construct('formSala', ['urlRedireccion' => RUTA_APP . RUTA_ADMN, 
                 'enctype' => 'multipart/form-data']
             );
-            $this->sala = $idSala != null ? Salas::buscar($idPelicula) : null;
+            $this->sala = $idSala != null ? Salas::buscar($idSala) : null;
         }
 
         //funcion que genera los campos necesarios para el mini formulario de las salas
@@ -28,9 +28,9 @@
                 $num_filas = $this->sala->getNumFilas();
                 $num_columnas = $this->sala->getNumColumnas();
             }
-            $num_sala = $datos['Num_sala'] ?? $nombre ?? '';
-            $num_filas = $datos['Num_filas'] ?? $sinopsis ?? '';
-            $num_columnas = $datos['Num_columnas'] ?? $pegi ?? '';
+            $num_sala = $datos['Num_sala'] ?? $num_sala ?? '';
+            $num_filas = $datos['Num_filas'] ?? $num_filas ?? '';
+            $num_columnas = $datos['Num_columnas'] ?? $num_columnas ?? '';
 
 
             $html = <<<EOS
@@ -43,30 +43,32 @@
             $html .= <<<EOS
                     </div>
                     <div>
-                        <label for = "nombre">Nombre:</label>
-                        <input id = "nombre" type = "text" name = "nombre" value = "$num_sala" />
+                        <label for = "num_sala">Número de Sala: </label>
+                        <input id = "num_sala" type = "text" name = "num_sala" value = "$num_sala" />
             EOS;
             $html .= $this->mostrarError('num_sala');
             $html .= <<<EOS
                     </div>
                     <div>
-                        <label for = "sinopsis">Sinopsis:</label>
-                        <input id = "sinopsis" type = "text" name = "sinopsis" value = "$num_filas" />
+                        <label for = "num_filas">Número de Filas: </label>
+                        <input id = "num_filas" type = "text" name = "num_filas" value = "$num_filas" />
             EOS;
             $html.= $this->mostrarError('num_filas');
             $html .= <<<EOS
                     </div>
                     <div>
-                        <label for = "pegi">Pegi:</label>
-                        <input id = "pegi" type = "text" name = "pegi" value = "$num_columnas" />
+                        <label for = "num_columnas">Número de Columnas: </label>
+                        <input id = "num_columnas" type = "text" name = "num_columnas" value = "$num_columnas" />
             EOS;
             $html .= $this->mostrarError('num_columnas');
             
+
+            /* Esto va a intentar mantenerse en la misma sala, y generar botones como si fueran butacas */
             $html .= <<<EOS
                     </div>
                 </fieldset>
                 <div>
-                    <button type = "submit" name = "login">Crear</button>
+                    <button type = "submit" name = "login">Generar sala</button>
                 </div>
             EOS;
             return $html;
@@ -76,12 +78,15 @@
             
             $num_sala = trim($datos['num_sala'] ?? '');
             $num_sala = filter_var($num_sala, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            //Comprobamos que la edad minima esta entre 0 y 18
+            //Comprobamos que la edad minima esta entre 0 y 18, que sea un número y que no exista esa sala
             if (!$num_sala || empty($num_sala)) {
                 $this->errores['num_sala'] = 'La sala no puede estar vacía';
             }
             else if (!is_numeric($num_sala)) {
                 $this->errores['num_sala'] = 'La sala debe ser un número';
+            }
+            else if (Salas::buscarSalaNum($num_sala)) {
+                $this->errores['num_sala'] = 'La sala ya existe';
             }
 
             $num_filas = trim($datos['num_filas'] ?? '');
@@ -114,14 +119,14 @@
             if (count($this->errores) === 0) {
                 // Copiamos los archivos del póster y del tráiler
                 if ($this->sala) {    // Modificar
-                    if (Salas::actualizaSala($this->idSala, $num_sala, $num_filas, $num_columnas, $butacas)) {
+                    if (Salas::actualizaSala($num_sala, $num_filas, $num_columnas, $butacas, $this->idSala)) {
                         header('Location: '. RUTA_APP . RUTA_ADMN);
                     }
                     else {
                         $this->errores[] = "Error al modificar la sala";
                     }
                 }   // Dar de alta
-                else if (Sala::crear($num_sala, $num_filas, $num_columnas, $butacas)) {
+                else if (Salas::crear($num_sala, $num_filas, $num_columnas, $butacas)) {
                     header('Location: '. RUTA_APP . RUTA_ADMN);
                 }
                 else {  

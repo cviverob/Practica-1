@@ -117,7 +117,7 @@
          * @param string $id Identificador de la película
          */
         public static function borrar($id) {
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("DELETE FROM Peliculas WHERE id = '%s'" , $id);
             return $conn->query($query);
         }

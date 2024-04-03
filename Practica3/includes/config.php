@@ -124,9 +124,10 @@
      * Configuración de la BD
      */
     define('BD_HOST', 'localhost');
+    //define('BD_HOST', 'vm003.db.swarm.test');
     define('BD_NAME', 'cines');
     define('BD_USER', 'cines');
     define('BD_PASS', 'cines');
-    $app = es\ucm\fdi\aw\Aplicacion::getInstance();
+    $app = es\ucm\fdi\aw\aplicacion::getInstance();
     $app->init(['host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS]);
     register_shutdown_function([$app, 'cierraConexion']);
