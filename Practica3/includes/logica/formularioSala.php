@@ -71,6 +71,15 @@
                     <button type = "submit" name = "login">Generar sala</button>
                 </div>
             EOS;
+
+            for($i = 1; $i < $num_columnas; $i++){
+                $contenidoPrincipal .= "<div>";
+                for($j = 1; $j <= $num_filas; $j++){
+                    $contenidoPrincipal .= "<button type = 'button'>$i-$j</button>";
+                }
+                $contenidoPrincipal .= "</div>";
+            }
+
             return $html;
         }
 

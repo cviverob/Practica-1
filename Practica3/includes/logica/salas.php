@@ -143,7 +143,7 @@
         }
 
 
-        private function comprobarAsiento($sala) {
+        private function devolverAsiento($sala) {
             
         }
 
