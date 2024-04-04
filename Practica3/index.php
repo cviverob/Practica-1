@@ -19,3 +19,6 @@
     EOS;
 
     require_once(RUTA_RAIZ . RUTA_PLNT);
+
+    // Hacer lo del trailer
+    // Capturar el error de la sala al meter una sala con un número existente
