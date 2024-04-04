@@ -197,7 +197,7 @@
                 if (!isset($rutaPoster) || move_uploaded_file($_FILES['poster']['tmp_name'], RUTA_RAIZ . RUTA_PSTR . '/' . $rutaPoster)) {
                     if (!isset($rutaTrailer) || move_uploaded_file($_FILES['trailer']['tmp_name'], RUTA_RAIZ . RUTA_TRL . '/' . $rutaTrailer)) {
                         if ($this->pelicula) {    // Modificar
-                            if (Pelicula::actualizaPelicula($this->idPelicula, $nombre, $sinopsis, 
+                            if (Pelicula::actualizaPelicula($this->pelicula->getId(), $nombre, $sinopsis, 
                                 $rutaPoster ?? $this->pelicula->getRutaPoster(), $rutaTrailer ?? 
                                 $this->pelicula->getRutaTrailer(), $pegi, $genero, $duracion)) {
                                 if (isset($rutaPoster) && $rutaPoster != $this->pelicula->getRutaPoster()) {

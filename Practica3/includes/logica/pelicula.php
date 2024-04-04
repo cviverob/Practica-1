@@ -90,7 +90,7 @@
          */
         public static function buscar($id) {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM peliculas WHERE id = '%s'", $conn->real_escape_string($id));
+            $query = sprintf("SELECT * FROM peliculas WHERE Id = '%s'", $conn->real_escape_string($id));
             $rs = $conn->query($query);
             if ($rs) {
                 $pelicula = $rs->fetch_assoc();
@@ -102,7 +102,7 @@
                     $pegi = $pelicula['Pegi'];
                     $genero = $pelicula['Genero'];
                     $duracion = $pelicula['Duracion'];
-                    $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
+                    $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id);
                     $rs->free();
                     return $pelicula;
                 }
@@ -118,7 +118,7 @@
          */
         public static function borrar($id) {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM Peliculas WHERE id = '%s'" , $id);
+            $query = sprintf("DELETE FROM Peliculas WHERE Id = '%s'" , $id);
             return $conn->query($query);
         }
 
@@ -134,10 +134,10 @@
          * @param string $duracion
          */
         public static function actualizaPelicula($id, $titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion) {
-            $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
+            $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id);
             $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("UPDATE peliculas SET Titulo = '%s', Genero = '%s', Pegi = '%s', 
-                Duracion = '%s', Sinopsis = '%s', Poster = '%s', Trailer = '%s' WHERE id = '%s'",
+                Duracion = '%s', Sinopsis = '%s', Poster = '%s', Trailer = '%s' WHERE Id = '%s'",
                 $conn->real_escape_string($pelicula->titulo),
                 $conn->real_escape_string($pelicula->genero),
                 $conn->real_escape_string($pelicula->pegi),
@@ -145,7 +145,7 @@
                 $conn->real_escape_string($pelicula->sinopsis),
                 $conn->real_escape_string($pelicula->rutaPoster),
                 $conn->real_escape_string($pelicula->rutaTrailer),
-                $conn->real_escape_string($id)
+                $conn->real_escape_string($pelicula->id)
             );
             if ($conn->query($query)) {
                 return $pelicula;
