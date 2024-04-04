@@ -21,8 +21,8 @@
     }
     for($i = 0; $i < $datos->getNumFilas(); $i++){
         $contenidoPrincipal .= "<div>";
-        for($j = 0; $j < $datos->getNumColumnas(); $j++){
-            $contenidoPrincipal .= "<button type = 'button'>$i-$j</button>";
+        for($j = 1; $j <= 10; $j++){
+            $contenidoPrincipal .= "<button type = 'button' class = 'botoneee'>$i-$j</button>";
         }
         $contenidoPrincipal .= "</div>";
     }

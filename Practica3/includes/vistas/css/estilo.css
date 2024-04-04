@@ -1,3 +1,5 @@
+
+
 header {
 	background-color: #303030;
 	color: white;
@@ -9,7 +11,92 @@ main {
 }
 
 footer	 {
-	background-color: #303030;
+	background-color: blueviolet;
 	color: white;
 	text-align: center;
+}
+
+
+/*esto va a ser el contenido principal de la pagina web
+*/
+body {
+    background-color: bisque; 
+    color: blue; 
+}
+
+ .pelicula{
+	background-color: darkgoldenrod; 
+    color: gold; 
+
+} 
+
+.pelicula p{
+	font-weight: bold;
+}
+
+
+article{
+	background-color: darkgray; 
+}
+
+button.seleccionar{
+	color: white;
+    background-color: #4CAF50; /* Verde */
+	width: 150px;
+    height: 50px;
+    border-radius: 10px;
+	border: 2px solid #4CAF50; /* Borde sólido verde */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra */
+    transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+}
+
+ button.seleccionar:hover {
+    background-color: #45a049; /* Cambio de color al pasar el ratón */
+}
+
+.botoneee{
+	width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+	/* background-image: url('../img/ElmoCines'); */
+	
+    background-image: url("<?php echo RUTA_APP . RUTA_IMGS ?>/ElmoCines.png");
+	
+    background-size: cover; /* Ajusta la imagen para que cubra todo el fondo */
+    background-repeat: no-repeat; /* Evita que se repita la imagen */
+    /* Otras propiedades de estilo del botón */
+	
+    transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+}
+
+button.botoneee:hover {
+    background-color: darkgray; /* Cambio de color al pasar el ratón */
+}
+
+button.boton_registro{
+	width: 150px;
+    height: 50px;
+    border: #45a049;
+	font-weight: bold;
+	background-color: blanchedalmond;
+	color: black;
+    border-radius: 500px;
+
+    /*ESTO ESTA BIEEEEEEEEEEEEEEEEEEEEEEEEN
+	background-image: url('../../../img/ElmoCines.png');
+	*/
+    background-size: cover; /* Ajusta la imagen para que cubra todo el fondo */
+    background-repeat: no-repeat; /* Evita que se repita la imagen */
+    /* Otras propiedades de estilo del botón */
+}
+
+
+.pelisCartelera{
+    
+        border: 20px solid black; /* Borde sólido negro de 2px */
+        margin: 10px; /* Márgenes de 10px en todos los lados */
+        /*padding: 50px; /* Relleno de 5px dentro del borde */
+        /* Otras propiedades de estilo */
+    
 }

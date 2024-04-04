@@ -11,11 +11,11 @@
     $pintar = '';
     foreach ($peli as $p) {
         $pintar .= "<a href = " . RUTA_APP . RUTA_CONS_PELI . "?id=" . $p->getId() . 
-        " ><img src = '". RUTA_APP . RUTA_PSTR . '/' . $p->getRutaPoster() ."' width = '150' height = '200'></a> ";
+        " ><img src = '". RUTA_APP . RUTA_PSTR . '/' . $p->getRutaPoster() ."' width = '150' height = '200' class = 'pelisCartelera'></a> ";
     }
     $contenidoPrincipal =<<<EOS
-        <h1>Cartelera</h1>
+        <h1 class = "texto">Cartelera</h1>
         $pintar
     EOS;
-
+    
     require_once(RUTA_RAIZ . RUTA_PLNT);
