@@ -13,18 +13,18 @@
     $trailer = RUTA_APP . RUTA_TRL . '/' . $pelicula->getRutaTrailer();
     $contenidoPrincipal = <<< EOS
         <h1>{$pelicula->getTitulo()}</h1>
-        <div>
+        <div class = "pelicula">
             <img src = $poster alt = 'Póster de la película' width = '150' height = '200'>
             <video width = "320" height = "240" controls>
                 <source src = $trailer type = "video/mp4">
                 Tu navegador no soporta este tipo de vídeo
             </video>
-        </div>
         <p> Sinopsis: {$pelicula->getSinopsis()} </p>
         <p> Edad mínima: {$pelicula->getPegi()} </p>
         <p> Género:  {$pelicula->getGenero()} </p>
         <p> Duración: {$pelicula->getDuracion()} minutos </p>
-        <a href  = "$ruta_selc_but"><button type = 'button'>Seleccionar butacas</button></a>
+        </div>
+        <a href  = "$ruta_selc_but"><button type = 'button' class = "seleccionar">Seleccionar butacas</button></a>
     EOS;
 
     require_once(RUTA_RAIZ . RUTA_PLNT);

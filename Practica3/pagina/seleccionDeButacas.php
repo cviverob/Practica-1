@@ -13,7 +13,7 @@
     for($i = 1; $i < 10; $i++){
         $contenidoPrincipal .= "<div>";
         for($j = 1; $j <= 10; $j++){
-            $contenidoPrincipal .= "<button type = 'button'>$i-$j</button>";
+            $contenidoPrincipal .= "<button type = 'button' class = 'botoneee'>$i-$j</button>";
         }
         $contenidoPrincipal .= "</div>";
     }

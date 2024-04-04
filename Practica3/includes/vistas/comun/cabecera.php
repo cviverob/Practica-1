@@ -4,7 +4,9 @@
         
     <?php
         if (!isset($_SESSION["login"]) || !$_SESSION["login"]) {
-            echo "Usuario desconocido. <a href = " . RUTA_APP . RUTA_REG . "><button type = 'button'>Registrarse</button></a>";
+        //     echo "Usuario desconocido. <a href = " . RUTA_APP . RUTA_REG . "><button type = 'button' class ='boton_registro'>Registrarse</button></a>";
+        // 
+        echo 'Usuario desconocido. <a href="' . RUTA_APP . RUTA_REG . '" class="botoncito">Registrarse</a>';
         }
         else {
             echo "Bienvenido " . $_SESSION["nombre"] . " <a href= " . RUTA_APP . RUTA_LGOUT . "><button type = 'button'>Salir</button></a>";

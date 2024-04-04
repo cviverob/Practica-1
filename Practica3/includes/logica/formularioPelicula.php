@@ -15,8 +15,7 @@
 
         public function __construct($idPelicula = null) {
             parent::__construct('formPelicula', ['urlRedireccion' => RUTA_APP . RUTA_ADMN, 
-                'enctype' => 'multipart/form-data']
-            );
+                'enctype' => 'multipart/form-data']);
             $this->pelicula = $idPelicula != null ? Pelicula::buscar($idPelicula) : null;
         }
 
