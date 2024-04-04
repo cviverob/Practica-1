@@ -64,14 +64,31 @@
                     <div>
                         <label for = "poster">Póster:</label>
                         <input id = "poster" type = "file" name = "poster" />
-                        <div></div>
+            EOS;
+            if ($this->pelicula) {
+                $rutaPoster = RUTA_APP . RUTA_PSTR . "/" . $this->pelicula->getRutaPoster();
+                $html .= <<<EOS
+                                <a href = $rutaPoster>Póster actual</a>
+                EOS;
+            }
+            $html .= <<<EOS
+                        <div>
             EOS;
             $html.= $this->mostrarError('poster');
             $html .= <<<EOS
                     </div>
+                    </div>
                     <div>
                         <label for = "trailer">Tráiler:</label>
                         <input id = "trailer" type = "file" name = "trailer" />
+            EOS;
+            if ($this->pelicula) {
+                $rutaTrailer = RUTA_APP . RUTA_TRL . "/" . $this->pelicula->getRutaTrailer();
+                $html .= <<<EOS
+                                <a href = $rutaTrailer>Trailer actual</a>
+                EOS;
+            }
+            $html .= <<<EOS
                         <div>
             EOS;
             $html .= $this->mostrarError('trailer');
@@ -179,22 +196,24 @@
                 if (!isset($rutaPoster) || move_uploaded_file($_FILES['poster']['tmp_name'], RUTA_RAIZ . RUTA_PSTR . '/' . $rutaPoster)) {
                     if (!isset($rutaTrailer) || move_uploaded_file($_FILES['trailer']['tmp_name'], RUTA_RAIZ . RUTA_TRL . '/' . $rutaTrailer)) {
                         if ($this->pelicula) {    // Modificar
-                            if (Pelicula::actualizaPelicula($this->idPelicula, $nombre, $sinopsis, 
+                            if (Pelicula::actualizaPelicula($this->pelicula->getId(), $nombre, $sinopsis, 
                                 $rutaPoster ?? $this->pelicula->getRutaPoster(), $rutaTrailer ?? 
                                 $this->pelicula->getRutaTrailer(), $pegi, $genero, $duracion)) {
-                                header('Location: '. RUTA_APP . RUTA_ADMN);
+                                if (isset($rutaPoster) && $rutaPoster != $this->pelicula->getRutaPoster()) {
+                                    unlink(RUTA_RAIZ . RUTA_PSTR . "/" . $this->pelicula->getRutaPoster()); 
+                                }
+                                if (isset($rutaTrailer) && $rutaTrailer != $this->pelicula->getRutaTrailer()) {
+                                    unlink(RUTA_RAIZ . RUTA_TRL . "/" . $this->pelicula->getRutaTrailer());
+                                }
                             }
                             else {
                                 $this->errores[] = "Error al modificar la película";
                             }
                         }   // Dar de alta
-                        else if (Pelicula::crear($nombre, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion)) {
-                            header('Location: '. RUTA_APP . RUTA_ADMN);
-                        }
-                        else {
+                        else if (!Pelicula::crear($nombre, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion)) {
                             unlink(RUTA_RAIZ . $ruta_destino_poster); 
                             unlink(RUTA_RAIZ . $ruta_destino_trailer);   
-                            $this->errores[] = "Error al subir la película";
+                            $this->errores[] = "Error al subir la película"; 
                         }
                     }
                     else {

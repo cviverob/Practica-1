@@ -111,7 +111,7 @@
          */
         private static function insertaUsuario($usuario) {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query=sprintf("INSERT INTO usuario(nombre, email, contraseña, edad, rol) VALUES ('%s', '%s', '%s', '%s', '%s')"
+            $query=sprintf("INSERT INTO usuario(nombre, email, contraseña, edad, rol) VALUES ('%s', '%s', '%s', '%d', '%s')"
                 , $conn->real_escape_string($usuario->nombre)
                 , $conn->real_escape_string($usuario->correo)
                 , $conn->real_escape_string($usuario->contraseña)
