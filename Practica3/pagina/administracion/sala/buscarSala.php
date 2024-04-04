@@ -6,7 +6,7 @@
     if (comprobarPermisos($_SESSION["esAdmin"])) {
         $tituloPagina = 'Buscar Salas';
 
-        $listaSalas = es\ucm\fdi\aw\Salas::getSalas();
+        $listaSalas = es\ucm\fdi\aw\salas::getSalas();
         $pintar = '';
         
         foreach ($listaSalas as $salas) {

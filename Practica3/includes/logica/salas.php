@@ -1,7 +1,7 @@
 <?php
     namespace es\ucm\fdi\aw;
 
-    class Salas {
+    class salas {
 
         /* Atributos del programa */
 
@@ -30,7 +30,7 @@
 
         //funcion para buscar sala por su numero de sala
         public static function buscarSalaNum($num) {
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM Salas WHERE Num_sala = '%d'",  $conn->real_escape_string($num));
             $rs = $conn->query($query);
             if ($rs) {
@@ -52,7 +52,7 @@
         }
 
         public static function buscar($id) {
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM salas WHERE id = '%s'", $conn->real_escape_string($id));
             $rs = $conn->query($query);
             if ($rs) {
@@ -74,13 +74,13 @@
         }
 
         public static function borrar($id) {
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("DELETE FROM Salas WHERE id = '%s'" , $id);
             return $conn->query($query);
         }
 
         public static function getSalas() {
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query = "SELECT * FROM salas";
             $rs = $conn->query($query);
             $listaSalas = array();
@@ -125,7 +125,7 @@
         /* Funciones de la BD */
 
         private static function insertaSala ($sala) {
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query=sprintf("INSERT INTO Salas(Num_sala, Num_filas, Num_columnas, Butacas) VALUES ('%s','%s','%s','1')",
                 $conn->real_escape_string($sala->num_sala),
                 $conn->real_escape_string($sala->num_filas),

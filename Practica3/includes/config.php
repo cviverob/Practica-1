@@ -27,7 +27,6 @@
     define('RUTA_PLCL', RUTA_LGC . '/peliculas.php');
     define('RUTA_SALA', RUTA_LGC . '/salas.php');
     define('RUTA_USU', RUTA_LGC . '/usuarios.php');
-    define('RUTA_BD', RUTA_LGC . '/BD.php');
     define('RUTA_FORM_LGIN', RUTA_LGC . '/formularioLogin.php');
     define('RUTA_FORM_REG', RUTA_LGC . '/formularioRegistro.php');
     define('RUTA_FORM_PLCL', RUTA_LGC . '/formularioPelicula.php');
