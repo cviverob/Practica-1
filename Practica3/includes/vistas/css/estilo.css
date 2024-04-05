@@ -1,9 +1,16 @@
-
-
+/*
+ARCHIVO: plantilla.php
+         css de la plantilla como tal que se va a estar compartienod en todas las paginas del proyecto
+*/
 header {
-	background-color: #303030;
-	color: white;
-	text-align: left;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333; /* Cambia esto al color que desees */
+    color: white;
+    padding: 10px 20px; /* Ajusta el padding según sea necesario */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
 
 main {
@@ -11,21 +18,104 @@ main {
 }
 
 footer	 {
-	background-color: blueviolet;
+	background-color: peru;
 	color: white;
 	text-align: center;
 }
 
 
-/*esto va a ser el contenido principal de la pagina web
-*/
 body {
+    margin-top: 60px;
     background-color: bisque; 
     color: blue; 
 }
 
+article{
+	background-color: darkgray; 
+}
+
+/*
+ARCHIVO: cabecera.php:
+    LogUserButton = boton de arriba que dice Logearse
+    RegisterUserButton = boton de arriba que dice Registrarse. Tambien lo he utilizado en administracion.php y en formularioPelicula.php
+
+*/
+
+.LogUserButton {
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
+    color: #303030;
+    background-color: beige;
+    border: 2px solid burlywood;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.LogUserButton:hover {
+    background-color: burlywood;
+}
+
+.RegisterUserButton {
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
+    color: white;
+    background-color: #4CAF50;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.RegisterUserButton:hover {
+    background-color: #45a049;
+}
+
+.ExitUserButton {
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
+    color: white;
+    background-color: crimson;
+    border: 2px solid crimson;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.ExitUserButton:hover {
+    background-color: darkred;
+}
+
+.fotoElmoCines {
+    width: 100%; /* Ancho máximo de la imagen */
+    height: auto; /* Altura ajustada automáticamente */
+}
+
+@media screen and (max-width: 400px) {
+    .fotoElmoCines {
+        display: none; /* Ocultar la imagen cuando el ancho de la ventana sea menor que el 40% */
+    }
+}
+
+/*
+ARCHIVO: index.php
+         CSS para las peliculas del menu principal*/
+.pelisCartelera{
+    
+    border: 20px solid black; /* Borde sólido negro de 2px */
+    margin: 10px; /* Márgenes de 10px en todos los lados */
+    /*padding: 50px;*/
+
+}
+
+
+/*
+ARCHIVO: consultapelicula.php
+         css de las peliculas cuando estas visitando una concreta que has seleccionado de la cartelera
+
+*/
  .pelicula{
-	background-color: darkgoldenrod; 
+	background-color: #303030; 
     color: gold; 
 
 } 
@@ -34,69 +124,69 @@ body {
 	font-weight: bold;
 }
 
-
-article{
-	background-color: darkgray; 
-}
-
-button.seleccionar{
+.seleccionarPelicula{
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
 	color: white;
-    background-color: #4CAF50; /* Verde */
-	width: 150px;
-    height: 50px;
-    border-radius: 10px;
-	border: 2px solid #4CAF50; /* Borde sólido verde */
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra */
-    transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+    background-color: dodgerblue;
+    border-radius: 100px;
+	border: 2px solid darkblue;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
 }
 
- button.seleccionar:hover {
-    background-color: #45a049; /* Cambio de color al pasar el ratón */
+.seleccionarPelicula:hover {
+    background-color: darkblue;
 }
 
-.botoneee{
+
+/*
+ARCHIVO: seleccionDeButacas.php
+         css para la vista de las butacas de una pelicula y una sesion concreta
+
+*/
+.butaca{
 	width: 150px;
     height: 50px;
     border: none;
     border-radius: 5px;
-	/* background-image: url('../img/ElmoCines'); */
-	
-    background-image: url("<?php echo RUTA_APP . RUTA_IMGS ?>/ElmoCines.png");
-	
-    background-size: cover; /* Ajusta la imagen para que cubra todo el fondo */
-    background-repeat: no-repeat; /* Evita que se repita la imagen */
-    /* Otras propiedades de estilo del botón */
-	
-    transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+	/* background-image: url('../img/ElmoCines'); 
+    background-size: cover;
+    background-repeat: no-repeat;*/ 
 }
 
-button.botoneee:hover {
-    background-color: darkgray; /* Cambio de color al pasar el ratón */
+button.butaca:hover {
+    background-color: darkgray;
 }
 
-button.boton_registro{
-	width: 150px;
-    height: 50px;
-    border: #45a049;
-	font-weight: bold;
-	background-color: blanchedalmond;
-	color: black;
-    border-radius: 500px;
+/*
+ARCHIVO: formulario.php
+         css para la vista de los distintos formularios que hay en el proyecto, aun no se si va a haber mas de un tipo de formulario
+*/
 
-    /*ESTO ESTA BIEEEEEEEEEEEEEEEEEEEEEEEEN
-	background-image: url('../../../img/ElmoCines.png');
-	*/
-    background-size: cover; /* Ajusta la imagen para que cubra todo el fondo */
-    background-repeat: no-repeat; /* Evita que se repita la imagen */
-    /* Otras propiedades de estilo del botón */
+.formulario{
+  color: black;
+  width: 80%;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: burlywood;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-.pelisCartelera{
-    
-        border: 20px solid black; /* Borde sólido negro de 2px */
-        margin: 10px; /* Márgenes de 10px en todos los lados */
-        /*padding: 50px; /* Relleno de 5px dentro del borde */
-        /* Otras propiedades de estilo */
-    
-}
+.Entrar { /*por alguna extraña razon no me hace caso, no pinta los css del boton, sale predeterrminado*/
+    width: 20%;
+    padding: 10px;
+    background-color: darkorange;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Entrar:hover {
+    background-color: chocolate;
+  }

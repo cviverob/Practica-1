@@ -63,7 +63,7 @@
                     </div>
                     <div>
                         <label for = "poster">Póster:</label>
-                        <input id = "poster" type = "file" name = "poster" />
+                        <input id = "poster" type = "file" name = "poster"/>
             EOS;
             if ($this->pelicula) {
                 $rutaPoster = RUTA_APP . RUTA_PSTR . "/" . $this->pelicula->getRutaPoster();
@@ -113,7 +113,7 @@
                     </div>
                 </fieldset>
                 <div>
-                    <button type = "submit" name = "login">Subir</button>
+                    <button type = "submit" name = "login" class ="RegisterUserButton">Subir</button>
                 </div>
             EOS;
             return $html;

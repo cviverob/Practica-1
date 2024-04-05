@@ -15,13 +15,13 @@
                     <td>{$pelicula->getTitulo()}</td>
                     <td>
                         <form action = 'modificarPelicula.php?id={$pelicula->getId()}' method = 'post'>
-                            <button type = 'submit'>Mod</button>
+                            <button type = 'submit' class = 'RegisterUserButton'>Mod</button>
                         </form>
                     </td>
                     <td>
                         <form action = 'borrarPelicula.php' method = 'post'>
                             <input type = 'hidden' name = 'id' value = {$pelicula->getId()}>
-                            <button type = 'submit'>Elim</button>
+                            <button type = 'submit'class = 'ExitUserButton  '>Elim</button>
                         </form>
                     </td>
                 </tr>";

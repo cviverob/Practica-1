@@ -14,15 +14,19 @@
         $ruta_and_sal = RUTA_APP . RUTA_AND_SALA;
         $ruta_bsc_sal = RUTA_APP . RUTA_BSC_SALA;
         $contenidoPrincipal = <<< EOS
-            <h2>Gestión de películas<h2>
-            <a href = "$ruta_and_pel"><button type = 'button'>Añadir</button></a>
-            <a href = "$ruta_bsc_pel"><button type = 'button'>Buscar</button></a>
-            <h2>Gestión de cartelera<h2>
-            <a href = "$ruta_and_ses"><button type = 'button'>Añadir</button></a>
-            <a href = "$ruta_bsc_ses"><button type = 'button'>Buscar</button></a>
-            <h2>Gestión de salas<h2>
-            <a href = "$ruta_and_sal"><button type = 'button'>Añadir</button></a>
-            <a href = "$ruta_bsc_sal"><button type = 'button'>Buscar</button></a>
+
+            <h2>Gestión de películas</h2>
+            <a href="$ruta_and_pel" class="RegisterUserButton">Añadir</a>
+            <a href="$ruta_bsc_pel" class="RegisterUserButton">Buscar</a>
+
+            <h2>Gestión de cartelera</h2>
+            <a href="$ruta_and_ses" class="RegisterUserButton">Añadir</a>
+            <a href="$ruta_bsc_ses" class="RegisterUserButton">Buscar</a>
+
+            <h2>Gestión de salas</h2>
+            <a href="$ruta_and_sal" class="RegisterUserButton">Añadir</a>
+            <a href="$ruta_bsc_sal" class="RegisterUserButton">Buscar</a>
+
             <p></p>
         EOS;
         

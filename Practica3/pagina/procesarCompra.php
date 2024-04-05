@@ -9,7 +9,7 @@
         $contenidoPrincipal = <<< EOS
         <h1>Error:</h1>
         <p>Debes estar registrado para realizar la compra</p>
-        <a href = "$ruta_reg"><button type = "button">Registrarse</button></a>
+        <a href = "$ruta_reg"><button type = "button" class = 'RegisterUserButton'>Registrarse</button></a>
         EOS;
     }/*
     else if (Algún error al seleccionar las butacas) {
@@ -22,7 +22,7 @@
             <h1>Compra efectuada</h1>
             <p>Puedes consultar en tu perfil las entradas o descargarlas aquí</p>
             <button type = "button">Descargar entradas</button>
-            <a href = "$ruta_indx"><button type = 'button'>Volver al menú de principal</button></a>
+            <a href = "$ruta_indx"><button type = 'button' class = 'RegisterUserButton'>Volver al menú de principal</button></a>
         EOS;
     }
 

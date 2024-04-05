@@ -55,7 +55,7 @@
          */
         public function __construct($idForm, $opciones) {
             $opcionesPorDefecto = array('action' => null, 'method' => 'POST', 
-                'class' => 'pruebaformulario', 'enctype' => null, 'urlRedireccion' => null);
+                'class' => 'Formulario', 'enctype' => null, 'urlRedireccion' => null);
             $opciones = array_merge($opcionesPorDefecto, $opciones); // Agrega las opciones por defecto a las pasadas por parámetro
             $this->idForm = $idForm;
             $this->action = $opciones['action'];

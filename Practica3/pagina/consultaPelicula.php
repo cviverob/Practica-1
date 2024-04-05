@@ -24,7 +24,7 @@
         <p> Género:  {$pelicula->getGenero()} </p>
         <p> Duración: {$pelicula->getDuracion()} minutos </p>
         </div>
-        <a href  = "$ruta_selc_but"><button type = 'button' class = "seleccionar">Seleccionar butacas</button></a>
+        <a href="$ruta_selc_but" class="seleccionarPelicula">Seleccionar butacas</a>
     EOS;
 
     require_once(RUTA_RAIZ . RUTA_PLNT);
