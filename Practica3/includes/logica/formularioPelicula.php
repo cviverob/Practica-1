@@ -8,8 +8,7 @@
     class FormularioPelicula extends Formulario {
 
         /**
-         * @param Pelicula $pelicula Película original para modificar, o null
-         * si estamos en el caso de dar de alta
+         * Película original para modificar, o null si estamos en el caso de dar de alta
          */
         private $pelicula;
 

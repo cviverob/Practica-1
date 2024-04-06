@@ -89,13 +89,8 @@
          * @param string $id Identificador de la película
          */
         public static function buscar($id) {
-<<<<<<< HEAD
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM peliculas WHERE id = '%s'", $conn->real_escape_string($id));
-=======
-            $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM peliculas WHERE Id = '%s'", $conn->real_escape_string($id));
->>>>>>> 4224159e4408296b540749ef924fedbecd6dd9dd
             $rs = $conn->query($query);
             if ($rs) {
                 $pelicula = $rs->fetch_assoc();
@@ -122,13 +117,8 @@
          * @param string $id Identificador de la película
          */
         public static function borrar($id) {
-<<<<<<< HEAD
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("DELETE FROM Peliculas WHERE id = '%s'" , $id);
-=======
-            $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM Peliculas WHERE Id = '%s'" , $id);
->>>>>>> 4224159e4408296b540749ef924fedbecd6dd9dd
             return $conn->query($query);
         }
 
@@ -144,13 +134,8 @@
          * @param string $duracion
          */
         public static function actualizaPelicula($id, $titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion) {
-<<<<<<< HEAD
             $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
             $conn = aplicacion::getInstance()->getConexionBd();
-=======
-            $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id);
-            $conn = Aplicacion::getInstance()->getConexionBd();
->>>>>>> 4224159e4408296b540749ef924fedbecd6dd9dd
             $query = sprintf("UPDATE peliculas SET Titulo = '%s', Genero = '%s', Pegi = '%s', 
                 Duracion = '%s', Sinopsis = '%s', Poster = '%s', Trailer = '%s' WHERE Id = '%s'",
                 $conn->real_escape_string($pelicula->titulo),

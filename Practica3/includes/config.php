@@ -30,6 +30,8 @@
     define('RUTA_FORM_LGIN', RUTA_LGC . '/formularioLogin.php');
     define('RUTA_FORM_REG', RUTA_LGC . '/formularioRegistro.php');
     define('RUTA_FORM_PLCL', RUTA_LGC . '/formularioPelicula.php');
+    define('RUTA_FORM_SALA', RUTA_LGC . '/formularioSala.php');
+    define('RUTA_FORM_BUTC', RUTA_LGC . '/formularioButacas.php');
     define('RUTA_COMP_PERM', RUTA_LGC . '/comprobarPermisos.php');
     // includes/vistas
     define('RUTA_VSTA', RUTA_INCL . '/vistas');
@@ -130,3 +132,9 @@
     $app = es\ucm\fdi\aw\aplicacion::getInstance();
     $app->init(['host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS]);
     register_shutdown_function([$app, 'cierraConexion']);
+
+    /**
+     * Constantes del programa
+     */
+    define("MAX_FILAS", 50);
+    define("MAX_COLS", 50);

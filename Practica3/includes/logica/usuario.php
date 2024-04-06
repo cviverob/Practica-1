@@ -110,13 +110,8 @@
          * Función que inserta un usuario en la bd
          */
         private static function insertaUsuario($usuario) {
-<<<<<<< HEAD
             $conn = aplicacion::getInstance()->getConexionBd();
             $query=sprintf("INSERT INTO usuario(nombre, email, contraseña, edad, rol) VALUES ('%s', '%s', '%s', '%s', '%s')"
-=======
-            $conn = Aplicacion::getInstance()->getConexionBd();
-            $query=sprintf("INSERT INTO usuario(nombre, email, contraseña, edad, rol) VALUES ('%s', '%s', '%s', '%d', '%s')"
->>>>>>> 4224159e4408296b540749ef924fedbecd6dd9dd
                 , $conn->real_escape_string($usuario->nombre)
                 , $conn->real_escape_string($usuario->correo)
                 , $conn->real_escape_string($usuario->contraseña)
