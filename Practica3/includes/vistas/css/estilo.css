@@ -17,17 +17,40 @@ main {
 	text-align: center;
 }
 
-footer	 {
-	background-color: #45a049;
-	color: white;
-	text-align: center;
+footer {
+    background-color: #333; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    padding: 20px; /* Espaciado interno */
+    text-align: center; /* Alineación centrada */
+    position: fixed;
+    width: 100%;
+    left: 0;
 }
 
+/* Estilo para el texto principal del footer */
+footer h3 {
+    font-size: 20px; /* Tamaño de fuente */
+    margin-bottom: 10px; /* Margen inferior */
+}
+
+/* Estilo para los enlaces del footer */
+footer a {
+    color: #fff; /* Color del texto de los enlaces */
+    text-decoration: none; /* Sin subrayado */
+    margin: 0 10px; /* Margen horizontal entre enlaces */
+    transition: color 0.3s ease; /* Transición suave del color de texto */
+}
+
+/* Estilo para los enlaces del footer al pasar el ratón */
+footer a:hover {
+    color: dodgerblue; /* Cambio de color al pasar el ratón */
+}
 
 body {
     margin-top: 60px;
     background-color: bisque; 
-    color: blue; 
+    color: black; 
+    padding: 10px 20px;
 }
 
 article{
@@ -101,7 +124,7 @@ ARCHIVO: cabecera.php:
         height: auto; /* Mantener la proporción de la altura */
     }
 
-    .ExitUserButton, .RegisterUserButton {
+    .ExitUserButton, .RegisterUserButton, .LogUserButton {
         padding: 2px 8px; /* Ajustar el padding aún más para pantallas pequeñas */
         font-size: 10px; /* Reducir aún más el tamaño de fuente */
     }
@@ -172,7 +195,7 @@ ARCHIVO: formulario.php
          css para la vista de los distintos formularios que hay en el proyecto, aun no se si va a haber mas de un tipo de formulario
 */
 
-.formulario{
+.Formulario{
   color: black;
   width: 80%;
   max-width: 600px;
@@ -180,7 +203,22 @@ ARCHIVO: formulario.php
   padding: 20px;
   background-color: burlywood;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.Formulario div{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.Formulario div label{
+    width: 100px; /* Ancho deseado para cada div */
+    text-align: left; /* Alineación del texto a la izquierda */
+}
+
+.Formulario legend{
+	font-weight: bold;
 }
 
 .Entrar { /*por alguna extraña razon no me hace caso, no pinta los css del boton, sale predeterrminado*/

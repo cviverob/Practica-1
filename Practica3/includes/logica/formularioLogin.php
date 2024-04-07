@@ -38,9 +38,7 @@
             $html .= <<<EOS
                     </div>
                 </fieldset>
-                <div>
                     <button type = "submit" name = "login" class = "Entrar">Entrar</button>
-                </div>
             EOS;
             return $html;
         }

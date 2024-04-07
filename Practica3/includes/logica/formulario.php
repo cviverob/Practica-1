@@ -60,7 +60,7 @@
             $this->idForm = $idForm;
             $this->action = $opciones['action'];
             $this->method = $opciones['method'];
-            $this->classAtt = $opciones['class'];
+            $this->class = $opciones['class'];
             $this->enctype  = $opciones['enctype'];
             $this->urlRedireccion = $opciones['urlRedireccion'];
             if (!$this->action) { // Si no se establece una url, se usa la misma en la que ya se encuentra el usuario
@@ -164,7 +164,7 @@
          * campos del formulario. De no existir, estos estarán vacíos
          */
         protected function generaFormulario(&$datos = array()) {
-            $classAtt = $this->classAtt != null ? "class=\"{$this->classAtt}\"" : '';
+            $classAtt = $this->class != null ? "class=\"{$this->class}\"" : '';
             $enctypeAtt = $this->enctype != null ? "enctype=\"{$this->enctype}\"" : '';
 
             $htmlForm = <<<EOS
