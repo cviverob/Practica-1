@@ -18,7 +18,7 @@ main {
 }
 
 footer	 {
-	background-color: peru;
+	background-color: #45a049;
 	color: white;
 	text-align: center;
 }
@@ -95,19 +95,26 @@ ARCHIVO: cabecera.php:
     .fotoElmoCines {
         display: none; /* Ocultar la imagen cuando el ancho de la ventana sea menor que el 40% */
     }
+
+    .fotoElmo img {
+        width: 50px; /* Reducir el tamaño de la imagen */
+        height: auto; /* Mantener la proporción de la altura */
+    }
+
+    .ExitUserButton, .RegisterUserButton {
+        padding: 2px 8px; /* Ajustar el padding aún más para pantallas pequeñas */
+        font-size: 10px; /* Reducir aún más el tamaño de fuente */
+    }
 }
 
 /*
 ARCHIVO: index.php
          CSS para las peliculas del menu principal*/
-.pelisCartelera{
-    
+ .pelisCartelera{
     border: 20px solid black; /* Borde sólido negro de 2px */
-    margin: 10px; /* Márgenes de 10px en todos los lados */
-    /*padding: 50px;*/
-
+     margin: 10px; /* Márgenes de 10px en todos los lados */
+     /*padding: 50px;*/
 }
-
 
 /*
 ARCHIVO: consultapelicula.php
