@@ -10,19 +10,19 @@
         <div>
     EOS;
 
-    $datos = es\ucm\fdi\aw\salas::buscarSalaNum(1);
-    $contenidoPrincipal .= "<h2> Sala </h2>" . $datos->getNumSala();
+    $datos = es\ucm\fdi\aw\salas::buscar(13);
+    $contenidoPrincipal .= "<h2> Sala </h2>";
     
     $cont = 0;
-    for($j = 0; $j < $datos->getNumColumnas(); $j++) {
+    /*for($j = 0; $j < $datos->getNumColumnas(); $j++) {
         $cont++;
         $contenidoPrincipal .= $cont . " ";
         
-    }
-    for($i = 0; $i < $datos->getNumFilas(); $i++){
+    }*/
+    for($i = 1; $i <= $datos->getNumFilas(); $i++){
         $contenidoPrincipal .= "<div>";
-        for($j = 1; $j <= 10; $j++){
-            $contenidoPrincipal .= "<button type = 'button' class = 'botoneee'>$i-$j</button>";
+        for($j = 1; $j <= $datos->getNumColumnas(); $j++){
+            $contenidoPrincipal .= "<button type = 'button' class = 'botoneee'>Tonto</button>";
         }
         $contenidoPrincipal .= "</div>";
     }

@@ -5,7 +5,9 @@
     if (comprobarPermisos($_SESSION["esAdmin"])) {
         $tituloPagina = 'Añadir Sala';
 
-        $formulario = new es\ucm\fdi\aw\FormularioSala();
+        if (isset($_GET['id'])) $formulario = new es\ucm\fdi\aw\FormularioSala($_GET['id']);
+        else $formulario = new es\ucm\fdi\aw\FormularioSala();
+
         $htmlFormularioSala = $formulario->gestiona();
         $contenidoPrincipal = <<<EOS
             <h1>Añadir Sala</h1>

@@ -19,19 +19,18 @@
 
         public function __construct($idSala, $fila, $columna) {
             parent::__construct('formBut', ['enctype' => 'multipart/form-data']);
-            $this->sala = Salas::buscar($idSala);
+            $this->sala = salas::buscar($idSala);
             if (!$this->sala) {
                 echo("Sala no encontrada");
                 exit();
             }
-            $this->posicion = ["fila" => $fila, "columna" => $columna];
+            $this->posicion = salas::devolverAsiento($this->sala, $fila, $columna);
         }
 
         //funcion que genera los campos necesarios para el mini formulario de las salas
         public function generaCamposFormulario(&$datos) {
-            $html = <<<EOS
-                <button type = "submit" name = "butaca">{$this->posicion["fila"]} - {$this->posicion["columna"]}</button>
-            EOS;
+            $html2= "<button type = 'submit' name = 'butaca'>{$this->posicion}</button>";
+            
             /**
              * HAY QUE VER DE QUÉ COLOR PINTAR EL BOTÓN EN FUNCIÓN DE SI ES UNA BUTACA
              * HABILITADA O NO
@@ -43,11 +42,11 @@
 
             }
             */
-            return $html;
+            return $html2;
         }
 
         public function procesaFormulario(&$datos) {
-            $this->sala->actualizarButaca($this->posicion);
+            //$this->sala->actualizarButaca($this->posicion);
         }
     }
     

@@ -101,17 +101,19 @@
                 $this->errores['num_columnas'] = 'El número de columnas debe ser un número entre 1 y ' . MAX_COLS;
             }
 
+            $butacas = trim($datos['butacas'] ?? '');
+
             //Miramos si ha saltado algun error anteriormente
             if (count($this->errores) === 0) {
                 if ($this->sala) {    // Modificar
-                    if (Salas::modificar($this->sala->getId(), $num_sala, $num_filas, $num_columnas)) {
+                    if (Salas::modificar($this->sala->getId(), $num_sala, $num_filas, $num_columnas, $butacas)) {
                         $this->urlRedireccion .= "?id=" . $this->sala->getId();
                     }
                     else {
                         $this->errores[] = "Error al modificar la sala";
                     }
                 }   // Dar de alta
-                else if ($this->sala = Salas::crear($num_sala, $num_filas, $num_columnas, array())) {
+                else if ($this->sala = Salas::crear($num_sala, $num_filas, $num_columnas)) {
                     $this->urlRedireccion .= "?id=" . $this->sala->getId();
                 }
                 else {

@@ -4,7 +4,7 @@
     require_once(RUTA_RAIZ . RUTA_UTILS);
 
     if (comprobarPermisos($_SESSION["esAdmin"])) {
-        $tituloPagina = 'Buscar Salas';
+        $tituloPagina = 'Listar Salas';
 
         $listaSalas = es\ucm\fdi\aw\salas::getSalas();
         $pintar = '';
@@ -14,7 +14,7 @@
                 <tr>
                 <td>{$salas->getNumSala()}</td>
                     <td>
-                        <form action = 'modificarSala.php?id={$salas->getId()}' method = 'post'>
+                        <form action = 'aniadirSala.php?id={$salas->getId()}' method = 'post'>
                             <button type = 'submit'>Mod</button>
                         </form>
                     </td>

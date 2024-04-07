@@ -25,8 +25,46 @@
 
         //funcion que genera los campos necesarios para el mini formulario de las salas
         public function generaCamposFormulario(&$datos) {
-            $html = "";
-            for ($fila = 1; $fila <=  $this->sala->getNumFilas(); $fila++) {
+
+            //codigo copiado del formulario de salas para que todo se vea mejor
+            if ($this->sala) {
+                $num_sala = $this->sala->getNumSala();
+                $num_filas = $this->sala->getNumFilas();
+                $num_columnas = $this->sala->getNumColumnas();
+            }
+            $num_sala = $datos['num_sala'] ?? $num_sala ?? '';
+            $num_filas = $datos['num_filas'] ?? $num_filas ?? '';
+            $num_columnas = $datos['num_columnas'] ?? $num_columnas ?? '';
+
+            $html = <<<EOS
+                <fieldset>
+                    <legend>Datos de la sala</legend>
+                    <div>
+            EOS;
+            $html .= $this->mostrarErroresGlobales();   // Mostramos los errores globales
+            $html .= <<<EOS
+                    </div>
+                    <div>
+                        <label for = "num_sala">Número de Sala: </label>
+                        <input id = "num_sala" type = "text" name = "num_sala" value = "$num_sala" />
+            EOS;
+            $html .= $this->mostrarError('num_sala');
+            $html .= <<<EOS
+                    </div>
+                    <div>
+                        <label for = "num_filas">Número de Filas: </label>
+                        <input id = "num_filas" type = "text" name = "num_filas" value = "$num_filas" />
+            EOS;
+            $html.= $this->mostrarError('num_filas');
+            $html .= <<<EOS
+                    </div>
+                    <div>
+                        <label for = "num_columnas">Número de Columnas: </label>
+                        <input id = "num_columnas" type = "text" name = "num_columnas" value = "$num_columnas" />
+            EOS;
+            $html .= $this->mostrarError('num_columnas');
+            $html .= "</div>" . "\n";
+            for ($fila = 1; $fila <= $this->sala->getNumFilas(); $fila++) {
                 for ($columna = 1; $columna <=  $this->sala->getNumColumnas(); $columna++) {
                     $formButaca = new FormularioButaca($this->sala->getId(), $fila, $columna);
                     $html .= $formButaca->gestiona();
