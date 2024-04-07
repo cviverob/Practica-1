@@ -29,7 +29,7 @@
 
         //funcion que genera los campos necesarios para el mini formulario de las salas
         public function generaCamposFormulario(&$datos) {
-            $html2= "<button type = 'submit' name = 'butaca'>{$this->posicion}</button>";
+            $html2= "<button type = 'submit' name = 'butaca' class = 'botonee'>{$this->posicion}</button>";
             
             /**
              * HAY QUE VER DE QUÉ COLOR PINTAR EL BOTÓN EN FUNCIÓN DE SI ES UNA BUTACA

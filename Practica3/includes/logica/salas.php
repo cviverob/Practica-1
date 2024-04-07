@@ -51,21 +51,21 @@
         }
 
         public static function modificar($id, $num_sala, $num_filas, $num_columnas, $butacas) {
-            $sala = buscar($id);
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $sala = salas::buscar($id);
             if ($sala) {
                 $sala->num_sala = $num_sala;
                 $sala->num_filas = $num_filas;
                 $sala->num_columnas = $num_columnas;
                 $sala->butacas = $butacas;
-
-                //$sala->modificarButacas();
-                $query = sprintf("UPDATE salas SET Num_sala = '%d', Num_filas = '%d', 
-                    Num_columnas = '%d', Butacas = '%s, WHERE Id = '%s'",
+                $sala->modificarButacas();
+                $query = sprintf("UPDATE Salas SET Num_sala = '%d', Num_filas = '%d', 
+                    Num_columnas = '%d', Butacas = '%s' WHERE Id = %s",
                     $conn->real_escape_string($sala->num_sala),
                     $conn->real_escape_string($sala->num_filas),
                     $conn->real_escape_string($sala->num_columnas),
-                    $conn->real_escape_string($sala->id),
-                    $conn->real_escape_string(json_encode($sala->butacas))
+                    $conn->real_escape_string(json_encode($sala->butacas)),
+                    $conn->real_escape_string($sala->id)
                 );
                 if ($conn->query($query)) {
                     return $sala;
@@ -166,17 +166,37 @@
             return false;
         }
 
-        /*private function modificarButacas() {
-            $butacas_aux = $this->butacas;
-            foreach ($butacas_aux as $clave => $valor) {
-                if ($clave["fila"] > $this->num_filas || $clave["columna"] > $this->num_columnas) {
-                    unset($this->butacas[$clave]);
+        private function modificarButacas() {
+            $bool = false;
+            $nuevasButacas = [];
+            for ($i = 1; $i <= $this->num_filas; $i++) {
+                for ($j = 1; $j <= $this->num_columnas; $j++) {
+                    foreach ($this->butacas as $fila) {
+                        if ($fila->fila == $i && $fila->columna == $j) {
+                            $nuevasButacas[] = array(
+                                "fila" => $fila->fila,
+                                "columna" => $fila->columna,
+                                "ocupada" => $fila->ocupada
+                            );
+                            $bool = true;
+                            break;
+                        }
+                    }
+                    if ($bool == false) {
+                        $nuevasButacas[] = array (
+                            "fila" => $i,
+                            "columna" => $j,
+                            "ocupada" => '0'
+                        );
+                    } 
+                    $bool = false;
                 }
             }
-        }*/
+            $this->butacas = $nuevasButacas;
+        }
+        
 
-        public static function devolverAsiento($sala, $filas, $columnas) {
-            // Decodificar el JSON
+        public static function devolverAsiento($sala, $filas, $columnas)  {
             $datos = $sala->butacas;
 
             // Iterar sobre cada elemento del array

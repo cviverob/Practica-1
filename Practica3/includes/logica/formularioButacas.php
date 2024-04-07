@@ -64,12 +64,20 @@
             EOS;
             $html .= $this->mostrarError('num_columnas');
             $html .= "</div>" . "\n";
+            $html1 = "";
             for ($fila = 1; $fila <= $this->sala->getNumFilas(); $fila++) {
                 for ($columna = 1; $columna <=  $this->sala->getNumColumnas(); $columna++) {
                     $formButaca = new FormularioButaca($this->sala->getId(), $fila, $columna);
-                    $html .= $formButaca->gestiona();
+                    $html1 .= $formButaca->gestiona();
                 }
             }
+            
+            $html .= $html1 . <<<EOS
+                <div>
+                    <button type = "submit" name = "but">Crear sala</button>
+                </div>
+            EOS;
+
             return $html;
         }
 

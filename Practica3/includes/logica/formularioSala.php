@@ -25,10 +25,12 @@
                 $num_sala = $this->sala->getNumSala();
                 $num_filas = $this->sala->getNumFilas();
                 $num_columnas = $this->sala->getNumColumnas();
+                $butacas = $this->sala->getButacas();
             }
             $num_sala = $datos['num_sala'] ?? $num_sala ?? '';
             $num_filas = $datos['num_filas'] ?? $num_filas ?? '';
             $num_columnas = $datos['num_columnas'] ?? $num_columnas ?? '';
+            $butacas = $datos['butacas'] ?? $butacas ?? '';
 
             $html = <<<EOS
                 <fieldset>
@@ -102,7 +104,8 @@
             }
 
             $butacas = trim($datos['butacas'] ?? '');
-
+            $butacas = filter_var($butacas, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
             //Miramos si ha saltado algun error anteriormente
             if (count($this->errores) === 0) {
                 if ($this->sala) {    // Modificar
