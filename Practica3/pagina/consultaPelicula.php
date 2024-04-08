@@ -14,15 +14,15 @@
     $contenidoPrincipal = <<< EOS
         <h1>{$pelicula->getTitulo()}</h1>
         <div class = "pelicula">
-            <img src = $poster alt = 'Póster de la película' width = '150' height = '200'>
+            <img src = $poster alt = 'Póster de la película' width = '150' height = '210'>
             <video width = "320" height = "240" controls>
                 <source src = $trailer type = "video/mp4">
                 Tu navegador no soporta este tipo de vídeo
             </video>
-        <p> Sinopsis: {$pelicula->getSinopsis()} </p>
-        <p> Edad mínima: {$pelicula->getPegi()} </p>
-        <p> Género:  {$pelicula->getGenero()} </p>
-        <p> Duración: {$pelicula->getDuracion()} minutos </p>
+        <p><span class="first-word">Sinopsis: </span>{$pelicula->getSinopsis()} </p>
+        <p><span class="first-word">PEGI: </span>{$pelicula->getPegi()} </p>
+        <p><span class="first-word">Género: </span>{$pelicula->getGenero()} </p>
+        <p><span class="first-word">Duración: </span>{$pelicula->getDuracion()} minutos </p>
         </div>
         <a href="$ruta_selc_but" class="seleccionarPelicula">Seleccionar butacas</a>
     EOS;

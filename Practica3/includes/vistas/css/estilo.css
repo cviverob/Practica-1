@@ -1,12 +1,13 @@
 /*
 ARCHIVO: plantilla.php
-         css de la plantilla como tal que se va a estar compartienod en todas las paginas del proyecto
+         css de la plantilla como tal que se va a estar compartiendo en todas las paginas del proyecto
 */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+    font-weight: bold;
     background-color: #333; /* Cambia esto al color que desees */
     color: white;
     padding: 10px 20px; /* Ajusta el padding según sea necesario */
@@ -18,8 +19,9 @@ main {
 }
 
 footer {
+    font-weight: bold;
     background-color: #333; /* Color de fondo */
-    color: #fff; /* Color del texto */
+    color: white; /* Color del texto */
     padding: 20px; /* Espaciado interno */
     text-align: center; /* Alineación centrada */
     position: fixed;
@@ -35,7 +37,7 @@ footer h3 {
 
 /* Estilo para los enlaces del footer */
 footer a {
-    color: #fff; /* Color del texto de los enlaces */
+    color: white; /* Color del texto de los enlaces */
     text-decoration: none; /* Sin subrayado */
     margin: 0 10px; /* Margen horizontal entre enlaces */
     transition: color 0.3s ease; /* Transición suave del color de texto */
@@ -43,18 +45,18 @@ footer a {
 
 /* Estilo para los enlaces del footer al pasar el ratón */
 footer a:hover {
-    color: dodgerblue; /* Cambio de color al pasar el ratón */
+    color:deepskyblue; /* Cambio de color al pasar el ratón */
 }
 
 body {
     margin-top: 60px;
-    background-color: bisque; 
+    background-color:rgb(115, 176, 228); 
     color: black; 
     padding: 10px 20px;
 }
 
 article{
-	background-color: darkgray; 
+	background-color: rgb(115, 176, 228) 
 }
 
 /*
@@ -63,12 +65,11 @@ ARCHIVO: cabecera.php:
     RegisterUserButton = boton de arriba que dice Registrarse. Tambien lo he utilizado en administracion.php y en formularioPelicula.php
 
 */
-
 .LogUserButton {
     display: inline-block;
     padding: 5px 20px;
     text-decoration: none;
-    color: #303030;
+    color: #333;
     background-color: beige;
     border: 2px solid burlywood;
     border-radius: 5px;
@@ -128,15 +129,16 @@ ARCHIVO: cabecera.php:
         padding: 2px 8px; /* Ajustar el padding aún más para pantallas pequeñas */
         font-size: 10px; /* Reducir aún más el tamaño de fuente */
     }
+
 }
 
 /*
 ARCHIVO: index.php
-         CSS para las peliculas del menu principal*/
+         CSS para las peliculas del menu principal
+*/
  .pelisCartelera{
-    border: 20px solid black; /* Borde sólido negro de 2px */
-     margin: 10px; /* Márgenes de 10px en todos los lados */
-     /*padding: 50px;*/
+    border: 10px solid rgb(152, 189, 221); /* Borde sólido negro de 2px */
+    margin: 10px; /* Márgenes de 10px en todos los lados */
 }
 
 /*
@@ -145,13 +147,21 @@ ARCHIVO: consultapelicula.php
 
 */
  .pelicula{
-	background-color: #303030; 
-    color: gold; 
-
+	background-color: rgb(152, 189, 221); 
+    color: #333; 
 } 
 
 .pelicula p{
-	font-weight: bold;
+    max-width: 70%;
+    margin-left: 15%;
+}
+
+.pelicula .first-word {
+    font-weight: bold;
+}
+
+.pelicula img {
+    padding-right: 5%;
 }
 
 .seleccionarPelicula{
