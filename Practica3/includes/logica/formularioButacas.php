@@ -63,14 +63,17 @@
                         <input id = "num_columnas" type = "text" name = "num_columnas" value = "$num_columnas" />
             EOS;
             $html .= $this->mostrarError('num_columnas');
-            $html .= "</div>" . "\n";
-            $html1 = "";
+            $html .= "</div>" . "";
+            $html1 = "<div class='contenedor-butacas'>";
             for ($fila = 1; $fila <= $this->sala->getNumFilas(); $fila++) {
+                $html1 .= "<div class='fila-butacas'>";
                 for ($columna = 1; $columna <=  $this->sala->getNumColumnas(); $columna++) {
                     $formButaca = new FormularioButaca($this->sala->getId(), $fila, $columna);
                     $html1 .= $formButaca->gestiona();
                 }
+                $html1 .= "</div>";
             }
+            $html1 .= "</div>";
             
             $html .= $html1 . <<<EOS
                 <div>

@@ -10,7 +10,7 @@
         <div>
     EOS;
 
-    $datos = es\ucm\fdi\aw\salas::buscar(26);
+    $datos = es\ucm\fdi\aw\salas::buscar(50);
     $contenidoPrincipal .= "<h2> Sala </h2>";
     
     $cont = 0;

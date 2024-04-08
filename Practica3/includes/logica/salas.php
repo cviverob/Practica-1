@@ -89,13 +89,12 @@
             $rs = $conn->query($query);
             $listaSalas = array();
             if ($rs->num_rows > 0) {
-                // Mostrar cada película y su imagen
                 while($sala = $rs->fetch_assoc()) {
                     $id = $sala['Id'];
                     $num_sala = $sala['Num_sala'];
                     $num_filas = $sala['Num_filas'];
                     $num_columnas = $sala['Num_columnas'];
-                    $butacas = $sala['Butacas'];
+                    $butacas = json_decode($sala['Butacas']);
                     $listaSalas[] = new Salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
                 }
             }
@@ -167,33 +166,46 @@
         }
 
         private function modificarButacas() {
-            $bool = false;
+            $butacasIndexadas = [];
+        
+            // Indexar las butacas existentes por fila y columna
+            foreach ($this->butacas as $butaca) {
+                $fila = $butaca->fila;
+                $columna = $butaca->columna;
+                $butacasIndexadas["$fila,$columna"] = $butaca;
+            }
+        
             $nuevasButacas = [];
-            for ($i = 1; $i <= $this->num_filas; $i++) {
-                for ($j = 1; $j <= $this->num_columnas; $j++) {
-                    foreach ($this->butacas as $fila) {
-                        if ($fila->fila == $i && $fila->columna == $j) {
-                            $nuevasButacas[] = array(
-                                "fila" => $fila->fila,
-                                "columna" => $fila->columna,
-                                "ocupada" => $fila->ocupada
-                            );
-                            $bool = true;
-                            break;
-                        }
-                    }
-                    if ($bool == false) {
-                        $nuevasButacas[] = array (
-                            "fila" => $i,
-                            "columna" => $j,
+        
+            // Recorremos todas las celdas de la sala
+            for ($fila = 1; $fila <= $this->num_filas; $fila++) {
+                for ($columna = 1; $columna <= $this->num_columnas; $columna++) {
+                    $indice = "$fila,$columna";
+        
+                    // Verificamos si hay una butaca existente en la celda actual
+                    if (isset($butacasIndexadas[$indice])) {
+                        // Si la butaca existe, copiamos la información de la butaca existente
+                        $butaca = $butacasIndexadas[$indice];
+                        $nuevasButacas[] = [
+                            "fila" => $butaca->fila,
+                            "columna" => $butaca->columna,
+                            "ocupada" => $butaca->ocupada
+                        ];
+                    } else {
+                        // Si no hay butaca existente, agregamos una nueva butaca con estado '0'
+                        $nuevasButacas[] = [
+                            "fila" => $fila,
+                            "columna" => $columna,
                             "ocupada" => '0'
-                        );
-                    } 
-                    $bool = false;
+                        ];
+                    }
                 }
             }
+        
+            // Actualizar $this->butacas con el nuevo conjunto de butacas
             $this->butacas = $nuevasButacas;
         }
+        
         
 
         public static function devolverAsiento($sala, $filas, $columnas)  {

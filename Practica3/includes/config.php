@@ -136,5 +136,5 @@
     /**
      * Constantes del programa
      */
-    define("MAX_FILAS", 50);
-    define("MAX_COLS", 50);
+    define("MAX_FILAS", 20);
+    define("MAX_COLS", 20);
