@@ -1,6 +1,17 @@
-header, footer {
-	background-color: black;
-	color: red;
+/*
+ARCHIVO: plantilla.php
+         css de la plantilla como tal que se va a estar compartiendo en todas las paginas del proyecto
+*/
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-weight: bold;
+    background-color: #333; /* Cambia esto al color que desees */
+    color: white;
+    padding: 10px 20px; /* Ajusta el padding según sea necesario */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
 
 header {text-align: left;}
@@ -17,11 +28,272 @@ h1, h2 {
 	text-align: center;
 }
 
-h1 {font-size: 2em;}
+footer {
+    font-weight: bold;
+    background-color: #333; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 20px; /* Espaciado interno */
+    text-align: center; /* Alineación centrada */
+    position: fixed;
+    width: 100%;
+    left: 0;
+}
 
-h2 {font-size: 1.5em;}
+/* Estilo para el texto principal del footer */
+footer h3 {
+    font-size: 20px; /* Tamaño de fuente */
+    margin-bottom: 10px; /* Margen inferior */
+}
 
-a:link {color: black;}
+/* Estilo para los enlaces del footer */
+footer a {
+    color: white; /* Color del texto de los enlaces */
+    text-decoration: none; /* Sin subrayado */
+    margin: 0 10px; /* Margen horizontal entre enlaces */
+    transition: color 0.3s ease; /* Transición suave del color de texto */
+}
 
-a:visited, a:hover {color: red;}
+/* Estilo para los enlaces del footer al pasar el ratón */
+footer a:hover {
+    color:deepskyblue; /* Cambio de color al pasar el ratón */
+}
+
+body {
+    margin-top: 60px;
+    background-color:rgb(115, 176, 228); 
+    color: black; 
+    padding: 10px 20px;
+}
+
+article{
+	background-color: rgb(115, 176, 228) 
+}
+
+/*
+ARCHIVO: cabecera.php:
+    LogUserButton = boton de arriba que dice Logearse
+    RegisterUserButton = boton de arriba que dice Registrarse. Tambien lo he utilizado en administracion.php y en formularioPelicula.php
+
+*/
+.LogUserButton {
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
+    color: #333;
+    background-color: beige;
+    border: 2px solid burlywood;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.LogUserButton:hover {
+    background-color: burlywood;
+}
+
+.RegisterUserButton {
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
+    color: black;
+    background-color: #4CAF50;
+    border: 2px solid #388E3C;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+
+.RegisterUserButton:hover {
+    background-color: #45a049;
+}
+
+.ExitUserButton {
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
+    color: black;
+    background-color: crimson;
+    border: 2px solid crimson;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.ExitUserButton:hover {
+    background-color: darkred;
+}
+
+.fotoElmoCines {
+    width: 100%; /* Ancho máximo de la imagen */
+    height: auto; /* Altura ajustada automáticamente */
+}
+
+@media screen and (max-width: 400px) {
+    .fotoElmoCines {
+        display: none; /* Ocultar la imagen cuando el ancho de la ventana sea menor que el 40% */
+    }
+
+    .fotoElmo img {
+        width: 50px; /* Reducir el tamaño de la imagen */
+        height: auto; /* Mantener la proporción de la altura */
+    }
+
+    .ExitUserButton, .RegisterUserButton, .LogUserButton {
+        padding: 2px 8px; /* Ajustar el padding aún más para pantallas pequeñas */
+        font-size: 10px; /* Reducir aún más el tamaño de fuente */
+    }
+
+    .pelicula p{
+        font-size: 50%;
+    }
+
+}
+
+/*
+ARCHIVO: index.php
+         CSS para las peliculas del menu principal
+*/
+.pelisCartelera {
+    border: 10px solid rgb(152, 189, 221); /* Borde sólido */
+    margin: 10px; /* Márgenes alrededor del contenedor */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease; /* Transición para el efecto de escalado */
+}
+
+.pelisCartelera img {
+    width: 100%; /* Imagen ocupa todo el ancho del contenedor */
+    height: auto; /* Altura automática para mantener la proporción */
+    border-radius: 10px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar sobre la imagen */
+}
+
+/* Efecto al pasar el ratón sobre la imagen */
+.pelisCartelera:hover {
+    transform: scale(1.05); /* Escalar la imagen al 105% en hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+.texto{
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+
+/*
+ARCHIVO: consultapelicula.php
+         css de las peliculas cuando estas visitando una concreta que has seleccionado de la cartelera
+
+*/
+ .pelicula{
+	background-color: rgb(152, 189, 221); 
+    color: #333; 
+} 
+
+.pelicula p{
+    max-width: 70%;
+    margin-left: 15%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.pelicula .first-word {
+    font-weight: bold;
+}
+
+.pelicula img {
+    padding-right: 5%;
+}
+
+.seleccionarPelicula{
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
+	color: white;
+    background-color: dodgerblue;
+    border-radius: 100px;
+	border: 2px solid darkblue;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.seleccionarPelicula:hover {
+    background-color: darkblue;
+}
+
+
+/*
+ARCHIVO: seleccionDeButacas.php
+         css para la vista de las butacas de una pelicula y una sesion concreta
+
+*/
+.butaca{
+	width: 100px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+	/* background-image: url('../img/ElmoCines'); 
+    background-size: cover;
+    background-repeat: no-repeat;*/ 
+}
+
+button.butaca:hover {
+    background-color: darkgray;
+}
+
+/*
+ARCHIVO: formulario.php
+         css para la vista de los distintos formularios que hay en el proyecto, aun no se si va a haber mas de un tipo de formulario
+*/
+
+.Formulario{
+  color: black;
+  width: 80%;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: cornflowerblue;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid darkblue; /* Grosor y color del borde */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra */
+}
+
+.Formulario div{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
+.Formulario div label{
+    width: 100px;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.Formulario legend {
+    font-weight: bold;
+    font-size: 1.2em; /* Tamaño de fuente del legend */
+    margin-bottom: 10px; /* Espaciado inferior del legend */
+}
+
+.Formulario input {
+    border: 2px solid darkblue; /* Grosor y color del borde */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.Entrar { /*por alguna extraña razon no me hace caso, no pinta los css del boton, sale predeterrminado*/
+    width: 20%;
+    padding: 10px;
+    background-color: dodgerblue;
+    color: black;
+    border-radius: 5px;
+    border-color: darkblue;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Entrar:hover {
+    background-color: mediumblue;
+  }
+
 

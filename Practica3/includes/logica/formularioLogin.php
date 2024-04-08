@@ -14,7 +14,7 @@
             $correo = $datos['correo'] ?? '';
             $contraseña = $datos['contraseña'] ?? '';
             $html = <<<EOS
-                <p>¿Todavía no tienes un usuario? <a href = 'registro.php'>¡Regístrate!</a></p>
+            <p>¿Todavía no tienes un usuario? <a href="registro.php" class="RegisterUserButton">¡Regístrate!</a></p>
                 <fieldset>
                     <legend>Usuario y contraseña</legend>
                     <div>
@@ -38,9 +38,7 @@
             $html .= <<<EOS
                     </div>
                 </fieldset>
-                <div>
-                    <button type = "submit" name = "login">Entrar</button>
-                </div>
+                    <button type = "submit" name = "login" class = "Entrar">Entrar</button>
             EOS;
             return $html;
         }

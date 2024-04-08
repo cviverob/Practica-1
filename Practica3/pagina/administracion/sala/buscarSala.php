@@ -1,31 +1,48 @@
 <?php
+
     require_once('../../../includes/config.php');
-    require_once(RUTA_RAIZ . RUTA_USU);
-    require_once(RUTA_RAIZ . RUTA_COMP_PERM);
+    require_once(RUTA_RAIZ . RUTA_UTILS);
 
-    $tituloPagina = 'Buscar sala';
+    if (comprobarPermisos($_SESSION["esAdmin"])) {
+        $tituloPagina = 'Listar Salas';
 
-    $contenidoPrincipal = comprobarPermisos($_SESSION["usuario_admin"]);
-    if (!$contenidoPrincipal) {
-        $ruta_admn = RUTA_APP . RUTA_ADMN;
-        $ruta_proc_bsc_sala = RUTA_APP . RUTA_PROC_BSC_SALA;
+        $listaSalas = es\ucm\fdi\aw\salas::getSalas();
+        $pintar = '';
+        
+        foreach ($listaSalas as $salas) {
+            $pintar .= "
+                <tr>
+                <td>{$salas->getNumSala()}</td>
+                    <td>
+                        <form action = 'aniadirSala.php?id={$salas->getId()}' method = 'post'>
+                            <button type = 'submit'>Mod</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action = 'borrarSala.php' method = 'post'>
+                            <input type = 'hidden' name = 'id' value = {$salas->getId()}>
+                            <button type = 'submit'>Elim</button>
+                        </form>
+                    </td>
+                </tr>";
+        }
+
         $contenidoPrincipal = <<< EOS
-            <form action = "$ruta_proc_bsc_sala" method = "POST">
-            <p></p>
-            Sala:
-            <input type='text' name='sala' value="" />
-            <p></p>
-            Número de filas:
-            <input type = "text" name = "filas" value = "" />
-            <p></p>
-            Número de columnas:
-            <input type='text' name='columnas' value="" />
-            <p></p>
-            <button type = "submit">Buscar</button>
-        </form>
         <p></p>
-        <a href = "$ruta_admn"><button type = 'button'>Cancelar</button></a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Número de sala</th>
+                    <th>Modificar</th>
+                    <th>Borrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                $pintar
+            </tbody>
+        </table>
+        <p></p>
         EOS;
+        
+        require_once(RUTA_RAIZ . RUTA_PLNT);
     }
-
-    require_once(RUTA_RAIZ . RUTA_PLNT);

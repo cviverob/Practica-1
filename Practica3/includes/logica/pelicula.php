@@ -6,7 +6,7 @@
      * Clase encargada de almacenar los atributos de una película,
      * a la vez que sus operaciones correspondientes
      */
-    class Pelicula {
+    class pelicula {
 
         /**
          * Título de la película
@@ -89,7 +89,7 @@
          * @param string $id Identificador de la película
          */
         public static function buscar($id) {
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM peliculas WHERE id = '%s'", $conn->real_escape_string($id));
             $rs = $conn->query($query);
             if ($rs) {
@@ -102,7 +102,7 @@
                     $pegi = $pelicula['Pegi'];
                     $genero = $pelicula['Genero'];
                     $duracion = $pelicula['Duracion'];
-                    $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
+                    $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id);
                     $rs->free();
                     return $pelicula;
                 }
@@ -117,7 +117,7 @@
          * @param string $id Identificador de la película
          */
         public static function borrar($id) {
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("DELETE FROM Peliculas WHERE id = '%s'" , $id);
             return $conn->query($query);
         }
@@ -135,9 +135,9 @@
          */
         public static function actualizaPelicula($id, $titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion) {
             $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("UPDATE peliculas SET Titulo = '%s', Genero = '%s', Pegi = '%s', 
-                Duracion = '%s', Sinopsis = '%s', Poster = '%s', Trailer = '%s' WHERE id = '%s'",
+                Duracion = '%s', Sinopsis = '%s', Poster = '%s', Trailer = '%s' WHERE Id = '%s'",
                 $conn->real_escape_string($pelicula->titulo),
                 $conn->real_escape_string($pelicula->genero),
                 $conn->real_escape_string($pelicula->pegi),
@@ -145,7 +145,7 @@
                 $conn->real_escape_string($pelicula->sinopsis),
                 $conn->real_escape_string($pelicula->rutaPoster),
                 $conn->real_escape_string($pelicula->rutaTrailer),
-                $conn->real_escape_string($id)
+                $conn->real_escape_string($pelicula->id)
             );
             if ($conn->query($query)) {
                 return $pelicula;
@@ -160,7 +160,7 @@
          * Método que devuelve una lista de todas las películas
          */
         public static function getPeliculas() {
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query = "SELECT * FROM peliculas";
             $rs = $conn->query($query);
             $listaPeliculas = array();
@@ -187,7 +187,7 @@
          * @param Pelicula $pelicula Película a insertar
          */
         private static function insertaPelicula($pelicula) {
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query=sprintf("INSERT INTO peliculas(Titulo, Genero, Pegi, Duracion, Sinopsis, 
                 Poster, Trailer) VALUES ('%s','%s','%s','%s', '%s', '%s', '%s')",
                 $conn->real_escape_string($pelicula->titulo),
