@@ -12,7 +12,7 @@
     $poster = RUTA_APP . RUTA_PSTR . '/' . $pelicula->getRutaPoster();
     $trailer = RUTA_APP . RUTA_TRL . '/' . $pelicula->getRutaTrailer();
     $contenidoPrincipal = <<< EOS
-        <h1>{$pelicula->getTitulo()}</h1>
+        <h1 class = "texto">{$pelicula->getTitulo()}</h1>
         <div class = "pelicula">
             <img src = $poster alt = 'Póster de la película' width = '150' height = '210'>
             <video width = "320" height = "240" controls>

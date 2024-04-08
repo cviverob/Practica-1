@@ -17,7 +17,7 @@
             $contra2 = $datos['contra2'] ?? '';
             $edad = $datos['edad'] ?? '';
             $html = <<<EOS
-                <p>¿Ya tienes un usuario? <a href = 'login.php'>¡Logeate!</a></p>
+                <p>¿Ya tienes un usuario? <a href = 'login.php' class="LogUserButton">¡Logeate!</a></p>
                 <fieldset>
                     <legend>Usuario, nombre y contraseñas</legend>
                     <div>
@@ -63,7 +63,7 @@
                     </div>
                 </fieldset>
                 <div>
-                    <button type = "submit" name = "registro">Entrar</button>
+                    <button type = "submit" name = "registro" class = "seleccionarPelicula">Entrar</button>
                 </div>
             EOS;
             return $html;

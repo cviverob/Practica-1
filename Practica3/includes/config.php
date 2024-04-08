@@ -15,6 +15,8 @@
     define('RUTA_PSTR', RUTA_IMGS . '/posters');
     // img/Trailers
     define('RUTA_TRL', RUTA_IMGS . '/trailers');
+    // img/Gifs
+    define('RUTA_GIFS', RUTA_IMGS . '/gifs');
     // includes
     define('RUTA_INCL', '/includes');
     define('RUTA_CNFG', RUTA_INCL . '/config.php');
