@@ -14,17 +14,7 @@ header {
     z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
 
-header {text-align: left;}
-
-footer {text-align: center;}
-
-h1, h2, p {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	color: black;
-}
-
-h1, h2 { 
-	font-weight: bold;
+main {
 	text-align: center;
 }
 
@@ -295,5 +285,3 @@ ARCHIVO: formulario.php
   .Entrar:hover {
     background-color: mediumblue;
   }
-
-
