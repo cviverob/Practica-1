@@ -8,8 +8,7 @@
     class FormularioPelicula extends Formulario {
 
         /**
-         * @param Pelicula $pelicula Película original para modificar, o null
-         * si estamos en el caso de dar de alta
+         * Película original para modificar, o null si estamos en el caso de dar de alta
          */
         private $pelicula;
 
@@ -121,11 +120,15 @@
 
         public function procesaFormulario(&$datos) {
             
+            //Nos traemos los datos y los procesamos
+            //Empezamos con el nombre, al cual le saneamos los datos que traigan
             $nombre = trim($datos['nombre'] ?? '');
             $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$nombre || empty($nombre)) {
                 $this->errores['nombre'] = 'El nombre no puede estar vacío';
             }
+
+            //Luego con la sinopsis y la edad
             $sinopsis = trim($datos['sinopsis'] ?? '');
             $sinopsis = filter_var($sinopsis, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$sinopsis || empty($sinopsis)) {
@@ -133,6 +136,7 @@
             }
             $pegi = trim($datos['pegi'] ?? '');
             $pegi = filter_var($pegi, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            //Comprobamos que la edad minima esta entre 0 y 18
             if (!$pegi || empty($pegi)) {
                 $this->errores['pegi'] = 'El pegi no puede estar vacío';
             }
@@ -142,6 +146,8 @@
             else if ($pegi < 0 || $pegi > 18) {
                 $this->errores['pegi'] = 'El pegi debe ser un número entre 0 y 18';
             }
+
+            //Vamos a mirar si los tipos de fotos que intentamos insertar estan dentro de los permitidos
             $tiposPermitidos = array('image/jpeg', 'image/jpg', 'image/png');
             if (!isset($_FILES['poster']) || $_FILES['poster']['error'] !== UPLOAD_ERR_OK) {
                 if (!$this->pelicula) {
@@ -154,6 +160,8 @@
             else {
                 $rutaPoster = $_FILES['poster']['name'];
             }
+
+            //Hacemos lo mismo con los tipos del video, solo permitimos formato MP4
             $tiposPermitidos = array('video/mp4');
             if (!isset($_FILES['trailer']) || $_FILES['trailer']['error'] !== UPLOAD_ERR_OK) {
                 if (!$this->pelicula) {
@@ -166,6 +174,8 @@
             else {
                 $rutaTrailer = $_FILES['trailer']['name'];
             }
+
+            //Miramos el genero de la pelicula y la duracion y parseamos errores
             $genero = trim($datos['genero'] ?? '');
             $genero = filter_var($genero, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$genero || empty($genero)) {
@@ -191,6 +201,7 @@
                 hemos subido el archivo correspondiente. En cualquier otro caso,
                 se meterá en la función de move_uploaded_file();
             */
+            //Miramos si ha saltado algun error anteriormente
             if (count($this->errores) === 0) {
                 // Copiamos los archivos del póster y del tráiler
                 if (!isset($rutaPoster) || move_uploaded_file($_FILES['poster']['tmp_name'], RUTA_RAIZ . RUTA_PSTR . '/' . $rutaPoster)) {

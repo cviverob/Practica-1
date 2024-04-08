@@ -8,7 +8,7 @@
     // Función urlencode extraída del chatgpt para evitar problemas con espacios en la URL
     
     $ruta_selc_but = RUTA_APP . RUTA_SELC_BUT;
-    $pelicula = es\ucm\fdi\aw\Pelicula::buscar($_GET['id']);
+    $pelicula = es\ucm\fdi\aw\pelicula::buscar($_GET['id']);
     $poster = RUTA_APP . RUTA_PSTR . '/' . $pelicula->getRutaPoster();
     $trailer = RUTA_APP . RUTA_TRL . '/' . $pelicula->getRutaTrailer();
     $contenidoPrincipal = <<< EOS

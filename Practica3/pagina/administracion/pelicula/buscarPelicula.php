@@ -6,7 +6,7 @@
     if (comprobarPermisos($_SESSION["esAdmin"])) {
         $tituloPagina = 'Buscar película';
 
-        $listaPeliculas = es\ucm\fdi\aw\Pelicula::getPeliculas();
+        $listaPeliculas = es\ucm\fdi\aw\pelicula::getPeliculas();
         $pintar = '';
 
         foreach ($listaPeliculas as $pelicula) {

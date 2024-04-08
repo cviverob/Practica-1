@@ -7,7 +7,7 @@
 
     $tituloPagina = 'Cartelera';
 
-    $peli = es\ucm\fdi\aw\Pelicula::getPeliculas();
+    $peli = es\ucm\fdi\aw\pelicula::getPeliculas();
     $pintar = '';
     foreach ($peli as $p) {
         $pintar .= "<a href = " . RUTA_APP . RUTA_CONS_PELI . "?id=" . $p->getId() . 

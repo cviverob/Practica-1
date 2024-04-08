@@ -4,7 +4,7 @@
     /**
      * Clase Usuario que contiene la información básica del mismo
      */
-    class Usuario {
+    class usuario {
 
         /**
          * Constantes que definen los roles de los usuarios
@@ -83,7 +83,7 @@
          * con el parámetro $nombreUsuario, o false si no lo encuentra
          */
         private static function buscaUsuario($correo) {
-            $conn = Aplicacion::getInstance()->getConexionBd();
+            $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM usuario WHERE email='%s'", $conn->real_escape_string($correo));
             $rs = $conn->query($query);     // Realizamos la búsqueda
             if ($rs) {
@@ -110,8 +110,8 @@
          * Función que inserta un usuario en la bd
          */
         private static function insertaUsuario($usuario) {
-            $conn = Aplicacion::getInstance()->getConexionBd();
-            $query=sprintf("INSERT INTO usuario(nombre, email, contraseña, edad, rol) VALUES ('%s', '%s', '%s', '%d', '%s')"
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query=sprintf("INSERT INTO usuario(nombre, email, contraseña, edad, rol) VALUES ('%s', '%s', '%s', '%s', '%s')"
                 , $conn->real_escape_string($usuario->nombre)
                 , $conn->real_escape_string($usuario->correo)
                 , $conn->real_escape_string($usuario->contraseña)

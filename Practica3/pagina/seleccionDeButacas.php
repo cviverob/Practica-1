@@ -10,10 +10,21 @@
         <div>
     EOS;
 
-    for($i = 1; $i < 10; $i++){
+    $datos = es\ucm\fdi\aw\salas::buscar(50);
+    $contenidoPrincipal .= "<h2> Sala </h2>";
+    
+    $cont = 0;
+    /*for($j = 0; $j < $datos->getNumColumnas(); $j++) {
+        $cont++;
+        $contenidoPrincipal .= $cont . " ";
+        
+    }*/
+    
+    for($i = 1; $i <= $datos->getNumFilas(); $i++){
         $contenidoPrincipal .= "<div>";
-        for($j = 1; $j <= 10; $j++){
-            $contenidoPrincipal .= "<button type = 'button' class = 'butaca'>$i-$j</button>";
+        for($j = 1; $j <= $datos->getNumColumnas(); $j++){
+            $ocupado = es\ucm\fdi\aw\salas::devolverAsiento($datos, $i, $j);
+            $contenidoPrincipal .= "<button type = 'button' class = 'botoneee'>{$ocupado}</button>";
         }
         $contenidoPrincipal .= "</div>";
     }

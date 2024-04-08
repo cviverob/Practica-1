@@ -29,10 +29,11 @@
     define('RUTA_PLCL', RUTA_LGC . '/peliculas.php');
     define('RUTA_SALA', RUTA_LGC . '/salas.php');
     define('RUTA_USU', RUTA_LGC . '/usuarios.php');
-    define('RUTA_BD', RUTA_LGC . '/BD.php');
     define('RUTA_FORM_LGIN', RUTA_LGC . '/formularioLogin.php');
     define('RUTA_FORM_REG', RUTA_LGC . '/formularioRegistro.php');
     define('RUTA_FORM_PLCL', RUTA_LGC . '/formularioPelicula.php');
+    define('RUTA_FORM_SALA', RUTA_LGC . '/formularioSala.php');
+    define('RUTA_FORM_BUTC', RUTA_LGC . '/formularioButacas.php');
     define('RUTA_COMP_PERM', RUTA_LGC . '/comprobarPermisos.php');
     // includes/vistas
     define('RUTA_VSTA', RUTA_INCL . '/vistas');
@@ -126,9 +127,16 @@
      * Configuración de la BD
      */
     define('BD_HOST', 'localhost');
+    //define('BD_HOST', 'vm003.db.swarm.test');
     define('BD_NAME', 'cines');
     define('BD_USER', 'cines');
     define('BD_PASS', 'cines');
-    $app = es\ucm\fdi\aw\Aplicacion::getInstance();
+    $app = es\ucm\fdi\aw\aplicacion::getInstance();
     $app->init(['host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS]);
     register_shutdown_function([$app, 'cierraConexion']);
+
+    /**
+     * Constantes del programa
+     */
+    define("MAX_FILAS", 20);
+    define("MAX_COLS", 20);
