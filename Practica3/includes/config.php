@@ -59,14 +59,12 @@
     define('RUTA_PGN_ADMN_PEL', RUTA_PGN_ADMN . '/pelicula');
     define('RUTA_AND_PEL', RUTA_PGN_ADMN_PEL . '/aniadirPelicula.php');
     define('RUTA_BSC_PEL', RUTA_PGN_ADMN_PEL . '/buscarPelicula.php');
-    define('RUTA_PROC_AND_PEL', RUTA_PGN_ADMN_PEL . '/procesarAniadirPelicula.php');
-    define('RUTA_PROC_BSC_PEL', RUTA_PGN_ADMN_PEL . '/procesarBusquedaPeliculas.php');
     // vistas/pagina/administracion/sala
     define('RUTA_PGN_ADMN_SALA', RUTA_PGN_ADMN . '/sala');
-    define('RUTA_AND_SALA', RUTA_PGN_ADMN_SALA . '/aniadirSala.php');
+    define('RUTA_AÑD_SALA', RUTA_PGN_ADMN_SALA . '/aniadirSala.php');
+    define('RUTA_BRR_SALA', RUTA_PGN_ADMN_SALA . '/borrarSala.php');
     define('RUTA_BSC_SALA', RUTA_PGN_ADMN_SALA . '/buscarSala.php');
     define('RUTA_MOD_SALA', RUTA_PGN_ADMN_SALA . '/modificarSala.php');
-    define('RUTA_PROC_BSC_SALA', RUTA_PGN_ADMN_SALA . '/procesarBusquedaSala.php');
     // vistas/pagina/administracion/sesion
     define('RUTA_PGN_ADMN_SES', RUTA_PGN_ADMN . '/sesion');
     define('RUTA_AND_SES', RUTA_PGN_ADMN_SES . '/aniadirSesion.php');

@@ -4,8 +4,8 @@
     
     if (isset($_GET['id'])) {
         $tituloPagina = 'Modificar Sala';
-        $formulario2 = new es\ucm\fdi\aw\FormularioButacas($_GET['id']);
-        $htmlFormularioButacas = $formulario2->gestiona();
+        $formulario = new es\ucm\fdi\aw\FormularioButacas($_GET['id']);
+        $htmlFormularioButacas = $formulario->gestiona();
         $contenidoPrincipal = <<<EOS
             <h1>Modificar sala</h1>
             $htmlFormularioButacas

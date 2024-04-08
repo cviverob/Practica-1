@@ -13,14 +13,14 @@
         private $sala;
 
         public function __construct($idSala) {
-            parent::__construct('formBut', ['urlRedireccion' => RUTA_APP . RUTA_ADMN, 
-                'enctype' => 'multipart/form-data']
-            );
             $this->sala = Salas::buscar($idSala);
             if (!$this->sala) {
                 echo("Sala no encontrada");
                 exit();
             }
+            parent::__construct('formButs', ['urlRedireccion' => RUTA_APP . RUTA_MOD_SALA . 
+                "?id=" . $this->sala->getId(), 'enctype' => 'multipart/form-data']
+            );
         }
 
         //funcion que genera los campos necesarios para el mini formulario de las salas
@@ -63,29 +63,43 @@
                         <input id = "num_columnas" type = "text" name = "num_columnas" value = "$num_columnas" />
             EOS;
             $html .= $this->mostrarError('num_columnas');
-            $html .= "</div>" . "";
-            $html1 = "<div class='contenedor-butacas'>";
+            $html .= <<<EOS
+                    </div>
+                    <div>
+                        <button type = "submit" name = "but">Regenerar sala</button>
+                    </div>
+            EOS;
+            $html .= "<div class='contenedor-butacas'>";
             for ($fila = 1; $fila <= $this->sala->getNumFilas(); $fila++) {
-                $html1 .= "<div class='fila-butacas'>";
+                $html .= "<div class='fila-butacas'>";
                 for ($columna = 1; $columna <=  $this->sala->getNumColumnas(); $columna++) {
-                    $formButaca = new FormularioButaca($this->sala->getId(), $fila, $columna);
-                    $html1 .= $formButaca->gestiona();
+                    $formButaca = new FormularioButaca($this->sala, $fila, $columna);
+                    $html .= $formButaca->gestiona();
                 }
-                $html1 .= "</div>";
+                $html .= "</div>";
             }
-            $html1 .= "</div>";
-            
-            $html .= $html1 . <<<EOS
-                <div>
-                    <button type = "submit" name = "but">Crear sala</button>
-                </div>
+            $rutaAdmin = RUTA_APP . RUTA_ADMN;
+            $html .= <<<EOS
+                    </div>
+                    <a href = $rutaAdmin>Terminar</a>
             EOS;
 
             return $html;
         }
 
         public function procesaFormulario(&$datos) {
-            
+            $retorno = procesaFormularioSala($datos);
+            $this->errores = $retorno["errores"];
+    
+            //Miramos si ha saltado algun error anteriormente
+            if (count($this->errores) === 0) {
+                if ($this->sala->modificar($retorno["num_sala"], $retorno["num_filas"], $retorno["num_columnas"])) {
+                    $this->urlRedireccion .= "?id=" . $this->sala->getId();
+                }
+                else {
+                    $this->errores[] = "Error al modificar la sala";
+                }
+            }
         }
     }
     
