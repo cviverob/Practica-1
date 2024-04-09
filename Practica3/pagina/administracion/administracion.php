@@ -11,7 +11,7 @@
         $ruta_bsc_pel = RUTA_APP . RUTA_BSC_PEL;
         $ruta_and_ses = RUTA_APP . RUTA_AND_SES;
         $ruta_bsc_ses = RUTA_APP . RUTA_BSC_SES;
-        $ruta_and_sal = RUTA_APP . RUTA_AND_SALA;
+        $ruta_and_sal = RUTA_APP . RUTA_AÑD_SALA;
         $ruta_bsc_sal = RUTA_APP . RUTA_BSC_SALA;
         $contenidoPrincipal = <<< EOS
 

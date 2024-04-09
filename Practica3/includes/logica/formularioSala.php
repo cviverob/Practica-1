@@ -25,12 +25,10 @@
                 $num_sala = $this->sala->getNumSala();
                 $num_filas = $this->sala->getNumFilas();
                 $num_columnas = $this->sala->getNumColumnas();
-                $butacas = $this->sala->getButacas();
             }
             $num_sala = $datos['num_sala'] ?? $num_sala ?? '';
             $num_filas = $datos['num_filas'] ?? $num_filas ?? '';
             $num_columnas = $datos['num_columnas'] ?? $num_columnas ?? '';
-            $butacas = $datos['butacas'] ?? $butacas ?? '';
 
             $html = <<<EOS
                 <fieldset>
@@ -108,19 +106,25 @@
     
             //Miramos si ha saltado algun error anteriormente
             if (count($this->errores) === 0) {
-                if ($this->sala) {    // Modificar
-                    if (Salas::modificar($this->sala->getId(), $num_sala, $num_filas, $num_columnas, $butacas)) {
+                try {
+                    if ($this->sala) {    // Modificar
+                        if ($this->sala->modificar($num_sala, $num_filas, $num_columnas, $butacas)) {
+                            $this->urlRedireccion .= "?id=" . $this->sala->getId();
+                        }
+                        else {
+                            $this->errores[] = "Error al modificar la sala";
+                        }
+                    }   // Dar de alta
+                    else if ($this->sala = Salas::crear($num_sala, $num_filas, $num_columnas)) {
                         $this->urlRedireccion .= "?id=" . $this->sala->getId();
                     }
                     else {
-                        $this->errores[] = "Error al modificar la sala";
+                        $this->errores[] = "Error al subir la sala";
                     }
-                }   // Dar de alta
-                else if ($this->sala = Salas::crear($num_sala, $num_filas, $num_columnas)) {
-                    $this->urlRedireccion .= "?id=" . $this->sala->getId();
-                }
-                else {
-                    $this->errores[] = "Error al subir la sala";
+                } catch (mysqli_sql_exception $e) {
+                    if ($e->getCode() == 1062) {
+                        $this->errores["num_sala"] = "El número de sala ya existe";
+                    }
                 }
             }
         }

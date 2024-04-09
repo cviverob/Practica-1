@@ -300,4 +300,18 @@ ARCHIVO: formulario.php
     background-color: mediumblue;
   }
 
+/* Estilos para el botón con value="nulo" */
+button[type="submit"][value="nulo"] {
+    background-color: red;
+    color: white;
+}
 
+/* Estilos para el botón con value="disponible" */
+button[type="submit"][value="disponible"] {
+    background-color: green;
+    color: white;
+}
+
+.fila-butacas {
+    display: flex;
+}
