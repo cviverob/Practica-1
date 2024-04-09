@@ -65,7 +65,7 @@
                 $conn->real_escape_string($this->id)
             );
             if ($conn->query($query)) {
-                return $sala;
+                return $this;
             } 
             else {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -180,8 +180,8 @@
         
             // Indexar las butacas existentes por fila y columna
             foreach ($this->butacas as $butaca) {
-                $fila = $butaca->fila;
-                $columna = $butaca->columna;
+                $fila = $butaca["fila"];
+                $columna = $butaca["columna"];
                 $butacasIndexadas["$fila,$columna"] = $butaca;
             }
         
@@ -198,9 +198,9 @@
                         // Si la butaca existe, copiamos la información de la butaca existente
                         $butaca = $butacasIndexadas[$indice];
                         $nuevasButacas[$id] = array(
-                            "fila" => $butaca->fila,
-                            "columna" => $butaca->columna,
-                            "estado" => $butaca->estado
+                            "fila" => $butaca["fila"],
+                            "columna" => $butaca["columna"],
+                            "estado" => $butaca["estado"]
                         );
                     } 
                     else {

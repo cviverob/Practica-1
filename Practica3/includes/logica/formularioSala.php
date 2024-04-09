@@ -68,12 +68,53 @@
         }
 
         public function procesaFormulario(&$datos) {
-            $retorno = procesaFormularioSala($datos);
-            $this->errores = $retorno["errores"];
+            $num_sala = trim($datos['num_sala'] ?? '');
+            $num_sala = filter_var($num_sala, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$num_sala || empty($num_sala)) {
+                $this->errores['num_sala'] = 'La sala no puede estar vacía';
+            }
+            else if (!is_numeric($num_sala)) {
+                $this->errores['num_sala'] = 'La sala debe ser un número';
+            }
+
+            $num_filas = trim($datos['num_filas'] ?? '');
+            $num_filas = filter_var($num_filas, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$num_filas || empty($num_filas)) {
+                $this->errores['num_filas'] = 'El número de filas no puede estar vacío';
+            }
+            else if (!is_numeric($num_filas)) {
+                $this->errores['num_filas'] = 'El número de filas debe ser un número';
+            }
+            else if ($num_filas < 1 || $num_filas > MAX_FILAS) {
+                $this->errores['num_filas'] = 'El número de filas debe ser un número entre 1 y ' . MAX_FILAS;
+            }
+
+            $num_columnas = trim($datos['num_columnas'] ?? '');
+            $num_columnas = filter_var($num_columnas, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$num_columnas || empty($num_columnas)) {
+                $this->errores['num_columnas'] = 'El número de columnas no puede estar vacío';
+            }
+            else if (!is_numeric($num_columnas)) {
+                $this->errores['num_columnas'] = 'El número de columnas debe ser un número';
+            }
+            else if ($num_columnas < 1 || $num_columnas > MAX_COLS) {
+                $this->errores['num_columnas'] = 'El número de columnas debe ser un número entre 1 y ' . MAX_COLS;
+            }
+
+            $butacas = trim($datos['butacas'] ?? '');
+            $butacas = filter_var($butacas, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
             //Miramos si ha saltado algun error anteriormente
             if (count($this->errores) === 0) {
-                if ($this->sala = Salas::crear($retorno["num_sala"], $retorno["num_filas"], $retorno["num_columnas"])) {
+                if ($this->sala) {    // Modificar
+                    if ($this->sala->modificar($num_sala, $num_filas, $num_columnas, $butacas)) {
+                        $this->urlRedireccion .= "?id=" . $this->sala->getId();
+                    }
+                    else {
+                        $this->errores[] = "Error al modificar la sala";
+                    }
+                }   // Dar de alta
+                else if ($this->sala = Salas::crear($num_sala, $num_filas, $num_columnas)) {
                     $this->urlRedireccion .= "?id=" . $this->sala->getId();
                 }
                 else {
