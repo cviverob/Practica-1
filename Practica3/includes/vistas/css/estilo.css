@@ -297,3 +297,7 @@ button[type="submit"][value="disponible"] {
     background-color: green;
     color: white;
 }
+
+.fila-butacas {
+    display: flex;
+}
