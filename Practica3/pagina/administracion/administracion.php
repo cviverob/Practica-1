@@ -17,15 +17,15 @@
 
             <h2>Gestión de películas</h2>
             <a href="$ruta_and_pel" class="adminButton">Añadir</a>
-            <a href="$ruta_bsc_pel" class="adminButton">Buscar</a>
+            <a href="$ruta_bsc_pel" class="adminButton">Listar</a>
 
             <h2>Gestión de cartelera</h2>
             <a href="$ruta_and_ses" class="adminButton">Añadir</a>
-            <a href="$ruta_bsc_ses" class="adminButton">Buscar</a>
+            <a href="$ruta_bsc_ses" class="adminButton">Listar</a>
 
             <h2>Gestión de salas</h2>
             <a href="$ruta_and_sal" class="adminButton">Añadir</a>
-            <a href="$ruta_bsc_sal" class="adminButton">Buscar</a>
+            <a href="$ruta_bsc_sal" class="adminButton">Listar</a>
 
             <p></p>
         EOS;

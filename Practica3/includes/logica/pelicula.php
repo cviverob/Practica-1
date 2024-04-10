@@ -119,7 +119,7 @@
          */
         public static function borrar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM Peliculas WHERE id = '%s'" , $id);
+            $query = sprintf("DELETE FROM peliculas WHERE id = '%s'" , $id);
             return $conn->query($query);
         }
 
@@ -135,7 +135,7 @@
          * @param string $duracion
          */
         public static function actualizaPelicula($id, $titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion) {
-            $pelicula = new pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
+            $pelicula = new pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id);
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("UPDATE peliculas SET Titulo = '%s', Genero = '%s', Pegi = '%s', 
                 Duracion = '%s', Sinopsis = '%s', Poster = '%s', Trailer = '%s' WHERE Id = '%s'",

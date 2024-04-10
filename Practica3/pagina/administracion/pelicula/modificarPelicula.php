@@ -1,6 +1,7 @@
 <?php
 
     require_once('../../../includes/config.php');
+    require_once(RUTA_RAIZ . RUTA_UTILS);
     
     if (comprobarPermisos($_SESSION["esAdmin"])) {
         if (isset($_GET['id'])) {

@@ -93,7 +93,7 @@
             $this->num_filas = $num_filas;
             $this->num_columnas = $num_columnas;
             $this->modificarButacas();
-            $query = sprintf("UPDATE Salas SET Num_sala = '%d', Num_filas = '%d', 
+            $query = sprintf("UPDATE salas SET Num_sala = '%d', Num_filas = '%d', 
                 Num_columnas = '%d', Butacas = '%s' WHERE Id = %s",
                 $conn->real_escape_string($this->num_sala),
                 $conn->real_escape_string($this->num_filas),
@@ -116,7 +116,7 @@
          */
         public static function borrar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM Salas WHERE id = '%s'" , $id);
+            $query = sprintf("DELETE FROM salas WHERE id = '%s'" , $id);
             return $conn->query($query);
         }
 
@@ -299,7 +299,7 @@
                 }
             }
             $sala->butacas = $butacas;
-            $query=sprintf("INSERT INTO Salas(Num_sala, Num_filas, Num_columnas, Butacas) VALUES ('%s','%s','%s','%s')",
+            $query=sprintf("INSERT INTO salas(Num_sala, Num_filas, Num_columnas, Butacas) VALUES ('%s','%s','%s','%s')",
                 $conn->real_escape_string($sala->num_sala),
                 $conn->real_escape_string($sala->num_filas),
                 $conn->real_escape_string($sala->num_columnas),
