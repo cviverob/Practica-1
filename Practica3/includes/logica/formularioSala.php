@@ -5,7 +5,7 @@
     /**
      * Clase encargada del formulario de las salas
      */
-    class FormularioSala extends Formulario {
+    class formularioSala extends formulario {
 
         /**
          * Sala original para modificar, o null si estamos en el caso de dar de alta
@@ -16,28 +16,28 @@
             parent::__construct('formSala', ['urlRedireccion' => RUTA_APP . RUTA_MOD_SALA, 
                 'enctype' => 'multipart/form-data']
             );
-            $this->sala = $idSala != null ? Salas::buscar($idSala) : null;
+            $this->sala = $idSala != null ? salas::buscar($idSala) : null;
         }
 
-        //funcion que genera los campos necesarios para el mini formulario de las salas
         public function generaCamposFormulario(&$datos) {
+            /* Caso en el que estemos modificando una sala */
             if ($this->sala) {
                 $num_sala = $this->sala->getNumSala();
                 $num_filas = $this->sala->getNumFilas();
                 $num_columnas = $this->sala->getNumColumnas();
-                $butacas = $this->sala->getButacas();
             }
+            /* Obtenemos los valores predeterminados */
             $num_sala = $datos['num_sala'] ?? $num_sala ?? '';
             $num_filas = $datos['num_filas'] ?? $num_filas ?? '';
             $num_columnas = $datos['num_columnas'] ?? $num_columnas ?? '';
-            $butacas = $datos['butacas'] ?? $butacas ?? '';
-
+            /* Inicio del formulario */
             $html = <<<EOS
                 <fieldset>
                     <legend>Datos de la sala</legend>
                     <div>
             EOS;
-            $html .= $this->mostrarErroresGlobales();   // Mostramos los errores globales
+            $html .= $this->mostrarErroresGlobales();
+            /* Número de sala */
             $html .= <<<EOS
                     </div>
                     <div>
@@ -45,6 +45,7 @@
                         <input id = "num_sala" type = "text" name = "num_sala" value = "$num_sala" />
             EOS;
             $html .= $this->mostrarError('num_sala');
+            /* Número de filas */
             $html .= <<<EOS
                     </div>
                     <div>
@@ -52,6 +53,7 @@
                         <input id = "num_filas" type = "text" name = "num_filas" value = "$num_filas" />
             EOS;
             $html.= $this->mostrarError('num_filas');
+            /* Número de columnas */
             $html .= <<<EOS
                     </div>
                     <div>
@@ -59,17 +61,20 @@
                         <input id = "num_columnas" type = "text" name = "num_columnas" value = "$num_columnas" />
             EOS;
             $html .= $this->mostrarError('num_columnas');
+            /* Botones de enviar y resetear */
             $html .= <<<EOS
                     </div>
                 </fieldset>
                 <div>
                     <button type = "submit" name = "sala">Generar sala</button>
+                    <button type = "reset" name = "borrar">Resetear</button>
                 </div>
             EOS;
             return $html;
         }
 
         public function procesaFormulario(&$datos) {
+            /* Validación del número de sala */
             $num_sala = trim($datos['num_sala'] ?? '');
             $num_sala = filter_var($num_sala, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$num_sala || empty($num_sala)) {
@@ -78,7 +83,7 @@
             else if (!is_numeric($num_sala)) {
                 $this->errores['num_sala'] = 'La sala debe ser un número';
             }
-
+            /* Validación del número de filas */
             $num_filas = trim($datos['num_filas'] ?? '');
             $num_filas = filter_var($num_filas, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$num_filas || empty($num_filas)) {
@@ -90,7 +95,7 @@
             else if ($num_filas < 1 || $num_filas > MAX_FILAS) {
                 $this->errores['num_filas'] = 'El número de filas debe ser un número entre 1 y ' . MAX_FILAS;
             }
-
+            /* Valdiación del número de columnas */
             $num_columnas = trim($datos['num_columnas'] ?? '');
             $num_columnas = filter_var($num_columnas, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$num_columnas || empty($num_columnas)) {
@@ -102,25 +107,29 @@
             else if ($num_columnas < 1 || $num_columnas > MAX_COLS) {
                 $this->errores['num_columnas'] = 'El número de columnas debe ser un número entre 1 y ' . MAX_COLS;
             }
-
-            $butacas = trim($datos['butacas'] ?? '');
-            $butacas = filter_var($butacas, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    
-            //Miramos si ha saltado algun error anteriormente
+            /* Intentamos subir la sala */
             if (count($this->errores) === 0) {
-                if ($this->sala) {    // Modificar
-                    if (Salas::modificar($this->sala->getId(), $num_sala, $num_filas, $num_columnas, $butacas)) {
+                try {
+                    /* Caso de modificar la sala */
+                    if ($this->sala) {
+                        if ($this->sala->modificar($num_sala, $num_filas, $num_columnas)) {
+                            $this->urlRedireccion .= "?id=" . $this->sala->getId();
+                        }
+                        else {
+                            $this->errores[] = "Error al modificar la sala";
+                        }
+                    }
+                    /* Caso de insertar una nueva sala */
+                    else if ($this->sala = salas::crear($num_sala, $num_filas, $num_columnas)) {
                         $this->urlRedireccion .= "?id=" . $this->sala->getId();
                     }
                     else {
-                        $this->errores[] = "Error al modificar la sala";
+                        $this->errores[] = "Error al subir la sala";
                     }
-                }   // Dar de alta
-                else if ($this->sala = Salas::crear($num_sala, $num_filas, $num_columnas)) {
-                    $this->urlRedireccion .= "?id=" . $this->sala->getId();
-                }
-                else {
-                    $this->errores[] = "Error al subir la sala";
+                } catch (Exception $e) {
+                    if ($e->getCode() == 1062) {
+                        $this->errores["num_sala"] = "El número de sala ya existe";
+                    }
                 }
             }
         }

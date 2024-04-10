@@ -8,32 +8,24 @@
     $contenidoPrincipal = <<< EOS
         <h1>Selección de butacas</h1>
         <div>
+            <fieldset>
+            <legend>Sala</legend>
     EOS;
-
-    $datos = es\ucm\fdi\aw\salas::buscar(50);
-    $contenidoPrincipal .= "<h2> Sala </h2>";
     
-    $cont = 0;
-    /*for($j = 0; $j < $datos->getNumColumnas(); $j++) {
-        $cont++;
-        $contenidoPrincipal .= $cont . " ";
-        
-    }*/
-    
-    for($i = 1; $i <= $datos->getNumFilas(); $i++){
+    for($fila = 1; $fila <= 10; $fila++){
         $contenidoPrincipal .= "<div>";
-        for($j = 1; $j <= $datos->getNumColumnas(); $j++){
-            $ocupado = es\ucm\fdi\aw\salas::devolverAsiento($datos, $i, $j);
-            $contenidoPrincipal .= "<button type = 'button' class = 'botoneee'>{$ocupado}</button>";
+        for($columna = 1; $columna <= 10; $columna++){
+            $contenidoPrincipal .= "<button type = 'button' class = 'botoneee'>$fila-$columna</button>";
         }
         $contenidoPrincipal .= "</div>";
     }
 
     $contenidoPrincipal .= <<< EOS
+            </fieldset>
         </div>
-        <p></p>
-        <a href="$ruta_proc_comp"><button type="button" class="RegisterUserButton">Comprar</button></a>
-
+        <div>
+            <a href="$ruta_proc_comp"><button type="button" class="RegisterUserButton">Comprar</button></a>
+        </div>
     EOS;
 
     require_once(RUTA_RAIZ . RUTA_PLNT);

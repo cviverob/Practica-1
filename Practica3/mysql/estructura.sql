@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 21-03-2024 a las 10:52:21
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Servidor: vm003.db.swarm.test
+-- Tiempo de generación: 10-04-2024 a las 09:37:07
+-- Versión del servidor: 10.4.32-MariaDB-1:10.4.32+maria~ubu2004
+-- Versión de PHP: 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -131,7 +131,8 @@ ALTER TABLE `peliculas`
 -- Indices de la tabla `salas`
 --
 ALTER TABLE `salas`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `Num_sala` (`Num_sala`);
 
 --
 -- Indices de la tabla `usuario`
@@ -154,6 +155,12 @@ ALTER TABLE `cartelera`
 --
 ALTER TABLE `compras`
   MODIFY `Id_compra` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `peliculas`
+--
+ALTER TABLE `peliculas`
+  MODIFY `Id` int(50) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `salas`

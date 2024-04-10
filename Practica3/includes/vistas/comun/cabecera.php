@@ -1,10 +1,11 @@
 <header>
-    <a href = "<?php echo RUTA_APP ?>"class="fotoElmoCines"><img src = "<?php echo RUTA_APP . RUTA_IMGS ?>/ElmoCines.png" alt="Título de la página"></a>
-    <a href = "<?php echo RUTA_APP ?>"class="fotoElmo"><img src = "<?php echo RUTA_APP . RUTA_IMGS ?>/Logo.png" alt = "Logo de la página"></a>
+    <a href = "<?php echo RUTA_APP . RUTA_INDX ?>"class="fotoElmoCines"><img src = "<?php echo RUTA_APP . RUTA_IMGS ?>/ElmoCines.png" alt="Título de la página"></a>
+    <a href = "<?php echo RUTA_APP . RUTA_INDX ?>"class="fotoElmo"><img src = "<?php echo RUTA_APP . RUTA_IMGS ?>/Logo.png" alt = "Logo de la página"></a>
         
     <?php
         if (!isset($_SESSION["login"]) || !$_SESSION["login"]) {
-            echo 'Usuario desconocido. <a href="' . RUTA_APP . RUTA_LGIN . '" class="LogUserButton">Logearse</a> <a href="' . RUTA_APP . RUTA_REG . '" class="RegisterUserButton">Registrarse</a>';
+            //echo '"class="usuarioDesco"" Usuario desconocido';
+            echo 'Usuario desconocido <a href="' . RUTA_APP . RUTA_LGIN . '" class="LogUserButton">Logearse</a> <a href="' . RUTA_APP . RUTA_REG . '" class="RegisterUserButton">Registrarse</a>';
 
         }
         else {

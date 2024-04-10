@@ -42,6 +42,15 @@
          */
         private $rol;
 
+        /**
+         * Constructor del usuario
+         * @param string $correo
+         * @param string $nombre
+         * @param string $contraseña
+         * @param int $edad
+         * @param int $id Id del usuario con valor por defecto NULL
+         * @param int $rol Rol del usuario con valor por defecto ROL_USUARIO
+         */
         private function __construct($correo, $nombre, $contraseña, $edad, $id = null, $rol = self::ROL_USUARIO) {
             $this->correo = $correo;
             $this->nombre = $nombre;
@@ -54,6 +63,8 @@
         /**
          * Busca el usuario $nombreUsuario en la bd y, si lo encuentra, comprueba
          * si la contraseña es correcta y de serlo lo devuelve
+         * @param string $correo
+         * @param string $contraseña
          */
         public static function login($correo, $contraseña) {
             $usuario = self::buscaUsuario($correo);
@@ -64,13 +75,17 @@
         }
 
         /**
-         * Función que comprueba si un usuario ya existe en la bd o no,
+         * Método que comprueba si un usuario ya existe en la bd o no,
          * y de no hacerlo, lo crea y lo inserta
+         * @param string $correo
+         * @param string $nombre
+         * @param string $contraseña
+         * @param int $edad
          */
         public static function registrar($correo, $nombre, $contraseña, $edad) {
             if (!self::buscaUsuario($correo)) {
                 $contraseña = self::hashContraseña($contraseña);
-                $usuario = new Usuario($correo, $nombre, $contraseña, $edad);
+                $usuario = new usuario($correo, $nombre, $contraseña, $edad);
                 return self::insertaUsuario($usuario);
             }
             else {
@@ -80,34 +95,36 @@
         
         /**
          * Devuelve una instancia del usuario que ha encontrado en la bd
-         * con el parámetro $nombreUsuario, o false si no lo encuentra
+         * con el parámetro $correo, o false si no lo encuentra
+         * @param string $correo
          */
         private static function buscaUsuario($correo) {
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM usuario WHERE email='%s'", $conn->real_escape_string($correo));
-            $rs = $conn->query($query);     // Realizamos la búsqueda
+            $rs = $conn->query($query);
             if ($rs) {
                 if ($rs->num_rows == 1) {
-                    $usuario = $rs->fetch_assoc();     // Guardamos la fila encontrada
+                    $usuario = $rs->fetch_assoc();
                     $correo = $usuario['email'];
                     $nombre = $usuario['nombre'];
                     $contraseña = $usuario['contraseña'];
                     $edad = $usuario['edad'];
                     $id = $usuario['id'];
                     $rol = $usuario['rol'];
-                    $usuario = new Usuario($correo, $nombre, $contraseña, $edad, $id, $rol);
+                    $usuario = new usuario($correo, $nombre, $contraseña, $edad, $id, $rol);
                     $rs->free();
                     return $usuario;
                 }
             }
-            else {      // Error al hacer la consulta
+            else {
                 echo "Error SQL ({$conn->errno}):  {$conn->error}";
             }
             return false;
         }
 
         /**
-         * Función que inserta un usuario en la bd
+         * Método que inserta un usuario en la bd
+         * @param Usuario $usuario Usuarioa insertar
          */
         private static function insertaUsuario($usuario) {
             $conn = aplicacion::getInstance()->getConexionBd();
@@ -123,7 +140,7 @@
                 $usuario->setId($id);
                 return $usuario;
             }
-            else {      // Error al hacer la inserción
+            else {
                 echo "Error SQL ({$conn->errno}):  {$conn->error}";
             }
             return false;
@@ -131,6 +148,7 @@
 
         /**
          * Comprueba si la contraseña pasada por parámetro coincide con la del usuario
+         * @param string $contraseña
          */
         private function compruebaContraseña($contraseña) {
             return password_verify($contraseña, $this->contraseña);
@@ -138,25 +156,30 @@
 
         /**
          * Hashea la contraseña pasada por parámetro
+         * @param string $contraseña
          */
         private static function hashContraseña($contraseña) {
             return password_hash($contraseña, PASSWORD_DEFAULT);
         }
 
-        // Getters y setters
-
-        public function getNombreUsuario() {
-            return $this->nombreUsuario;
-        }
-
+        /**
+         * Método que devuelve el nombre del usuario
+         */
         public function getNombre() {
             return $this->nombre;
         }
 
+        /**
+         * Método que devuelve si el usuario es administrador o no
+         */
         public function esAdmin() {
             return $this->rol == self::ROL_ADMIN;
         }
 
+        /**
+         * Método que establece un nuevo id del usuario
+         * @param int $id Nuevo identificador del usuario
+         */
         public function setId($id) {
             $this->id = $id;
         }

@@ -8,7 +8,7 @@
      * además de incorporar en su constructor los parámetros
      * necesarios para hacer una llamada al del padre
      */
-    abstract class Formulario {
+    abstract class formulario {
 
         /**
          * @var string Identificador del formulario
@@ -95,7 +95,7 @@
                 return '';
             }
 
-            $html = "<ul class=\"$this->classAtt\">";
+            $html = "<ul class=\"$this->class\">";
             foreach ($clavesErroresGlobales as $clave) {
                 $html .= "{$this->errores[$clave]}";
             }

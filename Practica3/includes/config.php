@@ -7,7 +7,8 @@
      * las html usan relativas a localhost, por lo que se utiliza RUTA_APP
      */
     define('RUTA_RAIZ', dirname(__DIR__));
-    define('RUTA_APP', '/Practica-SW/Practica3');
+    define('RUTA_APP', '/Practica-SW/Practica3'); //Ruta para el xampp
+    //define('RUTA_APP', '');//Ruta para el servidor
     define('RUTA_INDX', '/index.php');
     // img
     define('RUTA_IMGS', '/img');
@@ -52,6 +53,9 @@
     define('RUTA_CONS_PELI', RUTA_PGN . '/consultaPelicula.php');
     define('RUTA_SELC_BUT', RUTA_PGN . '/seleccionDeButacas.php');
     define('RUTA_PROC_COMP', RUTA_PGN . '/procesarCompra.php');
+    define('RUTA_CNTCT', RUTA_PGN . '/contacto.php');
+    define('RUTA_POLT_PRIV', RUTA_PGN . '/politicaDePrivacidad.php');
+    define('RUTA_POLT_COOK', RUTA_PGN . '/politicaDeCookies.php');
     // vistas/pagina/administracion
     define('RUTA_PGN_ADMN', RUTA_PGN . '/administracion');
     define('RUTA_ADMN', RUTA_PGN_ADMN . '/administracion.php');
@@ -59,14 +63,12 @@
     define('RUTA_PGN_ADMN_PEL', RUTA_PGN_ADMN . '/pelicula');
     define('RUTA_AND_PEL', RUTA_PGN_ADMN_PEL . '/aniadirPelicula.php');
     define('RUTA_BSC_PEL', RUTA_PGN_ADMN_PEL . '/buscarPelicula.php');
-    define('RUTA_PROC_AND_PEL', RUTA_PGN_ADMN_PEL . '/procesarAniadirPelicula.php');
-    define('RUTA_PROC_BSC_PEL', RUTA_PGN_ADMN_PEL . '/procesarBusquedaPeliculas.php');
     // vistas/pagina/administracion/sala
     define('RUTA_PGN_ADMN_SALA', RUTA_PGN_ADMN . '/sala');
-    define('RUTA_AND_SALA', RUTA_PGN_ADMN_SALA . '/aniadirSala.php');
+    define('RUTA_AÑD_SALA', RUTA_PGN_ADMN_SALA . '/aniadirSala.php');
+    define('RUTA_BRR_SALA', RUTA_PGN_ADMN_SALA . '/borrarSala.php');
     define('RUTA_BSC_SALA', RUTA_PGN_ADMN_SALA . '/buscarSala.php');
     define('RUTA_MOD_SALA', RUTA_PGN_ADMN_SALA . '/modificarSala.php');
-    define('RUTA_PROC_BSC_SALA', RUTA_PGN_ADMN_SALA . '/procesarBusquedaSala.php');
     // vistas/pagina/administracion/sesion
     define('RUTA_PGN_ADMN_SES', RUTA_PGN_ADMN . '/sesion');
     define('RUTA_AND_SES', RUTA_PGN_ADMN_SES . '/aniadirSesion.php');
@@ -126,8 +128,8 @@
     /**
      * Configuración de la BD
      */
-    define('BD_HOST', 'localhost');
-    //define('BD_HOST', 'vm003.db.swarm.test');
+    define('BD_HOST', 'localhost'); //Para XAMPP
+    //define('BD_HOST', 'vm003.db.swarm.test'); //Para servidor
     define('BD_NAME', 'cines');
     define('BD_USER', 'cines');
     define('BD_PASS', 'cines');

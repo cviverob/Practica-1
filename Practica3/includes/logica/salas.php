@@ -3,16 +3,39 @@
 
     class salas {
 
-        /* Atributos del programa */
-
+        /**
+         * Id de la sala
+         */
         private $id;
+
+        /**
+         * Número de la sala
+         */
         private $num_sala;
+        
+        /**
+         * Número de filas de la sala
+         */
         private $num_filas;
+
+        /**
+         * Número de columnas de la sala
+         */
         private $num_columnas;
-        private $butacas; //aqui vamos a tener el numero de asientos totales y si cada uno esta libre u ocupado
 
-        /* Constructor */
+        /**
+         * Butacas de la sala, con información sobre su posición y estado
+         */
+        private $butacas;
 
+        /**
+         * Constructor de la sala
+         * @param int $num_sala
+         * @param int $num_filas
+         * @param int $num_columnas
+         * @param array $butacas Butacas de la sala, con valor por defecto NULL
+         * @param int $id Identificador de la sala, con valor por defecto NULL
+         */
         private function __construct($num_sala, $num_filas, $num_columnas, $butacas = null, $id = null) {
             $this->num_sala = $num_sala;
             $this->num_filas = $num_filas;
@@ -21,13 +44,21 @@
             $this->id = $id;
         }
 
-        /* Funciones públicas */
-
+        /**
+         * Método que instancia una película
+         * @param int $num_sala
+         * @param int $num_filas
+         * @param int $num_columnas
+         */
         public static function crear($num_sala, $num_filas, $num_columnas) {
-            $sala = new Salas($num_sala, $num_filas, $num_columnas);
+            $sala = new salas($num_sala, $num_filas, $num_columnas);
             return self::insertar($sala);
         }
 
+        /**
+         * Método que busca una sala según su id
+         * @param int $id Identificador de la sala a buscar
+         */
         public static function buscar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM salas WHERE id = '%s'", $conn->real_escape_string($id));
@@ -39,8 +70,8 @@
                     $num_sala = $sala['Num_sala'];
                     $num_filas = $sala['Num_filas'];
                     $num_columnas = $sala['Num_columnas'];
-                    $butacas = json_decode($sala['Butacas']);
-                    $sala = new Salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
+                    $butacas = json_decode($sala['Butacas'], true);
+                    $sala = new salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
                     $rs->free();
                     return $sala;
                 }
@@ -50,39 +81,48 @@
             return null;
         }
 
-        public static function modificar($id, $num_sala, $num_filas, $num_columnas, $butacas) {
+        /**
+         * Método que modifica la sala adaptando el tamaño anterior al nuevo
+         * @param int $num_sala
+         * @param int $num_filas
+         * @param int $num_columnas
+         */
+        public function modificar($num_sala, $num_filas, $num_columnas) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $sala = salas::buscar($id);
-            if ($sala) {
-                $sala->num_sala = $num_sala;
-                $sala->num_filas = $num_filas;
-                $sala->num_columnas = $num_columnas;
-                $sala->butacas = $butacas;
-                $sala->modificarButacas();
-                $query = sprintf("UPDATE Salas SET Num_sala = '%d', Num_filas = '%d', 
-                    Num_columnas = '%d', Butacas = '%s' WHERE Id = %s",
-                    $conn->real_escape_string($sala->num_sala),
-                    $conn->real_escape_string($sala->num_filas),
-                    $conn->real_escape_string($sala->num_columnas),
-                    $conn->real_escape_string(json_encode($sala->butacas)),
-                    $conn->real_escape_string($sala->id)
-                );
-                if ($conn->query($query)) {
-                    return $sala;
-                } 
-                else {
-                    error_log("Error BD ({$conn->errno}): {$conn->error}");
-                }
+            $this->num_sala = $num_sala;
+            $this->num_filas = $num_filas;
+            $this->num_columnas = $num_columnas;
+            $this->modificarButacas();
+            $query = sprintf("UPDATE Salas SET Num_sala = '%d', Num_filas = '%d', 
+                Num_columnas = '%d', Butacas = '%s' WHERE Id = %s",
+                $conn->real_escape_string($this->num_sala),
+                $conn->real_escape_string($this->num_filas),
+                $conn->real_escape_string($this->num_columnas),
+                $conn->real_escape_string(json_encode($this->butacas)),
+                $conn->real_escape_string($this->id)
+            );
+            if ($conn->query($query)) {
+                return $this;
+            } 
+            else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
             return false;
         }
 
+        /**
+         * Método que borra una sala por su id
+         * @param int $id Identificador de la película a borrar
+         */
         public static function borrar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("DELETE FROM Salas WHERE id = '%s'" , $id);
             return $conn->query($query);
         }
 
+        /**
+         * Método que va a dejar de existir más pronto que tarde
+         */
         public static function getSalas() {
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = "SELECT * FROM salas";
@@ -95,56 +135,167 @@
                     $num_filas = $sala['Num_filas'];
                     $num_columnas = $sala['Num_columnas'];
                     $butacas = json_decode($sala['Butacas']);
-                    $listaSalas[] = new Salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
+                    $listaSalas[] = new salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
                 }
             }
             $rs->free();
             return $listaSalas;
         }
 
-        public function actualizarButaca($posicion) {
-            if (array_key_exists($posicion, $this->butacas)) {
-                $this->butacas[$posicion] = !$this->butacas[$posicion];
+        /**
+         * Método accesible por el administrador que actualiza el estado de una butaca
+         * desde la pestaña de modificar una sala
+         * @param int $id Identificador de la butaca a modificar
+         */
+        public function actualizarButacaAdmin($id) {
+            if (array_key_exists($id, $this->butacas)) {
+                $this->butacas[$id]["estado"] = $this->butacas[$id]["estado"] == "nulo" ? "disponible" : "nulo";
+                $conn = aplicacion::getInstance()->getConexionBd();
+                $query = sprintf("UPDATE Salas SET Butacas = '%s' WHERE Id = %s",
+                    $conn->real_escape_string(json_encode($this->butacas)),
+                    $conn->real_escape_string($this->id)
+                );
+                if ($conn->query($query)) {
+                    return true;
+                } 
+                else {
+                    error_log("Error BD ({$conn->errno}): {$conn->error}");
+                }
             }
             else {
-                $this->butacas[$posicion] = false;
+                echo "Error al actualizar la butaca con id " . $id;
             }
+            return false;
         }
 
+        /**
+         * Método accesible por el usuario para seleccionar una butaca a la
+         * hora de comprar entradas
+         * @param int $id Identificador de la butaca a seleccionar
+         */
+        public function actualizaButacaUsuario($id) {
+            if (array_key_exists($id, $this->butacas)) {
+                $this->butacas[$id]["estado"] = $this->butacas[$id]["estado"] == "seleccionada" ? "disponible" : "seleccionada";
+                $conn = aplicacion::getInstance()->getConexionBd();
+                /* PENDIENTE CORREGIR LA SIGUIENTE LÍNEA */
+                $query = sprintf("UPDATE Salas SET Butacas = '%s' WHERE Id = %s",
+                    $conn->real_escape_string(json_encode($this->butacas)),
+                    $conn->real_escape_string($this->id)
+                );
+                if ($conn->query($query)) {
+                    return true;
+                } 
+                else {
+                    error_log("Error BD ({$conn->errno}): {$conn->error}");
+                }
+            }
+            else {
+                echo "Error al actualizar la butaca con id " . $id;
+            }
+            return false;
+        }
+
+        /**
+         * Método que devuelve el identificador de la sala
+         */
         public function getId () {
             return $this->id;
         }
 
+        /**
+         * Método que devuelve el número de la sala
+         */
         public function getNumSala () {
             return $this->num_sala;
         }
 
+        /**
+         * Método que devuelve el número de filas de la sala
+         */
         public function getNumFilas () {
             return $this->num_filas;
         }
 
+        /**
+         * Método que devuelve el número de columnas de la sala
+         */
         public function getNumColumnas () {
             return $this->num_columnas;
         }
 
+        /**
+         * Método que devuelve las butacas de la sala
+         */
         public function getButacas () {
             return $this->butacas;
         }
 
+        /**
+         * Método que establece el identificador de la sala
+         * @param int $id Identificador a establecer
+         */
         public function setId($id) {
             $this->id = $id;
         }
 
+        /**
+         * Método que inserta la sala pasada por parámetro
+         * @param Sala $sala Sala a insertar
+         *//*
+        private static function insertar($sala) {
+            try {
+                $conn = aplicacion::getInstance()->getConexionBd();
+                $id = 1;
+                for ($i = 1; $i <= $sala->num_filas; $i++) {
+                    for ($j = 1; $j <= $sala->num_columnas; $j++) {
+                        $butacas[$id] = array(
+                            "fila" => $i,
+                            "columna" => $j,
+                            "estado" => "disponible"
+                        );  
+                        $id++;
+                    }
+                }
+                $sala->butacas = $butacas;
+                $query=sprintf("INSERT INTO salas(Num_sala, Num_filas, Num_columnas, Butacas) VALUES ('%d','%d','%d','%s')",
+                    $conn->real_escape_string($sala->num_sala),
+                    $conn->real_escape_string($sala->num_filas),
+                    $conn->real_escape_string($sala->num_columnas),
+                    $conn->real_escape_string(json_encode($sala->butacas))
+                );
+            
+                if ($conn->query($query)) {
+                    $id = $conn->insert_id;
+                    $sala->setId($id);
+                    return $sala;
+                }
+            } catch (Exception $e) {
+                if ($e->getCode() == 1062) {
+                    // Error de clave duplicada
+                    $this->errores["num_sala"] = "El número de sala ya existe";
+                } else {
+                    // Otros errores SQL
+                    $this->errores[""] = e->getCode();
+                }
+                return false;
+            }
+        }*/
+
+        /**
+         * Método que inserta la sala pasada por parámetro
+         * @param Sala $sala Sala a insertar
+         */
         private static function insertar($sala) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            //con esto creamos la estructura de la sala y luego lo insertamos
+            $id = 1;
             for ($i = 1; $i <= $sala->num_filas; $i++) {
                 for ($j = 1; $j <= $sala->num_columnas; $j++) {
-                    $butacas[] = array(
+                    $butacas[$id] = array(
                         "fila" => $i,
                         "columna" => $j,
-                        "ocupada" => '0'
+                        "estado" => "disponible"
                     );  
+                    $id++;
                 }
             }
             $sala->butacas = $butacas;
@@ -165,65 +316,64 @@
             return false;
         }
 
+        /**
+         * Método que modifica las butacas de la sala, corrigiendo
+         * las que han quedado fuera de rango o insertando nuevas
+         * si la sala se ha impleado
+         */
         private function modificarButacas() {
             $butacasIndexadas = [];
         
-            // Indexar las butacas existentes por fila y columna
+            /* Indexar las butacas existentes por fila y columna */
             foreach ($this->butacas as $butaca) {
-                $fila = $butaca->fila;
-                $columna = $butaca->columna;
+                $fila = $butaca["fila"];
+                $columna = $butaca["columna"];
                 $butacasIndexadas["$fila,$columna"] = $butaca;
             }
-        
             $nuevasButacas = [];
-        
-            // Recorremos todas las celdas de la sala
+            $id = 1;
+            /* Recorremos todas las celdas de la sala */
             for ($fila = 1; $fila <= $this->num_filas; $fila++) {
                 for ($columna = 1; $columna <= $this->num_columnas; $columna++) {
                     $indice = "$fila,$columna";
-        
-                    // Verificamos si hay una butaca existente en la celda actual
+                    /* Verificamos si hay una butaca existente en la celda actual */
                     if (isset($butacasIndexadas[$indice])) {
-                        // Si la butaca existe, copiamos la información de la butaca existente
+                        /* Si la butaca existe, copiamos la información de la butaca existente */
                         $butaca = $butacasIndexadas[$indice];
-                        $nuevasButacas[] = [
-                            "fila" => $butaca->fila,
-                            "columna" => $butaca->columna,
-                            "ocupada" => $butaca->ocupada
-                        ];
-                    } else {
-                        // Si no hay butaca existente, agregamos una nueva butaca con estado '0'
-                        $nuevasButacas[] = [
+                        $nuevasButacas[$id] = array(
+                            "fila" => $butaca["fila"],
+                            "columna" => $butaca["columna"],
+                            "estado" => $butaca["estado"]
+                        );
+                    } 
+                    else {
+                        /* Si no hay butaca existente, agregamos una nueva butaca con estado '0' */
+                        $nuevasButacas[$id] = array(
                             "fila" => $fila,
                             "columna" => $columna,
-                            "ocupada" => '0'
-                        ];
+                            "estado" => "disponible"
+                        );
                     }
+                    $id++;
                 }
             }
-        
-            // Actualizar $this->butacas con el nuevo conjunto de butacas
+            /* Actualizar $this->butacas con el nuevo conjunto de butacas */
             $this->butacas = $nuevasButacas;
         }
         
         
-
-        public static function devolverAsiento($sala, $filas, $columnas)  {
-            $datos = $sala->butacas;
-
-            // Iterar sobre cada elemento del array
-            foreach ($datos as $dato) {
-                // Verificar si la fila y la columna coinciden con las deseadas
-                if ($dato->fila == $filas && $dato->columna == $columnas) {
-                    // Verificar si la butaca está ocupada
-                    if ($dato->ocupada == "1") return 1;
-                    else return 0;
-                }
+        /**
+         * Método que devuelve el estado del asiento
+         * @param int $id Identificador del asiento cuyo estado se va a devolver
+         */
+        public function devolverAsiento($id) {
+            if (array_key_exists($id, $this->butacas)) {
+                return $this->butacas[$id]["estado"];
             }
-        }
-
-        private function seleccionarAsiento() {
-
+            else {
+                echo "Error al devolver el asiento con id " . $id;
+                exit();
+            }
         }
         
     }

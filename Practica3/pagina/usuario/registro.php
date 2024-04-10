@@ -3,7 +3,7 @@
 	
 	$tituloPagina = "Registro";
 	
-	$formulario = new es\ucm\fdi\aw\FormularioRegistro();
+	$formulario = new es\ucm\fdi\aw\formularioRegistro();
 	$htmlFormularioRegistro = $formulario->gestiona();
 
 	$contenidoPrincipal = <<<EOS

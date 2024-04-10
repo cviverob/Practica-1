@@ -8,23 +8,26 @@
 
         $listaSalas = es\ucm\fdi\aw\salas::getSalas();
         $pintar = '';
+
+        $rutaBorrarSala = RUTA_APP . RUTA_BRR_SALA;
         
         foreach ($listaSalas as $salas) {
-            $pintar .= "
+            $pintar .= <<<EOS
                 <tr>
                 <td>{$salas->getNumSala()}</td>
                     <td>
-                        <form action = 'aniadirSala.php?id={$salas->getId()}' method = 'post'>
-                            <button type = 'submit'>Mod</button>
+                        <form action = "aniadirSala.php?id={$salas->getId()}" method = "post">
+                            <button type = "submit">Mod</button>
                         </form>
                     </td>
                     <td>
-                        <form action = 'borrarSala.php' method = 'post'>
-                            <input type = 'hidden' name = 'id' value = {$salas->getId()}>
-                            <button type = 'submit'>Elim</button>
+                        <form action = "borrarSala.php" method = "post">
+                            <input type = "hidden" name = "id" value = {$salas->getId()}>
+                            <button type = "submit">Elim</button>
                         </form>
                     </td>
-                </tr>";
+                </tr>"
+            EOS;
         }
 
         $contenidoPrincipal = <<< EOS
