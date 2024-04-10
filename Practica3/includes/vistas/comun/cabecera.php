@@ -1,6 +1,6 @@
 <header>
-    <a href = "<?php echo RUTA_APP ?>"class="fotoElmoCines"><img src = "<?php echo RUTA_APP . RUTA_IMGS ?>/ElmoCines.png" alt="Título de la página"></a>
-    <a href = "<?php echo RUTA_APP ?>"class="fotoElmo"><img src = "<?php echo RUTA_APP . RUTA_IMGS ?>/Logo.png" alt = "Logo de la página"></a>
+    <a href = "<?php echo RUTA_APP . RUTA_INDX ?>"class="fotoElmoCines"><img src = "<?php echo RUTA_APP . RUTA_IMGS ?>/ElmoCines.png" alt="Título de la página"></a>
+    <a href = "<?php echo RUTA_APP . RUTA_INDX ?>"class="fotoElmo"><img src = "<?php echo RUTA_APP . RUTA_IMGS ?>/Logo.png" alt = "Logo de la página"></a>
         
     <?php
         if (!isset($_SESSION["login"]) || !$_SESSION["login"]) {

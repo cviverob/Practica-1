@@ -24,9 +24,7 @@ header {
     float: right;
    margin-right: 1%;
    margin-top: 1%;
-}
-*/
-
+}*/
 
 main {
 	text-align: center;
@@ -79,6 +77,7 @@ ARCHIVO: cabecera.php:
     RegisterUserButton = boton de arriba que dice Registrarse. Tambien lo he utilizado en administracion.php y en formularioPelicula.php
 
 */
+
 .LogUserButton {
     display: inline-block;
     padding: 5px 20px;
