@@ -8,7 +8,7 @@
     class formularioContacto extends formulario {
 
         public function __construct() {
-            parent::__construct('formContacto', ['enctype' => 'multipart/form-data']);
+            parent::__construct('formContacto', ['urlRedireccion' => RUTA_APP . RUTA_INDX, 'enctype' => 'multipart/form-data']);
         }
 
         public function generaCamposFormulario(&$datos) {
