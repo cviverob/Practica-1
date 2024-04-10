@@ -70,7 +70,7 @@
         public static function registrar($correo, $nombre, $contraseña, $edad) {
             if (!self::buscaUsuario($correo)) {
                 $contraseña = self::hashContraseña($contraseña);
-                $usuario = new Usuario($correo, $nombre, $contraseña, $edad);
+                $usuario = new usuario($correo, $nombre, $contraseña, $edad);
                 return self::insertaUsuario($usuario);
             }
             else {
@@ -95,7 +95,7 @@
                     $edad = $usuario['edad'];
                     $id = $usuario['id'];
                     $rol = $usuario['rol'];
-                    $usuario = new Usuario($correo, $nombre, $contraseña, $edad, $id, $rol);
+                    $usuario = new usuario($correo, $nombre, $contraseña, $edad, $id, $rol);
                     $rs->free();
                     return $usuario;
                 }

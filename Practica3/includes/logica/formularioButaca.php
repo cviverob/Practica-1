@@ -5,7 +5,7 @@
     /**
      * Clase encargada del formulario de una butaca
      */
-    class FormularioButaca extends Formulario {
+    class formularioButaca extends formulario {
 
         /**
          * Sala original a al que pertenece la butaca
@@ -13,39 +13,45 @@
         private $sala;
 
         /**
-         * Posición de la butaca
+         * Id de la butaca
          */
-        private $posicion;
+        private $id;
 
-        public function __construct($idSala, $fila, $columna) {
-            parent::__construct('formBut', ['enctype' => 'multipart/form-data']);
-            $this->sala = salas::buscar($idSala);
-            if (!$this->sala) {
-                echo("Sala no encontrada");
-                exit();
-            }
-            $this->posicion = salas::devolverAsiento($this->sala, $fila, $columna);
+        /**
+         * Estado de la butaca
+         */
+        private $estado;
+
+        /**
+         * Fila de la butaca;
+         */
+        private $fila;
+
+        /**
+         * Columna de la butaca;
+         */
+        private $columna;
+
+        public function __construct($sala, $fila, $columna) {
+            $this->sala = $sala;
+            $this->fila = $fila;
+            $this->columna = $columna;
+            $this->id = ($this->fila - 1) * $this->sala->getNumColumnas() + $this->columna;
+            $this->estado = $this->sala->devolverAsiento($this->id);
+            $url = RUTA_APP . RUTA_MOD_SALA . '?id=' . $this->sala->getId();
+            parent::__construct('formBut' . $this->id, ['enctype' => 'multipart/form-data',
+                'urlRedireccion' => $url]);
         }
 
         public function generaCamposFormulario(&$datos) {
-            $html2= "<button type = 'submit' name = 'butaca' class = 'botonee'>{$this->posicion}</button>";
-            
-            /**
-             * HAY QUE VER DE QUÉ COLOR PINTAR EL BOTÓN EN FUNCIÓN DE SI ES UNA BUTACA
-             * HABILITADA O NO
-             */
-            /*
-            if (array_key_exists($this->posicion, $this->sala->getButacas())) {
-            }
-            else {
-
-            }
-            */
-            return $html2;
+            return "<button type = 'submit' name = 'butaca' class = 'botonee' value = 
+                {$this->estado}>{$this->fila}-{$this->columna}</button>";
         }
 
         public function procesaFormulario(&$datos) {
-            //$this->sala->actualizarButaca($this->posicion);
+            if (!$this->sala->actualizarButacaAdmin($this->id)) {
+                exit();
+            }
         }
     }
     

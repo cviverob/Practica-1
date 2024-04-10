@@ -4,10 +4,10 @@
     /**
      * Clase encargada del formulario de registro
      */
-    class FormularioRegistro extends Formulario {
+    class formularioRegistro extends formulario {
 
         public function __construct() {
-            parent::__construct('formReg', ['urlRedireccion' => RUTA_APP]);
+            parent::__construct('formReg', ['urlRedireccion' => RUTA_APP . RUTA_INDX]);
         }
 
         public function generaCamposFormulario(&$datos) {
@@ -102,7 +102,7 @@
                 $this->errores['edad'] = '¡Ponga su edad verdadera!';
             }
             if (count($this->errores) === 0) {
-                $usuario = Usuario::registrar($correo, $nombre, $contra1, $edad);
+                $usuario = usuario::registrar($correo, $nombre, $contra1, $edad);
                 if (!$usuario) {
                     $this->errores[] = 'El usuario ya existe';
                 }

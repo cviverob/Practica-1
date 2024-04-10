@@ -4,7 +4,8 @@
         
     <?php
         if (!isset($_SESSION["login"]) || !$_SESSION["login"]) {
-            echo 'Usuario desconocido. <a href="' . RUTA_APP . RUTA_LGIN . '" class="LogUserButton">Logearse</a> <a href="' . RUTA_APP . RUTA_REG . '" class="RegisterUserButton">Registrarse</a>';
+            //echo '"class="usuarioDesco"" Usuario desconocido';
+            echo 'Usuario desconocido <a href="' . RUTA_APP . RUTA_LGIN . '" class="LogUserButton">Logearse</a> <a href="' . RUTA_APP . RUTA_REG . '" class="RegisterUserButton">Registrarse</a>';
 
         }
         else {

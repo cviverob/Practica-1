@@ -4,10 +4,10 @@
     /**
      * Clase encargada del formulario de login
      */
-    class FormularioLogin extends Formulario {
+    class formularioLogin extends formulario {
 
         public function __construct() {
-            parent::__construct('formLogin', ['urlRedireccion' => RUTA_APP]);
+            parent::__construct('formLogin', ['urlRedireccion' => RUTA_APP . RUTA_INDX]);
         }
 
         public function generaCamposFormulario(&$datos) {
@@ -61,7 +61,7 @@
             }
             /* Intento de logearse */
             if (count($this->errores) === 0) {
-                $usuario = Usuario::login($correo, $contraseña);
+                $usuario = usuario::login($correo, $contraseña);
                 if (!$usuario) {
                     $this->errores[] = "El usuario o contraseña no coinciden";
                 }

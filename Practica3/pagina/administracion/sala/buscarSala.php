@@ -8,6 +8,8 @@
 
         $listaSalas = es\ucm\fdi\aw\salas::getSalas();
         $pintar = '';
+
+        $rutaBorrarSala = RUTA_APP . RUTA_BRR_SALA;
         
         foreach ($listaSalas as $salas) {
             $pintar .= <<<EOS

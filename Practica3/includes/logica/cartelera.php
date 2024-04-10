@@ -27,7 +27,7 @@
         /* Funciones públicas */
 
         public static function crea($pelicula, $fecha, $hora, $sala, $visible) {
-            $cartelera = new Cartelera($pelicula, $fecha, $hora, $sala, $visible);
+            $cartelera = new cartelera($pelicula, $fecha, $hora, $sala, $visible);
             $cartelera->guardarCartelera();
             return $cartelera;
         }

@@ -13,6 +13,20 @@ header {
     padding: 10px 20px; /* Ajusta el padding según sea necesario */
     z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
+/*
+.LogUserButton {
+    float: right;
+    margin-right: 4%;
+    margin-top: 1%;
+}
+
+.RegisterUserButton {
+    float: right;
+   margin-right: 1%;
+   margin-top: 1%;
+}
+*/
+
 
 main {
 	text-align: center;
@@ -286,4 +300,18 @@ ARCHIVO: formulario.php
     background-color: mediumblue;
   }
 
+/* Estilos para el botón con value="nulo" */
+button[type="submit"][value="nulo"] {
+    background-color: red;
+    color: white;
+}
 
+/* Estilos para el botón con value="disponible" */
+button[type="submit"][value="disponible"] {
+    background-color: green;
+    color: white;
+}
+
+.fila-butacas {
+    display: flex;
+}
