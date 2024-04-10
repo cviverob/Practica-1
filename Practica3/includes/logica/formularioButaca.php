@@ -27,7 +27,6 @@
             $this->posicion = salas::devolverAsiento($this->sala, $fila, $columna);
         }
 
-        //funcion que genera los campos necesarios para el mini formulario de las salas
         public function generaCamposFormulario(&$datos) {
             $html2= "<button type = 'submit' name = 'butaca' class = 'botonee'>{$this->posicion}</button>";
             

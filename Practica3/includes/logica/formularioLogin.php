@@ -19,7 +19,8 @@
                     <legend>Usuario y contraseña</legend>
                     <div>
             EOS;
-            $html .= $this->mostrarErroresGlobales();   // Mostramos los errores globales
+            $html .= $this->mostrarErroresGlobales();
+            /* Correo */
             $html .= <<<EOS
                     </div>
                     <div>
@@ -28,6 +29,7 @@
                             value = "$correo" />
             EOS;
             $html .= $this->mostrarError('correo');
+            /* Contraseña */
             $html .= <<<EOS
                     </div>
                     <div>
@@ -35,6 +37,7 @@
                         <input id = "contraseña" type = "password" name = "contraseña" value = "$contraseña" />
             EOS;
             $html.= $this->mostrarError('contraseña');
+            /* Botón de login */
             $html .= <<<EOS
                     </div>
                 </fieldset>
@@ -44,16 +47,19 @@
         }
 
         public function procesaFormulario(&$datos) {
+            /* Validación del correo */
             $correo = trim($datos['correo'] ?? '');
             $correo = filter_var($correo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$correo || empty($correo)) {
                 $this->errores['correo'] = 'El correo no puede estar vacío';
             }
+            /* Validación de la contraseña */
             $contraseña = trim($datos['contraseña'] ?? '');
             $contraseña = filter_var($contraseña, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (!$contraseña || empty($contraseña)) {
                 $this->errores['contraseña'] = 'La contraseña no puede estar vacía.';
             }
+            /* Intento de logearse */
             if (count($this->errores) === 0) {
                 $usuario = Usuario::login($correo, $contraseña);
                 if (!$usuario) {
