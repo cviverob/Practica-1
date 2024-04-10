@@ -2,7 +2,7 @@
 	require_once('../../includes/config.php');
 
 	$tituloPagina = 'Login';
-	$formulario = new es\ucm\fdi\aw\FormularioLogin();
+	$formulario = new es\ucm\fdi\aw\formularioLogin();
 	$htmlFormularioLogin = $formulario->gestiona();
 
 	$contenidoPrincipal = <<<EOS

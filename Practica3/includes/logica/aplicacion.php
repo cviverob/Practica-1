@@ -5,7 +5,7 @@
      * Clase Aplicación que implementa el patrón Singleton para garantizar una única instancia
      * de la misma. Se encarga de la inicialización y acceso a la bd.
      */
-    class Aplicacion {
+    class aplicacion {
 
         /**
          * Instancia de la propia clase
@@ -40,7 +40,7 @@
          */
         public static function getInstance() {
             if (self::$app == null) {
-                self::$app = new Aplicacion();
+                self::$app = new aplicacion();
             }
             return self::$app;
         }

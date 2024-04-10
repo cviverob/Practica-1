@@ -5,7 +5,7 @@
     /**
      * Clase encargada del formulario de las películas
      */
-    class FormularioPelicula extends Formulario {
+    class formularioPelicula extends formulario {
 
         /**
          * Película original para modificar, o null si estamos en el caso de dar de alta
@@ -15,7 +15,7 @@
         public function __construct($idPelicula = null) {
             parent::__construct('formPelicula', ['urlRedireccion' => RUTA_APP . RUTA_ADMN, 
                 'enctype' => 'multipart/form-data']);
-            $this->pelicula = $idPelicula != null ? Pelicula::buscar($idPelicula) : null;
+            $this->pelicula = $idPelicula != null ? pelicula::buscar($idPelicula) : null;
         }
 
         public function generaCamposFormulario(&$datos) {
@@ -207,7 +207,7 @@
                 if (!isset($rutaPoster) || move_uploaded_file($_FILES['poster']['tmp_name'], RUTA_RAIZ . RUTA_PSTR . '/' . $rutaPoster)) {
                     if (!isset($rutaTrailer) || move_uploaded_file($_FILES['trailer']['tmp_name'], RUTA_RAIZ . RUTA_TRL . '/' . $rutaTrailer)) {
                         if ($this->pelicula) {    // Modificar
-                            if (Pelicula::actualizaPelicula($this->pelicula->getId(), $nombre, $sinopsis, 
+                            if (pelicula::actualizaPelicula($this->pelicula->getId(), $nombre, $sinopsis, 
                                 $rutaPoster ?? $this->pelicula->getRutaPoster(), $rutaTrailer ?? 
                                 $this->pelicula->getRutaTrailer(), $pegi, $genero, $duracion)) {
                                 if (isset($rutaPoster) && $rutaPoster != $this->pelicula->getRutaPoster()) {
@@ -221,7 +221,7 @@
                                 $this->errores[] = "Error al modificar la película";
                             }
                         }   // Dar de alta
-                        else if (!Pelicula::crear($nombre, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion)) {
+                        else if (!pelicula::crear($nombre, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion)) {
                             unlink(RUTA_RAIZ . $ruta_destino_poster); 
                             unlink(RUTA_RAIZ . $ruta_destino_trailer);   
                             $this->errores[] = "Error al subir la película"; 

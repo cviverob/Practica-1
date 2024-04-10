@@ -80,7 +80,7 @@
          * @param string $duracion
          */
         public static function crear($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion) {
-            $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
+            $pelicula = new pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
             return self::insertaPelicula($pelicula);
         }
 
@@ -102,7 +102,7 @@
                     $pegi = $pelicula['Pegi'];
                     $genero = $pelicula['Genero'];
                     $duracion = $pelicula['Duracion'];
-                    $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id);
+                    $pelicula = new pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id);
                     $rs->free();
                     return $pelicula;
                 }
@@ -134,7 +134,7 @@
          * @param string $duracion
          */
         public static function actualizaPelicula($id, $titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion) {
-            $pelicula = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
+            $pelicula = new pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion);
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("UPDATE peliculas SET Titulo = '%s', Genero = '%s', Pegi = '%s', 
                 Duracion = '%s', Sinopsis = '%s', Poster = '%s', Trailer = '%s' WHERE Id = '%s'",
@@ -175,7 +175,7 @@
                     $genero = $pelicula['Genero'];
                     $duracion = $pelicula['Duracion'];
                     $id = $pelicula['Id'];
-                    $listaPeliculas[] = new Pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id);
+                    $listaPeliculas[] = new pelicula($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id);
                 }
             }
             $rs->free();
@@ -184,7 +184,7 @@
 
         /**
          * Método que inserta la película en la bd
-         * @param Pelicula $pelicula Película a insertar
+         * @param pelicula $pelicula Película a insertar
          */
         private static function insertaPelicula($pelicula) {
             $conn = aplicacion::getInstance()->getConexionBd();

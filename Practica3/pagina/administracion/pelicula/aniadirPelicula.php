@@ -5,7 +5,7 @@
     if (comprobarPermisos($_SESSION["esAdmin"])) {
         $tituloPagina = 'Añadir película';
 
-        $formulario = new es\ucm\fdi\aw\FormularioPelicula();
+        $formulario = new es\ucm\fdi\aw\formularioPelicula();
         $htmlFormularioPelicula = $formulario->gestiona();
         $contenidoPrincipal = <<<EOS
             <h1>Añadir película</h1>

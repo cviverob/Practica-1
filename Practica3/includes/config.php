@@ -7,7 +7,8 @@
      * las html usan relativas a localhost, por lo que se utiliza RUTA_APP
      */
     define('RUTA_RAIZ', dirname(__DIR__));
-    define('RUTA_APP', '/Practica-SW/Practica3');
+    define('RUTA_APP', '/Practica-SW/Practica3'); //Ruta para el xampp
+    //define('RUTA_APP', '');//Ruta para el servidor
     define('RUTA_INDX', '/index.php');
     // img
     define('RUTA_IMGS', '/img');
@@ -127,8 +128,8 @@
     /**
      * Configuración de la BD
      */
-    define('BD_HOST', 'localhost');
-    //define('BD_HOST', 'vm003.db.swarm.test');
+    define('BD_HOST', 'localhost'); //Para XAMPP
+    //define('BD_HOST', 'vm003.db.swarm.test'); //Para servidor
     define('BD_NAME', 'cines');
     define('BD_USER', 'cines');
     define('BD_PASS', 'cines');

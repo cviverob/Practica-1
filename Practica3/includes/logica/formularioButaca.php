@@ -5,7 +5,7 @@
     /**
      * Clase encargada del formulario de una butaca
      */
-    class FormularioButaca extends Formulario {
+    class formularioButaca extends formulario {
 
         /**
          * Sala original a al que pertenece la butaca

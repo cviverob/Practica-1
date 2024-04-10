@@ -6,6 +6,6 @@ Práctica 2:
     Este proyecto contiene todas las listas de script temporales, para todas las funciones
     de la aplicación. Además, tiene correctamente implementada las funciones de registro
     y logeo de usuarios, con sus correspondientes roles y demás atributos.
-    Además, se ha implenetado la funcionalidad de las películas, podiendo desde la vista
+    Además, se ha implementado la funcionalidad de las películas, pudiendo desde la vista
     del administrador añadirlas, borrarlas y modificarlas, y desde la vista del usuario
     tanto registrado como no registrado, consultarlas.

@@ -5,7 +5,7 @@
     /**
      * Clase encargada del formulario de las salas
      */
-    class FormularioSala extends Formulario {
+    class formularioSala extends formulario {
 
         /**
          * Sala original para modificar, o null si estamos en el caso de dar de alta
@@ -16,7 +16,7 @@
             parent::__construct('formSala', ['urlRedireccion' => RUTA_APP . RUTA_MOD_SALA, 
                 'enctype' => 'multipart/form-data']
             );
-            $this->sala = $idSala != null ? Salas::buscar($idSala) : null;
+            $this->sala = $idSala != null ? salas::buscar($idSala) : null;
         }
 
         //funcion que genera los campos necesarios para el mini formulario de las salas
@@ -106,26 +106,21 @@
     
             //Miramos si ha saltado algun error anteriormente
             if (count($this->errores) === 0) {
-                try {
-                    if ($this->sala) {    // Modificar
-                        if ($this->sala->modificar($num_sala, $num_filas, $num_columnas, $butacas)) {
-                            $this->urlRedireccion .= "?id=" . $this->sala->getId();
-                        }
-                        else {
-                            $this->errores[] = "Error al modificar la sala";
-                        }
-                    }   // Dar de alta
-                    else if ($this->sala = Salas::crear($num_sala, $num_filas, $num_columnas)) {
+                if ($this->sala) {    // Modificar
+                    if ($this->sala->modificar($num_sala, $num_filas, $num_columnas, $butacas)) {
                         $this->urlRedireccion .= "?id=" . $this->sala->getId();
                     }
                     else {
-                        $this->errores[] = "Error al subir la sala";
+                        $this->errores[] = "Error al modificar la sala";
                     }
-                } catch (mysqli_sql_exception $e) {
-                    if ($e->getCode() == 1062) {
-                        $this->errores["num_sala"] = "El número de sala ya existe";
-                    }
+                }   // Dar de alta
+                else if ($this->sala = salas::crear($num_sala, $num_filas, $num_columnas)) {
+                    $this->urlRedireccion .= "?id=" . $this->sala->getId();
                 }
+                else {
+                    $this->errores[] = "Error al subir la sala";
+                }
+
             }
         }
     }

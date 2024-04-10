@@ -24,7 +24,7 @@
         /* Funciones públicas */
 
         public static function crear($num_sala, $num_filas, $num_columnas) {
-            $sala = new Salas($num_sala, $num_filas, $num_columnas);
+            $sala = new salas($num_sala, $num_filas, $num_columnas);
             return self::insertar($sala);
         }
 
@@ -40,7 +40,7 @@
                     $num_filas = $sala['Num_filas'];
                     $num_columnas = $sala['Num_columnas'];
                     $butacas = json_decode($sala['Butacas'], true);
-                    $sala = new Salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
+                    $sala = new salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
                     $rs->free();
                     return $sala;
                 }
@@ -91,7 +91,7 @@
                     $num_filas = $sala['Num_filas'];
                     $num_columnas = $sala['Num_columnas'];
                     $butacas = json_decode($sala['Butacas']);
-                    $listaSalas[] = new Salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
+                    $listaSalas[] = new salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
                 }
             }
             $rs->free();
@@ -144,6 +144,47 @@
         }
 
         private static function insertar($sala) {
+            try {
+                $conn = aplicacion::getInstance()->getConexionBd();
+                $id = 1;
+                //con esto creamos la estructura de la sala y luego lo insertamos
+                for ($i = 1; $i <= $sala->num_filas; $i++) {
+                    for ($j = 1; $j <= $sala->num_columnas; $j++) {
+                        $butacas[$id] = array(
+                            "fila" => $i,
+                            "columna" => $j,
+                            "estado" => "disponible"
+                        );  
+                        $id++;
+                    }
+                }
+                $sala->butacas = $butacas;
+                $query=sprintf("INSERT INTO salas(Num_sala, Num_filas, Num_columnas, Butacas) VALUES ('%d','%d','%d','%s')",
+                    $conn->real_escape_string($sala->num_sala),
+                    $conn->real_escape_string($sala->num_filas),
+                    $conn->real_escape_string($sala->num_columnas),
+                    $conn->real_escape_string(json_encode($sala->butacas))
+                );
+            
+                if ($conn->query($query)) {
+                    $id = $conn->insert_id;
+                    $sala->setId($id);
+                    return $sala;
+                }
+            } catch (Exception $e) {
+                if ($e->getCode() == 1062) {
+                    // Error de clave duplicada
+                    $this->errores["num_sala"] = "El número de sala ya existe";
+                } else {
+                    // Otros errores SQL
+                    $this->errores[""] = e->getCode();
+                }
+                return false;
+            }
+        }
+        
+
+        /*private static function insertar($sala) {
             $conn = aplicacion::getInstance()->getConexionBd();
             $id = 1;
             //con esto creamos la estructura de la sala y luego lo insertamos
@@ -173,7 +214,7 @@
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
             return false;
-        }
+        }*/
 
         private function modificarButacas() {
             $butacasIndexadas = [];
