@@ -57,6 +57,7 @@
          * @param string $pegi
          * @param string $genero
          * @param string $duracion
+         * @param int $id Identificador de la película con valor por defecto NULL
          */
         private function __construct($titulo, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id = null) {
             $this->titulo = $titulo;

@@ -43,7 +43,6 @@
                 'urlRedireccion' => $url]);
         }
 
-        //funcion que genera los campos necesarios para el mini formulario de las salas
         public function generaCamposFormulario(&$datos) {
             return "<button type = 'submit' name = 'butaca' class = 'botonee' value = 
                 {$this->estado}>{$this->fila}-{$this->columna}</button>";
