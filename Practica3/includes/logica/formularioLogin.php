@@ -11,8 +11,10 @@
         }
 
         public function generaCamposFormulario(&$datos) {
+            /* Obtenemos los valores predeterminados */
             $correo = $datos['correo'] ?? '';
             $contraseña = $datos['contraseña'] ?? '';
+            /* Inicio del formulario */
             $html = <<<EOS
             <p>¿Todavía no tienes un usuario? <a href="registro.php" class="RegisterUserButton">¡Regístrate!</a></p>
                 <fieldset>
@@ -37,11 +39,12 @@
                         <input id = "contraseña" type = "password" name = "contraseña" value = "$contraseña" />
             EOS;
             $html.= $this->mostrarError('contraseña');
-            /* Botón de login */
+            /* Botón de login y borrado */
             $html .= <<<EOS
                     </div>
                 </fieldset>
                     <button type = "submit" name = "login" class = "Entrar">Entrar</button>
+                    <button type = "reset" name = "borrar">Resetear</button>
             EOS;
             return $html;
         }
