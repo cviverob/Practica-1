@@ -1,12 +1,10 @@
 <?php
     require_once('../../../includes/config.php');
-    require_once(RUTA_RAIZ . RUTA_USU); 
-    require_once(RUTA_RAIZ . RUTA_COMP_PERM);
+    require_once(RUTA_RAIZ . RUTA_UTILS); 
 
     $tituloPagina = 'Tabla de sesiones';
 
-    $contenidoPrincipal = comprobarPermisos($_SESSION["usuario_admin"]);
-    if (!$contenidoPrincipal) {
+    if (comprobarPermisos($_SESSION["esAdmin"])) {
         /*
             Aquí se mostrará una tabla con las coincidencias enontradas y sus respectivos datos,
             guardando en la sesión la sesión seleccionada para redirigirnos a aniadirPelicula.php

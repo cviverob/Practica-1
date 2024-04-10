@@ -1,12 +1,10 @@
 <?php
     require_once('../../../includes/config.php');
-    require_once(RUTA_RAIZ . RUTA_USU);
-    require_once(RUTA_RAIZ . RUTA_COMP_PERM);
+    require_once(RUTA_RAIZ . RUTA_UTILS);
 
     $tituloPagina = 'Añadir sesión';
-
-    $contenidoPrincipal = comprobarPermisos($_SESSION["usuario_admin"]);
-    if (!$contenidoPrincipal) {
+    
+    if (comprobarPermisos($_SESSION["esAdmin"])) {
         // Si estamos modificando una sesión, deben salir los valores de dicha peli
         $ruta_admn = RUTA_APP . RUTA_ADMN;
         $contenidoPrincipal = <<< EOS
