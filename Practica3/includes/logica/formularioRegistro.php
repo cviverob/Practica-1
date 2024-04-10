@@ -19,7 +19,7 @@
             $edad = $datos['edad'] ?? '';
             /* Inicio del formulario */
             $html = <<<EOS
-                <p>¿Ya tienes un usuario? <a href = 'login.php' class="LogUserButton">¡Logeate!</a></p>
+                <p>¿Ya tienes un usuario? <a href = 'login.php' class="botonFormulario">¡Logeate!</a></p>
                 <fieldset>
                     <legend>Usuario, nombre y contraseñas</legend>
                     <div>
@@ -71,8 +71,8 @@
                     </div>
                 </fieldset>
                 <div>
-                    <button type = "submit" name = "registro" class = "seleccionarPelicula">Entrar</button>
-                    <button type = "reset" name = "borrar">Resetear</button>
+                    <button type = "submit" name = "registro" class = "botonFormulario">Entrar</button>
+                    <button type = "reset" name = "borrar" class = "botonFormulario">Resetear</button>
                 </div>
             EOS;
             return $html;

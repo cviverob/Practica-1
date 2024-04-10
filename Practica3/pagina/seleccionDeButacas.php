@@ -15,7 +15,7 @@
     for($fila = 1; $fila <= 10; $fila++){
         $contenidoPrincipal .= "<div>";
         for($columna = 1; $columna <= 10; $columna++){
-            $contenidoPrincipal .= "<button type = 'button' class = 'botoneee'>$fila-$columna</button>";
+            $contenidoPrincipal .= "<button type = 'button' class = 'botonButaca'>$fila-$columna</button>";
         }
         $contenidoPrincipal .= "</div>";
     }
@@ -24,7 +24,7 @@
             </fieldset>
         </div>
         <div>
-            <a href="$ruta_proc_comp"><button type="button" class="RegisterUserButton">Comprar</button></a>
+            <a href="$ruta_proc_comp"><button type="button" class="seleccionarPelicula">Comprar</button></a>
         </div>
     EOS;
 
