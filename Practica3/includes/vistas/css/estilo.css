@@ -122,27 +122,71 @@ ARCHIVO: cabecera.php:
 }
 
 .fotoElmoCines {
-    width: 100%; /* Ancho máximo de la imagen */
-    height: auto; /* Altura ajustada automáticamente */
+    width: 100%;
+    height: auto;
 }
 
 @media screen and (max-width: 400px) {
+
+
     .fotoElmoCines {
-        display: none; /* Ocultar la imagen cuando el ancho de la ventana sea menor que el 40% */
+        display: none;
     }
 
     .fotoElmo img {
-        width: 50px; /* Reducir el tamaño de la imagen */
-        height: auto; /* Mantener la proporción de la altura */
+        width: 50px;
+        height: auto;
     }
 
     .ExitUserButton, .RegisterUserButton, .LogUserButton {
-        padding: 2px 8px; /* Ajustar el padding aún más para pantallas pequeñas */
-        font-size: 10px; /* Reducir aún más el tamaño de fuente */
+        padding: 2px 8px;
+        font-size: 10px;
     }
 
     .pelicula p{
         font-size: 50%;
+    }
+
+
+    .ExitUserButton, .RegisterUserButton, .LogUserButton, .botonFormulario {
+        padding: 2px 8px;
+        font-size: 10px;
+    }
+
+    .pelicula p {
+        font-size: 50%;
+    }
+
+    .Formulario input {
+        font-size: 50%;
+    }
+
+    .Formulario {
+        font-size: 50%;
+        margin: 25px auto;
+        padding: 10px;
+    }
+
+    .Formulario div {
+        margin-top: 5px;
+        align-items: center;
+    }
+
+    .Formulario legend {
+        font-size: 0.6em;
+        margin-bottom: 5px;
+    }
+
+    .botonFormulario, .seleccionarPelicula{
+        font-size: 50%;
+    }
+
+    button.botonButaca {
+            width: 18px;
+            height: 10px;
+            font-size: 3px;
+            padding: 3px 5px;
+        
     }
 }
 
@@ -260,10 +304,6 @@ ARCHIVO: formulario.php
     border-radius: 5px; /* Bordes redondeados */
 }
 
-.crearSala{
-    font-weight: bold;
-}
-
 .botonFormulario{
     display: inline-block;
     padding: 5px 20px;
@@ -280,8 +320,7 @@ ARCHIVO: formulario.php
     background-color: blue;
 }
 
-
-.Entrar { /*por alguna extraña razon no me hace caso, no pinta los css del boton, sale predeterrminado*/
+.Entrar {
     width: 20%;
     padding: 10px;
     background-color: dodgerblue;
@@ -346,13 +385,20 @@ ARCHIVO: seleccionDeButacas.php
     margin-right: 10%;
 }
 
+.crearSala {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    margin: 5px;
+}
 
 
-/* .botonButaca[type="submit"][value="nulo"] {
+/* 
+ .botonButaca[type="submit"][value="nulo"] {
     background-color: red;
     color: white;
 }
 .botonButaca[type="submit"][value="disponible"] {
     background-color: green;
     color: white;
-} */
+}  */
