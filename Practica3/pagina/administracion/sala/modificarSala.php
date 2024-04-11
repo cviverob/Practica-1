@@ -20,10 +20,10 @@
         $contenidoPrincipal .= <<<EOS
             <fieldset>
             <legend>Sala</legend>
-            <div class = "contenedor-butacas">
+            <div>
         EOS;
         for ($fila = 1; $fila <= $sala->getNumFilas(); $fila++) {
-            $contenidoPrincipal .= "<div class = 'fila-butacas'>";
+            $contenidoPrincipal .= "<div class = 'filaButacas'>";
             for ($columna = 1; $columna <=  $sala->getNumColumnas(); $columna++) {
                 $formButaca = new es\ucm\fdi\aw\formularioButaca($sala, $fila, $columna);
                 $contenidoPrincipal .= "<div class='crearSala'>" . $formButaca->gestiona() . "</div>";

@@ -18,13 +18,13 @@
                 <td>{$salas->getNumSala()}</td>
                     <td>
                         <form action = $rutaModificarSala method = "post">
-                            <button type = "submit">Mod</button>
+                            <button type = "submit" class = "RegisterUserButton">Mod</button>
                         </form>
                     </td>
                     <td>
                         <form action = $rutaBorrarSala method = "post">
                             <input type = "hidden" name = "id" value = {$salas->getId()}>
-                            <button type = "submit">Elim</button>
+                            <button type = "submit" class = "ExitUserButton">Elim</button>
                         </form>
                     </td>
                 </tr>"
