@@ -4,7 +4,7 @@
     $tituloPagina = 'Política de cookies';
 
     $contenidoPrincipal = <<<EOS
-        <div>
+        <div class = "ayuda">
             <p>Nuestra página no dispone de cookies :D</p>
         </div>
     EOS;

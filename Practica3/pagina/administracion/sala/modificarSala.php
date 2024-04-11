@@ -23,10 +23,10 @@
             <div class = "contenedor-butacas">
         EOS;
         for ($fila = 1; $fila <= $sala->getNumFilas(); $fila++) {
-            $contenidoPrincipal .= "<div class = fila-butacas'>";
+            $contenidoPrincipal .= "<div class = 'fila-butacas'>";
             for ($columna = 1; $columna <=  $sala->getNumColumnas(); $columna++) {
                 $formButaca = new es\ucm\fdi\aw\formularioButaca($sala, $fila, $columna);
-                $contenidoPrincipal .= $formButaca->gestiona();
+                $contenidoPrincipal .= "<div class='crearSala'>" . $formButaca->gestiona() . "</div>";
             }
             $contenidoPrincipal .= "</div>";
         }
@@ -35,7 +35,7 @@
             </div>
             </fieldset>
             <div>
-                <a href = $rutaAdmin>Terminar</a>
+                <a href = $rutaAdmin class="botonFormulario">Terminar</a>
             </div>
         EOS;
 

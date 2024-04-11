@@ -22,30 +22,28 @@ footer {
     font-weight: bold;
     background-color: #333; /* Color de fondo */
     color: white; /* Color del texto */
-    padding: 20px; /* Espaciado interno */
     text-align: center; /* Alineación centrada */
-    position: fixed;
     width: 100%;
     left: 0;
 }
 
 /* Estilo para el texto principal del footer */
 footer h3 {
-    font-size: 20px; /* Tamaño de fuente */
-    margin-bottom: 10px; /* Margen inferior */
+    font-size: 20px;
+    margin-bottom: 10px; 
 }
 
 /* Estilo para los enlaces del footer */
 footer a {
-    color: white; /* Color del texto de los enlaces */
-    text-decoration: none; /* Sin subrayado */
-    margin: 0 10px; /* Margen horizontal entre enlaces */
-    transition: color 0.3s ease; /* Transición suave del color de texto */
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
 }
 
 /* Estilo para los enlaces del footer al pasar el ratón */
 footer a:hover {
-    color:deepskyblue; /* Cambio de color al pasar el ratón */
+    color:deepskyblue;
 }
 
 body {
@@ -139,7 +137,6 @@ ARCHIVO: cabecera.php:
     .pelicula p{
         font-size: 50%;
     }
-
 }
 
 /*
@@ -256,6 +253,10 @@ ARCHIVO: formulario.php
     border-radius: 5px; /* Bordes redondeados */
 }
 
+.crearSala{
+    font-weight: bold;
+}
+
 .botonFormulario{
     display: inline-block;
     padding: 5px 20px;
@@ -267,6 +268,11 @@ ARCHIVO: formulario.php
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
 }
+
+.botonFormulario:hover {
+    background-color: blue;
+}
+
 
 .Entrar { /*por alguna extraña razon no me hace caso, no pinta los css del boton, sale predeterrminado*/
     width: 20%;
@@ -282,10 +288,6 @@ ARCHIVO: formulario.php
   .Entrar:hover {
     background-color: mediumblue;
   }
-
-.fila-butacas {
-    display: flex;
-}
 
 .adminButton{
     display: inline-block;
@@ -311,26 +313,40 @@ ARCHIVO: seleccionDeButacas.php
 */
 .botonButaca {
     margin: 5px;
-    padding: 8px 16px;
+    padding: 5px 10px;
+    width: 60px;
+    height: 30px;
     color: #333;
     border: 1px solid #ccc;
     border-radius: 3px;
     font-size: 14px;
     transition: background-color 0.3s ease;
+    background-color: bisque;
 }
 
 .botonButaca:hover {
     background-color: burlywood;
 }
-/* Estilos para el botón con value="nulo" */
 
-.botonButaca[type="submit"][value="nulo"] {
+/*
+    ARCHIVOS: politicaDeCookies.php y politicaPrivacidad.php
+*/
+.ayuda {
+    text-align: center;
+    padding-top: 2%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+
+
+/* .botonButaca[type="submit"][value="nulo"] {
     background-color: red;
     color: white;
 }
-
-/* Estilos para el botón con value="disponible" */
 .botonButaca[type="submit"][value="disponible"] {
     background-color: green;
     color: white;
-}
+} */
