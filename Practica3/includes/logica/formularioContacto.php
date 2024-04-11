@@ -60,7 +60,7 @@
                     <input name = "check" type="checkbox"> Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio
                     </div>
                     <button type = "submit" name = "enviar" class = "botonFormulario">Enviar formulario</button>
-                    <button type = "reset" name = "borrar" class = "botonFormulario">Resetear</button>
+                    <button type = "reset" name = "borrar" class= "botonFormulario">Resetear</button>
                 </fieldset>
             EOS;
             return $html;

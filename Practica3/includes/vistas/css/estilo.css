@@ -24,13 +24,20 @@ footer {
     color: white; /* Color del texto */
     text-align: center; /* Alineación centrada */
     width: 100%;
-    left: 0;
+    height: 180px;
+    position: relative;
+    bottom: 0;
+}
+
+h1 {
+    padding-top: 20px;
 }
 
 /* Estilo para el texto principal del footer */
 footer h3 {
     font-size: 20px;
     margin-bottom: 10px; 
+    padding-top: 20px;
 }
 
 /* Estilo para los enlaces del footer */
@@ -335,7 +342,6 @@ ARCHIVO: seleccionDeButacas.php
     text-align: center;
     padding-top: 2%;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    
     margin-left: 10%;
     margin-right: 10%;
 }
