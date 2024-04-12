@@ -44,7 +44,7 @@
         }
 
         public function generaCamposFormulario(&$datos) {
-            return "<button type = 'submit' name = 'butaca' class = 'botonee' value = 
+            return "<button type = 'submit' name = 'butaca' class = 'botonButaca' value = 
                 {$this->estado}>{$this->fila}-{$this->columna}</button>";
         }
 

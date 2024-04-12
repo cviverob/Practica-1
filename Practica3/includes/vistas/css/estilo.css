@@ -149,6 +149,8 @@ ARCHIVO: cabecera.php:
     .ExitUserButton, .RegisterUserButton, .LogUserButton, .botonFormulario {
         padding: 2px 8px;
         font-size: 10px;
+        margin-right: 10%;
+        margin-top: 1%;
     }
 
     .pelicula p {
@@ -402,31 +404,20 @@ ARCHIVO: seleccionDeButacas.php
     width: 60px;
     height: 30px;
     color: #333;
-    border: 2px solid burlywood;
-    border-radius: 3px;
     font-size: 14px;
-    transition: background-color 0.3s ease;
-    background-color: bisque;
     cursor: pointer;
 }
-
-.crearSala button:hover {
-    background-color: burlywood;
-}
-
 
 legend {
     font-weight: bold;
     font-size: larger;
 }
 
-
-/* 
- .botonButaca[type="submit"][value="nulo"] {
-    background-color: red;
+.botonButaca[type="submit"][value="nulo"] {
+    background-color: grey;
     color: white;
 }
 .botonButaca[type="submit"][value="disponible"] {
     background-color: green;
     color: white;
-}  */
+}  
