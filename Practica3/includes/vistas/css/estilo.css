@@ -13,18 +13,6 @@ header {
     padding: 10px 20px; /* Ajusta el padding según sea necesario */
     z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
-/*
-.LogUserButton {
-    float: right;
-    margin-right: 4%;
-    margin-top: 1%;
-}
-
-.RegisterUserButton {
-    float: right;
-   margin-right: 1%;
-   margin-top: 1%;
-}*/
 
 main {
 	text-align: center;
@@ -34,30 +22,35 @@ footer {
     font-weight: bold;
     background-color: #333; /* Color de fondo */
     color: white; /* Color del texto */
-    padding: 20px; /* Espaciado interno */
     text-align: center; /* Alineación centrada */
-    position: fixed;
     width: 100%;
-    left: 0;
+    height: 180px;
+    position: relative;
+    bottom: 0;
+}
+
+h1 {
+    padding-top: 20px;
 }
 
 /* Estilo para el texto principal del footer */
 footer h3 {
-    font-size: 20px; /* Tamaño de fuente */
-    margin-bottom: 10px; /* Margen inferior */
+    font-size: 20px;
+    margin-bottom: 10px; 
+    padding-top: 20px;
 }
 
 /* Estilo para los enlaces del footer */
 footer a {
-    color: white; /* Color del texto de los enlaces */
-    text-decoration: none; /* Sin subrayado */
-    margin: 0 10px; /* Margen horizontal entre enlaces */
-    transition: color 0.3s ease; /* Transición suave del color de texto */
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
 }
 
 /* Estilo para los enlaces del footer al pasar el ratón */
 footer a:hover {
-    color:deepskyblue; /* Cambio de color al pasar el ratón */
+    color:deepskyblue;
 }
 
 body {
@@ -89,6 +82,7 @@ ARCHIVO: cabecera.php:
     border: 2px solid burlywood;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 .LogUserButton:hover {
     background-color: burlywood;
@@ -102,24 +96,28 @@ ARCHIVO: cabecera.php:
     text-decoration: none;
     color: black;
     background-color: #4CAF50;
-    border: 2px solid #388E3C;
+    border: 2px solid #266d2a;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .RegisterUserButton:hover {
-    background-color: #45a049;
+    background-color: #266d2a;
 }
 
 .ExitUserButton {
-    display: inline-block;
+    float: right;
+    margin-right: 4%;
+    margin-top: 1%;
     padding: 5px 20px;
     text-decoration: none;
     color: black;
     background-color: crimson;
-    border: 2px solid crimson;
+    border: 2px solid darkred;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .ExitUserButton:hover {
@@ -127,29 +125,66 @@ ARCHIVO: cabecera.php:
 }
 
 .fotoElmoCines {
-    width: 100%; /* Ancho máximo de la imagen */
-    height: auto; /* Altura ajustada automáticamente */
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.fotoElmo{
+    margin-right: 15px;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 400px) {
+
     .fotoElmoCines {
-        display: none; /* Ocultar la imagen cuando el ancho de la ventana sea menor que el 40% */
+        display: none;
     }
 
     .fotoElmo img {
-        width: 50px; /* Reducir el tamaño de la imagen */
-        height: auto; /* Mantener la proporción de la altura */
+        width: 50px;
+        height: auto;
     }
 
-    .ExitUserButton, .RegisterUserButton, .LogUserButton {
-        padding: 2px 8px; /* Ajustar el padding aún más para pantallas pequeñas */
-        font-size: 10px; /* Reducir aún más el tamaño de fuente */
+    .ExitUserButton, .RegisterUserButton, .LogUserButton, .botonFormulario {
+        padding: 2px 8px;
+        font-size: 10px;
     }
 
-    .pelicula p{
+    .pelicula p {
         font-size: 50%;
     }
 
+    .Formulario input {
+        font-size: 50%;
+    }
+
+    .Formulario {
+        font-size: 50%;
+        margin: 25px auto;
+        padding: 10px;
+    }
+
+    .Formulario div {
+        margin-top: 5px;
+        align-items: center;
+    }
+
+    .Formulario legend {
+        font-size: 0.6em;
+        margin-bottom: 5px;
+    }
+
+    .botonFormulario, .seleccionarPelicula{
+        font-size: 50%;
+    }
+
+    button.botonButaca {
+        width: 18px;
+        height: 10px;
+        font-size: 3px;
+        padding: 3px 5px;
+    }
 }
 
 /*
@@ -213,35 +248,16 @@ ARCHIVO: consultapelicula.php
     padding: 5px 20px;
     text-decoration: none;
 	color: white;
-    background-color: dodgerblue;
+    background-color: grey;
     border-radius: 100px;
-	border: 2px solid darkblue;
+	border: 2px solid rgba(128, 128, 128, 0.329);
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .seleccionarPelicula:hover {
-    background-color: darkblue;
-}
-
-
-/*
-ARCHIVO: seleccionDeButacas.php
-         css para la vista de las butacas de una pelicula y una sesion concreta
-
-*/
-.butaca{
-	width: 100px;
-    height: 50px;
-    border: none;
-    border-radius: 5px;
-	/* background-image: url('../img/ElmoCines'); 
-    background-size: cover;
-    background-repeat: no-repeat;*/ 
-}
-
-button.butaca:hover {
-    background-color: darkgray;
+    background-color: black;
 }
 
 /*
@@ -282,40 +298,41 @@ ARCHIVO: formulario.php
 }
 
 .Formulario input {
-    border: 2px solid darkblue; /* Grosor y color del borde */
+    border: 2px solid mediumblue; /* Grosor y color del borde */
     border-radius: 5px; /* Bordes redondeados */
 }
 
-.Entrar { /*por alguna extraña razon no me hace caso, no pinta los css del boton, sale predeterrminado*/
+.botonFormulario{
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
+	color: white;
+    background-color: dodgerblue;
+    border-radius: 100px;
+	border: 2px solid mediumblue;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.botonFormulario:hover {
+    background-color: mediumblue;
+}
+
+.Entrar {
     width: 20%;
     padding: 10px;
     background-color: dodgerblue;
     color: black;
     border-radius: 5px;
-    border-color: darkblue;
-    cursor: pointer;
+    border-color: mediumblue;
     transition: background-color 0.3s ease;
+    cursor: pointer;
   }
   
   .Entrar:hover {
     background-color: mediumblue;
   }
-
-/* Estilos para el botón con value="nulo" */
-button[type="submit"][value="nulo"] {
-    background-color: red;
-    color: white;
-}
-
-/* Estilos para el botón con value="disponible" */
-button[type="submit"][value="disponible"] {
-    background-color: green;
-    color: white;
-}
-
-.fila-butacas {
-    display: flex;
-}
 
 .adminButton{
     display: inline-block;
@@ -326,8 +343,90 @@ button[type="submit"][value="disponible"] {
     border: 2px solid darkmagenta;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .adminButton:hover {
     background-color: darkmagenta;
 }
+
+
+
+/*
+ARCHIVO: seleccionDeButacas.php
+         css para la vista de las butacas de una pelicula y una sesion concreta
+
+*/
+.botonButaca {
+    margin: 5px;
+    padding: 5px 10px;
+    width: 60px;
+    height: 30px;
+    color: #333;
+    border: 2px solid burlywood;
+    border-radius: 3px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    background-color: bisque;
+    cursor: pointer;
+}
+
+.botonButaca:hover {
+    background-color: burlywood;
+}
+
+/*
+    ARCHIVOS: politicaDeCookies.php y politicaPrivacidad.php
+*/
+.ayuda {
+    text-align: center;
+    padding-top: 2%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+/*
+    ARCHIVO: modificarSala.php
+*/
+
+/*no consigo que deje de aplicar el estilo css de la clase formulario, por eso se están pintando los botones como
+  en seleccionar butacas (que es lo que queremos), además del recuadro azul que es del formulario*/
+
+.crearSala {
+    display: inline-block;
+}
+
+.crearSala button {
+    padding: 5px 10px;
+    width: 60px;
+    height: 30px;
+    color: #333;
+    border: 2px solid burlywood;
+    border-radius: 3px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    background-color: bisque;
+    cursor: pointer;
+}
+
+.crearSala button:hover {
+    background-color: burlywood;
+}
+
+
+legend {
+    font-weight: bold;
+    font-size: larger;
+}
+
+
+/* 
+ .botonButaca[type="submit"][value="nulo"] {
+    background-color: red;
+    color: white;
+}
+.botonButaca[type="submit"][value="disponible"] {
+    background-color: green;
+    color: white;
+}  */

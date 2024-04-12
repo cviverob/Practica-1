@@ -66,8 +66,8 @@
                     </div>
                 </fieldset>
                 <div>
-                    <button type = "submit" name = "sala">Generar sala</button>
-                    <button type = "reset" name = "borrar">Resetear</button>
+                    <button type = "submit" name = "sala" class="botonFormulario">Generar sala</button>
+                    <button type = "reset" name = "borrar" class="botonFormulario">Resetear</button>
                 </div>
             EOS;
             return $html;
