@@ -296,6 +296,25 @@
             $this->butacas = $nuevasButacas;
         }
         
+        public static function getSalas() {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = "SELECT * FROM salas";
+            $rs = $conn->query($query);
+            $listaSalas = array();
+            if ($rs->num_rows > 0) {
+                // Mostrar cada película y su imagen
+                while($sala = $rs->fetch_assoc()) {
+                    $id = $sala['Id'];
+                    $num_sala = $sala['Num_sala'];
+                    $num_filas = $sala['Num_filas'];
+                    $num_columnas = $sala['Num_columnas'];
+                    $butacas = json_decode($sala['Butacas'], true);
+                    $listaSalas[] = new salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
+                }
+            }
+            $rs->free();
+            return $listaSalas;
+        }
         
         /**
          * Método que devuelve el estado del asiento
