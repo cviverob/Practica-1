@@ -11,7 +11,7 @@ Práctica 2:
     tanto registrado como no registrado, consultarlas.
 
 Práctica 3:
-    Este proyecto a mejorado e insertado nuevas funcionalidades respecto al anterior.
+    Este proyecto ha mejorado e insertado nuevas funcionalidades respecto al anterior.
     - Mejoras:
         * El código ha sido reestructurado dando lugar a una mejor separación entre las distintas
         funciones de los ficheros.
@@ -27,3 +27,5 @@ Práctica 3:
     - Innovaciones:
         * Gestión de salas desde el punto de vista de la administración completamente funcional.
         * Uso extensivo de CSS para hacer nuestra página más vistosa.
+        * Incorporación del proyecto al servidor proporcionado.
+        

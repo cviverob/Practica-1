@@ -93,7 +93,7 @@
             $this->num_filas = $num_filas;
             $this->num_columnas = $num_columnas;
             $this->modificarButacas();
-            $query = sprintf("UPDATE Salas SET Num_sala = '%d', Num_filas = '%d', 
+            $query = sprintf("UPDATE salas SET Num_sala = '%d', Num_filas = '%d', 
                 Num_columnas = '%d', Butacas = '%s' WHERE Id = %s",
                 $conn->real_escape_string($this->num_sala),
                 $conn->real_escape_string($this->num_filas),
@@ -116,30 +116,8 @@
          */
         public static function borrar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM Salas WHERE id = '%s'" , $id);
+            $query = sprintf("DELETE FROM salas WHERE id = '%s'" , $id);
             return $conn->query($query);
-        }
-
-        /**
-         * Método que va a dejar de existir más pronto que tarde
-         */
-        public static function getSalas() {
-            $conn = aplicacion::getInstance()->getConexionBd();
-            $query = "SELECT * FROM salas";
-            $rs = $conn->query($query);
-            $listaSalas = array();
-            if ($rs->num_rows > 0) {
-                while($sala = $rs->fetch_assoc()) {
-                    $id = $sala['Id'];
-                    $num_sala = $sala['Num_sala'];
-                    $num_filas = $sala['Num_filas'];
-                    $num_columnas = $sala['Num_columnas'];
-                    $butacas = json_decode($sala['Butacas']);
-                    $listaSalas[] = new salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
-                }
-            }
-            $rs->free();
-            return $listaSalas;
         }
 
         /**
@@ -151,7 +129,7 @@
             if (array_key_exists($id, $this->butacas)) {
                 $this->butacas[$id]["estado"] = $this->butacas[$id]["estado"] == "nulo" ? "disponible" : "nulo";
                 $conn = aplicacion::getInstance()->getConexionBd();
-                $query = sprintf("UPDATE Salas SET Butacas = '%s' WHERE Id = %s",
+                $query = sprintf("UPDATE salas SET Butacas = '%s' WHERE Id = %s",
                     $conn->real_escape_string(json_encode($this->butacas)),
                     $conn->real_escape_string($this->id)
                 );
@@ -178,7 +156,7 @@
                 $this->butacas[$id]["estado"] = $this->butacas[$id]["estado"] == "seleccionada" ? "disponible" : "seleccionada";
                 $conn = aplicacion::getInstance()->getConexionBd();
                 /* PENDIENTE CORREGIR LA SIGUIENTE LÍNEA */
-                $query = sprintf("UPDATE Salas SET Butacas = '%s' WHERE Id = %s",
+                $query = sprintf("UPDATE salas SET Butacas = '%s' WHERE Id = %s",
                     $conn->real_escape_string(json_encode($this->butacas)),
                     $conn->real_escape_string($this->id)
                 );
@@ -241,49 +219,6 @@
         /**
          * Método que inserta la sala pasada por parámetro
          * @param Sala $sala Sala a insertar
-         *//*
-        private static function insertar($sala) {
-            try {
-                $conn = aplicacion::getInstance()->getConexionBd();
-                $id = 1;
-                for ($i = 1; $i <= $sala->num_filas; $i++) {
-                    for ($j = 1; $j <= $sala->num_columnas; $j++) {
-                        $butacas[$id] = array(
-                            "fila" => $i,
-                            "columna" => $j,
-                            "estado" => "disponible"
-                        );  
-                        $id++;
-                    }
-                }
-                $sala->butacas = $butacas;
-                $query=sprintf("INSERT INTO salas(Num_sala, Num_filas, Num_columnas, Butacas) VALUES ('%d','%d','%d','%s')",
-                    $conn->real_escape_string($sala->num_sala),
-                    $conn->real_escape_string($sala->num_filas),
-                    $conn->real_escape_string($sala->num_columnas),
-                    $conn->real_escape_string(json_encode($sala->butacas))
-                );
-            
-                if ($conn->query($query)) {
-                    $id = $conn->insert_id;
-                    $sala->setId($id);
-                    return $sala;
-                }
-            } catch (Exception $e) {
-                if ($e->getCode() == 1062) {
-                    // Error de clave duplicada
-                    $this->errores["num_sala"] = "El número de sala ya existe";
-                } else {
-                    // Otros errores SQL
-                    $this->errores[""] = e->getCode();
-                }
-                return false;
-            }
-        }*/
-
-        /**
-         * Método que inserta la sala pasada por parámetro
-         * @param Sala $sala Sala a insertar
          */
         private static function insertar($sala) {
             $conn = aplicacion::getInstance()->getConexionBd();
@@ -299,7 +234,7 @@
                 }
             }
             $sala->butacas = $butacas;
-            $query=sprintf("INSERT INTO Salas(Num_sala, Num_filas, Num_columnas, Butacas) VALUES ('%s','%s','%s','%s')",
+            $query=sprintf("INSERT INTO salas(Num_sala, Num_filas, Num_columnas, Butacas) VALUES ('%s','%s','%s','%s')",
                 $conn->real_escape_string($sala->num_sala),
                 $conn->real_escape_string($sala->num_filas),
                 $conn->real_escape_string($sala->num_columnas),

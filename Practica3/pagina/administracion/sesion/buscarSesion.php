@@ -1,12 +1,10 @@
 <?php
     require_once('../../../includes/config.php');
-    require_once(RUTA_RAIZ . RUTA_USU);
-    require_once(RUTA_RAIZ . RUTA_COMP_PERM);
+    require_once(RUTA_RAIZ . RUTA_UTILS);
 
     $tituloPagina = 'Buscar sesión';
 
-    $contenidoPrincipal = comprobarPermisos($_SESSION["usuario_admin"]);
-    if (!$contenidoPrincipal) {
+    if (comprobarPermisos($_SESSION["esAdmin"])) {
         $ruta_proc_bsc_ses = RUTA_APP . RUTA_PROC_BSC_SES;
         $ruta_admn = RUTA_APP . RUTA_ADMN;
         $contenidoPrincipal = <<< EOS

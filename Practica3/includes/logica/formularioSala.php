@@ -126,7 +126,7 @@
                     else {
                         $this->errores[] = "Error al subir la sala";
                     }
-                } catch (Exception $e) {
+                } catch (\mysqli_sql_exception $e) {
                     if ($e->getCode() == 1062) {
                         $this->errores["num_sala"] = "El número de sala ya existe";
                     }
