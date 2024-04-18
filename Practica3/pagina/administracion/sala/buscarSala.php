@@ -12,18 +12,19 @@
         $rutaBorrarSala = RUTA_APP . RUTA_BRR_SALA;
         
         foreach ($listaSalas as $salas) {
+            $rutaModificarSala = RUTA_APP . RUTA_MOD_SALA . "?id=" . $salas->getId();
             $pintar .= <<<EOS
                 <tr>
                 <td>{$salas->getNumSala()}</td>
                     <td>
-                        <form action = "aniadirSala.php?id={$salas->getId()}" method = "post">
-                            <button type = "submit">Mod</button>
+                        <form action = $rutaModificarSala method = "post">
+                            <button type = "submit" class = "RegisterUserButton">Mod</button>
                         </form>
                     </td>
                     <td>
-                        <form action = "borrarSala.php" method = "post">
+                        <form action = $rutaBorrarSala method = "post">
                             <input type = "hidden" name = "id" value = {$salas->getId()}>
-                            <button type = "submit">Elim</button>
+                            <button type = "submit" class = "ExitUserButton">Elim</button>
                         </form>
                     </td>
                 </tr>"

@@ -125,8 +125,8 @@
                     </div>
                 </fieldset>
                 <div>
-                    <button type = "submit" name = "pelicula" class ="RegisterUserButton">Subir</button>
-                    <button type = "reset" name = "borrar">Resetear</button>
+                    <button type = "submit" name = "pelicula" class ="botonFormulario">Subir</button>
+                    <button type = "reset" name = "borrar" class ="botonFormulario">Resetear</button>
                 </div>
             EOS;
             return $html;

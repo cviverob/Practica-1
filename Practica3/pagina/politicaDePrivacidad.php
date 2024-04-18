@@ -4,7 +4,7 @@
     $tituloPagina = 'Política de privacidad';
 
     $contenidoPrincipal = <<<EOS
-        <div>
+        <div class = "ayuda">
             <p>
                 Desde Elmo Cines, valoramos la privacidad de nuestros clientes. Es
                 por ello, que el uso de los datos personales del usuario será tratado

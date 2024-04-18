@@ -21,7 +21,7 @@
                     <td>
                         <form action = 'borrarPelicula.php' method = 'post'>
                             <input type = 'hidden' name = 'id' value = {$pelicula->getId()}>
-                            <button type = 'submit'class = 'ExitUserButton  '>Elim</button>
+                            <button type = 'submit' class = 'ExitUserButton'>Elim</button>
                         </form>
                     </td>
                 </tr>";
