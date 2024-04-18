@@ -49,7 +49,7 @@
         }
 
         public function procesaFormulario(&$datos) {
-            if (!$this->sala->actualizarButacaAdmin($this->id)) {
+            if (!$this->sala->actualizarButaca($this->id)) {
                 exit();
             }
         }
