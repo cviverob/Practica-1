@@ -27,9 +27,14 @@
         private $fecha;
 
         /**
-         * Hora de la película
+         * Hora de inicio la película
          */
-        private $hora;
+        private $horaIni;
+
+        /**
+         * Hora de fin la película
+         */
+        private $horaFin;
 
         /**
          * Estado actual de las butacas de la sala
@@ -51,11 +56,12 @@
          * @param bool $visible
          * @param string $id Identificador de la seión, valor por defecto null
          */
-        private function __construct($idPelicula, $idSala, $fecha, $hora, $butacas, $visible, $id = null) {
+        private function __construct($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $butacas, $visible, $id = null) {
             $this->idPelicula = $idPelicula;
             $this->idSala = $idSala;
             $this->fecha = $fecha;
-            $this->hora = $hora;
+            $this->horaIni = $horaIni;
+            $this->horaFin = $horaFin;
             $this->butacas = $butacas;
             $this->visible = $visible;
             $this->id = $id;
@@ -69,10 +75,10 @@
          * @param time $hora
          * @param bool $visible valor por defecto false
          */
-        public static function crear($idPelicula, $idSala, $fecha, $hora, $visible = false) {
+        public static function crear($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $visible = false) {
             $sala = salas::buscar($idSala);
             if ($sala) {
-                $sesion = new sesion($idPelicula, $idSala, $fecha, $hora, $sala->getButacas(), $visible);
+                $sesion = new sesion($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $sala->getButacas(), $visible);
                 return sesion::insertaUsuario($sesion);
             }
             return false;
@@ -93,10 +99,11 @@
                     $idPelicula = $sesion['Id_peli'];
                     $idSala = $sesion['Id_sala'];
                     $fecha = $sesion['Fecha'];
-                    $hora = $sesion['Hora'];
+                    $horaIni = $sesion['Hora_ini'];
+                    $horaFin = $sesion['Hora_fin'];
                     $butacas = json_decode($sesion['Butacas'], true);
                     $visible = $sesion['Visible'];
-                    $sesion = new sesion($idPelicula, $idSala, $fecha, $hora, $butacas, $visible, $id);
+                    $sesion = new sesion($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $butacas, $visible, $id);
                     $rs->free();
                     return $sala;
                 }
@@ -181,14 +188,15 @@
             if ($rs->num_rows > 0) {
                 // Mostrar cada película y su imagen
                 while($sesion = $rs->fetch_assoc()) {
-                    $idPelicula = $sesion['Id'];
-                    $idSala = $sesion['Num_sala'];
-                    $fecha = $sesion['Num_filas'];
-                    $hora = $sesion['Num_columnas'];
+                    $idPelicula = $sesion['Id_pelicula'];
+                    $idSala = $sesion['Id_sala'];
+                    $fecha = $sesion['Fecha'];
+                    $horaIni = $sesion['Hora_ini'];
+                    $horaFin = $sesion['Hora_fin'];
                     $butacas = json_decode($sesion['Butacas'], true);
                     $visible = $sesion['Visible'];
                     $id = $sesion['Id'];
-                    $listaSesiones[] = new sesion($idPelicula, $idSala, $fecha, $hora, $butacas, $visible, $id);
+                    $listaSesiones[] = new sesion($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $butacas, $visible, $id);
                 }
             }
             $rs->free();
@@ -209,11 +217,12 @@
          */
         private static function insertaUsuario($sesion) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query=sprintf("INSERT INTO cartelera(Id_peli, Id_sala, Fecha, Hora, Butacas, Visible) VALUES ('%s', '%s', '%s', '%s', '%s', %s)",
+            $query=sprintf("INSERT INTO cartelera(Id_peli, Id_sala, Fecha, Hora_ini, Hora_fin, Butacas, Visible) VALUES ('%s', '%s', '%s', '%s', '%s', %s)",
                 $conn->real_escape_string($sesion->idPelicula),
                 $conn->real_escape_string($sesion->idSala),
                 $conn->real_escape_string($sesion->fecha),
-                $conn->real_escape_string($sesion->hora),
+                $conn->real_escape_string($sesion->horaIni),
+                $conn->real_escape_string($sesion->horaFin),
                 $conn->real_escape_string($sesion->butacas),
                 $conn->real_escape_string($sesion->visible)
             );

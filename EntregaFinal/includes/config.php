@@ -73,7 +73,7 @@
     define('RUTA_PGN_ADMN_SES', RUTA_PGN_ADMN . '/sesion');
     define('RUTA_AND_SES', RUTA_PGN_ADMN_SES . '/aniadirSesion.php');
     define('RUTA_BSC_SES', RUTA_PGN_ADMN_SES . '/buscarSesion.php');
-    define('RUTA_PROC_BSC_SES', RUTA_PGN_ADMN_SES . '/procesarBusquedaSesiones.php');
+    define('RUTA_BRR_SES', RUTA_PGN_ADMN_SALA . '/borrarSesion.php');
     // vistas/pagina/usuario
     define('RUTA_PGN_USU', RUTA_PGN . '/usuario');
     define('RUTA_LGIN', RUTA_PGN_USU . '/login.php');
