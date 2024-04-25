@@ -1,35 +1,51 @@
 <?php
+
     require_once('../../../includes/config.php');
     require_once(RUTA_RAIZ . RUTA_UTILS);
 
-    $tituloPagina = 'Buscar sesión';
-
     if (comprobarPermisos($_SESSION["esAdmin"])) {
-        $ruta_proc_bsc_ses = RUTA_APP . RUTA_PROC_BSC_SES;
-        $ruta_admn = RUTA_APP . RUTA_ADMN;
-        $contenidoPrincipal = <<< EOS
-            <form action = "$ruta_proc_bsc_ses" method = "POST">
-                <p></p>
-                Nombre:
-                <input type='text' name='nombre' value="" />
-                <p></p>
-                Sala:
-                <input type = "text" name = "sala" value = "" />
-                <p></p>
-                Fecha:
-                <input type='text' name='fecha' value="" />
-                <p></p>
-                Hora:
-                <input type='text' name='hora' value="" />
-                <p></p>
-                Duración:
-                <input type='text' name='duracion' value="" /> minutos
-                <p></p>
-                <button type = "submit">Buscar</button>
-            </form>
-            <p></p>
-            <a href = "$ruta_admn"><button type = 'button'>Cancelar</button></a>
-        EOS;
-    }
+        $tituloPagina = 'Listar Sesiones';
 
-    require_once(RUTA_RAIZ . RUTA_PLNT);
+        $listaSesiones = es\ucm\fdi\aw\sesion::getSesiones();
+        $pintar = '';
+
+        $rutaBorrarSesion = RUTA_APP . RUTA_BRR_SES;
+        
+        foreach ($listaSesiones as $sesion) {
+            $pintar .= <<<EOS
+                <tr>
+                <td>{$sesion->getId()}</td>
+                    <td>
+                        <form action = "aniadirSesion.php?id={$sesion->getId()}" method = "post">
+                            <button type = "submit">Mod</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action = "$rutaBorrarSesion" method = "post">
+                            <input type = "hidden" name = "id" value = {$sesion->getId()}>
+                            <button type = "submit">Elim</button>
+                        </form>
+                    </td>
+                </tr>
+            EOS;
+        }
+
+        $contenidoPrincipal = <<< EOS
+        <p></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id de la sesión</th>
+                    <th>Modificar</th>
+                    <th>Borrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                $pintar
+            </tbody>
+        </table>
+        <p></p>
+        EOS;
+        
+        require_once(RUTA_RAIZ . RUTA_PLNT);
+    }

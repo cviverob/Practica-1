@@ -169,6 +169,31 @@
             }
             return false;
         }
+
+        /**
+         * Método que devuelve una lista con todas las sesiones
+         */
+        public static function getSesiones() {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = "SELECT * FROM cartelera";
+            $rs = $conn->query($query);
+            $listaSesiones = array();
+            if ($rs->num_rows > 0) {
+                // Mostrar cada película y su imagen
+                while($sesion = $rs->fetch_assoc()) {
+                    $idPelicula = $sesion['Id'];
+                    $idSala = $sesion['Num_sala'];
+                    $fecha = $sesion['Num_filas'];
+                    $hora = $sesion['Num_columnas'];
+                    $butacas = json_decode($sesion['Butacas'], true);
+                    $visible = $sesion['Visible'];
+                    $id = $sesion['Id'];
+                    $listaSesiones[] = new sesion($idPelicula, $idSala, $fecha, $hora, $butacas, $visible, $id);
+                }
+            }
+            $rs->free();
+            return $listaSesiones;
+        }
         
         /**
          * Método que establece el identificador de la sesión

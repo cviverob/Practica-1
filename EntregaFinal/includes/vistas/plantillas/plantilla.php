@@ -8,7 +8,7 @@
     <title><?= $tituloPagina ?></title>
 </head>
 <body>
-    <div id="contenedor">
+    <div class="contenedor">
         <?php require(RUTA_RAIZ . RUTA_CBZ); ?>
         <main>
             <article>

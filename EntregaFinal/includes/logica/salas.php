@@ -112,7 +112,7 @@
 
         /**
          * Método que borra una sala por su id
-         * @param int $id Identificador de la sala a borrar
+         * @param int $id Identificador de la película a borrar
          */
         public static function borrar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
@@ -125,10 +125,37 @@
          * desde la pestaña de modificar una sala
          * @param int $id Identificador de la butaca a modificar
          */
-        public function actualizarButaca($id) {
+        public function actualizarButacaAdmin($id) {
             if (array_key_exists($id, $this->butacas)) {
                 $this->butacas[$id]["estado"] = $this->butacas[$id]["estado"] == "nulo" ? "disponible" : "nulo";
                 $conn = aplicacion::getInstance()->getConexionBd();
+                $query = sprintf("UPDATE salas SET Butacas = '%s' WHERE Id = %s",
+                    $conn->real_escape_string(json_encode($this->butacas)),
+                    $conn->real_escape_string($this->id)
+                );
+                if ($conn->query($query)) {
+                    return true;
+                } 
+                else {
+                    error_log("Error BD ({$conn->errno}): {$conn->error}");
+                }
+            }
+            else {
+                echo "Error al actualizar la butaca con id " . $id;
+            }
+            return false;
+        }
+
+        /**
+         * Método accesible por el usuario para seleccionar una butaca a la
+         * hora de comprar entradas
+         * @param int $id Identificador de la butaca a seleccionar
+         */
+        public function actualizaButacaUsuario($id) {
+            if (array_key_exists($id, $this->butacas)) {
+                $this->butacas[$id]["estado"] = $this->butacas[$id]["estado"] == "seleccionada" ? "disponible" : "seleccionada";
+                $conn = aplicacion::getInstance()->getConexionBd();
+                /* PENDIENTE CORREGIR LA SIGUIENTE LÍNEA */
                 $query = sprintf("UPDATE salas SET Butacas = '%s' WHERE Id = %s",
                     $conn->real_escape_string(json_encode($this->butacas)),
                     $conn->real_escape_string($this->id)
@@ -269,6 +296,25 @@
             $this->butacas = $nuevasButacas;
         }
         
+        public static function getSalas() {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = "SELECT * FROM salas";
+            $rs = $conn->query($query);
+            $listaSalas = array();
+            if ($rs->num_rows > 0) {
+                // Mostrar cada película y su imagen
+                while($sala = $rs->fetch_assoc()) {
+                    $id = $sala['Id'];
+                    $num_sala = $sala['Num_sala'];
+                    $num_filas = $sala['Num_filas'];
+                    $num_columnas = $sala['Num_columnas'];
+                    $butacas = json_decode($sala['Butacas'], true);
+                    $listaSalas[] = new salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
+                }
+            }
+            $rs->free();
+            return $listaSalas;
+        }
         
         /**
          * Método que devuelve el estado del asiento

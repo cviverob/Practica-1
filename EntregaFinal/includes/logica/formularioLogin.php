@@ -16,7 +16,7 @@
             $contraseña = $datos['contraseña'] ?? '';
             /* Inicio del formulario */
             $html = <<<EOS
-            <p>¿Todavía no tienes un usuario? <a href="registro.php" class="RegisterUserButton">¡Regístrate!</a></p>
+            <p>¿Todavía no tienes un usuario? <a href="registro.php" class="botonFormulario">¡Regístrate!</a></p>
                 <fieldset>
                     <legend>Usuario y contraseña</legend>
                     <div>
@@ -43,8 +43,8 @@
             $html .= <<<EOS
                     </div>
                 </fieldset>
-                    <button type = "submit" name = "login" class = "Entrar">Entrar</button>
-                    <button type = "reset" name = "borrar">Resetear</button>
+                    <button type = "submit" name = "login" class = "botonFormulario">Entrar</button>
+                    <button type = "reset" name = "borrar" class = "botonFormulario">Resetear</button>
             EOS;
             return $html;
         }

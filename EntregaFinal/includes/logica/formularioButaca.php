@@ -44,12 +44,12 @@
         }
 
         public function generaCamposFormulario(&$datos) {
-            return "<button type = 'submit' name = 'butaca' class = 'botonee' value = 
+            return "<button type = 'submit' name = 'butaca' class = 'botonButaca' value = 
                 {$this->estado}>{$this->fila}-{$this->columna}</button>";
         }
 
         public function procesaFormulario(&$datos) {
-            if (!$this->sala->actualizarButaca($this->id)) {
+            if (!$this->sala->actualizarButacaAdmin($this->id)) {
                 exit();
             }
         }
