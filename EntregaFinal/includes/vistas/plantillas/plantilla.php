@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+<script type = "text/javascript" src = <?php echo RUTA_APP . RUTA_JS_FORM ?>></script>
 <head>
     <meta charset = "utf-8">
     <meta http-equip = "X-UA-Compatible" content = "IE=edge">
