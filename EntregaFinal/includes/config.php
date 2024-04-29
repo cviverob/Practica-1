@@ -26,7 +26,8 @@
     define('RUTA_UTILS', RUTA_APY . '/utils.php');
     // includes/javaScript
     define('RUTA_JS', RUTA_INCL . '/javaScript');
-    define ('RUTA_JS_FORM', RUTA_JS . '/formulario.js');
+    define('RUTA_JS_FORM', RUTA_JS . '/formulario.js');
+    define('RUTA_JQUERY', RUTA_JS . '/jquery-3.7.1.min.js');
     // includes/logica
     define('RUTA_LGC', RUTA_INCL . '/logica');
     define('RUTA_CRTLR', RUTA_LGC . '/cartelera.php');

@@ -94,12 +94,14 @@
             /* Validación de la contraseña 1 */
             $contra1 = trim($datos['contra1'] ?? '');
             $contra1 = filter_var($contra1, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $contra1 = html_entity_decode($contraseña);
             if (!$contra1 || empty($contra1) || mb_strlen($contra1) < 5) {
                 $this->errores['contra1'] = 'La contraseña debe tener al menos 5 caracteres';
             }
             /* Validación de la contraseña 2 */
             $contra2 = trim($datos['contra2'] ?? '');
             $contra2 = filter_var($contra2, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $contra2 = html_entity_decode($contraseña);
             if (!$contra2 || $contra1 != $contra2) {
                 $this->errores['contra2'] = 'Las contraseñas deben coincidir';
             }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+<script type = "text/javascript" src = <?php echo RUTA_APP . RUTA_JQUERY ?>></script>
 <script type = "text/javascript" src = <?php echo RUTA_APP . RUTA_JS_FORM ?>></script>
 <head>
     <meta charset = "utf-8">
@@ -16,7 +17,7 @@
                 <?= $contenidoPrincipal ?>
             </article>
         </main>
-        <?php  require(RUTA_RAIZ . RUTA_PIE); ?>
+        <?php require(RUTA_RAIZ . RUTA_PIE); ?>
     </div>
 </body>
 </html>
