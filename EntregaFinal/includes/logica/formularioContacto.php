@@ -28,7 +28,8 @@
                     </div>
                     <div>
                         <label for = "nombre">Nombre: </label>
-                        <input id = "nombre" type = "text" name = "nombre" value = $nombre>
+                        <input id = "nombre" type = "text" name = "nombre" value = "$nombre" required >
+                        <span id = "validezNombre"></span>
             EOS;
             $html .= $this->mostrarError('nombre');
             /* Correo */
@@ -36,7 +37,8 @@
                     </div>
                     <div>
                         <label for = "correo">Correo electrónico: </label>
-                        <input id = "correo" type = "text" name = "correo" value = $correo>
+                        <input id = "correo" type = "email" name = "correo" value = "$correo" required >
+                        <span id = "validezCorreo"></span>
             EOS;
             $html .= $this->mostrarError('correo');
             /* Botones del tipo de consulta y la consultaen si */
@@ -50,7 +52,7 @@
                     </div>
                     <div>
                         <p>Escriba aquí su consulta:</p>
-                        <textarea name = "consulta" rows = "4" cols = "50" value = $consulta></textarea>
+                        <textarea name = "consulta" rows = "4" cols = "50" value = $consulta required ></textarea>
             EOS;
             $html .= $this->mostrarError('consulta');
             /* Botones de envío y borrado */

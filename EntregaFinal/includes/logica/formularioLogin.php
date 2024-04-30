@@ -27,8 +27,8 @@
                     </div>
                     <div>
                         <label for = "correo">Correo:</label>
-                        <input id = "correo" type = "text" name = "correo" 
-                            value = "$correo" />
+                        <input id = "correo" type = "email" name = "correo" value = "$correo" required />
+                        <span id = "validezCorreo"></span>
             EOS;
             $html .= $this->mostrarError('correo');
             /* Contraseña */
@@ -36,7 +36,8 @@
                     </div>
                     <div>
                         <label for = "contraseña">Contraseña:</label>
-                        <input id = "contraseña" type = "password" name = "contraseña" value = "$contraseña" />
+                        <input id = "contraseña" type = "password" name = "contraseña" value = "$contraseña" minlength = 5 required/>
+                        <span id = "validezContraseña"></span>
             EOS;
             $html.= $this->mostrarError('contraseña');
             /* Botón de login y borrado */
@@ -59,8 +60,9 @@
             /* Validación de la contraseña */
             $contraseña = trim($datos['contraseña'] ?? '');
             $contraseña = filter_var($contraseña, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            if (!$contraseña || empty($contraseña)) {
-                $this->errores['contraseña'] = 'La contraseña no puede estar vacía.';
+            $contraseña = html_entity_decode($contraseña);
+            if (!$contraseña || empty($contraseña) || mb_strlen($contraseña) < 5) {
+                $this->errores['contraseña'] = 'La contraseña debe tener al menos 5 caracteres';
             }
             /* Intento de logearse */
             if (count($this->errores) === 0) {

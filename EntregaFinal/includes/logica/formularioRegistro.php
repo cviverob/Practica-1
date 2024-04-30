@@ -30,8 +30,8 @@
                     </div>
                     <div>
                         <label for = "correo">Correo:</label>
-                        <input id = "correo" type = "text" name = "correo" 
-                            value = "$correo" />
+                        <input id = "correo" type = "email" name = "correo" value = "$correo" required />
+                        <span id = "validezCorreo"></span>
             EOS;
             $html .= $this->mostrarError('correo');
             /* Nombre */
@@ -39,31 +39,35 @@
                     </div>
                     <div>
                         <label for = "nombre">Nombre:</label>
-                        <input id = "nombre" type = "text" name = "nombre" value = "$nombre" />
+                        <input id = "nombre" type = "text" name = "nombre" value = "$nombre" required />
+                        <span id = validezNombre></span>
             EOS;
             $html.= $this->mostrarError('nombre');
             /* Contraseña 1 */
             $html .= <<<EOS
                     </div>
                     <div>
-                        <label for = "contra1">Contraseña:</label>
-                        <input id = "contra1" type = "password" name = "contra1" value = "$contra1" />
+                        <label for = "contraseña">Contraseña:</label>
+                        <input id = "contraseña" type = "password" name = "contraseña" value = "$contra1" minlength = 5 required />
+                        <span id = "validezContraseña"></span>
             EOS;
-            $html.= $this->mostrarError('contra1');
+            $html.= $this->mostrarError('contraseña');
             /* Contraseña 2 */
             $html .= <<<EOS
                     </div>
                     <div>
-                        <label for = "contra2">Repite la contraseña:</label>
-                        <input id = "contra2" type = "password" name = "contra2" value="$contra2" />
+                        <label for = "contraseña2">Repite la contraseña:</label>
+                        <input id = "contraseña2" type = "password" name = "contraseña2" value = "$contra2" minlength = 5 required />
+                        <span id = "validezContraseña2"></span>
             EOS;
-            $html.= $this->mostrarError('contra2');
+            $html.= $this->mostrarError('contraseña2');
             /* Edad */
             $html .= <<<EOS
                     </div>
                     <div>
                         <label for = "edad">Edad:</label>
-                        <input id = "edad" type = "text" name = "edad" value="$edad" />
+                        <input id = "edad" type = "number" name = "edad" value="$edad" min = 18 max = 99 required />
+                        <span id = "validezEdad"></span>
             EOS;
             $html.= $this->mostrarError('edad');
             /* Botones de enviar y borrar */
@@ -92,16 +96,18 @@
                 $this->errores['nombre'] = 'El nombre no puede estar vacío';
             }
             /* Validación de la contraseña 1 */
-            $contra1 = trim($datos['contra1'] ?? '');
+            $contra1 = trim($datos['contraseña'] ?? '');
             $contra1 = filter_var($contra1, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $contra1 = html_entity_decode($contra1);
             if (!$contra1 || empty($contra1) || mb_strlen($contra1) < 5) {
-                $this->errores['contra1'] = 'La contraseña debe tener al menos 5 caracteres';
+                $this->errores['contraseña'] = 'La contraseña debe tener al menos 5 caracteres';
             }
             /* Validación de la contraseña 2 */
-            $contra2 = trim($datos['contra2'] ?? '');
+            $contra2 = trim($datos['contraseña2'] ?? '');
             $contra2 = filter_var($contra2, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $contra2 = html_entity_decode($contra2);
             if (!$contra2 || $contra1 != $contra2) {
-                $this->errores['contra2'] = 'Las contraseñas deben coincidir';
+                $this->errores['contraseña2'] = 'Las contraseñas deben coincidir';
             }
             /* Validación de la edad */
             $edad = trim($datos['edad'] ?? '');
@@ -112,8 +118,8 @@
             else if (!is_numeric($edad)) {
                 $this->errores['edad'] = 'La edad debe ser un número';
             }
-            else if ($edad < 0 || $edad > 125) {
-                $this->errores['edad'] = '¡Ponga su edad verdadera!';
+            else if ($edad < 18 || $edad > 99) {
+                $this->errores['edad'] = 'La edad debe estar comprendida entre 18 y 99';
             }
             /* Intentamos registrar al usuario */
             if (count($this->errores) === 0) {

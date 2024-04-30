@@ -45,7 +45,8 @@
                     </div>
                     <div>
                         <label for = "nombre">Nombre:</label>
-                        <input id = "nombre" type = "text" name = "nombre" value = "$nombre" />
+                        <input id = "nombre" type = "text" name = "nombre" value = "$nombre" required />
+                        <span id = "validezNombre"></span>
             EOS;
             $html .= $this->mostrarError('nombre');
             /* Sinopsis */
@@ -53,7 +54,8 @@
                     </div>
                     <div>
                         <label for = "sinopsis">Sinopsis:</label>
-                        <input id = "sinopsis" type = "text" name = "sinopsis" value = "$sinopsis" />
+                        <input id = "sinopsis" type = "text" name = "sinopsis" value = "$sinopsis" required />
+                        <span id = "validezSinopsis"></span>
             EOS;
             $html.= $this->mostrarError('sinopsis');
             /* Pegi */
@@ -61,7 +63,8 @@
                     </div>
                     <div>
                         <label for = "pegi">Pegi:</label>
-                        <input id = "pegi" type = "text" name = "pegi" value = "$pegi" />
+                        <input id = "pegi" type = "number" name = "pegi" value = "$pegi" min = 0 max = 18 required />
+                        <span id = "validezPegi"></span>
             EOS;
             $html .= $this->mostrarError('pegi');
             /* Póster */
@@ -69,7 +72,8 @@
                     </div>
                     <div>
                         <label for = "poster">Póster:</label>
-                        <input id = "poster" type = "file" name = "poster"/>
+                        <input id = "poster" type = "file" name = "poster" required accept = "image/jpeg, image/jpg, image/png" />
+                        <span id = "validezPoster"></span>
             EOS;
             /* Póster que había antes, en el caso de modificar la película */
             if ($this->pelicula) {
@@ -88,7 +92,8 @@
                     </div>
                     <div>
                         <label for = "trailer">Tráiler:</label>
-                        <input id = "trailer" type = "file" name = "trailer" />
+                        <input id = "trailer" type = "file" name = "trailer" required accept = "video/mp4" />
+                        <span id = "validezTrailer"></span>
             EOS;
             /* Tráiler que había antes, en el caso de mofificar la película */
             if ($this->pelicula) {
@@ -107,7 +112,8 @@
                     </div>
                     <div>
                         <label for = "genero">Género:</label>
-                        <input id = "genero" type = "text" name = "genero" value = "$genero"/>
+                        <input id = "genero" type = "text" name = "genero" value = "$genero" required />
+                        <span id = "validezGenero"></span>
                         <div>
             EOS;
             $html.= $this->mostrarError('genero');
@@ -117,7 +123,8 @@
                     </div>
                     <div>
                         <label for = "duracion">Duración:</label>
-                        <input id = "duracion" type = "text" name = "duracion" value = "$duracion" />
+                        <input id = "duracion" type = "number" name = "duracion" value = "$duracion" min = 1 max = 999 required />
+                        <span id = "validezDuracion"></span>
             EOS;
             $html.= $this->mostrarError('duracion');
             /* Botón de enviar y borrar */

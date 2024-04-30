@@ -42,23 +42,28 @@
                     </div>
                     <div>
                         <label for = "num_sala">Número de Sala: </label>
-                        <input id = "num_sala" type = "text" name = "num_sala" value = "$num_sala" />
+                        <input id = "num_sala" type = "number" name = "num_sala" value = "$num_sala" min = 1 max = 999 required />
+                        <span id = "validezSala"></span>
             EOS;
             $html .= $this->mostrarError('num_sala');
             /* Número de filas */
+            $max = MAX_FILAS;
             $html .= <<<EOS
                     </div>
                     <div>
                         <label for = "num_filas">Número de Filas: </label>
-                        <input id = "num_filas" type = "text" name = "num_filas" value = "$num_filas" />
+                        <input id = "num_filas" type = "number" name = "num_filas" value = "$num_filas" min = 1 max = $max required />
+                        <span id = "validezFilas"></span>
             EOS;
             $html.= $this->mostrarError('num_filas');
             /* Número de columnas */
+            $max = MAX_COLS;
             $html .= <<<EOS
                     </div>
                     <div>
                         <label for = "num_columnas">Número de Columnas: </label>
-                        <input id = "num_columnas" type = "text" name = "num_columnas" value = "$num_columnas" />
+                        <input id = "num_columnas" type = "number" name = "num_columnas" value = "$num_columnas" min = 1 max = $max required />
+                        <span id = "validezColumnas"></span>
             EOS;
             $html .= $this->mostrarError('num_columnas');
             /* Botones de enviar y resetear */
