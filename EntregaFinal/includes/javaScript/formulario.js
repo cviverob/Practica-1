@@ -14,7 +14,7 @@ function comprobarCampo(campo) {
 	advertencia = "";
 	if (!esCampoValido) {
 		advertencia = "El campo no es válido";
-	} Z
+	}
 	else {
 		return "\u2714";
 	}
