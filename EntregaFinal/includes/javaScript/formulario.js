@@ -1,6 +1,6 @@
 
 /**
- * Función que comprueba si el campo es válido o no
+ * Función principal para la validación de datos de un formulario
  * @returns String con un tick en caso de validación exitosa, o una advertencia
  * en caso contrario
  */
@@ -65,6 +65,26 @@ function comprobarArchivo(campo, tipos) {
 }
 
 /**
+ * Función que comprueba si un archivo subido es válido o no
+ * @param {string} campo 
+ * @param {array} tipos 
+ * @returns String con un tick en caso de validación exitosa, o una advertencia
+ * en caso contrario
+ */
+function comprobarValorPorDefecto(campo) {
+	let advertencia = comprobarCampo(campo);
+	if (advertencia == "\u2714") {
+		const contenido = $(campo);
+		if (contenido.val() == "") {
+			advertencia = "El campo no puede estar vacío";
+			contenido[0].setCustomValidity(advertencia);
+			advertencia = "\u2716 " + advertencia;
+		}
+	}
+	return advertencia;
+}
+
+/**
  * Función que determina qué mostrarle al usuario en función de la validación
  * del campo correspondiente
  * @param {string} campo 
@@ -115,6 +135,7 @@ var campos = [
     new Campo("#num_sala", "#validezSala", "#error-num_sala"),
     new Campo("#num_filas", "#validezFilas", "#error-num_filas"),
     new Campo("#num_columnas", "#validezColumnas", "#error-num_columnas")
+    //new Campo("#fecha", "#validezFecha", "#error-fecha")
 ];
 
 $(document).ready(function() {
@@ -154,6 +175,26 @@ $(document).ready(function() {
 		accion = comprobarArchivo("#trailer", ["video/mp4"]);
 		tomarAccion("#trailer", "#validezTrailer", "#error-trailer", "change", accion);
 	});
+	/*
+		Definición particular de fecha y hora, ya que hay que validar que se haya escrito
+		algo en ella, y no sea la de por defecto (dd/mm/aaaa y --:-- respectivamente)
+	*/
+	$("#fecha").on("change keyup", function() {
+		accion = comprobarValorPorDefecto("#fecha");
+		tomarAccion("#fecha", "#validezFecha", "#error-fecha", "keyup", accion);
+	});
+	$("#fecha").on("blur", function() {
+		accion = comprobarValorPorDefecto("#fecha");
+		tomarAccion("#fecha", "#validezFecha", "#error-fecha", "blur", accion);
+	});
+	$("#hora").on("change keyup", function() {
+		accion = comprobarValorPorDefecto("#hora");
+		tomarAccion("#hora", "#validezHora", "#error-hora", "keyup", accion);
+	});
+	$("#hora").on("blur", function() {
+		accion = comprobarValorPorDefecto("#hora");
+		tomarAccion("#hora", "#validezHora", "#error-hora", "blur", accion);
+	});
 
 });
 
@@ -168,4 +209,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	*/
 	accion = comprobarContraseña2(false);
 	tomarAccion("#contraseña2", "#validezContraseña2", "#error-contraseña2", "load", accion);
+	/*
+		Definición particular de fecha y hora, ya que hay que validar que se haya escrito
+		algo en ella, y no sea la de por defecto (dd/mm/aaaa y --:-- respectivamente)
+	*/
+	accion = comprobarValorPorDefecto("#fecha");
+	tomarAccion("#fecha", "#validezFecha", "#error-fecha", "load", accion);
+	accion = comprobarValorPorDefecto("#hora");
+	tomarAccion("#hora", "#validezHora", "#error-hora", "load", accion);
 });

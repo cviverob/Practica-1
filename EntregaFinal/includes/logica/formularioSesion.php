@@ -62,6 +62,7 @@
                     <div>
                         <label for = "fecha">Fecha:</label>
                         <input type = "date" id = "fecha" name = "fecha" value = $fecha>
+                        <span id = "validezFecha"></span>
             EOS;
             $html.= $this->mostrarError('fecha');
             /* Hora */
@@ -70,6 +71,7 @@
                     <div>
                         <label for = "hora">Hora de inicio:</label>
                         <input type = "time" id = "hora" name = "hora" value = $hora>
+                        <span id = "validezHora"></span>
             EOS;
             $html.= $this->mostrarError('hora');
             /* Botón de la visibilidad */
@@ -90,7 +92,11 @@
         }
 
         public function procesaFormulario(&$datos) {
-            
+            $pelicula = $datos["pelicula"];
+            $sala = $datos["sala"];
+            $fecha = $datos["fecha"];
+            $hora = $datos["hora"];
+            $visibilidad = $datos["visibilidad"];
         }
 
     }
