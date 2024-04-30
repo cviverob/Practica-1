@@ -46,6 +46,7 @@
                     <div>
                         <label for = "nombre">Nombre:</label>
                         <input id = "nombre" type = "text" name = "nombre" value = "$nombre" />
+                        <span id = "validezNombre"></span>
             EOS;
             $html .= $this->mostrarError('nombre');
             /* Sinopsis */

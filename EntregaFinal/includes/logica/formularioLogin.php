@@ -27,7 +27,7 @@
                     </div>
                     <div>
                         <label for = "correo">Correo:</label>
-                        <input id = "correo" type = "email" name = "correo" value = "$correo" />
+                        <input id = "correo" type = "email" name = "correo" value = "$correo" required />
                         <span id = "validezCorreo"></span>
             EOS;
             $html .= $this->mostrarError('correo');
@@ -36,7 +36,7 @@
                     </div>
                     <div>
                         <label for = "contraseña">Contraseña:</label>
-                        <input id = "contraseña" type = "password" name = "contraseña" value = "$contraseña" />
+                        <input id = "contraseña" type = "password" name = "contraseña" value = "$contraseña" minlength = 5 required/>
                         <span id = "validezContraseña"></span>
             EOS;
             $html.= $this->mostrarError('contraseña');
