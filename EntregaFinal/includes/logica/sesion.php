@@ -79,7 +79,8 @@
             $sala = salas::buscar($idSala);
             if ($sala) {
                 $sesion = new sesion($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $sala->getButacas(), $visible);
-                return sesion::insertaUsuario($sesion);
+
+                return sesion::insertaSesion($sesion);
             }
             return false;
         }
@@ -111,6 +112,36 @@
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
             return null;
+        }
+
+        /**
+         * Método que busca una sesión según su sala y fecha
+         * @param int $idSala Identificador de la sesión a buscar
+         * @param date $fecha Fecha de la sesión a buscar
+         */
+        public static function buscarPorSalaYFecha($idSala, $fecha) {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM cartelera WHERE idSala = '%s', fecha = '%s' ", 
+                $conn->real_escape_string($idSala),
+                $conn->real_escape_string($fecha)
+            );
+            $rs = $conn->query($query);
+            $listaSesiones = array();
+            if ($rs->num_rows > 0) {
+                // Mostrar cada película y su imagen
+                while($sesion = $rs->fetch_assoc()) {
+                    $idPelicula = $sesion['Id_pelicula'];
+                    $idSala = $sesion['Id_sala'];
+                    $fecha = $sesion['Fecha'];
+                    $horaIni = $sesion['Hora_ini'];
+                    $horaFin = $sesion['Hora_fin'];
+                    $butacas = json_decode($sesion['Butacas'], true);
+                    $visible = $sesion['Visible'];
+                    $id = $sesion['Id'];
+                    $listaSesiones[] = new sesion($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $butacas, $visible, $id);
+                }
+            }
+            return listaSesiones;
         }
         
         /**
@@ -215,7 +246,7 @@
          * Método que inserta una sesión en la bd
          * @param sesion $sesion Sesion a insertar
          */
-        private static function insertaUsuario($sesion) {
+        private static function insertaSesion($sesion) {
             $conn = aplicacion::getInstance()->getConexionBd();
             $query=sprintf("INSERT INTO cartelera(Id_peli, Id_sala, Fecha, Hora_ini, Hora_fin, Butacas, Visible) VALUES ('%s', '%s', '%s', '%s', '%s', %s)",
                 $conn->real_escape_string($sesion->idPelicula),
@@ -235,6 +266,13 @@
                 echo "Error SQL ({$conn->errno}):  {$conn->error}";
             }
             return false;
+        }
+
+        private function salaDisponible($sesion) {
+            $listaSesiones = sesion::buscarPorSalaYFecha($sesion->idSala, $sesion->fecha);
+            foreach ($listaSesiones as $ses) {
+                // Continuar por aquí
+            }
         }
 
     }

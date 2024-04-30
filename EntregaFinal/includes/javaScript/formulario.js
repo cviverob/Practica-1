@@ -75,6 +75,7 @@ function comprobarValorPorDefecto(campo) {
 	let advertencia = comprobarCampo(campo);
 	if (advertencia == "\u2714") {
 		const contenido = $(campo);
+		console.log(contenido.val());
 		if (contenido.val() == "") {
 			advertencia = "El campo no puede estar vacío";
 			contenido[0].setCustomValidity(advertencia);
