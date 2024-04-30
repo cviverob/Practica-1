@@ -95,7 +95,7 @@
                 return '';
             }
 
-            $html = "<ul class=\"$this->class\">";
+            $html = "<ul class=\"$this->class\" id = 'mensajeErrorGlobal'>";
             foreach ($clavesErroresGlobales as $clave) {
                 $html .= "{$this->errores[$clave]}";
             }
@@ -113,7 +113,7 @@
             if (!isset($this->errores[$idError])) { // Si no existe el error devolvemos una cadena vacía
                 return '';
             }
-            return "<$htmlElement>{$this->errores[$idError]}</$htmlElement>";
+            return "<$htmlElement id = 'error-" . $idError . "'>&#x2716; {$this->errores[$idError]}</$htmlElement>";
         }
 
         /**
