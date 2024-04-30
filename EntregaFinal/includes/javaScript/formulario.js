@@ -11,7 +11,7 @@ function comprobarCampo(campo) {
 	}
 	contenido[0].setCustomValidity("");
 	const esCampoValido = contenido[0].checkValidity();
-	advertencia = "";
+	let advertencia = "";
 	if (!esCampoValido) {
 		advertencia = "El campo no es válido";
 	}
@@ -28,10 +28,10 @@ function comprobarCampo(campo) {
  * en caso contrario
  */
 function comprobarContraseña2(advertir) {
-	advertencia = comprobarCampo("#contraseña2");
+	let advertencia = comprobarCampo("#contraseña2");
 	if (advertencia == "\u2714") {
-		const campo1 = $("#contraseña");
-		const campo2 = $("#contraseña2");
+		let campo1 = $("#contraseña");
+		let campo2 = $("#contraseña2");
 		if (campo1.val() != campo2.val()) {
 			advertencia = "Las contraseñas deben coincidir";
 			if (advertir) {
@@ -43,125 +43,129 @@ function comprobarContraseña2(advertir) {
 	return advertencia;
 }
 
+/**
+ * Función que comprueba si un archivo subido es válido o no
+ * @param {string} campo 
+ * @param {array} tipos 
+ * @returns String con un tick en caso de validación exitosa, o una advertencia
+ * en caso contrario
+ */
+function comprobarArchivo(campo, tipos) {
+	let advertencia = comprobarCampo(campo);
+	if (advertencia == "\u2714") {
+		const contenido = $(campo);
+		archivo = contenido[0].files[0];
+		if (!tipos.includes(archivo.type)) {
+			advertencia = "Los tipos permitidos son " + tipos.join(", ");
+			contenido[0].setCustomValidity(advertencia);
+			advertencia = "\u2716 " + advertencia;
+		}
+	}
+	return advertencia;
+}
+
+/**
+ * Función que determina qué mostrarle al usuario en función de la validación
+ * del campo correspondiente
+ * @param {string} campo 
+ * @param {string} validezCampo 
+ * @param {string} errorCampo 
+ * @param {string} modo 
+ */
+function tomarAccion(campo, validezCampo, errorCampo, modo, accion = null) {
+	if (accion == null) {
+		accion = comprobarCampo(campo);
+	}
+	if (modo == "load" || modo == "keyup") {
+		if (accion == "\u2714") {
+			$(errorCampo).hide();
+			$(validezCampo).text(accion);
+		}
+	}
+	else if (modo == "blur" || modo == "change") {
+		$(errorCampo).hide();
+		$(validezCampo).text(accion);
+	}
+}
+
+/**
+ * Constructor de la estructura campo
+ * @param {*} campo 
+ * @param {*} validezCampo 
+ * @param {*} errorCampo 
+ */
+function Campo(campo, validezCampo, errorCampo) {
+    this.campo = campo;
+    this.validezCampo = validezCampo;
+    this.errorCampo = errorCampo;
+}
+
+/**
+ * Array con todos los campos de los formularios
+ */
+var campos = [
+    new Campo("#correo", "#validezCorreo", "#error-correo"),
+    new Campo("#contraseña", "#validezContraseña", "#error-contraseña"),
+    new Campo("#nombre", "#validezNombre", "#error-nombre"),
+    new Campo("#edad", "#validezEdad", "#error-edad"),
+    new Campo("#sinopsis", "#validezSinopsis", "#error-sinopsis"),
+    new Campo("#pegi", "#validezPegi", "#error-pegi"),
+    new Campo("#genero", "#validezGenero", "#error-genero"),
+    new Campo("#duracion", "#validezDuracion", "#error-duracion"),
+    new Campo("#num_sala", "#validezSala", "#error-num_sala"),
+    new Campo("#num_filas", "#validezFilas", "#error-num_filas"),
+    new Campo("#num_columnas", "#validezColumnas", "#error-num_columnas")
+];
+
 $(document).ready(function() {
 
-	/****** CORREO ******/
+	for (let c of campos) {
+		/* Definimos las acciones a tomar al pulsar una tecla */
+		$(c.campo).on("change keyup", function() {
+			tomarAccion(c.campo, c.validezCampo, c.errorCampo, "keyup");
+		});
+		/* Definimos las acciones a tomar al salirse del campo que se estaba editando */
+		$(c.campo).on("blur", function() {
+			tomarAccion(c.campo, c.validezCampo, c.errorCampo, "blur");
+		});
+	}
 
-	/* Definimos las acciones a tomar al pulsar una tecla */
-	$("#correo").on("change keyup", function() {
-		accion = comprobarCampo("#correo");
-		if (accion == "\u2714") {
-			$("#error-correo").hide();
-			$("#validezCorreo").text(accion);
-		}
-	});
-
-	/* Definimos las acciones a tomar al salirse del campo que se estaba editando */
-	$("#correo").on("blur", function() {
-		accion = comprobarCampo("#correo");
-		$("#error-correo").hide();
-		$("#validezCorreo").text(accion);
-	});
-
-	/****** CONTRASEÑA ******/
-
-	/* Definimos las acciones a tomar al pulsar una tecla */
-	$("#contraseña").on("change keyup", function() {
-		accion = comprobarCampo("#contraseña");
-		if (accion == "\u2714") {
-			$("#error-contraseña").hide();
-			$("#validezContraseña").text(accion);
-		}
-	});
-
-	/* Definimos las acciones a tomar al salirse del campo que se estaba editando */
-	$("#contraseña").on("blur", function() {
-		accion = comprobarCampo("#contraseña");
-		$("#error-contraseña").hide();
-		$("#validezContraseña").text(accion);
-	});
-
-	/****** CONTRASEÑA 2 ******/
-
-	/* Definimos las acciones a tomar al pulsar una tecla */
+	/* 
+		Definición particular de contraseña2, ya que esta también valida que sea
+		igual a la contraseña1 
+	*/
 	$("#contraseña2").on("change keyup", function() {
 		accion = comprobarContraseña2(false);
-		if (accion == "\u2714") {
-			$("#error-contraseña2").hide();
-			$("#validezContraseña2").text(accion);
-		}
+		tomarAccion("#contraseña2", "#validezContraseña2", "#error-contraseña2", "keyup", accion);
 	});
-
-	/* Definimos las acciones a tomar al salirse del campo que se estaba editando */
 	$("#contraseña2").on("blur", function() {
 		accion = comprobarContraseña2(true);
-		$("#error-contraseña2").hide();
-		$("#validezContraseña2").text(accion);
+		tomarAccion("#contraseña2", "#validezContraseña2", "#error-contraseña2", "blur", accion);
 	});
-
-	/****** NOMBRE ******/
-
-	/* Definimos las acciones a tomar al pulsar una tecla */
-	$("#nombre").on("change keyup", function() {
-		accion = comprobarCampo("#nombre");
-		if (accion == "\u2714") {
-			$("#error-nombre").hide();
-			$("#validezNombre").text(accion);
-		}
+	/*
+		Definición particular de tráiler y póster, ya que también verifican el
+		tipo de archivo subido
+	*/
+	$("#poster").on("change", function() {
+		accion = comprobarArchivo("#poster", ["image/jpeg", "image/jpg", "image/png"]);
+		tomarAccion("#poster", "#validezPoster", "#error-poster", "change", accion);
 	});
-
-	/* Definimos las acciones a tomar al salirse del campo que se estaba editando */
-	$("#nombre").on("blur", function() {
-		accion = comprobarCampo("#nombre");
-		$("#error-nombre").hide();
-		$("#validezNombre").text(accion);
-	});
-
-	/****** EDAD ******/
-
-	/* Definimos las acciones a tomar al pulsar una tecla */
-	$("#edad").on("change keyup", function() {
-		accion = comprobarCampo("#edad");
-		if (accion == "\u2714") {
-			$("#error-edad").hide();
-			$("#validezEdad").text(accion);
-		}
-	});
-
-	/* Definimos las acciones a tomar al salirse del campo que se estaba editando */
-	$("#edad").on("blur", function() {
-		accion = comprobarCampo("#edad");
-		$("#error-edad").hide();
-		$("#validezEdad").text(accion);
+	$("#trailer").on("change", function() {
+		accion = comprobarArchivo("#trailer", ["video/mp4"]);
+		tomarAccion("#trailer", "#validezTrailer", "#error-trailer", "change", accion);
 	});
 
 });
 
 /* Comprobamos inicialmente si todo está ok, en cuyo caso mostramos el tick */
 document.addEventListener("DOMContentLoaded", function() {
-	accion = comprobarCampo("#correo");
-	if (accion == "\u2714") {
-		$("#validezCorreo").text(accion);
+	for (const c of campos) {
+		tomarAccion(c.campo, c.validezCampo, c.errorCampo, "load");
 	}
-
-	accion = comprobarCampo("#contraseña");
-	if (accion == "\u2714") {
-		$("#validezContraseña").text(accion);
-	}
-	
+	/* 
+		Definición particular de contraseña2, ya que esta también valida que sea
+		igual a la contraseña1 
+	*/
 	accion = comprobarContraseña2(false);
-	if (accion == "\u2714") {
-		$("#validezContraseña2").text(accion);
-	}
-
-	accion = comprobarCampo("#nombre");
-	if (accion == "\u2714") {
-		$("#validezNombre").text(accion);
-	}
-
-	accion = comprobarCampo("#edad");
-	if (accion == "\u2714") {
-		$("#validezEdad").text(accion);
-	}
-
+	tomarAccion("#contraseña2", "#validezContraseña2", "#error-contraseña2", "load", accion);
 });
