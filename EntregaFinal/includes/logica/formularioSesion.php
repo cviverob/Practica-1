@@ -100,19 +100,21 @@
                 $this->errores["fecha"] = "La fecha no puede estar vacía";
             }
             /* Validación de la hora */
-            $horaIni = $datos["hora"];
+            $hora = $datos["hora"] . ":00";
             $pelicula = pelicula::buscar($idPelicula);
             // Manipulación de la hora extraída del chatgpt
-            $dateTime = \DateTime::createFromFormat('H:i', $horaIni);
-            $dateTime->add(new \DateInterval("PT" . $pelicula->getDuracion() + 10 . "M"));
-            $horaFin = $dateTime->format('H:i');
-            if (!$hora) {
+            $horaIni = \DateTime::createFromFormat('H:i:s', $hora);
+            if (!$horaIni) {
                 $this->errores["hora"] = "La hora no puede estar vacía";
             }
-            $visibilidad = isset($datos["visibilidad"]) ? true : false;
+            else {
+                $horaFin = \DateTime::createFromFormat('H:i:s', $hora);
+                $horaFin->add(new \DateInterval("PT" . $pelicula->getDuracion() + 10 . "M"));
+            }
+            $visibilidad = isset($datos["visibilidad"]) ? 1 : 0;
             /* Intento de subir la sesión */
             if (count($this->errores) === 0) {
-                $sesion = sesion::crear($pelicula, $sala, $fecha, $hora, $horaFin, $visibilidad);
+                $sesion = sesion::crear($idPelicula, $sala, $fecha, $horaIni->format("H:i:s"), $horaFin->format("H:i:s"), $visibilidad);
                 if (!$sesion) {
                     $this->errores[] = "La sala está ocupada a esa hora";
                 }
