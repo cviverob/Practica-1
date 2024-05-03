@@ -5,9 +5,6 @@
 
     // Faltan las sesiones y el trailer
     
-    // Función urlencode extraída del chatgpt para evitar problemas con espacios en la URL
-    
-    $ruta_selc_but = RUTA_APP . RUTA_SELC_BUT;
     $pelicula = es\ucm\fdi\aw\pelicula::buscar($_GET['id']);
     $poster = RUTA_APP . RUTA_PSTR . '/' . $pelicula->getRutaPoster();
     $trailer = RUTA_APP . RUTA_TRL . '/' . $pelicula->getRutaTrailer();
@@ -19,12 +16,20 @@
                 <source src = $trailer type = "video/mp4">
                 Tu navegador no soporta este tipo de vídeo
             </video>
-        <p><span class="first-word">Sinopsis: </span>{$pelicula->getSinopsis()} </p>
-        <p><span class="first-word">PEGI: </span>{$pelicula->getPegi()} </p>
-        <p><span class="first-word">Género: </span>{$pelicula->getGenero()} </p>
-        <p><span class="first-word">Duración: </span>{$pelicula->getDuracion()} minutos </p>
+            <p><span class="first-word">Sinopsis: </span>{$pelicula->getSinopsis()} </p>
+            <p><span class="first-word">PEGI: </span>{$pelicula->getPegi()} </p>
+            <p><span class="first-word">Género: </span>{$pelicula->getGenero()} </p>
+            <p><span class="first-word">Duración: </span>{$pelicula->getDuracion()} minutos </p>
         </div>
-        <a href="$ruta_selc_but" class="seleccionarPelicula">Seleccionar butacas</a>
     EOS;
-
+    $listaSesiones = es\ucm\fdi\aw\sesion::getSesiones();
+    foreach ($listaSesiones as $sesion) {
+        if ($sesion->getVisibilidad()) {
+            $fechaYHora = $sesion->getFecha() . " | " . $sesion->getHoraIni();
+            $ruta_selc_but = RUTA_APP . RUTA_SELC_BUT . "?id=" . $sesion->getId();
+            $contenidoPrincipal .= <<< EOS
+                <a href = $ruta_selc_but class = "seleccionarPelicula">$fechaYHora</a>
+            EOS;
+        }
+    }
     require_once(RUTA_RAIZ . RUTA_PLNT);

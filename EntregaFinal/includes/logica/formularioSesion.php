@@ -1,22 +1,32 @@
 <?php
     namespace es\ucm\fdi\aw;
 
+    $sesion;
+
     /**
      * Clase encargada del formulario de login
      */
     class formularioSesion extends formulario {
 
-        public function __construct() {
+        public function __construct($id = null) {
             parent::__construct('formSes', ['urlRedireccion' => RUTA_APP . RUTA_INDX]);
+            $this->sesion = $id == null ? null : sesion::buscar($id);
         }
 
         public function generaCamposFormulario(&$datos) {
             /* Obtenemos los valores predeterminados */
-            $pelicula = $datos['pelicula'] ?? '';
-            $sala = $datos['sala'] ?? '';
-            $fecha = $datos['fecha'] ?? '';
-            $hora = $datos['hora'] ?? '';
-            $visibilidad = isset($datos["visibilidad"]) ? $datos["visibilidad"] :  false;
+            if ($this->sesion) {
+                $pelicula = $this->sesion->getIdPelicula();
+                $sala = $this->sesion->getIdSala();
+                $fecha = $this->sesion->getFecha();
+                $hora = $this->sesion->getHoraIni();
+                $visibilidad = $this->sesion->getVisibilidad();
+            }
+            $pelicula = $datos['pelicula'] ?? $pelicula ?? '';
+            $sala = $datos['sala'] ?? $sala ?? '';
+            $fecha = $datos['fecha'] ?? $fecha ?? '';
+            $hora = $datos['hora'] ?? $hora ?? '';
+            $visibilidad = isset($datos["visibilidad"]) ? $datos["visibilidad"] : $visibilidad ?? false;
             /* Inicio del formulario */
             $html = <<<EOS
                 <fieldset>
@@ -75,17 +85,18 @@
             EOS;
             $html.= $this->mostrarError('hora');
             /* Botón de la visibilidad */
+            $check = $visibilidad ? 'checked' : '';
             $html .= <<<EOS
                     </div>
                     <div>
                         <label for = "visibilidad">¿Quieres que sea visible?</label>
-                        <input id = "visibilidad" type = "checkbox" name = "visibilidad" {($visibilidad ? 'checked' : '')}>
+                        <input id = "visibilidad" type = "checkbox" name = "visibilidad" $check>
             EOS;
             /* Botón de confirmar y borrado */
             $html .= <<<EOS
                     </div>
                 </fieldset>
-                    <button type = "submit" name = "subir" class = "botonFormulario">Entrar</button>
+                    <button type = "submit" name = "subir" class = "botonFormulario">Subir</button>
                     <button type = "reset" name = "borrar" class = "botonFormulario">Resetear</button>
             EOS;
             return $html;
@@ -100,7 +111,7 @@
                 $this->errores["fecha"] = "La fecha no puede estar vacía";
             }
             /* Validación de la hora */
-            $hora = $datos["hora"] . ":00";
+            $hora = $datos["hora"] . ($this->sesion ? "" : ":00");
             $pelicula = pelicula::buscar($idPelicula);
             // Manipulación de la hora extraída del chatgpt
             $horaIni = \DateTime::createFromFormat('H:i:s', $hora);
@@ -113,10 +124,19 @@
             }
             $visibilidad = isset($datos["visibilidad"]) ? 1 : 0;
             /* Intento de subir la sesión */
-            if (count($this->errores) === 0) {
-                $sesion = sesion::crear($idPelicula, $sala, $fecha, $horaIni->format("H:i:s"), $horaFin->format("H:i:s"), $visibilidad);
-                if (!$sesion) {
-                    $this->errores[] = "La sala está ocupada a esa hora";
+            if (count($this->errores) == 0) {
+                if ($this->sesion) {    // Modificar sesión
+                    $this->sesion = sesion::modificar($this->sesion->getId(), $idPelicula, $sala, 
+                        $fecha, $horaIni->format("H:i:s"), $horaFin->format("H:i:s"), $visibilidad);
+                    if (!$this->sesion) {
+                        $this->errores[] = "La sala está ocupada a esa hora";
+                    }
+                }
+                else {  // Añadir sesión
+                    $sesion = sesion::crear($idPelicula, $sala, $fecha, $horaIni->format("H:i:s"), $horaFin->format("H:i:s"), $visibilidad);
+                    if (!$sesion) {
+                        $this->errores[] = "La sala está ocupada a esa hora";
+                    }
                 }
             }
         }

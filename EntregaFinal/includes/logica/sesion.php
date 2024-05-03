@@ -75,7 +75,7 @@
          * @param time $hora
          * @param bool $visible valor por defecto false
          */
-        public static function crear($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $visible = false) {
+        public static function crear($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $visible) {
             $sala = salas::buscar($idSala);
             if ($sala) {
                 $sesion = new sesion($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $sala->getButacas(), $visible);
@@ -96,7 +96,7 @@
             $rs = $conn->query($query);
             if ($rs) {
                 $sesion = $rs->fetch_assoc();
-                if ($sala) {
+                if ($sesion) {
                     $id = $sesion['Id'];
                     $idPelicula = $sesion['Id_peli'];
                     $idSala = $sesion['Id_sala'];
@@ -107,7 +107,7 @@
                     $visible = $sesion['Visible'];
                     $sesion = new sesion($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $butacas, $visible, $id);
                     $rs->free();
-                    return $sala;
+                    return $sesion;
                 }
             } else {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -143,6 +143,38 @@
                 }
             }
             return $listaSesiones;
+        }
+
+        /**
+         * Método que modifica la información de una sesión
+         */
+        public static function modificar($id, $idPelicula, $idSala, $fecha, $horaIni, $horaFin, $visible) {
+            $sala = salas::buscar($idSala);
+            if ($sala) {
+                $sesion = new sesion($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $sala->getButacas(), $visible);
+                if (sesion::salaDisponible($sesion, $id)) {
+                    $conn = aplicacion::getInstance()->getConexionBd();
+                    $query = sprintf("UPDATE cartelera SET Id_peli = '%s', Id_sala = '%s', 
+                        Fecha = '%s', Hora_ini = '%s', Hora_fin = '%s', Butacas = '%s', 
+                        Visible = '%d'WHERE Id = '%s'",
+                        $conn->real_escape_string($sesion->idPelicula),
+                        $conn->real_escape_string($sesion->idSala),
+                        $conn->real_escape_string($sesion->fecha),
+                        $conn->real_escape_string($sesion->horaIni),
+                        $conn->real_escape_string($sesion->horaFin),
+                        $conn->real_escape_string(json_encode($sesion->butacas)),
+                        $conn->real_escape_string($sesion->visible),
+                        $conn->real_escape_string($id)
+                    );
+                    if ($conn->query($query)) {
+                        return $sesion;
+                    } 
+                    else {
+                        error_log("Error BD ({$conn->errno}): {$conn->error}");
+                    }
+                }
+            }
+            return false;
         }
         
         /**
@@ -212,7 +244,7 @@
         /**
          * Método que devuelve una lista con todas las sesiones
          */
-        public static function getSesiones() {
+        public static function getSesiones($visibilidad = false) {
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = "SELECT * FROM cartelera";
             $rs = $conn->query($query);
@@ -240,6 +272,41 @@
          */
         public function getId () {
             return $this->id;
+        }
+
+        /**
+         * Método que devuelve el identificador de la película
+         */
+        public function getIdPelicula() {
+            return $this->idPelicula;
+        }
+
+        /**
+         * Método que devuelve el identificador de la sala
+         */
+        public function getIdSala() {
+            return $this->idSala;
+        }
+
+        /**
+         * Método que devuelve la fecha de la sesión
+         */
+        public function getFecha() {
+            return $this->fecha;
+        }
+
+        /**
+         * Método que devuelve la hora inicial de la película
+         */
+        public function getHoraIni() {
+            return $this->horaIni;
+        }
+
+        /**
+         * Método que devuelve la visibilidad de la película
+         */
+        public function getVisibilidad() {
+            return $this->visible;
         }
         
         /**
@@ -290,17 +357,24 @@
                 $fin1 >= $ini2 && $fin1 <= $fin2;
         }
 
-        private static function salaDisponible($sesion) {
+        /**
+         * Método que indica si una sala está disponible a una determinada hora
+         * @param sesion $sesion Nueva sesión cuya hora hay que verificar
+         * @param string $id Identificador de una sesión en el caso de modificar, para
+         * no tener en cuenta la hora actual de dicha sesión
+         */
+        private static function salaDisponible($sesion, $id = null) {
             $listaSesiones = sesion::buscarPorSalaYFecha($sesion->idSala, $sesion->fecha);
             foreach ($listaSesiones as $ses) {
-                $formato = "H:i:s";
-                $ini1 = \DateTime::createFromFormat($formato, $sesion->horaIni);
-                $fin1 = \DateTime::createFromFormat($formato, $sesion->horaFin);
-                //echo $ses->horaIni . " " . $ses->horaFin;exit();
-                $ini2 = \DateTime::createFromFormat($formato, $ses->horaIni);
-                $fin2 = \DateTime::createFromFormat($formato, $ses->horaFin);
-                if (sesion::estanSesionesSolapadas($ini1, $fin1, $ini2, $fin2)) {
-                    return false;
+                if ($id == null || $ses->getId() != $id) {
+                    $formato = "H:i:s";
+                    $ini1 = \DateTime::createFromFormat($formato, $sesion->horaIni);
+                    $fin1 = \DateTime::createFromFormat($formato, $sesion->horaFin);
+                    $ini2 = \DateTime::createFromFormat($formato, $ses->horaIni);
+                    $fin2 = \DateTime::createFromFormat($formato, $ses->horaFin);
+                    if (sesion::estanSesionesSolapadas($ini1, $fin1, $ini2, $fin2)) {
+                        return false;
+                    }
                 }
             }
             return true;

@@ -12,11 +12,12 @@
         $rutaBorrarSesion = RUTA_APP . RUTA_BRR_SES;
         
         foreach ($listaSesiones as $sesion) {
+            $rutaModificarSesion = RUTA_APP . RUTA_MOD_SES . "?id=" . $sesion->getId();
             $pintar .= <<<EOS
                 <tr>
                 <td>{$sesion->getId()}</td>
                     <td>
-                        <form action = "aniadirSesion.php?id={$sesion->getId()}" method = "post">
+                        <form action = "$rutaModificarSesion" method = "post">
                             <button type = "submit">Mod</button>
                         </form>
                     </td>

@@ -5,9 +5,7 @@
     if (comprobarPermisos($_SESSION["esAdmin"])) {
         $tituloPagina = 'Añadir Sesión';
 
-        if (isset($_GET['id'])) $formulario = new es\ucm\fdi\aw\formularioSesion($_GET['id']);
-        else $formulario = new es\ucm\fdi\aw\formularioSesion();
-
+        $formulario = new es\ucm\fdi\aw\formularioSesion();
         $htmlFormularioSesion = $formulario->gestiona();
         $contenidoPrincipal = <<<EOS
             <h1>Añadir Sesión</h1>
