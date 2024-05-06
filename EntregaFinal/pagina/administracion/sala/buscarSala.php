@@ -27,7 +27,7 @@
                             <button type = "submit" class = "ExitUserButton">Elim</button>
                         </form>
                     </td>
-                </tr>"
+                </tr>
             EOS;
         }
 

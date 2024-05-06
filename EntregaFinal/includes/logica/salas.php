@@ -298,7 +298,7 @@
         
         public static function getSalas() {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = "SELECT * FROM salas";
+            $query = "SELECT * FROM salas ORDER BY Num_sala";
             $rs = $conn->query($query);
             $listaSalas = array();
             if ($rs->num_rows > 0) {
