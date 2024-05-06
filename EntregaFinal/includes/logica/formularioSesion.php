@@ -19,13 +19,15 @@
                 $pelicula = $this->sesion->getIdPelicula();
                 $sala = $this->sesion->getIdSala();
                 $fecha = $this->sesion->getFecha();
-                $hora = $this->sesion->getHoraIni();
+                $horaIni = $this->sesion->getHoraIni();
+                $horaFin = $this->sesion->getHoraFin();
                 $visibilidad = $this->sesion->getVisibilidad();
             }
             $pelicula = $datos['pelicula'] ?? $pelicula ?? '';
             $sala = $datos['sala'] ?? $sala ?? '';
             $fecha = $datos['fecha'] ?? $fecha ?? '';
-            $hora = $datos['hora'] ?? $hora ?? '';
+            $horaIni = $datos['horaIni'] ?? $horaIni ?? '';
+            $horaFin = $datos['horaFin'] ?? $horaFin ?? '';
             $visibilidad = isset($datos["visibilidad"]) ? $datos["visibilidad"] : $visibilidad ?? false;
             /* Inicio del formulario */
             $html = <<<EOS
@@ -75,19 +77,23 @@
                         <span id = "validezFecha"></span>
             EOS;
             $html.= $this->mostrarError('fecha');
-            /* Hora */
+            /* Hora inicial */
             $html .= <<<EOS
                     </div>
                     <div>
-                        <label for = "hora">Hora de inicio:</label>
-                        <input type = "time" id = "hora" name = "hora" value = $hora>
+                        <label for = "horaIni">Hora de inicio:</label>
+                        <input type = "time" id = "horaIni" name = "horaIni" value = $horaIni>
                         <span id = "validezHora"></span>
             EOS;
-            $html.= $this->mostrarError('hora');
+            $html.= $this->mostrarError('horaIni');
+            /* Hora final, campo cuyo propósito es ser usado en el javascript */
+            $html .= <<<EOS
+                    </div>
+                    <input type = "time" hidden id = "horaFin" name = "horaFin" value = $horaFin>
+            EOS;
             /* Botón de la visibilidad */
             $check = $visibilidad ? 'checked' : '';
             $html .= <<<EOS
-                    </div>
                     <div>
                         <label for = "visibilidad">¿Quieres que sea visible?</label>
                         <input id = "visibilidad" type = "checkbox" name = "visibilidad" $check>
@@ -111,16 +117,19 @@
                 $this->errores["fecha"] = "La fecha no puede estar vacía";
             }
             /* Validación de la hora */
-            $hora = $datos["hora"] . ($this->sesion ? "" : ":00");
+            $hora = $datos["horaIni"] . ($this->sesion ? "" : ":00");
             $pelicula = pelicula::buscar($idPelicula);
             // Manipulación de la hora extraída del chatgpt
             $horaIni = \DateTime::createFromFormat('H:i:s', $hora);
             if (!$horaIni) {
-                $this->errores["hora"] = "La hora no puede estar vacía";
+                $this->errores["horaIni"] = "La hora no puede estar vacía";
             }
             else {
                 $horaFin = \DateTime::createFromFormat('H:i:s', $hora);
                 $horaFin->add(new \DateInterval("PT" . $pelicula->getDuracion() + 10 . "M"));
+                if ($horaFin->format('Y-m-d') > $horaIni->format('Y-m-d')) {
+                    $this->errores["horaIni"] = "La hora de finalización sobrepasa las 24:00, " . $horaFin->format("H:i");
+                }
             }
             $visibilidad = isset($datos["visibilidad"]) ? 1 : 0;
             /* Intento de subir la sesión */

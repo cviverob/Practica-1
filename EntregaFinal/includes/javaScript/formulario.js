@@ -65,9 +65,8 @@ function comprobarArchivo(campo, tipos) {
 }
 
 /**
- * Función que comprueba si un archivo subido es válido o no
+ * Función que comprueba si fecha u hora están vacías
  * @param {string} campo 
- * @param {array} tipos 
  * @returns String con un tick en caso de validación exitosa, o una advertencia
  * en caso contrario
  */
@@ -75,12 +74,30 @@ function comprobarValorPorDefecto(campo) {
 	let advertencia = comprobarCampo(campo);
 	if (advertencia == "\u2714") {
 		const contenido = $(campo);
-		console.log(contenido.val());
 		if (contenido.val() == "") {
 			advertencia = "El campo no puede estar vacío";
 			contenido[0].setCustomValidity(advertencia);
 			advertencia = "\u2716 " + advertencia;
 		}
+	}
+	return advertencia;
+}
+
+/**
+ * Función que comprueba si la hora de una película es válida o no según su hora final
+ * @returns String con un tick en caso de validación exitosa, o una advertencia
+ * en caso contrario
+ */
+function comprobarHoraDeFinalizacion() {
+	const horaFin = $("#horaFin");
+	const horaIni = $("#horaIni");
+	if (horaIni > horaFin) {
+		advertencia = "La hora final excede las 24:00";
+		horaIni[0].setCustomValidity(advertencia);
+		advertencia = "\u2716 " + advertencia;
+	}
+	else {
+		return "\u2714";
 	}
 	return advertencia;
 }
@@ -97,15 +114,17 @@ function tomarAccion(campo, validezCampo, errorCampo, modo, accion = null) {
 	if (accion == null) {
 		accion = comprobarCampo(campo);
 	}
-	if (modo == "load" || modo == "keyup") {
-		if (accion == "\u2714") {
+	if (accion) {
+		if (modo == "load" || modo == "keyup") {
+			if (accion == "\u2714") {
+				$(errorCampo).hide();
+				$(validezCampo).text(accion);
+			}
+		}
+		else if (modo == "blur" || modo == "change") {
 			$(errorCampo).hide();
 			$(validezCampo).text(accion);
 		}
-	}
-	else if (modo == "blur" || modo == "change") {
-		$(errorCampo).hide();
-		$(validezCampo).text(accion);
 	}
 }
 
@@ -136,7 +155,6 @@ var campos = [
     new Campo("#num_sala", "#validezSala", "#error-num_sala"),
     new Campo("#num_filas", "#validezFilas", "#error-num_filas"),
     new Campo("#num_columnas", "#validezColumnas", "#error-num_columnas")
-    //new Campo("#fecha", "#validezFecha", "#error-fecha")
 ];
 
 $(document).ready(function() {
@@ -188,13 +206,17 @@ $(document).ready(function() {
 		accion = comprobarValorPorDefecto("#fecha");
 		tomarAccion("#fecha", "#validezFecha", "#error-fecha", "blur", accion);
 	});
-	$("#hora").on("change keyup", function() {
-		accion = comprobarValorPorDefecto("#hora");
-		tomarAccion("#hora", "#validezHora", "#error-hora", "keyup", accion);
+	$("#horaIni").on("change keyup", function() {
+		accion = comprobarValorPorDefecto("#horaIni");
+		tomarAccion("#horaIni", "#validezHora", "#error-horaIni", "keyup", accion);
 	});
-	$("#hora").on("blur", function() {
-		accion = comprobarValorPorDefecto("#hora");
-		tomarAccion("#hora", "#validezHora", "#error-hora", "blur", accion);
+	$("#horaIni").on("blur", function() {
+		accion = comprobarValorPorDefecto("#horaIni");
+		tomarAccion("#horaIni", "#validezHora", "#error-horaIni", "blur", accion);
+	});
+	$("horaIni").on("submit", function() {
+		accion = comprobarHoraDeFinalizacion();
+		tomarAccion("#horaIni", "#validezHora", "#error-horaIni", "load", accion);
 	});
 
 });
@@ -217,5 +239,5 @@ document.addEventListener("DOMContentLoaded", function() {
 	accion = comprobarValorPorDefecto("#fecha");
 	tomarAccion("#fecha", "#validezFecha", "#error-fecha", "load", accion);
 	accion = comprobarValorPorDefecto("#hora");
-	tomarAccion("#hora", "#validezHora", "#error-hora", "load", accion);
+	tomarAccion("#horaIni", "#validezHora", "#error-horaIni", "load", accion);
 });

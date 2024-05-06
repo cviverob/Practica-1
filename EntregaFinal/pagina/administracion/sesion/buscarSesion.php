@@ -13,9 +13,12 @@
         
         foreach ($listaSesiones as $sesion) {
             $rutaModificarSesion = RUTA_APP . RUTA_MOD_SES . "?id=" . $sesion->getId();
+            $sala = es\ucm\fdi\aw\salas::buscar($sesion->getIdSala());
+            $descripcionSesion = "Sala " . $sala->getNumSala() . " " . $sesion->getFecha() . 
+                " " . $sesion->getHoraIni() . "-" . $sesion->getHoraFin();
             $pintar .= <<<EOS
                 <tr>
-                <td>{$sesion->getId()}</td>
+                <td>$descripcionSesion</td>
                     <td>
                         <form action = "$rutaModificarSesion" method = "post">
                             <button type = "submit">Mod</button>
@@ -36,7 +39,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>Id de la sesión</th>
+                    <th>Sesión</th>
                     <th>Modificar</th>
                     <th>Borrar</th>
                 </tr>

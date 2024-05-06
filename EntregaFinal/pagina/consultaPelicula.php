@@ -24,7 +24,7 @@
     EOS;
     $listaSesiones = es\ucm\fdi\aw\sesion::getSesiones();
     foreach ($listaSesiones as $sesion) {
-        if ($sesion->getVisibilidad()) {
+        if ($sesion->getIdPelicula() == $pelicula->getId() && $sesion->getVisibilidad()) {
             $fechaYHora = $sesion->getFecha() . " | " . $sesion->getHoraIni();
             $ruta_selc_but = RUTA_APP . RUTA_SELC_BUT . "?id=" . $sesion->getId();
             $contenidoPrincipal .= <<< EOS

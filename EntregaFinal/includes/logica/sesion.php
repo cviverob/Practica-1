@@ -303,6 +303,13 @@
         }
 
         /**
+         * Método que devuelve la hora final de la película
+         */
+        public function getHoraFin() {
+            return $this->horaFin;
+        }
+
+        /**
          * Método que devuelve la visibilidad de la película
          */
         public function getVisibilidad() {
