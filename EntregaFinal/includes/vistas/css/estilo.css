@@ -413,11 +413,11 @@ legend {
     font-size: larger;
 }
 
-.botonButaca[type="submit"][value="nulo"] {
+.botonButaca[type="button"][value="nulo"] {
     background-color: grey;
     color: white;
 }
-.botonButaca[type="submit"][value="disponible"] {
+.botonButaca[type="button"][value="disponible"] {
     background-color: green;
     color: white;
 }  
