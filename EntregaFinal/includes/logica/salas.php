@@ -150,15 +150,21 @@
          * Método accesible por el usuario para seleccionar una butaca a la
          * hora de comprar entradas
          * @param int $id Identificador de la butaca a seleccionar
+         * @param sesion $sesion Sesion cuya butaca va a ser modificada
          */
-        public function actualizaButacaUsuario($id) {
+        public function actualizaButacaUsuario($id, $sesion, $ocupar = false) {
             if (array_key_exists($id, $this->butacas)) {
-                $this->butacas[$id]["estado"] = $this->butacas[$id]["estado"] == "seleccionada" ? "disponible" : "seleccionada";
+                $butacas = $sesion->getButacas();
+                if (!$ocupar) {
+                    $butacas[$id]["estado"] = $this->butacas[$id]["estado"] == "seleccionada" ? "disponible" : "seleccionada";
+                }
+                else {
+                    $butacas[$id]["estado"] = $this->butacas[$id]["estado"] == "seleccionada" ? "ocupada" : "disponible";
+                }
                 $conn = aplicacion::getInstance()->getConexionBd();
-                /* PENDIENTE CORREGIR LA SIGUIENTE LÍNEA */
-                $query = sprintf("UPDATE salas SET Butacas = '%s' WHERE Id = %s",
-                    $conn->real_escape_string(json_encode($this->butacas)),
-                    $conn->real_escape_string($this->id)
+                $query = sprintf("UPDATE cartelera SET Butacas = '%s' WHERE Id = %s",
+                    $conn->real_escape_string(json_encode($butacas)),
+                    $conn->real_escape_string($sesion->getId())
                 );
                 if ($conn->query($query)) {
                     return true;

@@ -32,13 +32,19 @@
          */
         private $columna;
 
-        public function __construct($sala, $fila, $columna) {
+        /**
+         * Sesión en el caso de seleccionar y ocupar una butaca en la compra de entradas
+         */
+        private $sesion;
+
+        public function __construct($sala, $fila, $columna, $sesion = null, $url = RUTA_MOD_SALA) {
             $this->sala = $sala;
             $this->fila = $fila;
             $this->columna = $columna;
+            $this->sesion = $sesion;
             $this->id = ($this->fila - 1) * $this->sala->getNumColumnas() + $this->columna;
             $this->estado = $this->sala->devolverAsiento($this->id);
-            $url = RUTA_APP . RUTA_MOD_SALA . '?id=' . $this->sala->getId();
+            $url = RUTA_APP . $url . '?id=' . $this->sala->getId();
             parent::__construct('formBut' . $this->id, ['enctype' => 'multipart/form-data',
                 'urlRedireccion' => $url]);
         }
@@ -49,9 +55,13 @@
         }
 
         public function procesaFormulario(&$datos) {
-            if (!$this->sala->actualizarButacaAdmin($this->id)) {
-                exit();
+            if (!$this->sesion) {
+                $ok = $this->sala->actualizarButacaAdmin($this->id);
             }
+            else {
+                $ok = $this->sala->actualizaButacaUsuario($this->id, $this->sesion);
+            }
+            if (!$ok) exit();
         }
     }
     

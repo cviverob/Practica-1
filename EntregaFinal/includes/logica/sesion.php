@@ -310,6 +310,13 @@
         }
 
         /**
+         * Método que devuelve las butacas de la sesión
+         */
+        public function getButacas() {
+            return $this->butacas;
+        }
+
+        /**
          * Método que devuelve la visibilidad de la película
          */
         public function getVisibilidad() {

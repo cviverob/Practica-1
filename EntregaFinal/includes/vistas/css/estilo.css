@@ -421,3 +421,11 @@ legend {
     background-color: green;
     color: white;
 }  
+.botonButaca[type="submit"][value="seleccionada"] {
+    background-color: blue;
+    color: white;
+}  
+.botonButaca[type="submit"][value="ocupada"] {
+    background-color: red;
+    color: white;
+} 
