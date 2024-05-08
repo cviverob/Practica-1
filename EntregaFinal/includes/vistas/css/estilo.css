@@ -247,9 +247,10 @@ ARCHIVO: consultapelicula.php
 
 .seleccionarPelicula{
     display: inline-block;
+    margin: 20px;
     padding: 5px 20px;
     text-decoration: none;
-	color: white;
+	color: black;
     background-color: grey;
     border-radius: 100px;
 	border: 2px solid rgba(128, 128, 128, 0.329);
@@ -259,7 +260,7 @@ ARCHIVO: consultapelicula.php
 }
 
 .seleccionarPelicula:hover {
-    background-color: black;
+    filter: brightness(0.8);
 }
 
 /*
@@ -365,16 +366,15 @@ ARCHIVO: seleccionDeButacas.php
     width: 60px;
     height: 30px;
     color: #333;
-    border: 2px solid burlywood;
+    border: 2px transparent black;
     border-radius: 3px;
     font-size: 14px;
     transition: background-color 0.3s ease;
-    background-color: bisque;
     cursor: pointer;
 }
 
 .botonButaca:hover {
-    background-color: burlywood;
+    filter: brightness(0.8);
 }
 
 /*
@@ -413,19 +413,15 @@ legend {
     font-size: larger;
 }
 
-.botonButaca[type="button"][value="nulo"] {
+.botonButaca[value="nulo"] {
     background-color: grey;
-    color: white;
 }
-.botonButaca[type="button"][value="disponible"] {
+.botonButaca[value="disponible"] {
     background-color: green;
-    color: white;
 }  
-.botonButaca[type="button"][value="seleccionada"] {
-    background-color: blue;
-    color: white;
+.botonButaca[value="seleccionada"] {
+    background-color: orange;
 }  
-.botonButaca[type="button"][value="ocupada"] {
+.botonButaca[value="ocupada"] {
     background-color: red;
-    color: white;
 } 

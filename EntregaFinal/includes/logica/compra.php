@@ -121,7 +121,7 @@
                 //recorremos las butacas y las vamos actualizando
                 foreach ($butacas as $butaca) {
                     $sesion->actualizaButacaSeleccionar($butaca);
-                    $query = sprintf("DELETE FROM entrada WHERE Id_sesion = '%d' AND Id_butaca = '%d'" , $idSesion, $butaca);
+                    $query = sprintf("DELETE FROM entrada WHERE Id_sesion = '%d' AND Id_butaca = '%s'" , $idSesion, $butaca);
                     $conn->query($query);
                 }
                 self::borrar($id);
@@ -219,8 +219,8 @@
                 foreach ($this->getButacas() as $butaca) {
                     //si la butaca esta en mis butacasCompradas, tengo que quitarlo de la tabla entrada
                     if ($butaca == $idButaca) {
-                        $i == true;
-                        $conn->query(sprintf("DELETE FROM entrada WHERE Id_sesion = '%d' AND Id_butaca = '%d'" , $this->getIdSesion(), $butaca));
+                        $i = true;
+                        $conn->query(sprintf("DELETE FROM entrada WHERE Id_sesion = %d AND Id_butaca = '%s'" , $this->getIdSesion(), $idButaca));
                     }
                     else $sos[] = $butaca;
                 }

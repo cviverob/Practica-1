@@ -44,7 +44,7 @@
                 </div>
                 </fieldset>
                 <div>
-                    <a href = $rutaAdmin>Terminar</a>
+                    <a href = $rutaAdmin class ="seleccionarPelicula">Terminar</a>
                 </div>
                 </body>
                 </html>

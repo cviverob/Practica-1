@@ -16,7 +16,7 @@
         </div>
     EOS;
 
-    es\ucm\fdi\aw\compra::eliminaSiCompraEstaPendiente($_SESSION['id'], $_SESSION['idSesion']);
+    if (isset($_SESSION['idSesion']) && isset($_SESSION['id'])) es\ucm\fdi\aw\compra::eliminaSiCompraEstaPendiente($_SESSION['id'], $_SESSION['idSesion']);
     
     unset($_SESSION['idSesion']);
     unset($_SESSION["login"]);

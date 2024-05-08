@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var idButaca = datos[0] + "-" + datos[1];
             var estado = datos[2];
             // Cambiar el estado de la butaca al hacer clic
-            if (estado == 'disponible') {
+            if (estado == 'disponible' || estado == 'seleccionada') {
                 // Obtener la fila y el número de la butaca
                 $.post('../includes/logica/operacionesButacas.php', {
                     idButaca: idButaca,

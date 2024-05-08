@@ -7,9 +7,9 @@
     $compra = es\ucm\fdi\aw\compra::crear($_SESSION['id'], $sesion->getId(), date("Y-m-d"), date("H:i:s"), '0', '1');
     //si se ha podido crear, no existia ninguno. Si existia, tambien se intenta inserta. Insertamos el idButaca para saber que esta pendiente
     $insertado = $compra->insertarButaca($idButaca);
-    $sesion->actualizaButacaSeleccionar($idButaca);
+    
     if ($insertado) {
-        
+        $sesion->actualizaButacaSeleccionar($idButaca);
         $estado = $sesion->devolverAsiento($idButaca);
     }
     else $estado = false;
