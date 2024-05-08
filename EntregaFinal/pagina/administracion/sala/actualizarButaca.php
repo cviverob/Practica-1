@@ -4,7 +4,7 @@
     $sala = es\ucm\fdi\aw\salas::buscar($_POST['id']);
     $fila = $_POST['fila'];
     $columna = $_POST['columna'];
-    $butaca = (($fila - 1) * $columna) + $columna;
+    $butaca = "$fila-$columna";
     if ($sala->actualizarButacaAdmin($butaca)) $estado = $sala->devolverAsiento($butaca);
     else $estado = false;
     
@@ -14,4 +14,3 @@
         'estado' => $estado
     );
     echo json_encode($respuesta);
-    ?>

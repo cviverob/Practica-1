@@ -13,6 +13,7 @@
                 <h1>Modificar película</h1>
                 $htmlFormularioPelicula
             EOS;
+            $scripts = array(RUTA_APP . RUTA_JS_FORM);
             
             require(RUTA_RAIZ . RUTA_PLNT);
         }

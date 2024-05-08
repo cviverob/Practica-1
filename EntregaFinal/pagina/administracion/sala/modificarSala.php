@@ -32,7 +32,7 @@
             for ($fila = 1; $fila <= $sala->getNumFilas(); $fila++) {
                 $contenidoPrincipal .= "<div class='fila'>";
                 for ($columna = 1; $columna <=  $sala->getNumColumnas(); $columna++) {
-                    $butaca = (($fila - 1) * $sala->getNumColumnas()) + $columna;
+                    $butaca = "$fila-$columna";
                     $estado = $sala->devolverAsiento($butaca);
                     $valorBoton = ($estado == "disponible") ? "disponible" : "nulo";
                     $contenidoPrincipal .= "<button type='button' class='botonButaca' id='$fila-$columna' value='$valorBoton'>$fila-$columna</button>";
@@ -46,11 +46,11 @@
                 <div>
                     <a href = $rutaAdmin>Terminar</a>
                 </div>
-                <script src="script.js?id=$id"></script>
                 </body>
                 </html>
-                
             EOS;
+            $rutaButJs = RUTA_APP . RUTA_JS_BUT . "?id=" . $id;
+            $scripts = array(RUTA_APP . RUTA_JS_FORM, $rutaButJs);
     
             require_once(RUTA_RAIZ . RUTA_PLNT);
         } else {

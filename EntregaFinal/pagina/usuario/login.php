@@ -9,5 +9,6 @@
 		<h1>Login</h1>
 		$htmlFormularioLogin
 	EOS;
+	$scripts = array(RUTA_APP . RUTA_JS_FORM);
 
 	require_once(RUTA_RAIZ . RUTA_PLNT);

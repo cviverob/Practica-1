@@ -1,3 +1,4 @@
+/* Código hecho con el chatgpt */
 //Ejecuta el script despues de que se haya ejecutado todo el php anterior
 document.addEventListener('DOMContentLoaded', function() {
     // Obtener todas las butacas
@@ -5,24 +6,22 @@ document.addEventListener('DOMContentLoaded', function() {
     //Para pasarle parametros
     var parametros = new URLSearchParams(window.location.search);
     // Agregar un evento clic a cada butaca
-    butacas.forEach(function(butaca) {
+    for (let butaca of butacas) {
         butaca.addEventListener('click', function() {
             // Cambiar el estado de la butaca al hacer clic
-            if (!butaca.classList.contains('selected')) {//??
+            if (!butaca.classList.contains('selected')) {
                 // Obtener la fila y el número de la butaca
                 var datos = butaca.id.split('-');
-                $.post('actualizar_butaca.php', {
+                $.post('actualizarButaca.php', {
                     fila: datos[0],
                     columna: datos[1],
                     id: parametros.get('id')
                 },function(data) {
                     var respuesta = JSON.parse(data);
-                    if (respuesta.estado != false) butaca.value = respuesta.estado;
+                    if (respuesta.estado) butaca.value = respuesta.estado;
                     else console.log("Error no se ha podido cambiar la butaca");
-                    console.log(data);
                 });
             } 
-            
         });
-    });
+    }
 });
