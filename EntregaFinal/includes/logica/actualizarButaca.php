@@ -1,5 +1,5 @@
 <?php
-    require_once('../../../includes/config.php');
+    require_once('../config.php');
     require_once(RUTA_RAIZ . RUTA_UTILS);
     $sala = es\ucm\fdi\aw\salas::buscar($_POST['id']);
     $idButaca = $_POST["idButaca"];

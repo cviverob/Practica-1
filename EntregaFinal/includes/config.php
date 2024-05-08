@@ -42,6 +42,8 @@
     define('RUTA_FORM_SALA', RUTA_LGC . '/formularioSala.php');
     define('RUTA_FORM_BUTC', RUTA_LGC . '/formularioButacas.php');
     define('RUTA_COMP_PERM', RUTA_LGC . '/comprobarPermisos.php');
+    define('RUTA_ACT_BUT', RUTA_LGC . '/actualizarButaca.php');
+    define('RUTA_OP_BUT', RUTA_LGC . '/operacionesButacas.php');
     // includes/vistas
     define('RUTA_VSTA', RUTA_INCL . '/vistas');
     // includes/vistas/comun
@@ -75,7 +77,6 @@
     define('RUTA_BRR_SALA', RUTA_PGN_ADMN_SALA . '/borrarSala.php');
     define('RUTA_BSC_SALA', RUTA_PGN_ADMN_SALA . '/buscarSala.php');
     define('RUTA_MOD_SALA', RUTA_PGN_ADMN_SALA . '/modificarSala.php');
-    define('RUTA_ACT_BUT', RUTA_PGN_ADMN_SALA . '/actualizarButaca.php');
     // vistas/pagina/administracion/sesion
     define('RUTA_PGN_ADMN_SES', RUTA_PGN_ADMN . '/sesion');
     define('RUTA_AND_SES', RUTA_PGN_ADMN_SES . '/aniadirSesion.php');

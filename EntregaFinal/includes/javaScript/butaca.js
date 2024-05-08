@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Obtener la fila y el número de la butaca
                 var datos = butaca.id.split('-');
                 var idButaca = datos[0] + "-" + datos[1];
-                $.post('actualizarButaca.php', {
+                $.post('../../../includes/logica/actualizarButaca.php', {
                     idButaca: idButaca,
                     id: parametros.get('id')
                 },function(data) {

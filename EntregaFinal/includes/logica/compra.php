@@ -74,7 +74,12 @@
          */
         public static function buscarUsuario($idUsuario, $idSesion) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d' AND Id_sesion = '%d' AND Pendiente = '%d'", $conn->real_escape_string($idUsuario), $conn->real_escape_string($idSesion), '1');
+            $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d' AND Id_sesion = '%d' 
+                AND Pendiente = '%d'", 
+                $conn->real_escape_string($idUsuario), 
+                $conn->real_escape_string($idSesion), 
+                '1'
+            );
             $rs = $conn->query($query);
             if ($rs) {
                 $compra = $rs->fetch_assoc();
@@ -122,7 +127,9 @@
                 self::borrar($id);
                 return true;
             }
-            else return false;
+            else {
+                return false;
+            }
         }
 
         /**
