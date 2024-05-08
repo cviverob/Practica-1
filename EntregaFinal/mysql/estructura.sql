@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2024 a las 12:48:54
+-- Tiempo de generación: 08-05-2024 a las 20:03:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -50,6 +50,7 @@ CREATE TABLE `compras` (
   `Id_compra` int(10) UNSIGNED NOT NULL,
   `Id_usuario` int(10) UNSIGNED NOT NULL,
   `Id_sesion` int(50) UNSIGNED NOT NULL,
+  `Titulo_peli` text NOT NULL,
   `Fecha` date NOT NULL,
   `Hora` time NOT NULL,
   `Num_entradas_compradas` int(2) NOT NULL,
@@ -65,7 +66,7 @@ CREATE TABLE `compras` (
 
 CREATE TABLE `entrada` (
   `Id_sesion` int(11) NOT NULL,
-  `Id_butaca` int(11) NOT NULL
+  `Id_butaca` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -208,7 +209,6 @@ ALTER TABLE `cartelera`
 -- Filtros para la tabla `compras`
 --
 ALTER TABLE `compras`
-  ADD CONSTRAINT `compras_fk_peliculas` FOREIGN KEY (`Id_sesion`) REFERENCES `peliculas` (`Id`),
   ADD CONSTRAINT `compras_fk_usuario` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`id`);
 COMMIT;
 
