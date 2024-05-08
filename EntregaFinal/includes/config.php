@@ -27,6 +27,7 @@
     // includes/javaScript
     define('RUTA_JS', RUTA_INCL . '/javaScript');
     define('RUTA_JS_FORM', RUTA_JS . '/formulario.js');
+    define('RUTA_JS_BUT', RUTA_JS . '/butaca.js');
     define('RUTA_JQUERY', RUTA_JS . '/jquery-3.7.1.min.js');
     // includes/logica
     define('RUTA_LGC', RUTA_INCL . '/logica');
@@ -73,6 +74,7 @@
     define('RUTA_BRR_SALA', RUTA_PGN_ADMN_SALA . '/borrarSala.php');
     define('RUTA_BSC_SALA', RUTA_PGN_ADMN_SALA . '/buscarSala.php');
     define('RUTA_MOD_SALA', RUTA_PGN_ADMN_SALA . '/modificarSala.php');
+    define('RUTA_ACT_BUT', RUTA_PGN_ADMN_SALA . '/actualizarButaca.php');
     // vistas/pagina/administracion/sesion
     define('RUTA_PGN_ADMN_SES', RUTA_PGN_ADMN . '/sesion');
     define('RUTA_AND_SES', RUTA_PGN_ADMN_SES . '/aniadirSesion.php');

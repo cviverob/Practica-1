@@ -21,13 +21,13 @@
                 <td>$descripcionSesion</td>
                     <td>
                         <form action = "$rutaModificarSesion" method = "post">
-                            <button type = "submit">Mod</button>
+                            <button type = "submit" class = "RegisterUserButton">Mod</button>
                         </form>
                     </td>
                     <td>
                         <form action = "$rutaBorrarSesion" method = "post">
                             <input type = "hidden" name = "id" value = {$sesion->getId()}>
-                            <button type = "submit">Elim</button>
+                            <button type = "submit" class = "ExitUserButton">Elim</button>
                         </form>
                     </td>
                 </tr>

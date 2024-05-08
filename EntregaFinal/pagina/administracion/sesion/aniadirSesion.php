@@ -11,6 +11,7 @@
             <h1>Añadir Sesión</h1>
             $htmlFormularioSesion
         EOS;
+        $scripts = array(RUTA_APP . RUTA_JS_FORM);
 
         require(RUTA_RAIZ . RUTA_PLNT);
     }

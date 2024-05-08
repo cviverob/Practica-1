@@ -228,15 +228,14 @@
          */
         private static function insertar($sala) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $id = 1;
             for ($i = 1; $i <= $sala->num_filas; $i++) {
                 for ($j = 1; $j <= $sala->num_columnas; $j++) {
+                    $id = "$i-$j";
                     $butacas[$id] = array(
                         "fila" => $i,
                         "columna" => $j,
                         "estado" => "disponible"
                     );  
-                    $id++;
                 }
             }
             $sala->butacas = $butacas;
@@ -269,16 +268,15 @@
             foreach ($this->butacas as $butaca) {
                 $fila = $butaca["fila"];
                 $columna = $butaca["columna"];
-                $butacasIndexadas["$fila,$columna"] = $butaca;
+                $butacasIndexadas["$fila-$columna"] = $butaca;
             }
             $nuevasButacas = [];
-            $id = 1;
             /* Recorremos todas las celdas de la sala */
             for ($fila = 1; $fila <= $this->num_filas; $fila++) {
                 for ($columna = 1; $columna <= $this->num_columnas; $columna++) {
-                    $indice = "$fila,$columna";
+                    $id = "$fila-$columna";
                     /* Verificamos si hay una butaca existente en la celda actual */
-                    if (isset($butacasIndexadas[$indice])) {
+                    if (isset($butacasIndexadas[$id])) {
                         /* Si la butaca existe, copiamos la información de la butaca existente */
                         $butaca = $butacasIndexadas[$indice];
                         $nuevasButacas[$id] = array(
@@ -295,7 +293,6 @@
                             "estado" => "disponible"
                         );
                     }
-                    $id++;
                 }
             }
             /* Actualizar $this->butacas con el nuevo conjunto de butacas */
