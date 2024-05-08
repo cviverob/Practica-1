@@ -7,6 +7,8 @@
 
     $tituloPagina = 'Cartelera';
 
+    if (isset($_SESSION['idSesion']) && isset($_SESSION['id'])) $comprobarCompra = es\ucm\fdi\aw\compra::eliminaSiCompraEstaPendiente($_SESSION['id'], $_SESSION['idSesion']);
+
     $peli = es\ucm\fdi\aw\pelicula::getPeliculas();
     $pintar = '';
     foreach ($peli as $p) {

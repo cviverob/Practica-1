@@ -15,8 +15,12 @@
             <a href="$ruta_indx"><button type="button" class="seleccionarPelicula">Volver al menú principal</button></a>
         </div>
     EOS;
+
+    es\ucm\fdi\aw\compra::eliminaSiCompraEstaPendiente($_SESSION['id'], $_SESSION['idSesion']);
     
+    unset($_SESSION['idSesion']);
     unset($_SESSION["login"]);
+    unset($_SESSION['id']);
     unset($_SESSION["nombre"]);
     unset($_SESSION["esAdmin"]);
     unset($_SESSION["modo"]);
