@@ -46,7 +46,7 @@
                 <div>
                     <a href = $rutaAdmin>Terminar</a>
                 </div>
-                <script src="script.js?id=$id"></script>
+                <script src="modSal.js?id=$id"></script>
                 </body>
                 </html>
                 
