@@ -64,6 +64,9 @@
     define('RUTA_CNTCT', RUTA_PGN . '/contacto.php');
     define('RUTA_POLT_PRIV', RUTA_PGN . '/politicaDePrivacidad.php');
     define('RUTA_POLT_COOK', RUTA_PGN . '/politicaDeCookies.php');
+    // vistas/pagina/compras
+    define('RUTA_COM', RUTA_PGN . '/compras');
+    define('RUTA_HST', RUTA_COM . '/historialCompras.php');
     // vistas/pagina/administracion
     define('RUTA_PGN_ADMN', RUTA_PGN . '/administracion');
     define('RUTA_ADMN', RUTA_PGN_ADMN . '/administracion.php');

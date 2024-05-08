@@ -57,6 +57,7 @@
          * @param string $id Identificador de la seión, valor por defecto null
          */
         private function __construct($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $butacas, $visible, $id = null) {
+            $this->id = $id;
             $this->idPelicula = $idPelicula;
             $this->idSala = $idSala;
             $this->fecha = $fecha;
@@ -64,7 +65,7 @@
             $this->horaFin = $horaFin;
             $this->butacas = $butacas;
             $this->visible = $visible;
-            $this->id = $id;
+            
         }
         
         /**

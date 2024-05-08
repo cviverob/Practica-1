@@ -4,9 +4,7 @@
         
     <?php
         if (!isset($_SESSION["login"]) || !$_SESSION["login"]) {
-            //echo '"class="usuarioDesco"" Usuario desconocido';
             echo 'Usuario desconocido <a href="' . RUTA_APP . RUTA_LGIN . '" class="LogUserButton">Logearse</a> <a href="' . RUTA_APP . RUTA_REG . '" class="RegisterUserButton">Registrarse</a>';
-
         }
         else {
             echo 'Bienvenido ' . $_SESSION["nombre"] . ' <a href="' . RUTA_APP . RUTA_LGOUT . '" class="ExitUserButton">Salir</a>';
@@ -18,6 +16,8 @@
                     echo '<a href="' . RUTA_APP . RUTA_INDX . '" class="RegisterUserButton">Menú principal</a>';
 
                 }
+            } else {
+                echo '<a href="' . RUTA_APP . RUTA_HST . '" class="RegisterUserButton">Carrito</a>';
             }
         }
     ?>

@@ -14,6 +14,8 @@
 
         private $idSesion;
 
+        private $tituloPeli;
+
         private $fecha;
 
         private $hora;
@@ -36,9 +38,10 @@
          * @param string $duracion
          * @param int $id Identificador de la película con valor por defecto NULL
          */
-        private function __construct($idUsuario, $idSesion, $fecha, $hora, $numEntradas, $compraPendiente, $butacas = null, $idCompra = null) {
+        private function __construct($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numEntradas, $compraPendiente, $butacas = null, $idCompra = null) {
             $this->idUsuario = $idUsuario;
             $this->idSesion = $idSesion;
+            $this->tituloPeli = $tituloPeli;
             $this->fecha = $fecha;
             $this->hora = $hora;
             $this->numEntradas = $numEntradas;
@@ -57,12 +60,12 @@
          * @param string $genero
          * @param string $duracion
          */
-        public static function crear($idUsuario, $idSesion, $fecha, $hora, $numEntradas, $compraPendiente) {
+        public static function crear($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numEntradas, $compraPendiente) {
             //buscamos si existe compra pendiente para ese usuario, si existe la devolvemos
             $usuario = self::buscarUsuario($idUsuario, $idSesion);
             //si no existe, creamos una compra para ese usuario y la devolvemos
             if ($usuario == false) {
-                $compra = new compra($idUsuario, $idSesion, $fecha, $hora, $numEntradas, $compraPendiente);
+                $compra = new compra($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numEntradas, $compraPendiente);
                 return self::insertaCompra($compra);
             }
             return $usuario;
@@ -74,8 +77,7 @@
          */
         public static function buscarUsuario($idUsuario, $idSesion) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d' AND Id_sesion = '%d' 
-                AND Pendiente = '%d'", 
+            $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d' AND Id_sesion = '%d' AND Pendiente = '%d'", 
                 $conn->real_escape_string($idUsuario), 
                 $conn->real_escape_string($idSesion), 
                 '1'
@@ -87,12 +89,13 @@
                     $idCompra = $compra['Id_compra'];
                     $idUsuario = $compra['Id_usuario'];
                     $idSesion = $compra['Id_sesion'];
+                    $tituloPeli = $compra['Titulo_peli'];
                     $fecha = $compra['Fecha'];
                     $hora = $compra['Hora'];
                     $numEntradas = $compra['Num_entradas_compradas'];
                     $butacas = json_decode($compra['Butacas']);
                     $compraPendiente = $compra['Pendiente'];
-                    $comprada = new compra($idUsuario, $idSesion, $fecha, $hora, $numEntradas, $compraPendiente, $butacas, $idCompra);
+                    $comprada = new compra($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numEntradas, $compraPendiente, $butacas, $idCompra);
                     $rs->free();
                     return $comprada;
                 }
@@ -101,6 +104,31 @@
             }
             return false;
         }
+
+        public static function buscar($idUsuario) {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d'", $conn->real_escape_string($idUsuario));
+
+            $rs = $conn->query($query);
+            $listaCompras = array();
+            if ($rs->num_rows > 0) {
+                // Mostrar cada película y su imagen
+                while($compra = $rs->fetch_assoc()) {
+                    $idCompra = $compra['Id_compra'];
+                    $idUsuario = $compra['Id_usuario'];
+                    $idSesion = $compra['Id_sesion'];
+                    $tituloPeli = $compra['Titulo_peli'];
+                    $fecha = $compra['Fecha'];
+                    $hora = $compra['Hora'];
+                    $numCompradas = $compra['Num_entradas_compradas'];
+                    $butacas = json_decode($compra['Butacas'], true);
+                    $listaCompras[] = new compra($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numCompradas, '0', $butacas, $idCompra);
+                }
+            }
+            $rs->free();
+            return $listaCompras;
+        }
+
 
         /**
          * Método que elimina una película de la bd
@@ -139,10 +167,11 @@
         private static function insertaCompra($compra) {
             $conn = aplicacion::getInstance()->getConexionBd();
             $compra->butacas = array();
-            $query=sprintf("INSERT INTO compras(Id_usuario, Id_sesion , Fecha, Hora, Num_entradas_compradas, Butacas, Pendiente) 
-                            VALUES ('%s','%s','%s','%s','%s','%s','%s')",
+            $query=sprintf("INSERT INTO compras(Id_usuario, Id_sesion , Titulo_peli, Fecha, Hora, Num_entradas_compradas, Butacas, Pendiente) 
+                            VALUES ('%d','%d','%s','%s','%s','%d','%s','%d')",
                 $conn->real_escape_string($compra->idUsuario),
                 $conn->real_escape_string($compra->idSesion),
+                $conn->real_escape_string($compra->tituloPeli),
                 $conn->real_escape_string($compra->fecha),
                 $conn->real_escape_string($compra->hora),
                 $conn->real_escape_string($compra->numEntradas),
@@ -171,6 +200,10 @@
 
         public function getIdSesion() {
             return $this->idSesion;
+        }
+
+        public function getTituloPeli() {
+            return $this->tituloPeli;
         }
 
         public function getFecha() {
