@@ -4,25 +4,28 @@ document.addEventListener('DOMContentLoaded', function() {
     var butacas = document.querySelectorAll('.botonButaca');
     //Para pasarle parametros
     var parametros = new URLSearchParams(window.location.search);
+    var id = parametros.get('id');
+    console.log("aqui");
     // Agregar un evento clic a cada butaca
     butacas.forEach(function(butaca) {
         butaca.addEventListener('click', function() {
+            var datos = butaca.id.split("-");
+            var idButaca = datos[0] + "-" + datos[1];
+            var estado = datos[2];
             // Cambiar el estado de la butaca al hacer clic
-            if (!butaca.classList.contains('selected')) {//??
+            if (estado == 'disponible' || estado == 'seleccionada') {
                 // Obtener la fila y el número de la butaca
-                var datos = butaca.id.split('-');
-                $.post('actualizar_butaca.php', {
-                    fila: datos[0],
-                    columna: datos[1],
-                    id: parametros.get('id')
+                console.log("aqui");
+                $.post('../includes/logica/operacionesButacas.php', {
+                    idButaca: idButaca,
+                    id: id
                 },function(data) {
-                    var respuesta = JSON.parse(data);
-                    if (respuesta.estado != false) butaca.value = respuesta.estado;
-                    else console.log("Error no se ha podido cambiar la butaca");
                     console.log(data);
+                    var respuesta = JSON.parse(data);
+                    if (respuesta.estado) butaca.value = respuesta.estado;
+                    else console.log("Error no se ha podido cambiar la butaca");
                 });
-            } 
-            
+            }
         });
     });
 });

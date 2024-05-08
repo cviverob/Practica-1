@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <script type = "text/javascript" src = <?php echo RUTA_APP . RUTA_JQUERY ?>></script>
-<script type = "text/javascript" src = <?php echo RUTA_APP . RUTA_JS_FORM ?>></script>
+<?php
+    $scripts = $scripts ?? [];
+    foreach ($scripts as $script) {
+        echo "<script src = \"{$script}\"></script>";
+    }
+?>
 <head>
     <meta charset = "utf-8">
     <meta http-equip = "X-UA-Compatible" content = "IE=edge">

@@ -27,6 +27,8 @@
     // includes/javaScript
     define('RUTA_JS', RUTA_INCL . '/javaScript');
     define('RUTA_JS_FORM', RUTA_JS . '/formulario.js');
+    define('RUTA_JS_BUT', RUTA_JS . '/butaca.js');
+    define('RUTA_JS_SELEC_BUT', RUTA_JS . '/seleccionButacas.js');
     define('RUTA_JQUERY', RUTA_JS . '/jquery-3.7.1.min.js');
     // includes/logica
     define('RUTA_LGC', RUTA_INCL . '/logica');
@@ -40,6 +42,8 @@
     define('RUTA_FORM_SALA', RUTA_LGC . '/formularioSala.php');
     define('RUTA_FORM_BUTC', RUTA_LGC . '/formularioButacas.php');
     define('RUTA_COMP_PERM', RUTA_LGC . '/comprobarPermisos.php');
+    define('RUTA_ACT_BUT', RUTA_LGC . '/actualizarButaca.php');
+    define('RUTA_OP_BUT', RUTA_LGC . '/operacionesButacas.php');
     // includes/vistas
     define('RUTA_VSTA', RUTA_INCL . '/vistas');
     // includes/vistas/comun
@@ -60,6 +64,9 @@
     define('RUTA_CNTCT', RUTA_PGN . '/contacto.php');
     define('RUTA_POLT_PRIV', RUTA_PGN . '/politicaDePrivacidad.php');
     define('RUTA_POLT_COOK', RUTA_PGN . '/politicaDeCookies.php');
+    // vistas/pagina/compras
+    define('RUTA_COM', RUTA_PGN . '/compras');
+    define('RUTA_HST', RUTA_COM . '/historialCompras.php');
     // vistas/pagina/administracion
     define('RUTA_PGN_ADMN', RUTA_PGN . '/administracion');
     define('RUTA_ADMN', RUTA_PGN_ADMN . '/administracion.php');

@@ -57,6 +57,7 @@
          * @param string $id Identificador de la seión, valor por defecto null
          */
         private function __construct($idPelicula, $idSala, $fecha, $horaIni, $horaFin, $butacas, $visible, $id = null) {
+            $this->id = $id;
             $this->idPelicula = $idPelicula;
             $this->idSala = $idSala;
             $this->fecha = $fecha;
@@ -64,7 +65,7 @@
             $this->horaFin = $horaFin;
             $this->butacas = $butacas;
             $this->visible = $visible;
-            $this->id = $id;
+            
         }
         
         /**
@@ -219,20 +220,17 @@
          */
         public function actualizaButacaOcupar($id) {
             if (array_key_exists($id, $this->butacas)) {
-                if ($this->butacas[$id]["estado"] == "seleccionada") {
-                    $this->butacas[$id]["estado"] = "ocupada";
-                    $this->butacas[$id]["estado"] = $this->butacas[$id]["estado"] == "seleccionada" ? "disponible" : "seleccionada";
-                    $conn = aplicacion::getInstance()->getConexionBd();
-                    $query = sprintf("UPDATE cartelera SET Butacas = '%s' WHERE Id = %s",
-                        $conn->real_escape_string(json_encode($this->butacas)),
-                        $conn->real_escape_string($this->id)
-                    );
-                    if ($conn->query($query)) {
-                        return true;
-                    } 
-                    else {
-                        error_log("Error BD ({$conn->errno}): {$conn->error}");
-                    }
+                $this->butacas[$id]["estado"] = $this->butacas[$id]["estado"] == "ocupada" ? "seleccionada" : "ocupada";
+                $conn = aplicacion::getInstance()->getConexionBd();
+                $query = sprintf("UPDATE cartelera SET Butacas = '%s' WHERE Id = %s",
+                    $conn->real_escape_string(json_encode($this->butacas)),
+                    $conn->real_escape_string($this->id)
+                );
+                if ($conn->query($query)) {
+                    return true;
+                } 
+                else {
+                    error_log("Error BD ({$conn->errno}): {$conn->error}");
                 }
             }
             else {
@@ -307,6 +305,13 @@
          */
         public function getHoraFin() {
             return $this->horaFin;
+        }
+
+        /**
+         * Método que devuelve las butacas de la sesión
+         */
+        public function getButacas() {
+            return $this->butacas;
         }
 
         /**
@@ -385,6 +390,31 @@
                 }
             }
             return true;
+        }
+
+        /**
+         * Método que devuelve el estado del asiento
+         * @param int $id Identificador del asiento cuyo estado se va a devolver
+         */
+        public function devolverAsiento($id) {
+            if (array_key_exists($id, $this->butacas)) {
+                return $this->butacas[$id]["estado"];
+            }
+            else {
+                echo "Error al devolver el asiento con id " . $id;
+                exit();
+            }
+        }
+        public function comprobarSeleccionada($id) {
+            if (array_key_exists($id, $this->butacas)) {
+                if($this->butacas[$id]["estado"] == 'seleccionada') return false;
+                else return true;
+                
+            }
+            else {
+                echo "Error al devolver el asiento con id " . $id;
+                exit();
+            }
         }
 
     }

@@ -12,6 +12,7 @@
                 <h1>Modificar sesión</h1>
                 $htmlFormularioSesion
             EOS;
+            $scripts = array(RUTA_APP . RUTA_JS_FORM);
             require_once(RUTA_RAIZ . RUTA_PLNT);
         }
         else {

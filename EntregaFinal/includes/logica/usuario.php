@@ -122,6 +122,29 @@
             return false;
         }
 
+        public static function getUsuario($idUsuario) {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM usuario WHERE id = '%d'", 
+                $conn->real_escape_string($idUsuario) 
+            );
+            $rs = $conn->query($query);
+            if ($rs) {
+                $compra = $rs->fetch_assoc();
+                if ($compra) {
+                    $id = $compra['id'];
+                    $nombre = $compra['nombre'];
+                    $edad = $compra['edad'];
+                    $correo = $compra['email'];
+                    $usuario = new usuario($correo, $nombre, '', $edad, $id);
+                    $rs->free();
+                    return $usuario;
+                }
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return false;
+        }
+
         /**
          * Método que inserta un usuario en la bd
          * @param Usuario $usuario Usuarioa insertar
@@ -169,12 +192,25 @@
             return $this->nombre;
         }
 
+        public function getId() {
+            return $this->id;
+        }
+
+        public function getEdad() {
+            return $this->edad;
+        }
+
+        public function getCorreo() {
+            return $this->correo;
+        }
+
         /**
          * Método que devuelve si el usuario es administrador o no
          */
         public function esAdmin() {
             return $this->rol == self::ROL_ADMIN;
         }
+
 
         /**
          * Método que establece un nuevo id del usuario

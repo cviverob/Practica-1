@@ -13,6 +13,7 @@
             <h1>Añadir Sala</h1>
             $htmlFormularioSala
         EOS;
+        $scripts = array(RUTA_APP . RUTA_JS_FORM);
 
         require(RUTA_RAIZ . RUTA_PLNT);
     }
