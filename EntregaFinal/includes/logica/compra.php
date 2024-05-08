@@ -195,7 +195,7 @@
             $conn = aplicacion::getInstance()->getConexionBd();
             try {
                 //intentamos insertar en la base de datos, si falla es que alguien ha sido mas rapido
-                $intentamos=sprintf("INSERT INTO entrada (Id_sesion, Id_butaca) VALUES ('%d','%d')",
+                $intentamos=sprintf("INSERT INTO entrada (Id_sesion, Id_butaca) VALUES ('%s','%s')",
                 $conn->real_escape_string($this->getIdSesion()),
                 $conn->real_escape_string($idButaca)
                 );
@@ -205,7 +205,7 @@
                 $numEntradas = $this->getNumEntradas();
                 $butacas[] = $idButaca;
                 //cuando ya es nuestra esa butaca, la insertamos en nuestra base de datos
-                $query=sprintf("UPDATE compras SET Butacas = '%s', Num_entradas_compradas = %d WHERE Id_compra = %d",
+                $query=sprintf("UPDATE compras SET Butacas = '%s', Num_entradas_compradas = %d WHERE Id_compra = %s",
                 $conn->real_escape_string(json_encode($butacas)),
                 $conn->real_escape_string($numEntradas + 1),
                 $conn->real_escape_string($this->getIdCompra())

@@ -8,25 +8,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Agregar un evento clic a cada butaca
     butacas.forEach(function(butaca) {
         butaca.addEventListener('click', function() {
-            var datos = butaca.id.split('-');
-            var estado = datos[1];
-            console.log(datos[1]);
-            console.log(datos[0]);
-            console.log(id);
+            var datos = butaca.id.split("-");
+            var idButaca = datos[0] + "-" + datos[1];
+            var estado = datos[2];
             // Cambiar el estado de la butaca al hacer clic
-           if (estado != 'nulo' && estado != 'ocupada') {
+            if (estado == 'disponible') {
                 // Obtener la fila y el número de la butaca
                 $.post('operacionesButacas.php', {
-                    idButaca: datos[0],
+                    idButaca: idButaca,
                     id: id
                 },function(data) {
-                    console.log(data);
                     var respuesta = JSON.parse(data);
-                    if (respuesta.estado != false) butaca.value = respuesta.estado;
+                    if (respuesta.estado) butaca.value = respuesta.estado;
                     else console.log("Error no se ha podido cambiar la butaca");
-                    
                 });
-           }
+            }
         });
     });
 });

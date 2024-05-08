@@ -29,7 +29,7 @@
                 for ($fila = 1; $fila <= $sala->getNumFilas(); $fila++) {
                     $contenidoPrincipal .= "<div class='fila'>";
                     for ($columna = 1; $columna <=  $sala->getNumColumnas(); $columna++) {
-                        $butaca = (($fila - 1) * $sala->getNumColumnas()) + $columna;
+                        $butaca = "$fila-$columna";
                         $estado = $sesion->devolverAsiento($butaca);
                         $contenidoPrincipal .= "<button type='button' class='botonButaca' id='$butaca-$estado' value='$estado'>$fila-$columna</button>";
                     }
@@ -41,8 +41,9 @@
                     <div>
                         <a href="$ruta_proc_comp?idSesion=$id"><button type="button" class="seleccionarPelicula">Comprar</button></a>
                     </div>
-                    <script src="scriptSeleccionButacas.js?id=$id"></script>
                 EOS;
+                $rutaSelecButJs = RUTA_APP . RUTA_JS_SELEC_BUT . "?id=$id";
+                $scripts = array($rutaSelecButJs);
             }
         }
     }

@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!butaca.classList.contains('selected')) {
                 // Obtener la fila y el número de la butaca
                 var datos = butaca.id.split('-');
+                var idButaca = datos[0] + "-" + datos[1];
                 $.post('actualizarButaca.php', {
-                    fila: datos[0],
-                    columna: datos[1],
+                    idButaca: idButaca,
                     id: parametros.get('id')
                 },function(data) {
                     var respuesta = JSON.parse(data);
