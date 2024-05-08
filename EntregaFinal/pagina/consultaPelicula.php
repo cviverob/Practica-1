@@ -4,8 +4,12 @@
     $tituloPagina = 'Consultar película';
 
     // Faltan las sesiones y el trailer
+
+    if (!(isset($_SESSION["login"]) || !$_SESSION["login"])) {
+        $comprobarCompra = es\ucm\fdi\aw\compra::eliminaSiCompraEstaPendiente($_SESSION['id'], $_GET['idSesion']);
+    }
     
-    $pelicula = es\ucm\fdi\aw\pelicula::buscar($_GET['id']);
+    $pelicula = es\ucm\fdi\aw\pelicula::buscar($_GET['idSesion']);
     $poster = RUTA_APP . RUTA_PSTR . '/' . $pelicula->getRutaPoster();
     $trailer = RUTA_APP . RUTA_TRL . '/' . $pelicula->getRutaTrailer();
     $contenidoPrincipal = <<< EOS

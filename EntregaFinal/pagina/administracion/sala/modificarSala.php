@@ -35,7 +35,7 @@
                     $butaca = (($fila - 1) * $sala->getNumColumnas()) + $columna;
                     $estado = $sala->devolverAsiento($butaca);
                     $valorBoton = ($estado == "disponible") ? "disponible" : "nulo";
-                    $contenidoPrincipal .= "<button type='button' class='botonButaca' id='$fila-$columna' value='$valorBoton'>$fila-$columna</button>";
+                    $contenidoPrincipal .= "<button type='button' class='botonButaca' id='$butaca' value='$valorBoton'>$fila-$columna</button>";
                 }
                 $contenidoPrincipal .= "</div>";
             }
