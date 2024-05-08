@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-05-2024 a las 18:49:54
+-- Tiempo de generación: 08-05-2024 a las 12:48:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -48,12 +48,24 @@ CREATE TABLE `cartelera` (
 
 CREATE TABLE `compras` (
   `Id_compra` int(10) UNSIGNED NOT NULL,
-  `id_usuario` int(10) UNSIGNED NOT NULL,
-  `Id_peli` int(50) UNSIGNED NOT NULL,
+  `Id_usuario` int(10) UNSIGNED NOT NULL,
+  `Id_sesion` int(50) UNSIGNED NOT NULL,
   `Fecha` date NOT NULL,
   `Hora` time NOT NULL,
   `Num_entradas_compradas` int(2) NOT NULL,
-  `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
+  `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `Pendiente` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `entrada`
+--
+
+CREATE TABLE `entrada` (
+  `Id_sesion` int(11) NOT NULL,
+  `Id_butaca` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -118,9 +130,15 @@ ALTER TABLE `cartelera`
 -- Indices de la tabla `compras`
 --
 ALTER TABLE `compras`
-  ADD PRIMARY KEY (`Id_compra`,`id_usuario`),
-  ADD KEY `Compras_fk_Cartelera` (`Id_peli`,`Fecha`,`Hora`),
-  ADD KEY `Compras_fk_Usuario` (`id_usuario`);
+  ADD PRIMARY KEY (`Id_compra`,`Id_usuario`),
+  ADD KEY `Compras_fk_Cartelera` (`Id_sesion`,`Fecha`,`Hora`),
+  ADD KEY `Compras_fk_Usuario` (`Id_usuario`);
+
+--
+-- Indices de la tabla `entrada`
+--
+ALTER TABLE `entrada`
+  ADD PRIMARY KEY (`Id_sesion`,`Id_butaca`);
 
 --
 -- Indices de la tabla `peliculas`
@@ -190,8 +208,8 @@ ALTER TABLE `cartelera`
 -- Filtros para la tabla `compras`
 --
 ALTER TABLE `compras`
-  ADD CONSTRAINT `compras_fk_peliculas` FOREIGN KEY (`Id_peli`) REFERENCES `peliculas` (`Id`),
-  ADD CONSTRAINT `compras_fk_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `compras_fk_peliculas` FOREIGN KEY (`Id_sesion`) REFERENCES `peliculas` (`Id`),
+  ADD CONSTRAINT `compras_fk_usuario` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

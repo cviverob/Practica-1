@@ -169,12 +169,17 @@
             return $this->nombre;
         }
 
+        public function getId() {
+            return $this->id;
+        }
+
         /**
          * Método que devuelve si el usuario es administrador o no
          */
         public function esAdmin() {
             return $this->rol == self::ROL_ADMIN;
         }
+
 
         /**
          * Método que establece un nuevo id del usuario

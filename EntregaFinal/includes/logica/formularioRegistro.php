@@ -129,6 +129,7 @@
                 }
                 else {
                     $_SESSION['login'] = true;
+                    $_SESSION['id'] = $usuario->getId();
                     $_SESSION['nombre'] = $usuario->getNombre();
                     $_SESSION['esAdmin'] = $usuario->esAdmin();
                     header('Location: index.php');
