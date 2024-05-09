@@ -471,42 +471,43 @@ legend {
     padding: 10px;
 }
 
-/* Estilos para el elemento select */
-.pruebas {
-    /* Cambiar el color del fondo */
-    background-color: antiquewhite;
-    /* Cambiar el color del texto */
-    color: #333;
-    /* Añadir un borde */
-    border: 1px solid black;
-    /* Añadir un borde redondeado */
-    border-radius: 5px;
-    /* Cambiar el color del borde cuando se enfoca */
-    outline-color: #5e9ad6;
-    /* Cambiar el estilo del cursor al pasar el ratón */
-    cursor: pointer;
-}
-
-/* Estilos para las opciones del elemento select */
-.pruebas option {
-    /* Cambiar el color del texto */
-    color: #333;
-    /* Cambiar el color de fondo */
-    background-color: rgb(248, 205, 148);
-}
-
-
-.fechi {
-    border-radius: 5px; /* Esquinas redondeadas del campo */
-    font-size: 14px; /* Tamaño del texto */
-    color: #333; /* Color del texto */
-    background-color: antiquewhite; /* Color de fondo del campo */
-}
-
-/* Estilos para el campo de entrada de tiempo */
-.popopo {
-    border: 1px solid #ccc;
-    background-color: antiquewhite;
-    border-radius: 4px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  .fotitoHistorial{
+    border: 10px solid rgb(151, 210, 255); /* Borde sólido */
+    margin: 10px; /* Márgenes alrededor del contenedor */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease; /* Transición para el efecto de escalado */
   }
+
+  .align-left {
+    text-align: center;
+    padding: 5px 70px;
+}
+
+.align-right {
+    text-align: center;
+    padding: 5px 80px;
+}
+.align-right p{
+    font-size: 20px;
+}
+.align-right li{
+    font-size: 20px;
+}
+.historial-compras {
+    display: flex;
+}
+
+.barrita {
+    border: 2px solid rgb(151, 210, 255); /* Grosor y color de la línea */
+    margin: 20px 0; /* Margen superior e inferior para separación */
+}
+
+.titulito{
+    
+    border: 5px solid rgb(30, 0, 255); /* Grosor y color de la línea */
+    margin: 20px 0; /* Margen superior e inferior para separación */
+    padding: 5px 0px;
+}
+
+/*pagebreak*/
