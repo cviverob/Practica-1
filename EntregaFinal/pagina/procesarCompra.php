@@ -22,13 +22,5 @@
     else {
         $contenidoPrincipal = '<h1>No hemos podido procesar tu compra</h1>';
     }
-    /*$contenidoPrincipal = <<< EOS
-        <h1>Compra efectuada</h1>
-        <p>Puedes consultar en tu perfil las entradas o descargarlas aquí</p>
-        <form action = "generarPDF.php" method = "post">
-            <button type="submit">Descargar Entradas</button>
-        </form>
-        <a href = "$ruta_indx"><button type = 'button' class = 'RegisterUserButton'>Volver al menú de principal</button></a>
-    EOS;*/
 
     require_once(RUTA_RAIZ . RUTA_PLNT);        

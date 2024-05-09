@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Cambiar el estado de la butaca al hacer clic
             if (estado == 'disponible' || estado == 'seleccionada') {
                 // Obtener la fila y el número de la butaca
-                console.log("aqui");
                 $.post('../includes/logica/operacionesButacas.php', {
                     idButaca: idButaca,
                     id: id
