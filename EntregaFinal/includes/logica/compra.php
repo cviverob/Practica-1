@@ -172,7 +172,7 @@
         //eliminamos todas las entradas no compradas
         public static function eliminarButacasCaducadas() {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM compras WHERE TIMESTAMPDIFF(MINUTE, CONCAT(Fecha, ' ', Hora), NOW()) >= 5 AND Pendiente = '1'");
+            $query = sprintf("SELECT * FROM compras WHERE TIMESTAMPDIFF(MINUTE, CONCAT(Fecha, ' ', Hora), NOW()) >= 1 AND Pendiente = '1'");
             $rs = $conn->query($query);
             if ($rs->num_rows > 0) {
                 while($compra = $rs->fetch_assoc()) {
@@ -270,6 +270,7 @@
 
         public function insertarButaca($idButaca) {
             $conn = aplicacion::getInstance()->getConexionBd();
+            $i = false;
             //intentamos insertar en la base de datos, si falla es que alguien ha sido mas rapido
             try {
                 //intentamos insertar en la base de datos, si falla es que alguien ha sido mas rapido
@@ -297,9 +298,7 @@
                 $conn->real_escape_string($this->getNumEntradas() - 1),
                 $conn->real_escape_string($this->getIdCompra())
                 ));
-
-                if ($i != true) return false;
-                else return true;
+                return $i;
             }
 
             //nos traemos las butacas y el numero de entradas
@@ -347,7 +346,6 @@
                 else {
                     error_log("Error BD ({$conn->errno}): {$conn->error}");
                 }
-                return false;
             }
             return false;
         }

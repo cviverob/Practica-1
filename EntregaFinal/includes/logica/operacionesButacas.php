@@ -14,7 +14,7 @@
         $sesion->actualizaButacaSeleccionar($idButaca);
         $estado = $sesion->devolverAsiento($idButaca);
     }
-    else $estado = false;
+    else $estado = "disponible";
 
     $respuesta = array (
         'idButaca' => $idButaca,
