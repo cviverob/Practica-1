@@ -503,11 +503,10 @@ legend {
     margin: 20px 0; /* Margen superior e inferior para separación */
 }
 
-.titulito{
-    
-    border: 5px solid rgb(30, 0, 255); /* Grosor y color de la línea */
-    margin: 20px 0; /* Margen superior e inferior para separación */
-    padding: 5px 0px;
+.titulito {
+    font-style: oblique;
+    border: 5px solid rgb(151, 210, 255); /* Grosor y color de la línea */
+    padding: 5px 10px; /* Añade relleno alrededor del contenido */
 }
 
 /*pagebreak*/

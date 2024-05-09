@@ -25,11 +25,9 @@ EOS;
 
 $compras = es\ucm\fdi\aw\compra::buscar($_SESSION['id']);
 foreach ($compras as $c) {
-    //$id_sesi = $c->getIdSesion();
-    //$sesi = $id_sesi->buscar($id_sesi);
-    //$id_sala = $sesi->getIdSala();
-    //$num_sala = id_sala
-    $sesi = $c->getIdSesion();  
+    $session = es\ucm\fdi\aw\sesion::buscar($c->getIdSesion());
+    $sala = es\ucm\fdi\aw\salas::buscar($session->getIdSala());
+    $num_sala = $sala->getNumSala();
     $fecha = $c->getFecha();
     $hora = $c->getHora();
     $numEntradas = $c->getNumEntradas();
@@ -51,9 +49,9 @@ foreach ($compras as $c) {
         $infoPeli
     </div>
     <div class='align-right'>
-        <p>Sesion: $sesi</p>
-        <p>Fecha: $fecha</p>
-        <p>Hora: $hora</p>
+        <p>Numero de sala: $num_sala</p>
+        <p>Fecha de la compra: $fecha</p>
+        <p>Hora de la compra: $hora</p>
         <p>Numero de entradas compradas ($numEntradas):</p>
         
 EOS;

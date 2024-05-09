@@ -4,6 +4,7 @@
     $tituloPagina = 'Procesar la Compra';
 
     $ruta_indx = RUTA_APP . RUTA_INDX;
+    $ruta_ticket = RUTA_APP . RUTA_PGN . '/generarPDF.php';
 
     $idCompra = $_GET["idCompra"] ?? null;
     if ($idCompra) {
@@ -15,19 +16,19 @@
             <legend>{$compra->getTituloPeli()}</legend>
             <h3>{$compra->getFecha()} a las {$compra->getHora()}</h3>
             <h3>
-        EOS;
-        foreach ($compra->getButacas() as $b) {
-            $contenidoPrincipal .= $b . " " ;
-        }
-        $contenidoPrincipal .= <<< EOS
-        </fieldset>
-            </h3>
-            <h3>Puedes consultar en tu perfil las entradas o descargarlas aquí</h3>
-            <form action = "generarPDF.php" method = "post">
-                <button type="submit" class="seleccionarPelicula">Descargar Entradas</button>
-            </form>
-            <a href="$ruta_indx" class="seleccionarPelicula">Menu principal</a>
-        EOS;
+            EOS;
+            foreach ($compra->getButacas() as $b) {
+                $contenidoPrincipal .= $b . " " ;
+            }
+            $contenidoPrincipal .= <<< EOS
+            </fieldset>
+                </h3>
+                <h3>Puedes consultar en tu perfil las entradas o descargarlas aquí</h3>
+                <form action = "generarPDF.php" method = "post">
+                    <a href="$ruta_ticket?idCompra=$idCompra"class="seleccionarPelicula">Descargar Entradas </a>
+                </form>
+                <a href="$ruta_indx" class="seleccionarPelicula">Menu principal</a>
+            EOS;
         }
     }
     /*

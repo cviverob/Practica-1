@@ -1,26 +1,55 @@
 <?php
-    // *** No funcional ***
-    require_once("../index.php");
-/*
-    // Incluir la biblioteca TCPDF
-    require_once('tcpdf/tcpdf.php');
+    require_once('../includes/config.php');
+        
+    $idCompra = $_GET['idCompra'];
+    $idUsuario = $_SESSION['id'];
+    $compra = es\ucm\fdi\aw\compra::buscarPorIdYUsuario($idCompra, $idUsuario);
+    $sesion = es\ucm\fdi\aw\sesion::buscar($compra->getIdSesion());
+    $pelicula = es\ucm\fdi\aw\pelicula::buscarPorNombre($compra->getTituloPeli());
+    $sala = es\ucm\fdi\aw\salas::buscar($sesion->getIdSala());
+    $rutaPoster = RUTA_APP . RUTA_PSTR . '/' . $pelicula->getRutaPoster();
+    $tituloPagina = 'ImprimirTicket';
+    $contenidoPrincipal = <<< EOS
+            <div class = 'superiorTicket'>
+                <div class = 'imagenTicket'>
+                    <img src = $rutaPoster>
+                </div>
+                <div class = 'descripcionTicket'>
+                    <h2>{$compra->getTituloPeli()}</h2>
+                    <p>{$pelicula->getSinopsis()}</p>
+                </div>
+            </div>
+        EOS;
 
-    // Crear una nueva instancia de TCPDF
-    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $butacas = $compra->getButacas();
+        $contador = 1;
+        foreach($butacas as $b){
+            $partes = explode("-", $b);
+            $contenidoPrincipal .= <<< EOS
+                    <div class = 'infoTicket'>
+                        <h1>ENTRADA $contador</h1>
+                        <p>Gracias por comprar una entrada. La sala de la película es la {$sala->getNumSala()}. 
+                        No olvides que la película empezará a las {$sesion->getHoraIni()} y finalizará a las {$sesion->getHoraFin()} 
+                        y que tendrás que asistir el dia {$sesion->getFecha()} 10 minutos antes para poder sentarte en tu asiento. 
+                        Por si no te acuerdas, tu asiento está en la fila $partes[0] y la columna $partes[1].
+                        </p>
+                        <p>Fecha de compra: {$compra->getFecha()} {$compra->getHora()}</p>
+                    
+                    </div>
+                EOS;
+            $contador++;
+        }
 
-    // Establecer información del documento
-    $pdf->SetCreator(PDF_CREATOR);
-    $pdf->SetAuthor('Elmo Cines');
-    $pdf->SetTitle('Entradas para Dune parte 2');
-    $pdf->SetSubject('09/04/2024 - 16:00 - Fila 5 butaca 4');
 
-    // Agregar una página
-    $pdf->AddPage();
 
-    // Escribir contenido en el PDF
-    $pdf->SetFont('times', '', 12);
-    $pdf->Cell(0, 10, '¡Hola, mundo!', 0, 1, 'C');
-
-    // Salida del PDF (directamente al navegador como descarga)
-    $pdf->Output('documento.pdf', 'D');
-*/
+    $contenidoPrincipal .= <<< EOS
+    <button onclick="imprimirTicket()">Imprimir Ticket</button>
+    EOS;
+    require_once(RUTA_RAIZ . RUTA_PLNT);  
+    ?>
+    <script>
+        function imprimirTicket() {
+            window.print();
+        }
+    </script>
+    
