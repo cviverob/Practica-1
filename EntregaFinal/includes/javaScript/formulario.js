@@ -238,6 +238,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	*/
 	accion = comprobarValorPorDefecto("#fecha");
 	tomarAccion("#fecha", "#validezFecha", "#error-fecha", "load", accion);
-	accion = comprobarValorPorDefecto("#hora");
+	accion = comprobarValorPorDefecto("#horaIni");
 	tomarAccion("#horaIni", "#validezHora", "#error-horaIni", "load", accion);
 });

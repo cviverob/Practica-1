@@ -14,7 +14,7 @@
 
         public function __construct($idSesion) {
             $this->idSesion = $idSesion;
-            parent::__construct('formCompra', ['enctype' => 'multipart/form-data']);
+            parent::__construct('formCompra', ['enctype' => 'multipart/form-data', 'class' => '']);
         }
 
         public function generaCamposFormulario(&$datos) {

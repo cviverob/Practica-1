@@ -9,7 +9,7 @@
         public $sesion;
 
         public function __construct($id = null) {
-            parent::__construct('formSes', ['urlRedireccion' => RUTA_APP . RUTA_INDX]);
+            parent::__construct('formSes', ['urlRedireccion' => RUTA_APP . RUTA_ADMN]);
             $this->sesion = $id == null ? null : sesion::buscar($id);
         }
 
@@ -63,7 +63,7 @@
                     </div>
                     <div>
                         <label for = "sala">Sala:</label>
-                        <select name = "sala" id = "sala"class="pruebas">
+                        <select name = "sala" id = "sala">
                             $opciones
                         </select>
             EOS;
@@ -73,7 +73,7 @@
                     </div>
                     <div>
                         <label for = "fecha">Fecha:</label>
-                        <input type="date" id="fecha" name="fecha" value="<?php echo $fecha; ?>" class="fechi">
+                        <input type = "date" id = "fecha" name = "fecha" value = $fecha>
                         <span id = "validezFecha"></span>
             EOS;
             $html.= $this->mostrarError('fecha');
@@ -82,7 +82,7 @@
                     </div>
                     <div>
                         <label for = "horaIni">Hora de inicio:</label>
-                        <input type="time" id="horaIni" name="horaIni" value="<?= $horaIni ?>" class="popopo">
+                        <input type="time" id="horaIni" name="horaIni" value = $horaIni>
                         <span id = "validezHora"></span>
             EOS;
             $html.= $this->mostrarError('horaIni');
