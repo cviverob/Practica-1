@@ -224,6 +224,29 @@ ARCHIVO: cabecera.php:
     }
 }
 
+@media print{
+    .ExitUserButton, .RegisterUserButton, .LogUserButton, .botonFormulario{
+        display: none;
+    }
+    .seleccionarPelicula {
+        visibility: hidden;
+    }
+
+    .infoTicket{
+        margin-top: 100px;
+        page-break-after: always;
+    }
+
+    header{
+        display: none;
+
+    }
+
+    footer{
+        display: none;
+    }
+}
+
 /*
 ARCHIVO: index.php
          CSS para las peliculas del menu principal
@@ -450,6 +473,9 @@ legend {
 
 .botonButaca[value="nulo"] {
     background-color: grey;
+    opacity: 0.6;
+    transition: none;
+    cursor: auto;
 }
 .botonButaca[value="disponible"] {
     background-color: green;
@@ -459,8 +485,17 @@ legend {
 }  
 .botonButaca[value="ocupada"] {
     background-color: red;
+    opacity: 0.6;
+    transition: none;
+    cursor: auto;
 } 
 
+.botonButaca[value="nulo"]:hover {
+    filter: none;
+}
+.botonButaca[value="ocupada"]:hover {
+    filter: none;
+}
 
 .listarAdmin {
     margin: 0 auto;
@@ -471,15 +506,15 @@ legend {
     padding: 10px;
 }
 
-  .fotitoHistorial{
+.fotitoHistorial{
     border: 10px solid rgb(151, 210, 255); /* Borde sólido */
     margin: 10px; /* Márgenes alrededor del contenedor */
     border-radius: 15px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
     transition: transform 0.3s ease; /* Transición para el efecto de escalado */
-  }
+}
 
-  .align-left {
+.align-left {
     text-align: center;
     padding: 5px 70px;
 }
@@ -508,5 +543,92 @@ legend {
     border: 5px solid rgb(151, 210, 255); /* Grosor y color de la línea */
     padding: 5px 10px; /* Añade relleno alrededor del contenido */
 }
+
+/*AQUI EMPIEZAN LAS CSS PARA LA PAGINA DE LOS TICKETS*/
+#Ticket {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Ticket-columna {
+    flex: 1;
+}
+
+.Ticket-columna h2, h1{
+    font-size: 50px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.Ticket-columna p{
+    font-size: larger;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.fotitoTicket{
+    width: 250px;
+    border: 10px solid rgb(69, 120, 159); /* Borde sólido */
+    margin: 40px; /* Márgenes alrededor del contenedor */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease; /* Transición para el efecto de escalado */
+}
+
+.infoTicket{
+    font-size: medium;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.subliminal{
+    text-align: left;
+    font-size: small;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    opacity: 0.7;
+}
+
+.infoTicket {
+    background-color: rgb(160, 198, 233); /* Fondo gris claro */
+    border: 2px solid #6382ae; /* Borde gris */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-bottom: 20px; /* Margen inferior para separar las entradas */
+    display: flex; /* Usar flexbox para alinear los elementos */
+    position: relative;
+}
+
+.infoTicket .entrada {
+    flex: 1; /* Ocupar todo el espacio disponible */
+}
+
+.infoTicket .entrada h1 {
+    color: #333; /* Color del texto */
+    font-size: 50px; /* Tamaño de la fuente */
+    display: inline-block; /* Permite que el texto ocupe todo el ancho disponible */
+}
+
+.infoTicket .linea-vertical {
+    border-left: 2px solid #6382ae; /* Línea vertical gris */
+    margin: 0 20px; /* Margen para separar visualmente la entrada del contenido */
+}
+
+.infoTicket .descripcion {
+    flex: 3; /* Ocupar más espacio que la columna izquierda */
+}
+
+.infoTicket .descripcion p {
+    color: #666; /* Color del texto */
+    font-size: 20px; /* Tamaño de la fuente */
+    line-height: 1.5; /* Altura de línea para una mejor legibilidad */
+}
+
+.infoTicket .descripcion .subliminal {
+    
+    font-size: 10px; /* Tamaño de la fuente */
+    opacity: 0.7; /* Texto ligeramente translúcido */
+}
+
+.infoTicket:last-child {
+    margin-bottom: 0; /* Elimina el margen inferior del último elemento */
+}
+
+
 
 /*pagebreak*/
