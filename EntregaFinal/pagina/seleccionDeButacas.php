@@ -15,9 +15,9 @@
     }
     else {
         if (isset($_GET["id"])) {
+            es\ucm\fdi\aw\compra::eliminarButacasCaducadas();
             $sesion = es\ucm\fdi\aw\sesion::buscar($_GET["id"]);
             $id = $sesion->getId();
-            $_SESSION['idSesion'] = $id;
             if ($sesion) {
                 $contenidoPrincipal = <<< EOS
                     <h1>Selección de butacas</h1>
