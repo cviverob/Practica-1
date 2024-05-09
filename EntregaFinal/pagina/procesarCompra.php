@@ -14,9 +14,9 @@
         <h1>Compra efectuada</h1>
         <p>Puedes consultar en tu perfil las entradas o descargarlas aquí</p>
         <form action = "generarPDF.php" method = "post">
-            <button type="submit">Descargar Entradas</button>
+            <button type="submit" class="seleccionarPelicula">Descargar Entradas</button>
         </form>
-        <a href = "$ruta_indx">Menu principal</a>
+        <a href="$ruta_indx" class="seleccionarPelicula">Menu principal</a>
     EOS;
     }
     else {

@@ -1,12 +1,12 @@
 <?php
     namespace es\ucm\fdi\aw;
 
-    $sesion;
 
     /**
      * Clase encargada del formulario de login
      */
     class formularioSesion extends formulario {
+        public $sesion;
 
         public function __construct($id = null) {
             parent::__construct('formSes', ['urlRedireccion' => RUTA_APP . RUTA_INDX]);
@@ -47,7 +47,7 @@
                     </div>
                     <div>
                         <label for = "pelicula">Película:</label>
-                        <select name = "pelicula" id = "pelicula">
+                        <select name = "pelicula" id = "pelicula"class="pruebas">
                             $opciones
                         </select>
             EOS;
@@ -63,7 +63,7 @@
                     </div>
                     <div>
                         <label for = "sala">Sala:</label>
-                        <select name = "sala" id = "sala">
+                        <select name = "sala" id = "sala"class="pruebas">
                             $opciones
                         </select>
             EOS;
@@ -73,7 +73,7 @@
                     </div>
                     <div>
                         <label for = "fecha">Fecha:</label>
-                        <input type = "date" id = "fecha" name = "fecha" value = $fecha>
+                        <input type="date" id="fecha" name="fecha" value="<?php echo $fecha; ?>" class="fechi">
                         <span id = "validezFecha"></span>
             EOS;
             $html.= $this->mostrarError('fecha');
@@ -82,7 +82,7 @@
                     </div>
                     <div>
                         <label for = "horaIni">Hora de inicio:</label>
-                        <input type = "time" id = "horaIni" name = "horaIni" value = $horaIni>
+                        <input type="time" id="horaIni" name="horaIni" value="<?= $horaIni ?>" class="popopo">
                         <span id = "validezHora"></span>
             EOS;
             $html.= $this->mostrarError('horaIni');
