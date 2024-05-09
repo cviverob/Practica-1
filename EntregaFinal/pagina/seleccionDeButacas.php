@@ -36,12 +36,11 @@
                     }
                     $contenidoPrincipal .= "</div>";
                 }
+                $formularioCompra = new es\ucm\fdi\aw\formularioCompra($sesion->getId());
                 $contenidoPrincipal .= <<< EOS
                         </fieldset>
                     </div>
-                    <div>
-                        <a href="$ruta_proc_comp?idSesion=$id"><button type="button" class="seleccionarPelicula">Comprar</button></a>
-                    </div>
+                    {$formularioCompra->gestiona()}
                 EOS;
                 $rutaSelecButJs = RUTA_APP . RUTA_JS_SELEC_BUT . "?id=$id";
                 $scripts = array($rutaSelecButJs);
