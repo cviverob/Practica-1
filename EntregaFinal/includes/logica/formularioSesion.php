@@ -1,15 +1,15 @@
 <?php
     namespace es\ucm\fdi\aw;
 
-    $sesion;
 
     /**
      * Clase encargada del formulario de login
      */
     class formularioSesion extends formulario {
+        public $sesion;
 
         public function __construct($id = null) {
-            parent::__construct('formSes', ['urlRedireccion' => RUTA_APP . RUTA_INDX]);
+            parent::__construct('formSes', ['urlRedireccion' => RUTA_APP . RUTA_ADMN]);
             $this->sesion = $id == null ? null : sesion::buscar($id);
         }
 
@@ -47,7 +47,7 @@
                     </div>
                     <div>
                         <label for = "pelicula">Película:</label>
-                        <select name = "pelicula" id = "pelicula">
+                        <select name = "pelicula" id = "pelicula"class="pruebas">
                             $opciones
                         </select>
             EOS;
@@ -82,7 +82,7 @@
                     </div>
                     <div>
                         <label for = "horaIni">Hora de inicio:</label>
-                        <input type = "time" id = "horaIni" name = "horaIni" value = $horaIni>
+                        <input type="time" id="horaIni" name="horaIni" value = $horaIni>
                         <span id = "validezHora"></span>
             EOS;
             $html.= $this->mostrarError('horaIni');

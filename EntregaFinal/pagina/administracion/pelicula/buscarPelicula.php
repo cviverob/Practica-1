@@ -29,7 +29,7 @@
 
         $contenidoPrincipal = <<< EOS
         <p></p>
-        <table>
+        <table class = "listarAdmin">
             <thead>
                 <tr>
                     <th>Nombre</th>

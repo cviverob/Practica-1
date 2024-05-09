@@ -18,13 +18,13 @@
                 <td>{$salas->getNumSala()}</td>
                     <td>
                         <form action = $rutaModificarSala method = "post">
-                            <button type = "submit" class = "RegisterUserButton">Mod</button>
+                            <button type = "submit" class = "adminMod">Mod</button>
                         </form>
                     </td>
                     <td>
                         <form action = $rutaBorrarSala method = "post">
                             <input type = "hidden" name = "id" value = {$salas->getId()}>
-                            <button type = "submit" class = "ExitUserButton">Elim</button>
+                            <button type = "submit" class = "adminDelete">Elim</button>
                         </form>
                     </td>
                 </tr>
@@ -32,20 +32,20 @@
         }
 
         $contenidoPrincipal = <<< EOS
-        <p></p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Número de sala</th>
-                    <th>Modificar</th>
-                    <th>Borrar</th>
-                </tr>
-            </thead>
-            <tbody>
-                $pintar
-            </tbody>
-        </table>
-        <p></p>
+            <p></p>
+            <table class = "listarAdmin">
+                <thead>
+                    <tr>
+                        <th>Número de sala</th>
+                        <th>Modificar</th>
+                        <th>Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    $pintar
+                </tbody>
+            </table>
+            <p></p>
         EOS;
         
         require_once(RUTA_RAIZ . RUTA_PLNT);

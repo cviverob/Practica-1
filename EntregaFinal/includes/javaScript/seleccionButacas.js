@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     //Para pasarle parametros
     var parametros = new URLSearchParams(window.location.search);
     var id = parametros.get('id');
-    console.log("aqui");
     // Agregar un evento clic a cada butaca
     butacas.forEach(function(butaca) {
         butaca.addEventListener('click', function() {
@@ -19,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     idButaca: idButaca,
                     id: id
                 },function(data) {
-                    console.log(data);
                     var respuesta = JSON.parse(data);
                     if (respuesta.estado) butaca.value = respuesta.estado;
                     else console.log("Error no se ha podido cambiar la butaca");

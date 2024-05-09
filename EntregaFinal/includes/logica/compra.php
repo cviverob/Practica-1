@@ -105,6 +105,35 @@
             return false;
         }
 
+        public static function buscarPorIdYUsuario($idCompra, $idUsuario) {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d' AND Id_compra = '%d'", 
+                $conn->real_escape_string($idUsuario),
+                $conn->real_escape_string($idCompra)
+            );
+            $rs = $conn->query($query);
+            if ($rs) {
+                $compra = $rs->fetch_assoc();
+                if ($compra) {
+                    $idCompra = $compra['Id_compra'];
+                    $idUsuario = $compra['Id_usuario'];
+                    $idSesion = $compra['Id_sesion'];
+                    $tituloPeli = $compra['Titulo_peli'];
+                    $fecha = $compra['Fecha'];
+                    $hora = $compra['Hora'];
+                    $numEntradas = $compra['Num_entradas_compradas'];
+                    $butacas = json_decode($compra['Butacas']);
+                    $compraPendiente = $compra['Pendiente'];
+                    $comprada = new compra($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numEntradas, $compraPendiente, $butacas, $idCompra);
+                    $rs->free();
+                    return $comprada;
+                }
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return false;
+        }
+
         public static function buscar($idUsuario) {
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d'", $conn->real_escape_string($idUsuario));
@@ -313,7 +342,7 @@
                     foreach ($butacas as $butaca) {
                         $sesion->actualizaButacaOcupar($butaca);
                     }
-                    return true;
+                    return $compra;
                 }   
                 else {
                     error_log("Error BD ({$conn->errno}): {$conn->error}");
