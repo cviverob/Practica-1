@@ -4,6 +4,7 @@
     $sesion = es\ucm\fdi\aw\sesion::buscar($_POST['id']);
     $tituloPeli = es\ucm\fdi\aw\pelicula::buscar($sesion->getIdPelicula());
     $idButaca = $_POST['idButaca'];
+    es\ucm\fdi\aw\compra::eliminarButacasCaducadas();
     //intentamos crear una operacion de compra
     $compra = es\ucm\fdi\aw\compra::crear($_SESSION['id'], $sesion->getId(), $tituloPeli->getTitulo(), date("Y-m-d"), date("H:i:s"), '0', '1');
     //si se ha podido crear, no existia ninguno. Si existia, tambien se intenta inserta. Insertamos el idButaca para saber que esta pendiente
@@ -13,7 +14,7 @@
         $sesion->actualizaButacaSeleccionar($idButaca);
         $estado = $sesion->devolverAsiento($idButaca);
     }
-    else $estado = false;
+    else $estado = "disponible";
 
     $respuesta = array (
         'idButaca' => $idButaca,

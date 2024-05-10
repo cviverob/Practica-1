@@ -17,7 +17,6 @@
         if (isset($_GET["id"])) {
             $sesion = es\ucm\fdi\aw\sesion::buscar($_GET["id"]);
             $id = $sesion->getId();
-            $_SESSION['idSesion'] = $id;
             if ($sesion) {
                 $contenidoPrincipal = <<< EOS
                     <h1>Selección de butacas</h1>
@@ -32,7 +31,11 @@
                     for ($columna = 1; $columna <=  $sala->getNumColumnas(); $columna++) {
                         $butaca = "$fila-$columna";
                         $estado = $sesion->devolverAsiento($butaca);
-                        $contenidoPrincipal .= "<button type='button' class='botonButaca' id='$butaca-$estado' value='$estado'>$fila-$columna</button>";
+                        $enable = $estado == "nulo" ? "disabled" : "";
+                        $contenidoPrincipal .= <<<EOS
+                            <button type='button' class = "botonButaca" id='$butaca-$estado' 
+                                value='$estado' $enable>$fila-$columna</button>
+                        EOS;
                     }
                     $contenidoPrincipal .= "</div>";
                 }

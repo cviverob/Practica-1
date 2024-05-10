@@ -169,24 +169,29 @@
             return $conn->query($query);
         }
 
-        public static function eliminaSiCompraEstaPendiente($id,$idSesion) {
-            $compra = self::buscarUsuario($id, $idSesion);
-            if ($compra && $compra->getPendiente() == '1') {
-                $conn = aplicacion::getInstance()->getConexionBd();
-                $sesion = sesion::buscar($idSesion);
-                $butacas = $compra->getButacas();
-                //recorremos las butacas y las vamos actualizando
-                foreach ($butacas as $butaca) {
-                    $sesion->actualizaButacaSeleccionar($butaca);
-                    $query = sprintf("DELETE FROM entrada WHERE Id_sesion = '%d' AND Id_butaca = '%s'" , $idSesion, $butaca);
-                    $conn->query($query);
+        //eliminamos todas las entradas no compradas
+        public static function eliminarButacasCaducadas() {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM compras WHERE TIMESTAMPDIFF(MINUTE, CONCAT(Fecha, ' ', Hora), NOW()) >= 1 AND Pendiente = '1'");
+            $rs = $conn->query($query);
+            if ($rs->num_rows > 0) {
+                while($compra = $rs->fetch_assoc()) {
+                    $idCompra = $compra['Id_compra'];
+                    $idSesion = $compra['Id_sesion'];
+                    $butacas = json_decode($compra['Butacas']);
+                    $sesion = sesion::buscar($idSesion);
+                
+                    //recorremos las butacas y las vamos actualizando
+                    foreach ($butacas as $butaca) {
+                        $sesion->actualizaButacaSeleccionar($butaca);
+                        $query2 = sprintf("DELETE FROM entrada WHERE Id_sesion = '%d' AND Id_butaca = '%s'" , $idSesion, $butaca);
+                        $conn->query($query2);
+                    }
+                    $conn->query(sprintf("DELETE FROM compras WHERE Id_compra='%s' ", $idCompra));
                 }
-                self::borrar($id);
-                return true;
             }
-            else {
-                return false;
-            }
+            $rs->free();
+            return true;
         }
 
         /**
@@ -265,6 +270,7 @@
 
         public function insertarButaca($idButaca) {
             $conn = aplicacion::getInstance()->getConexionBd();
+            $i = false;
             //intentamos insertar en la base de datos, si falla es que alguien ha sido mas rapido
             try {
                 //intentamos insertar en la base de datos, si falla es que alguien ha sido mas rapido
@@ -292,9 +298,7 @@
                 $conn->real_escape_string($this->getNumEntradas() - 1),
                 $conn->real_escape_string($this->getIdCompra())
                 ));
-
-                if ($i != true) return false;
-                else return true;
+                return $i;
             }
 
             //nos traemos las butacas y el numero de entradas
@@ -342,7 +346,6 @@
                 else {
                     error_log("Error BD ({$conn->errno}): {$conn->error}");
                 }
-                return false;
             }
             return false;
         }

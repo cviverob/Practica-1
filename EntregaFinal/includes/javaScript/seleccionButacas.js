@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     idButaca: idButaca,
                     id: id
                 },function(data) {
+                    console.log(data);
                     var respuesta = JSON.parse(data);
                     if (respuesta.estado) butaca.value = respuesta.estado;
                     else console.log("Error no se ha podido cambiar la butaca");
