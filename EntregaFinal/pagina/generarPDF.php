@@ -2,10 +2,9 @@
 require_once('../includes/config.php');
     
 $idCompra = $_GET['idCompra'];
-$idUsuario = $_SESSION['id'];
-$compra = es\ucm\fdi\aw\compra::buscarPorIdYUsuario($idCompra, $idUsuario);
+$compra = es\ucm\fdi\aw\compra::buscar($idCompra);
 $sesion = es\ucm\fdi\aw\sesion::buscar($compra->getIdSesion());
-$pelicula = es\ucm\fdi\aw\pelicula::buscarPorNombre($compra->getTituloPeli());
+$pelicula = es\ucm\fdi\aw\pelicula::buscar($compra->getIdPeli());
 $sala = es\ucm\fdi\aw\salas::buscar($sesion->getIdSala());
 $rutaPoster = RUTA_APP . RUTA_PSTR . '/' . $pelicula->getRutaPoster();
 $tituloPagina = 'ImprimirTicket';
@@ -15,7 +14,7 @@ $contenidoPrincipal = <<< EOS
                 <img src="$rutaPoster" class = "fotitoTicket">
     </div>
     <div class="Ticket-columna">
-            <h2>{$compra->getTituloPeli()}</h2>
+            <h2>{$pelicula->getTitulo()}</h2>
             <p>{$pelicula->getSinopsis()}</p>
     </div>
 </div>
@@ -38,7 +37,7 @@ foreach ($butacas as $b) {
                 y que tendrás que asistir el día {$sesion->getFecha()} 10 minutos antes para poder sentarte en tu asiento.
                 Por si no te acuerdas, tu asiento está en la fila $partes[0] y la columna $partes[1].
                 </p>
-                <p class="subliminal">Fecha de compra: {$compra->getFecha()} {$compra->getHora()}</p>
+                <p class="subliminal">Fecha de compra: {$sesion->getFecha()} {$sesion->getHoraIni()}</p>
             </div>
         </div>
     EOS;

@@ -3,81 +3,85 @@
     namespace es\ucm\fdi\aw;
 
     /**
-     * Clase encargada de almacenar los atributos de una película,
-     * a la vez que sus operaciones correspondientes
+     * Clase encargada de las compras
      */
     class compra {
       
-        private $idCompra;
+        /**
+         * Identificador de la compra
+         */
+        private $id;
 
+        /**
+         * Identificador del usuario
+         */
         private $idUsuario;
 
+        /**
+         * Identificador de la sesión
+         */
         private $idSesion;
 
-        private $tituloPeli;
+        /**
+         * Identificador de la película
+         */
+        private $idPeli;
 
-        private $fecha;
-
-        private $hora;
-
-        private $numEntradas;
-
+        /**
+         * Butacas seleccionadas en la compra
+         */
         private $butacas;
         
+        /**
+         * Booleano que indica si la compra está en estado pendiente o finalizada
+         */
         private $compraPendiente;
 
         
         /**
-         * Constructor de la película
-         * @param string $titulo
-         * @param string $sinopsis
-         * @param string $rutaPoster
-         * @param string $rutaTrailer
-         * @param string $pegi
-         * @param string $genero
-         * @param string $duracion
+         * Constructor de la compra
+         * @param int $idUsuario
+         * @param int $idSesion
+         * @param int $idPeli
+         * @param string[] $butacas
+         * @param bool $compraPendiente
          * @param int $id Identificador de la película con valor por defecto NULL
          */
-        private function __construct($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numEntradas, $compraPendiente, $butacas = null, $idCompra = null) {
+        private function __construct($idUsuario, $idSesion, $idPeli, $compraPendiente, $butacas = [], $id = null) {
+            $this->id = $id;
             $this->idUsuario = $idUsuario;
             $this->idSesion = $idSesion;
-            $this->tituloPeli = $tituloPeli;
-            $this->fecha = $fecha;
-            $this->hora = $hora;
-            $this->numEntradas = $numEntradas;
+            $this->idPeli = $idPeli;
             $this->compraPendiente = $compraPendiente;
             $this->butacas = $butacas;
-            $this->idCompra = $idCompra;
         }
 
         /**
-         * Crea una película y la inserta en la base de datos
-         * @param string $titulo
-         * @param string $sinopsis
-         * @param string $rutaPoster
-         * @param string $rutaTrailer
-         * @param string $pegi
-         * @param string $genero
-         * @param string $duracion
+         * Crea una compra y la inserta en la base de datos
+         * @param int $idUsuario
+         * @param int $idSesion
+         * @param int $idPeli
+         * @param bool $compraPendiente
          */
-        public static function crear($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numEntradas, $compraPendiente) {
-            //buscamos si existe compra pendiente para ese usuario, si existe la devolvemos
-            $usuario = self::buscarUsuario($idUsuario, $idSesion);
-            //si no existe, creamos una compra para ese usuario y la devolvemos
-            if ($usuario == false) {
-                $compra = new compra($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numEntradas, $compraPendiente);
-                return self::insertaCompra($compra);
+        public static function crear($idUsuario, $idSesion, $idPeli, $compraPendiente) {
+            // Buscamos si existe compra pendiente para ese usuario, si existe la devolvemos
+            $compra = self::buscarCompraDeUsuario($idUsuario, $idSesion);
+            if (!$compra) {
+                $compra = new compra($idUsuario, $idSesion, $idPeli, $compraPendiente);
+                $compra = self::insertaCompra($compra);
             }
-            return $usuario;
+            return $compra;
         }
 
         /**
          * Busca una compra pendiente y la devuelve si la encuentra, false en caso contrario
-         * @param string $id Identificador del usuario
+         * @param string $idUsuario Identificador del usuario
+         * @param string $idSesion Identificador de la sesión
          */
-        public static function buscarUsuario($idUsuario, $idSesion) {
+        public static function buscarCompraDeUsuario($idUsuario, $idSesion) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d' AND Id_sesion = '%d' AND Pendiente = '%d'", 
+            $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d' AND 
+                Id_sesion = '%d' AND Pendiente = '%d'", 
                 $conn->real_escape_string($idUsuario), 
                 $conn->real_escape_string($idSesion), 
                 '1'
@@ -86,18 +90,15 @@
             if ($rs) {
                 $compra = $rs->fetch_assoc();
                 if ($compra) {
-                    $idCompra = $compra['Id_compra'];
+                    $id = $compra['Id_compra'];
                     $idUsuario = $compra['Id_usuario'];
                     $idSesion = $compra['Id_sesion'];
-                    $tituloPeli = $compra['Titulo_peli'];
-                    $fecha = $compra['Fecha'];
-                    $hora = $compra['Hora'];
-                    $numEntradas = $compra['Num_entradas_compradas'];
-                    $butacas = json_decode($compra['Butacas']);
+                    $idPeli = $compra['Id_peli'];
                     $compraPendiente = $compra['Pendiente'];
-                    $comprada = new compra($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numEntradas, $compraPendiente, $butacas, $idCompra);
+                    $butacas = json_decode($compra['Butacas']);
+                    $compra = new compra($idUsuario, $idSesion, $idPeli, $compraPendiente, $butacas, $id);
                     $rs->free();
-                    return $comprada;
+                    return $compra;
                 }
             } else {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -105,28 +106,28 @@
             return false;
         }
 
-        public static function buscarPorIdYUsuario($idCompra, $idUsuario) {
+        /**
+         * Método que busca una compra por su id
+         * @param int $id Identificador de la compra
+         */
+        public static function buscar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d' AND Id_compra = '%d'", 
-                $conn->real_escape_string($idUsuario),
-                $conn->real_escape_string($idCompra)
+            $query = sprintf("SELECT * FROM compras WHERE Id_compra = '%d'", 
+                $conn->real_escape_string($id)
             );
             $rs = $conn->query($query);
             if ($rs) {
                 $compra = $rs->fetch_assoc();
                 if ($compra) {
-                    $idCompra = $compra['Id_compra'];
+                    $id = $compra['Id_compra'];
                     $idUsuario = $compra['Id_usuario'];
                     $idSesion = $compra['Id_sesion'];
-                    $tituloPeli = $compra['Titulo_peli'];
-                    $fecha = $compra['Fecha'];
-                    $hora = $compra['Hora'];
-                    $numEntradas = $compra['Num_entradas_compradas'];
-                    $butacas = json_decode($compra['Butacas']);
+                    $idPeli = $compra['Id_peli'];
                     $compraPendiente = $compra['Pendiente'];
-                    $comprada = new compra($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numEntradas, $compraPendiente, $butacas, $idCompra);
+                    $butacas = json_decode($compra['Butacas']);
+                    $compra = new compra($idUsuario, $idSesion, $idPeli, $compraPendiente, $butacas, $id);
                     $rs->free();
-                    return $comprada;
+                    return $compra;
                 }
             } else {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -134,30 +135,24 @@
             return false;
         }
 
-        public static function buscar($idUsuario) {
+        /**
+         * Método que desocupa una butaca en la BD
+         * @param int $idButaca Identificador de la butaca
+         * @param int $idSesion Identificador de la sesión
+         */
+        public function desocuparButaca($idButaca, $idSesion) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d'", $conn->real_escape_string($idUsuario));
-
-            $rs = $conn->query($query);
-            $listaCompras = array();
-            if ($rs->num_rows > 0) {
-                // Mostrar cada película y su imagen
-                while($compra = $rs->fetch_assoc()) {
-                    $idCompra = $compra['Id_compra'];
-                    $idUsuario = $compra['Id_usuario'];
-                    $idSesion = $compra['Id_sesion'];
-                    $tituloPeli = $compra['Titulo_peli'];
-                    $fecha = $compra['Fecha'];
-                    $hora = $compra['Hora'];
-                    $numCompradas = $compra['Num_entradas_compradas'];
-                    $butacas = json_decode($compra['Butacas'], true);
-                    $listaCompras[] = new compra($idUsuario, $idSesion, $tituloPeli, $fecha, $hora, $numCompradas, '0', $butacas, $idCompra);
-                }
-            }
-            $rs->free();
-            return $listaCompras;
+            $query = sprintf("DELETE FROM entrada WHERE Id_sesion = '%d' AND Id_butaca = '%s'", 
+                $idSesion, $idButaca);
+            $conn->query($query);
+            $key = array_search($idButaca, $this->butacas);
+            unset($this->butacas[$key]);
+            $query = sprintf("UPDATE compras SET Butacas = '%s' WHERE Id_compra = '%d'",
+                $conn->real_escape_string(json_encode($this->butacas)),
+                $conn->real_escape_string($this->id)
+            );
+            $conn->query($query);
         }
-
 
         /**
          * Método que elimina una película de la bd
@@ -169,25 +164,33 @@
             return $conn->query($query);
         }
 
-        //eliminamos todas las entradas no compradas
+        /**
+         * Método que elimina las butacas caducadas, es decir, aquellas que fueron
+         * seleccionadas hace más de n minutos
+         */
         public static function eliminarButacasCaducadas() {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM compras WHERE TIMESTAMPDIFF(MINUTE, CONCAT(Fecha, ' ', Hora), NOW()) >= 1 AND Pendiente = '1'");
+            $query = sprintf("SELECT * FROM compras WHERE TIMESTAMPDIFF(MINUTE, 
+                Hora, NOW()) >= 1 AND Pendiente = '1'"
+            );
             $rs = $conn->query($query);
             if ($rs->num_rows > 0) {
                 while($compra = $rs->fetch_assoc()) {
-                    $idCompra = $compra['Id_compra'];
+                    $id = $compra['Id_compra'];
                     $idSesion = $compra['Id_sesion'];
                     $butacas = json_decode($compra['Butacas']);
                     $sesion = sesion::buscar($idSesion);
-                
-                    //recorremos las butacas y las vamos actualizando
+                    // Recorremos las butacas y las vamos eliminando
                     foreach ($butacas as $butaca) {
                         $sesion->actualizaButacaSeleccionar($butaca);
-                        $query2 = sprintf("DELETE FROM entrada WHERE Id_sesion = '%d' AND Id_butaca = '%s'" , $idSesion, $butaca);
-                        $conn->query($query2);
+                        $query = sprintf("DELETE FROM entrada WHERE Id_sesion = '%d' AND 
+                            Id_butaca = '%s'" , 
+                            $idSesion, 
+                            $butaca
+                        );
+                        $conn->query($query);
                     }
-                    $conn->query(sprintf("DELETE FROM compras WHERE Id_compra='%s' ", $idCompra));
+                    $conn->query(sprintf("DELETE FROM compras WHERE Id_compra = '%s'", $id));
                 }
             }
             $rs->free();
@@ -196,25 +199,22 @@
 
         /**
          * Método que inserta una compra nueva
-         * @param compra
+         * @param compra $compra
          */
         private static function insertaCompra($compra) {
             $conn = aplicacion::getInstance()->getConexionBd();
             $compra->butacas = array();
-            $query=sprintf("INSERT INTO compras(Id_usuario, Id_sesion , Titulo_peli, Fecha, Hora, Num_entradas_compradas, Butacas, Pendiente) 
-                            VALUES ('%d','%d','%s','%s','%s','%d','%s','%d')",
+            $query=sprintf("INSERT INTO compras(Id_usuario, Id_sesion , Id_peli, Butacas, Pendiente) 
+                VALUES ('%d','%d','%d','%s','%d')",
                 $conn->real_escape_string($compra->idUsuario),
                 $conn->real_escape_string($compra->idSesion),
-                $conn->real_escape_string($compra->tituloPeli),
-                $conn->real_escape_string($compra->fecha),
-                $conn->real_escape_string($compra->hora),
-                $conn->real_escape_string($compra->numEntradas),
+                $conn->real_escape_string($compra->idPeli),
                 $conn->real_escape_string(json_encode($compra->butacas)),
-                '1'
+                1
             );
             if ($conn->query($query)) {
                 $id = $conn->insert_id;
-                $compra->setIdCompra($id);
+                $compra->setId($id);
                 return $compra;
             } 
             else {
@@ -223,93 +223,90 @@
             return false;
         }
 
-    
-        public function getIdCompra() {
-            return $this->idCompra;
+        /**
+         * Método que devuelve el identificador de la compra
+         */
+        public function getId() {
+            return $this->id;
         }
 
+        /**
+         * Método que devuelve el identificador del usuario
+         */
         public function getIdUsuario() {
             return $this->idUsuario;
         }
 
+        /**
+         * Método que devuelve el identificador de la sesión
+         */
         public function getIdSesion() {
             return $this->idSesion;
         }
 
-        public function getTituloPeli() {
-            return $this->tituloPeli;
+        /**
+         * Método que devuelve el identificador de la  película
+         */
+        public function getIdPeli() {
+            return $this->idPeli;
         }
 
-        public function getFecha() {
-            return $this->fecha;
-        }
-
-        public function getHora() {
-            return $this->hora;
-        }
-
-        public function getNumEntradas() {
-            return $this->numEntradas;
-        }
-
+        /**
+         * Método que devuelve las butacas de la compra
+         */
         public function getButacas() {
             return $this->butacas;
         }
 
-        public function getPendiente() {
+        /**
+         * Método que devuelve si la compra está pendiente o no
+         */
+        public function isCompraPendiente() {
             return $this->compraPendiente;
         }
 
         /**
-         * Método que establece el id de la película
-         * @param string $id Nuevo identificador de la película
+         * Método que establece el id de la compra
+         * @param string $id Nuevo identificador de la compra
          */
-        public function setIdCompra($id) {
-            $this->idCompra = $id;
+        public function setId($id) {
+            $this->id = $id;
         }
 
+        /**
+         * Método que inserta una butaca en la compra
+         * @param string $idButaca Identificador de la butaca
+         */
         public function insertarButaca($idButaca) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $i = false;
-            //intentamos insertar en la base de datos, si falla es que alguien ha sido mas rapido
+            // Intentamos insertar en la base de datos, si falla es que alguien ha sido mas rápido
             try {
-                //intentamos insertar en la base de datos, si falla es que alguien ha sido mas rapido
-                $intentamos=sprintf("INSERT INTO entrada (Id_sesion, Id_butaca) VALUES ('%s','%s')",
-                $conn->real_escape_string($this->getIdSesion()),
-                $conn->real_escape_string($idButaca)
+                $query = sprintf("INSERT INTO entrada (Id_sesion, Id_butaca) VALUES ('%s','%s')",
+                    $conn->real_escape_string($this->getIdSesion()),
+                    $conn->real_escape_string($idButaca)
                 );
-                $conn->query($intentamos);
-            } 
-            //si ha fallado significa que ya esta seleccionada
-            //comprobamos si es nuestra y devolvemos true o si es de otro y devolvemos false
-            catch (\mysqli_sql_exception $e) {
-                $sos = array();
-                foreach ($this->getButacas() as $butaca) {
-                    //si la butaca esta en mis butacasCompradas, tengo que quitarlo de la tabla entrada
-                    if ($butaca == $idButaca) {
-                        $i = true;
-                        $conn->query(sprintf("DELETE FROM entrada WHERE Id_sesion = %d AND Id_butaca = '%s'" , $this->getIdSesion(), $idButaca));
-                    }
-                    else $sos[] = $butaca;
+                if ($conn->query($query)) {
+                    $this->butacas[] = $idButaca;
                 }
-
-                $conn->query(sprintf("UPDATE compras SET Butacas = '%s', Num_entradas_compradas = %d WHERE Id_compra = %d",
-                $conn->real_escape_string(json_encode($sos)),
-                $conn->real_escape_string($this->getNumEntradas() - 1),
-                $conn->real_escape_string($this->getIdCompra())
-                ));
-                return $i;
+            } 
+            catch (\mysqli_sql_exception $e) {
+                $query = sprintf("DELETE FROM entrada WHERE Id_sesion = %d AND Id_butaca = '%s'", 
+                    $this->idSesion, 
+                    $idButaca
+                );
+                $key = array_search($idButaca, $this->butacas);
+                unset($this->butacas[$key]);
+                $query = sprintf("UPDATE compras SET Butacas = '%s' WHERE Id_compra = '%d'",
+                    $conn->real_escape_string(json_encode($this->butacas)),
+                    $conn->real_escape_string($this->id)
+                );
+                $conn->query($query);
+                return false;
             }
-
-            //nos traemos las butacas y el numero de entradas
-            $butacas = $this->getButacas();
-            $numEntradas = $this->getNumEntradas();
-            $butacas[] = $idButaca;
-            //cuando ya es nuestra esa butaca, la insertamos en nuestra base de datos
-            $query=sprintf("UPDATE compras SET Butacas = '%s', Num_entradas_compradas = %d WHERE Id_compra = %d",
-            $conn->real_escape_string(json_encode($butacas)),
-            $conn->real_escape_string($numEntradas + 1),
-            $conn->real_escape_string($this->getIdCompra())
+            // Insertamos la butaca seleccionada en la compra
+            $query=sprintf("UPDATE compras SET Butacas = '%s' WHERE Id_compra = %d",
+                $conn->real_escape_string(json_encode($this->butacas)),
+                $conn->real_escape_string($this->id)
             );
             if ($conn->query($query)) {
                 return true;
@@ -318,27 +315,35 @@
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
             return false;
-            
         }
 
+        /**
+         * Método que compruba si una butaca está seleccionada por ti o no
+         * @param string $idButaca Identificador de la butaca
+         */
+        public function estaOcupadaPorMi($idButaca) {
+            return in_array($idButaca, $this->butacas);
+        }
+
+        /**
+         * Método que procesa una compra
+         * @param int $idUsuario
+         * @param int $idSesion
+         */
         public static function procesarCompra($idUsuario, $idSesion) {
-            //buscamos la compra del usuario en esa sesion
-            $compra = self::buscarUsuario($idUsuario, $idSesion);
-            //si hemos encontrado algo, entonces actualizamos si estado de pendiente a finalizado
+            $compra = self::buscarCompraDeUsuario($idUsuario, $idSesion);
             if ($compra) {
                 $conn = aplicacion::getInstance()->getConexionBd();
-                $query=sprintf("UPDATE compras SET Pendiente = '%d' WHERE Id_usuario = '%d' AND Id_sesion = '%d'",
-                $conn->real_escape_string('0'),
-                $conn->real_escape_string($idUsuario),
-                $conn->real_escape_string($idSesion)
+                $query = sprintf("UPDATE compras SET Pendiente = '%d' WHERE Id_usuario = '%d' 
+                    AND Id_sesion = '%d'",
+                    $conn->real_escape_string(0),
+                    $conn->real_escape_string($idUsuario),
+                    $conn->real_escape_string($idSesion)
                 );
+                $compra->compraPendiente = 0;
                 if ($conn->query($query)) {
-                    //busco la sesion
                     $sesion = sesion::buscar($idSesion);
-                    //vuelco las butacas compradas en un array
-                    $butacas = $compra->getButacas();
-                    //recorremos las butacas y las vamos actualizando
-                    foreach ($butacas as $butaca) {
+                    foreach ($compra->butacas as $butaca) {
                         $sesion->actualizaButacaOcupar($butaca);
                     }
                     return $compra;

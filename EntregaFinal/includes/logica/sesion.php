@@ -93,7 +93,9 @@
          */
         public static function buscar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM cartelera WHERE id = '%s'", $conn->real_escape_string($id));
+            $query = sprintf("SELECT * FROM cartelera WHERE id = '%s'", 
+                $conn->real_escape_string($id)
+            );
             $rs = $conn->query($query);
             if ($rs) {
                 $sesion = $rs->fetch_assoc();
@@ -405,6 +407,7 @@
                 exit();
             }
         }
+        
         public function comprobarSeleccionada($id) {
             if (array_key_exists($id, $this->butacas)) {
                 if($this->butacas[$id]["estado"] == 'seleccionada') return false;
