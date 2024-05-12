@@ -1,6 +1,6 @@
 <?php
 require_once('../includes/config.php');
-    
+$urlImagen = RUTA_APP . RUTA_GIFS . '/beso.gif';
 $idCompra = $_GET['idCompra'];
 $idUsuario = $_SESSION['id'];
 $compra = es\ucm\fdi\aw\compra::buscarPorIdYUsuario($idCompra, $idUsuario);
@@ -10,13 +10,13 @@ $sala = es\ucm\fdi\aw\salas::buscar($sesion->getIdSala());
 $rutaPoster = RUTA_APP . RUTA_PSTR . '/' . $pelicula->getRutaPoster();
 $tituloPagina = 'ImprimirTicket';
 $contenidoPrincipal = <<< EOS
-<div id="Ticket">
+<div class="Ticket">
     <div class="Ticket-columna">
-                <img src="$rutaPoster" class = "fotitoTicket">
+        <img src="$rutaPoster" class="fotitoTicket">
     </div>
     <div class="Ticket-columna">
-            <h2>{$compra->getTituloPeli()}</h2>
-            <p>{$pelicula->getSinopsis()}</p>
+        <h2>{$compra->getTituloPeli()}</h2>
+        <p>{$pelicula->getSinopsis()}</p>
     </div>
 </div>
 EOS;
@@ -47,7 +47,13 @@ foreach ($butacas as $b) {
 
 
 $contenidoPrincipal .= <<< EOS
+
+<div class = "adios">
+<h1>Muchas gracias!!</h1>
+<img src="$urlImagen" alt="Imagen de ejemplo" width="200" height="200" class="gif">
+<br> <!-- Insertar un salto de línea antes del enlace -->
 <a href="#" onclick="imprimirTicket()" class="seleccionarPelicula">Imprimir Ticket</a>
+</div>
 </div>
 EOS;
 require_once(RUTA_RAIZ . RUTA_PLNT);  

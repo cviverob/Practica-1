@@ -278,7 +278,7 @@
                     /* Verificamos si hay una butaca existente en la celda actual */
                     if (isset($butacasIndexadas[$id])) {
                         /* Si la butaca existe, copiamos la información de la butaca existente */
-                        $butaca = $butacasIndexadas[$indice];
+                        $butaca = $butacasIndexadas[$id];
                         $nuevasButacas[$id] = array(
                             "fila" => $butaca["fila"],
                             "columna" => $butaca["columna"],

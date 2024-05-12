@@ -127,8 +127,8 @@
             else {
                 $horaFin = \DateTime::createFromFormat('H:i:s', $hora);
                 $horaFin->add(new \DateInterval("PT" . $pelicula->getDuracion() + 10 . "M"));
-                if ($horaFin->format('Y-m-d') > $horaIni->format('Y-m-d')) {
-                    $this->errores["horaIni"] = "La hora de finalización sobrepasa las 24:00, " . $horaFin->format("H:i");
+                if ($horaFin->format("H:m:s") < $horaIni->format("H:m:s")) {
+                    $this->errores[] = "La hora de finalización sobrepasa las 24:00, " . $horaFin->format("H:i");
                 }
             }
             $visibilidad = isset($datos["visibilidad"]) ? 1 : 0;
