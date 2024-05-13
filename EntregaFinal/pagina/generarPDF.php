@@ -3,9 +3,10 @@
     require_once('../includes/config.php');
     require_once(RUTA_RAIZ . RUTA_UTILS);
         
+    $urlImagen = RUTA_APP . RUTA_GIFS . '/beso.gif';
     $idCompra = $_GET['idCompra'];
     $compra = es\ucm\fdi\aw\compra::buscar($idCompra);
-    comprobarEntrada($_SESSION["id"] ?? null, $compra-getIdUsuario());
+    comprobarEntrada($_SESSION["id"] ?? null, $compra->getIdUsuario());
     $sesion = es\ucm\fdi\aw\sesion::buscar($compra->getIdSesion());
     $pelicula = es\ucm\fdi\aw\pelicula::buscar($compra->getIdPeli());
     $sala = es\ucm\fdi\aw\salas::buscar($sesion->getIdSala());
@@ -21,6 +22,16 @@
                 <p>{$pelicula->getSinopsis()}</p>
         </div>
     </div>
+    EOS;
+
+    $contenidoPrincipal .= <<< EOS
+      <div class = "adios">
+          <h1>Muchas gracias!!</h1>
+          <img src="$urlImagen" alt="Imagen de un beso sabroso" width="200" height="200" class="gif">
+          <p></p>
+          <a href="#" onclick="imprimirTicket()" class="seleccionarPelicula">Imprimir Ticket</a>
+        </div>
+      </div>
     EOS;
 
     $butacas = $compra->getButacas();
@@ -45,7 +56,6 @@
         EOS;
         $contador++;
     }
-
 
     $contenidoPrincipal .= <<< EOS
     <a href="#" onclick="imprimirTicket()" class="seleccionarPelicula">Imprimir Ticket</a>

@@ -217,14 +217,21 @@ ARCHIVO: cabecera.php:
     }
 
     button.botonButaca {
-        width: 18px;
-        height: 10px;
+        width: 9px;
+        height: 5px;
         font-size: 3px;
         padding: 3px 5px;
+        margin: auto;
+        font-size: 1px;
+        text-align: center;
     }
 }
 
 @media print{
+    @page {
+        size: landscape;
+    }
+
     .ExitUserButton, .RegisterUserButton, .LogUserButton, .botonFormulario{
         display: none;
     }
@@ -232,9 +239,24 @@ ARCHIVO: cabecera.php:
         visibility: hidden;
     }
 
-    .infoTicket{
-        margin-top: 100px;
-        page-break-after: always;
+    .infoTicket {
+        display: grid; /* Usar CSS Grid */
+        grid-template-columns: auto; /* Una sola columna */
+        grid-template-rows: auto auto; /* Dos filas */
+        grid-row-gap: 20px; /* Espacio entre filas */
+        border: 4px solid #6382ae; /* Borde exterior más grueso */
+        border-radius: 15px; /* Bordes redondeados */
+        page-break-after: auto; /* Salto de página después de cada infoTicket */
+    }
+
+    .infoTicket .entrada {
+        grid-row: 1; /* Primera fila */
+        grid-column: 1; /* Única columna */
+    }
+
+    .infoTicket .descripcion {
+        grid-row: 2; /* Segunda fila */
+        grid-column: 1; /* Única columna */
     }
 
     header{
@@ -243,6 +265,14 @@ ARCHIVO: cabecera.php:
     }
 
     footer{
+        display: none;
+    }
+
+    .Ticket-columna{
+        display: none;
+    }
+
+    .adios{
         display: none;
     }
 }
@@ -545,7 +575,7 @@ legend {
 }
 
 /*AQUI EMPIEZAN LAS CSS PARA LA PAGINA DE LOS TICKETS*/
-#Ticket {
+.Ticket {
     display: flex;
     justify-content: space-between;
 }
@@ -628,7 +658,3 @@ legend {
 .infoTicket:last-child {
     margin-bottom: 0; /* Elimina el margen inferior del último elemento */
 }
-
-
-
-/*pagebreak*/
