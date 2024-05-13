@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-05-2024 a las 20:23:15
+-- Tiempo de generación: 13-05-2024 a las 23:13:39
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `cines`
 --
-CREATE DATABASE IF NOT EXISTS `cines` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `cines`;
 
 -- --------------------------------------------------------
 
@@ -54,7 +52,7 @@ CREATE TABLE `compras` (
   `Id_peli` int(10) NOT NULL,
   `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `Pendiente` tinyint(1) NOT NULL,
-  `Hora` datetime NOT NULL DEFAULT current_timestamp()
+  `Fecha` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

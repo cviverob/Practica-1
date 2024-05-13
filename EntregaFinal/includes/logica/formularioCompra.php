@@ -28,7 +28,7 @@
             compra::eliminarButacasCaducadas();
             $compra = compra::procesarCompra($_SESSION['id'], $this->idSesion);
             if ($compra) {
-                $this->urlRedireccion = RUTA_APP . RUTA_PROC_COMP . "?idCompra=" . $compra->getId();
+                $this->urlRedireccion = RUTA_APP . RUTA_PDF . "?id=" . $compra->getId();
             }
             else {
                 $this->errores[] = "Se ha experido el tiempo o no se han seleccionado butacas.";

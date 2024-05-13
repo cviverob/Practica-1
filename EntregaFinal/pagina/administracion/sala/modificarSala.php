@@ -42,7 +42,7 @@
 
             $contenidoPrincipal .= <<< EOS
                 <fieldset class="fieldset-custom">
-                    <legend>Leyenda</legend>
+                    <legend>Significado del color de las butacas</legend>
                     <div class="leyenda">
                         <div class="leyenda-item">
                             <div class="cuadro disponible"></div>

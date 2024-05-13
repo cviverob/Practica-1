@@ -1,10 +1,10 @@
 <?php
 
-    require_once('../includes/config.php');
+    require_once('../../includes/config.php');
     require_once(RUTA_RAIZ . RUTA_UTILS);
         
     $urlImagen = RUTA_APP . RUTA_GIFS . '/beso.gif';
-    $idCompra = $_GET['idCompra'];
+    $idCompra = $_GET['id'];
     $compra = es\ucm\fdi\aw\compra::buscar($idCompra);
     comprobarEntrada($_SESSION["id"] ?? null, $compra->getIdUsuario());
     $sesion = es\ucm\fdi\aw\sesion::buscar($compra->getIdSesion());
@@ -23,17 +23,7 @@
         </div>
     </div>
     EOS;
-
-    $contenidoPrincipal .= <<< EOS
-      <div class = "adios">
-          <h1>Muchas gracias!!</h1>
-          <img src="$urlImagen" alt="Imagen de un beso sabroso" width="200" height="200" class="gif">
-          <p></p>
-          <a href="#" onclick="imprimirTicket()" class="seleccionarPelicula">Imprimir Ticket</a>
-        </div>
-      </div>
-    EOS;
-
+    
     $butacas = $compra->getButacas();
     $contador = 1;
     foreach ($butacas as $b) {
@@ -58,13 +48,19 @@
     }
 
     $contenidoPrincipal .= <<< EOS
-    <a href="#" onclick="imprimirTicket()" class="seleccionarPelicula">Imprimir Ticket</a>
-    </div>
+      <div class = "adios">
+          <h1>Muchas gracias!!</h1>
+          <img src="$urlImagen" alt="Imagen de un beso sabroso" width="200" height="200" class="gif">
+          <p></p>
+          <a href="#" onclick="imprimirTicket()" class="seleccionarPelicula">Imprimir Ticket</a>
+        </div>
+      </div>
     EOS;
+
     require_once(RUTA_RAIZ . RUTA_PLNT);  
-    ?>
-    <script>
-        function imprimirTicket() {
-            window.print();
-        }
-    </script>
+?>
+<script>
+    function imprimirTicket() {
+        window.print();
+    }
+</script>

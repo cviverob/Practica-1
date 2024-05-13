@@ -37,6 +37,10 @@
          */
         private $compraPendiente;
 
+        /**
+         * Fecha de la compra
+         */
+        private $fecha;
         
         /**
          * Constructor de la compra
@@ -47,13 +51,14 @@
          * @param bool $compraPendiente
          * @param int $id Identificador de la película con valor por defecto NULL
          */
-        private function __construct($idUsuario, $idSesion, $idPeli, $compraPendiente, $butacas = [], $id = null) {
+        private function __construct($idUsuario, $idSesion, $idPeli, $compraPendiente, $butacas = [], $fecha = null, $id = null) {
             $this->id = $id;
             $this->idUsuario = $idUsuario;
             $this->idSesion = $idSesion;
             $this->idPeli = $idPeli;
             $this->compraPendiente = $compraPendiente;
             $this->butacas = $butacas;
+            $this->fecha = $fecha;
         }
 
         /**
@@ -74,6 +79,35 @@
         }
 
         /**
+         * Busca todas las compras de un usuario
+         * @param string $idUsuario Identificador del usuario
+         */
+        public static function buscarComprasDeUsuario($idUsuario) {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d' AND 
+                Pendiente = '%d'", 
+                $conn->real_escape_string($idUsuario),
+                '0'
+            );
+            $rs = $conn->query($query);
+            $listaCompras = array();
+            if ($rs->num_rows > 0) {
+                while ($compra = $rs->fetch_assoc()) {
+                    $id = $compra['Id_compra'];
+                    $idUsuario = $compra['Id_usuario'];
+                    $idSesion = $compra['Id_sesion'];
+                    $idPeli = $compra['Id_peli'];
+                    $fecha = $compra['Fecha'];
+                    $compraPendiente = $compra['Pendiente'];
+                    $butacas = json_decode($compra['Butacas']);
+                    $listaCompras[] = $compra = new compra($idUsuario, $idSesion, $idPeli, $compraPendiente, $butacas, $fecha, $id);
+                }
+            }
+            $rs->free();
+            return $listaCompras;
+        }
+
+        /**
          * Busca una compra pendiente y la devuelve si la encuentra, false en caso contrario
          * @param string $idUsuario Identificador del usuario
          * @param string $idSesion Identificador de la sesión
@@ -84,7 +118,7 @@
                 Id_sesion = '%d' AND Pendiente = '%d'", 
                 $conn->real_escape_string($idUsuario), 
                 $conn->real_escape_string($idSesion), 
-                '1'
+                true
             );
             $rs = $conn->query($query);
             if ($rs) {
@@ -94,9 +128,10 @@
                     $idUsuario = $compra['Id_usuario'];
                     $idSesion = $compra['Id_sesion'];
                     $idPeli = $compra['Id_peli'];
+                    $fecha = $compra['Fecha'];
                     $compraPendiente = $compra['Pendiente'];
                     $butacas = json_decode($compra['Butacas']);
-                    $compra = new compra($idUsuario, $idSesion, $idPeli, $compraPendiente, $butacas, $id);
+                    $compra = new compra($idUsuario, $idSesion, $idPeli, $compraPendiente, $butacas, $fecha, $id);
                     $rs->free();
                     return $compra;
                 }
@@ -123,9 +158,10 @@
                     $idUsuario = $compra['Id_usuario'];
                     $idSesion = $compra['Id_sesion'];
                     $idPeli = $compra['Id_peli'];
+                    $fecha = $compra['Fecha'];
                     $compraPendiente = $compra['Pendiente'];
                     $butacas = json_decode($compra['Butacas']);
-                    $compra = new compra($idUsuario, $idSesion, $idPeli, $compraPendiente, $butacas, $id);
+                    $compra = new compra($idUsuario, $idSesion, $idPeli, $compraPendiente, $butacas, $fecha, $id);
                     $rs->free();
                     return $compra;
                 }
@@ -145,8 +181,9 @@
             $query = sprintf("DELETE FROM entrada WHERE Id_sesion = '%d' AND Id_butaca = '%s'", 
                 $idSesion, $idButaca);
             $conn->query($query);
-            $key = array_search($idButaca, $this->butacas);
-            unset($this->butacas[$key]);
+            //$key = array_search($idButaca, $this->butacas);
+            //unset($this->butacas[$key]);
+            $this->butacas = array_values(array_diff($this->butacas, [$idButaca]));
             $query = sprintf("UPDATE compras SET Butacas = '%s' WHERE Id_compra = '%d'",
                 $conn->real_escape_string(json_encode($this->butacas)),
                 $conn->real_escape_string($this->id)
@@ -171,7 +208,7 @@
         public static function eliminarButacasCaducadas() {
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM compras WHERE TIMESTAMPDIFF(MINUTE, 
-                Hora, NOW()) >= 1 AND Pendiente = '1'"
+                Fecha, NOW()) >= 1 AND Pendiente = '1'"
             );
             $rs = $conn->query($query);
             if ($rs->num_rows > 0) {
@@ -266,6 +303,13 @@
         }
 
         /**
+         * Método que devuelve la fecha de la compra
+         */
+        public function getFecha() {
+            return $this->fecha;
+        }
+
+        /**
          * Método que establece el id de la compra
          * @param string $id Nuevo identificador de la compra
          */
@@ -294,8 +338,7 @@
                     $this->idSesion, 
                     $idButaca
                 );
-                $key = array_search($idButaca, $this->butacas);
-                unset($this->butacas[$key]);
+                $this->butacas = array_values(array_diff($this->butacas, [$idButaca]));
                 $query = sprintf("UPDATE compras SET Butacas = '%s' WHERE Id_compra = '%d'",
                     $conn->real_escape_string(json_encode($this->butacas)),
                     $conn->real_escape_string($this->id)

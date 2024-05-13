@@ -113,30 +113,6 @@
             return null;
         }
 
-        public static function buscarPorNombre($nombre) {
-            $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM peliculas WHERE Titulo = '%s'", $conn->real_escape_string($nombre));
-            $rs = $conn->query($query);
-            if ($rs) {
-                $pelicula = $rs->fetch_assoc();
-                if ($pelicula) {
-                    $id = $pelicula['Id'];
-                    $sinopsis = $pelicula['Sinopsis'];
-                    $rutaPoster = $pelicula['Poster'];
-                    $rutaTrailer = $pelicula['Trailer'];
-                    $pegi = $pelicula['Pegi'];
-                    $genero = $pelicula['Genero'];
-                    $duracion = $pelicula['Duracion'];
-                    $pelicula = new pelicula($nombre, $sinopsis, $rutaPoster, $rutaTrailer, $pegi, $genero, $duracion, $id);
-                    $rs->free();
-                    return $pelicula;
-                }
-            } else {
-                error_log("Error BD ({$conn->errno}): {$conn->error}");
-            }
-            return false;
-        }
-
         /**
          * Método que elimina una película de la bd
          * @param string $id Identificador de la película

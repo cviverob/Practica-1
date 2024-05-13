@@ -19,9 +19,12 @@
             $sala = es\ucm\fdi\aw\salas::buscar($sesion->getIdSala());
             $descripcionSesion = "Sala " . $sala->getNumSala() . " " . $sesion->getFecha() . 
                 " " . $sesion->getHoraIni() . "-" . $sesion->getHoraFin();
+            $pelicula = es\ucm\fdi\aw\pelicula::buscar($sesion->getIdPelicula());
+            $titulo = $pelicula->getTitulo();
             $pintar .= <<<EOS
                 <tr>
-                <td>$descripcionSesion</td>
+                    <td>$titulo</td>
+                    <td>$descripcionSesion</td>
                     <td>
                         <form action = "$rutaModificarSesion" method = "post">
                             <button type = "submit" class = "RegisterUserButton"><img src = $rutaBotonMod width = '25' height = '25'></button>
@@ -42,6 +45,7 @@
         <table class = "listarAdmin">
             <thead>
                 <tr>
+                    <th>Película</th>
                     <th>Sesión</th>
                     <th>Modificar</th>
                     <th>Borrar</th>
