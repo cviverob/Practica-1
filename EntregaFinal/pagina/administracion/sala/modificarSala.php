@@ -39,6 +39,23 @@
                 }
                 $contenidoPrincipal .= "</div>";
             }
+
+            $contenidoPrincipal .= <<< EOS
+                <fieldset class="fieldset-custom">
+                    <legend>Leyenda</legend>
+                    <div class="leyenda">
+                        <div class="leyenda-item">
+                            <div class="cuadro disponible"></div>
+                            <p>Butaca Disponible</p>
+                        </div>
+                        <div class="leyenda-item">
+                            <div class="cuadro pasillo"></div>
+                            <p>Pasillo</p>
+                        </div>
+                    </div>
+                </fieldset> 
+            EOS;
+
             $rutaAdmin = RUTA_APP . RUTA_ADMN;
             $contenidoPrincipal .= <<<EOS
                 </div>

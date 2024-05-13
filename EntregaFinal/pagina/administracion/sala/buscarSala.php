@@ -10,6 +10,9 @@
         $pintar = '';
 
         $rutaBorrarSala = RUTA_APP . RUTA_BRR_SALA;
+
+        $rutaBotonMod = RUTA_APP . RUTA_BTN . '/lapiz.png';
+        $rutaBotonBorrar = RUTA_APP . RUTA_BTN . '/cruz.png';
         
         foreach ($listaSalas as $salas) {
             $rutaModificarSala = RUTA_APP . RUTA_MOD_SALA . "?id=" . $salas->getId();
@@ -18,13 +21,13 @@
                 <td>{$salas->getNumSala()}</td>
                     <td>
                         <form action = $rutaModificarSala method = "post">
-                            <button type = "submit" class = "adminMod">Mod</button>
+                            <button type = "submit" class = "adminMod"><img src = $rutaBotonMod width = '25' height = '25'></button>
                         </form>
                     </td>
                     <td>
                         <form action = $rutaBorrarSala method = "post">
                             <input type = "hidden" name = "id" value = {$salas->getId()}>
-                            <button type = "submit" class = "adminDelete">Elim</button>
+                            <button type = "submit" class = "adminDelete"><img src = $rutaBotonBorrar width = '25' height = '25'></button>
                         </form>
                     </td>
                 </tr>

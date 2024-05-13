@@ -10,6 +10,9 @@
         $pintar = '';
 
         $rutaBorrarSesion = RUTA_APP . RUTA_BRR_SES;
+
+        $rutaBotonMod = RUTA_APP . RUTA_BTN . '/lapiz.png';
+        $rutaBotonBorrar = RUTA_APP . RUTA_BTN . '/cruz.png';
         
         foreach ($listaSesiones as $sesion) {
             $rutaModificarSesion = RUTA_APP . RUTA_MOD_SES . "?id=" . $sesion->getId();
@@ -21,13 +24,13 @@
                 <td>$descripcionSesion</td>
                     <td>
                         <form action = "$rutaModificarSesion" method = "post">
-                            <button type = "submit" class = "RegisterUserButton">Mod</button>
+                            <button type = "submit" class = "RegisterUserButton"><img src = $rutaBotonMod width = '25' height = '25'></button>
                         </form>
                     </td>
                     <td>
                         <form action = "$rutaBorrarSesion" method = "post">
                             <input type = "hidden" name = "id" value = {$sesion->getId()}>
-                            <button type = "submit" class = "ExitUserButton">Elim</button>
+                            <button type = "submit" class = "ExitUserButton"><img src = $rutaBotonBorrar width = '25' height = '25'></button>
                         </form>
                     </td>
                 </tr>

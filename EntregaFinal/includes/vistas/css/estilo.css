@@ -658,3 +658,99 @@ legend {
 .infoTicket:last-child {
     margin-bottom: 0; /* Elimina el margen inferior del último elemento */
 }
+
+
+
+/*
+    Ultimas modificaciones que hay que mirar de css
+
+*/
+
+.peli1 {
+    display: inline-block;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.peli1 .peli1_1 {
+    margin-right: 10px;
+}
+
+.peli1 .peli1_2 {
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.peli1 .peli1_2 form {
+    margin-right: 5px;
+}
+
+.peli1 .peli1_2 form:last-child {
+    margin-right: 0;
+}
+
+.Ticket-columna p{
+    text-align: justify;
+    font-size: larger;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.infoTicket .descripcion p {
+    text-align: justify;
+    margin-right: 25px;
+    color: #666; /* Color del texto */
+    font-size: 20px; /* Tamaño de la fuente */
+    line-height: 1.5; /* Altura de línea para una mejor legibilidad */
+}
+
+.infoTicket .entrada {
+    margin-left: 15px;
+    flex: 1; /* Ocupar todo el espacio disponible */
+}
+
+
+.fieldset-custom {
+    display: inline-flex;
+    border: 2px solid black;
+    margin: 5px;
+}
+
+.leyenda {
+    justify-content: center;
+    display: flex;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.cuadro {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    margin-left: 15px;
+    border: 2px solid black;
+}
+
+.ocupada {
+    background-color: red;
+}
+
+.seleccionada {
+    background-color: orange;
+}
+
+.disponible {
+    background-color: green;
+}
+.pasillo {
+    background-color: gray;
+}
+
+.separar {
+    margin-top: 10px;
+}

@@ -18,6 +18,8 @@
     define('RUTA_TRL', RUTA_IMGS . '/trailers');
     // img/Gifs
     define('RUTA_GIFS', RUTA_IMGS . '/gifs');
+    // img/Botones
+    define('RUTA_BTN', RUTA_IMGS . '/botones');
     // includes
     define('RUTA_INCL', '/includes');
     define('RUTA_CNFG', RUTA_INCL . '/config.php');

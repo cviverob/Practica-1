@@ -40,11 +40,33 @@
                     }
                     $contenidoPrincipal .= "</div>";
                 }
+                $contenidoPrincipal .= <<< EOS
+                    <fieldset class="fieldset-custom">
+                        <legend>Leyenda</legend>
+                        <div class="leyenda">
+                            <div class="leyenda-item">
+                                <div class="cuadro disponible"></div>
+                                <p>Butaca Disponible</p>
+                            </div>
+                            <div class="leyenda-item">
+                                <div class="cuadro seleccionada"></div>
+                                <p>Butaca Seleccionada</p>
+                            </div>
+                            <div class="leyenda-item">
+                                <div class="cuadro ocupada"></div>
+                                <p>Butaca ocupada</p>
+                            </div>
+                        </div>
+                    </fieldset> 
+                EOS;
+
                 $formularioCompra = new es\ucm\fdi\aw\formularioCompra($sesion->getId());
                 $contenidoPrincipal .= <<< EOS
                         </fieldset>
                     </div>
+                    <div class="separar">
                     {$formularioCompra->gestiona()}
+                    </div>
                 EOS;
                 $rutaSelecButJs = RUTA_APP . RUTA_JS_SELEC_BUT . "?id=$id";
                 $scripts = array($rutaSelecButJs);

@@ -9,39 +9,39 @@
         $listaPeliculas = es\ucm\fdi\aw\pelicula::getPeliculas();
         $pintar = '';
 
+        $rutaBotonMod = RUTA_APP . RUTA_BTN . '/lapiz.png';
+        $rutaBotonBorrar = RUTA_APP . RUTA_BTN . '/cruz.png';
+
         foreach ($listaPeliculas as $pelicula) {
-            $pintar .= "
-                <tr>
-                    <td>{$pelicula->getTitulo()}</td>
-                    <td>
-                        <form action = 'modificarPelicula.php?id={$pelicula->getId()}' method = 'post'>
-                            <button type = 'submit' class = 'RegisterUserButton'>Mod</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action = 'borrarPelicula.php' method = 'post'>
-                            <input type = 'hidden' name = 'id' value = {$pelicula->getId()}>
-                            <button type = 'submit' class = 'ExitUserButton'>Elim</button>
-                        </form>
-                    </td>
-                </tr>";
+            $ruta_poster = RUTA_APP . RUTA_PSTR . "/" . $pelicula->getRutaPoster();
+            $pintar .= <<< EOS
+                
+                    <div class="peli1">
+                        <div class="peli1_1">
+                            <img src = $ruta_poster width = '150' height = '200' class = 'pelisCartelera'>
+                        </div>
+                        <div class="peli1_2">
+                            <form action = 'modificarPelicula.php?id={$pelicula->getId()}' method = 'post'>
+                                <button type = 'submit' class = 'RegisterUserButton'><img src = $rutaBotonMod width = '25' height = '25'></button>
+                            </form>
+                
+                
+                            <form action = 'borrarPelicula.php' method = 'post'>
+                                <input type = 'hidden' name = 'id' value = {$pelicula->getId()}>
+                                <button type = 'submit' class = 'ExitUserButton'><img src = $rutaBotonBorrar width = '25' height = '25'></button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                EOS;
         }
 
         $contenidoPrincipal = <<< EOS
         <p></p>
         <table class = "listarAdmin">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Modificar</th>
-                    <th>Borrar</th>
-                </tr>
-            </thead>
-            <tbody>
-                $pintar
-            </tbody>
+        $pintar
         </table>
-        <p></p>
+    
         EOS;
         
         require_once(RUTA_RAIZ . RUTA_PLNT);
