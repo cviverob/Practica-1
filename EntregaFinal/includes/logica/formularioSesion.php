@@ -6,6 +6,10 @@
      * Clase encargada del formulario de login
      */
     class formularioSesion extends formulario {
+
+        /**
+         * En el caso de modificar, esta será la sesión sobre la que se trabajará
+         */
         public $sesion;
 
         public function __construct($id = null) {
@@ -38,6 +42,9 @@
             $html .= $this->mostrarErroresGlobales();
             /* Pelicula */
             $listaPeliculas = pelicula::getPeliculas();
+            if (empty($listaPeliculas)) {
+                $this->errores["pelicula"] = "No hay películas disponibles";
+            }
             $opciones = "";
             foreach ($listaPeliculas as $peli) {
                 $seleccionada = $pelicula == $peli->getId() ? " selected" : "";
@@ -54,6 +61,9 @@
             $html.= $this->mostrarError('pelicula');
             /* Salas */
             $listaSalas = salas::getSalas();
+            if (empty($listaSalas)) {
+                $this->errores["sala"] = "No hay salas disponibles";
+            }
             $opciones = "";
             foreach ($listaSalas as $sal) {
                 $seleccionada = $sala == $sal->getId() ? " selected" : "";
@@ -109,8 +119,18 @@
         }
 
         public function procesaFormulario(&$datos) {
-            $idPelicula = $datos["pelicula"];
-            $sala = $datos["sala"];
+            if (isset($datos["pelicula"])) {
+                $idPelicula = $datos["pelicula"];
+            }
+            else {
+                $this->errores["pelicula"] = "No hay películas disponibles";
+            }
+            if (isset($datos["sala"])) {
+                $sala = $datos["sala"];
+            }
+            else {
+                $this->errores["sala"] = "No hay salas disponibles";
+            }
             /* Validación de la fecha */
             $fecha = $datos["fecha"];
             if (!$fecha) {
@@ -118,17 +138,19 @@
             }
             /* Validación de la hora */
             $hora = $datos["horaIni"] . ($this->sesion ? "" : ":00");
-            $pelicula = pelicula::buscar($idPelicula);
-            // Manipulación de la hora extraída del chatgpt
-            $horaIni = \DateTime::createFromFormat('H:i:s', $hora);
-            if (!$horaIni) {
-                $this->errores["horaIni"] = "La hora no puede estar vacía";
-            }
-            else {
-                $horaFin = \DateTime::createFromFormat('H:i:s', $hora);
-                $horaFin->add(new \DateInterval("PT" . $pelicula->getDuracion() + 10 . "M"));
-                if ($horaFin->format("H:m:s") < $horaIni->format("H:m:s")) {
-                    $this->errores[] = "La hora de finalización sobrepasa las 24:00, " . $horaFin->format("H:i");
+            if (isset($idPelicula)) {
+                $pelicula = pelicula::buscar($idPelicula);
+                // Manipulación de la hora extraída del chatgpt
+                $horaIni = \DateTime::createFromFormat('H:i:s', $hora);
+                if (!$horaIni) {
+                    $this->errores["horaIni"] = "La hora no puede estar vacía";
+                }
+                else {
+                    $horaFin = \DateTime::createFromFormat('H:i:s', $hora);
+                    $horaFin->add(new \DateInterval("PT" . $pelicula->getDuracion() + 10 . "M"));
+                    if ($horaFin->format("H:m:s") < $horaIni->format("H:m:s")) {
+                        $this->errores[] = "La hora de finalización sobrepasa las 24:00, " . $horaFin->format("H:i");
+                    }
                 }
             }
             $visibilidad = isset($datos["visibilidad"]) ? 1 : 0;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2024 a las 20:03:27
+-- Tiempo de generación: 13-05-2024 a las 16:44:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `cines`
 --
-CREATE DATABASE IF NOT EXISTS `cines` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `cines`;
 
 -- --------------------------------------------------------
 
@@ -37,7 +35,8 @@ CREATE TABLE `cartelera` (
   `Hora_fin` time NOT NULL,
   `Id_sala` int(50) UNSIGNED NOT NULL,
   `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Butacas`)),
-  `Visible` tinyint(1) NOT NULL
+  `Visible` tinyint(1) NOT NULL,
+  `archivado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -50,12 +49,10 @@ CREATE TABLE `compras` (
   `Id_compra` int(10) UNSIGNED NOT NULL,
   `Id_usuario` int(10) UNSIGNED NOT NULL,
   `Id_sesion` int(50) UNSIGNED NOT NULL,
-  `Titulo_peli` text NOT NULL,
-  `Fecha` date NOT NULL,
-  `Hora` time NOT NULL,
-  `Num_entradas_compradas` int(2) NOT NULL,
+  `Id_peli` int(10) NOT NULL,
   `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `Pendiente` tinyint(1) NOT NULL
+  `Pendiente` tinyint(1) NOT NULL,
+  `Hora` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -83,7 +80,8 @@ CREATE TABLE `peliculas` (
   `Duracion` int(3) UNSIGNED NOT NULL,
   `Sinopsis` text NOT NULL,
   `Poster` text NOT NULL,
-  `Trailer` text NOT NULL
+  `Trailer` text NOT NULL,
+  `archivado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -97,7 +95,8 @@ CREATE TABLE `salas` (
   `Num_sala` int(2) UNSIGNED NOT NULL,
   `Num_filas` int(3) NOT NULL,
   `Num_columnas` int(3) NOT NULL,
-  `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Butacas`))
+  `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Butacas`)),
+  `archivado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -132,7 +131,7 @@ ALTER TABLE `cartelera`
 --
 ALTER TABLE `compras`
   ADD PRIMARY KEY (`Id_compra`,`Id_usuario`),
-  ADD KEY `Compras_fk_Cartelera` (`Id_sesion`,`Fecha`,`Hora`),
+  ADD KEY `Compras_fk_Cartelera` (`Id_sesion`),
   ADD KEY `Compras_fk_Usuario` (`Id_usuario`);
 
 --

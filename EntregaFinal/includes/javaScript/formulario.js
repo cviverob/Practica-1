@@ -84,25 +84,6 @@ function comprobarValorPorDefecto(campo) {
 }
 
 /**
- * Función que comprueba si la hora de una película es válida o no según su hora final
- * @returns String con un tick en caso de validación exitosa, o una advertencia
- * en caso contrario
- */
-function comprobarHoraDeFinalizacion() {
-	const horaFin = $("#horaFin");
-	const horaIni = $("#horaIni");
-	if (horaIni > horaFin) {
-		advertencia = "La hora final excede las 24:00";
-		horaIni[0].setCustomValidity(advertencia);
-		advertencia = "\u2716 " + advertencia;
-	}
-	else {
-		return "\u2714";
-	}
-	return advertencia;
-}
-
-/**
  * Función que determina qué mostrarle al usuario en función de la validación
  * del campo correspondiente
  * @param {string} campo 
@@ -215,7 +196,7 @@ $(document).ready(function() {
 		tomarAccion("#horaIni", "#validezHora", "#error-horaIni", "blur", accion);
 	});
 	$("horaIni").on("submit", function() {
-		accion = comprobarHoraDeFinalizacion();
+		accion = comprobarValorPorDefecto("#horaIni");
 		tomarAccion("#horaIni", "#validezHora", "#error-horaIni", "load", accion);
 	});
 

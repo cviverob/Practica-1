@@ -5,7 +5,8 @@
 
     $ruta_proc_comp = RUTA_APP . RUTA_PROC_COMP;
     $ruta_reg = RUTA_APP . RUTA_REG;
-
+    
+    es\ucm\fdi\aw\compra::eliminarButacasCaducadas();
     if (!isset($_SESSION["login"]) || !$_SESSION["login"]) {
         $contenidoPrincipal = <<< EOS
         <h1>Error:</h1>
