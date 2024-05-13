@@ -116,7 +116,7 @@
          */
         public static function borrar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM salas WHERE id = '%s'" , $id);
+            $query = sprintf("UPDATE salas SET archivado = %d WHERE id = '%s'" , true, $id);
             return $conn->query($query);
         }
 
@@ -278,7 +278,7 @@
                     /* Verificamos si hay una butaca existente en la celda actual */
                     if (isset($butacasIndexadas[$id])) {
                         /* Si la butaca existe, copiamos la información de la butaca existente */
-                        $butaca = $butacasIndexadas[$indice];
+                        $butaca = $butacasIndexadas[$id];
                         $nuevasButacas[$id] = array(
                             "fila" => $butaca["fila"],
                             "columna" => $butaca["columna"],
@@ -301,7 +301,7 @@
         
         public static function getSalas() {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = "SELECT * FROM salas ORDER BY Num_sala";
+            $query = sprintf("SELECT * FROM salas WHERE archivado = %d ORDER BY Num_sala", false);
             $rs = $conn->query($query);
             $listaSalas = array();
             if ($rs->num_rows > 0) {

@@ -93,7 +93,9 @@
          */
         public static function buscar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM cartelera WHERE id = '%s'", $conn->real_escape_string($id));
+            $query = sprintf("SELECT * FROM cartelera WHERE id = '%s'", 
+                $conn->real_escape_string($id)
+            );
             $rs = $conn->query($query);
             if ($rs) {
                 $sesion = $rs->fetch_assoc();
@@ -184,7 +186,7 @@
          */
         public static function borrar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM cartelera WHERE id = '%s'" , $id);
+            $query = sprintf("UPDATE cartelera SET archivado = %d WHERE id = '%s'" , true, $id);
             return $conn->query($query);
         }
 
@@ -242,9 +244,9 @@
         /**
          * Método que devuelve una lista con todas las sesiones
          */
-        public static function getSesiones($visibilidad = false) {
+        public static function getSesiones() {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = "SELECT * FROM cartelera";
+            $query = sprintf("SELECT * FROM cartelera WHERE archivado = %d", false);
             $rs = $conn->query($query);
             $listaSesiones = array();
             if ($rs->num_rows > 0) {
@@ -405,6 +407,7 @@
                 exit();
             }
         }
+        
         public function comprobarSeleccionada($id) {
             if (array_key_exists($id, $this->butacas)) {
                 if($this->butacas[$id]["estado"] == 'seleccionada') return false;
