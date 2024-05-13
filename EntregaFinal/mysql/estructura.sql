@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2024 a las 19:45:22
+-- Tiempo de generación: 13-05-2024 a las 16:44:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -35,7 +35,8 @@ CREATE TABLE `cartelera` (
   `Hora_fin` time NOT NULL,
   `Id_sala` int(50) UNSIGNED NOT NULL,
   `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Butacas`)),
-  `Visible` tinyint(1) NOT NULL
+  `Visible` tinyint(1) NOT NULL,
+  `archivado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -79,7 +80,8 @@ CREATE TABLE `peliculas` (
   `Duracion` int(3) UNSIGNED NOT NULL,
   `Sinopsis` text NOT NULL,
   `Poster` text NOT NULL,
-  `Trailer` text NOT NULL
+  `Trailer` text NOT NULL,
+  `archivado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -93,7 +95,8 @@ CREATE TABLE `salas` (
   `Num_sala` int(2) UNSIGNED NOT NULL,
   `Num_filas` int(3) NOT NULL,
   `Num_columnas` int(3) NOT NULL,
-  `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Butacas`))
+  `Butacas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Butacas`)),
+  `archivado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

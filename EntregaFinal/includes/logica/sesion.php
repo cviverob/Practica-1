@@ -186,7 +186,7 @@
          */
         public static function borrar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM cartelera WHERE id = '%s'" , $id);
+            $query = sprintf("UPDATE cartelera SET archivado = %d WHERE id = '%s'" , true, $id);
             return $conn->query($query);
         }
 
@@ -244,9 +244,9 @@
         /**
          * Método que devuelve una lista con todas las sesiones
          */
-        public static function getSesiones($visibilidad = false) {
+        public static function getSesiones() {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = "SELECT * FROM cartelera";
+            $query = sprintf("SELECT * FROM cartelera WHERE archivado = %d", false);
             $rs = $conn->query($query);
             $listaSesiones = array();
             if ($rs->num_rows > 0) {

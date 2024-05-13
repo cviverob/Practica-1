@@ -143,7 +143,7 @@
          */
         public static function borrar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM peliculas WHERE id = '%s'" , $id);
+            $query = sprintf("UPDATE peliculas SET archivado = %d WHERE id = '%s'" , true, $id);
             return $conn->query($query);
         }
 
@@ -186,7 +186,7 @@
          */
         public static function getPeliculas() {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = "SELECT * FROM peliculas";
+            $query = sprintf("SELECT * FROM peliculas WHERE archivado = %d", false);
             $rs = $conn->query($query);
             $listaPeliculas = array();
             if ($rs->num_rows > 0) {
