@@ -71,9 +71,6 @@ ARCHIVO: cabecera.php:
 
 */
 
-.fila {
-    display: inline-flex;
-}
 
 
 .LogUserButton {
@@ -439,7 +436,7 @@ ARCHIVO: seleccionDeButacas.php
 }
 
 /*
-    ARCHIVO: modificarSala.php
+    ARCHIVO: modificar.php
 */
 
 /*no consigo que deje de aplicar el estilo css de la clase formulario, por eso se están pintando los botones como
@@ -718,10 +715,6 @@ legend {
 
 @media screen and (max-width: 400px) {
     
-    .fila {
-        display: flex;
-        flex-wrap: wrap;
-    }
     
     .texte{
         font-size: 14px;

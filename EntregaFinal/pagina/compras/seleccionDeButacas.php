@@ -21,9 +21,10 @@
             if ($sesion) {
                 $contenidoPrincipal = <<< EOS
                     <h1>Selección de butacas</h1>
-                    <div>
+                    
                         <fieldset>
                         <legend>Sala</legend>
+                        <div class='sala'>
                 EOS;
                 $sala = es\ucm\fdi\aw\salas::buscar($sesion->getIdSala());
 
