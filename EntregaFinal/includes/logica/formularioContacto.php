@@ -47,12 +47,13 @@
                     <div>
                         <label for="tipo_consulta">Motivo de consulta:</label>
                         <input id = "tipo_consulta" type = "radio" name = "tipo_consulta">Evaluación
-                        <input id = "tipo_consulta1" type = "radio" name = "tipo_consulta">Sugerencias
-                        <input id = "tipo_consulta2" type = "radio" name = "tipo_consulta">Críticas
+                        <input id = "tipo_consulta1" type = "radio" name = "tipo_consulta">Crìtica
+                        <input id = "tipo_consulta2" type = "radio" name = "tipo_consulta">Otro
                     </div>
                     <div>
                         <p>Escriba aquí su consulta:</p>
-                        <textarea name = "consulta" rows = "4" cols = "50" value = $consulta required ></textarea>
+                        <textarea name="consulta" rows="4" cols="35" value="$consulta" class="texte" required></textarea>
+
             EOS;
             $html .= $this->mostrarError('consulta');
             /* Botones de envío y borrado */

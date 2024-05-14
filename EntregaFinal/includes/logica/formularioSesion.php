@@ -54,7 +54,7 @@
                     </div>
                     <div>
                         <label for = "pelicula">Película:</label>
-                        <select name = "pelicula" id = "pelicula">
+                        <select name = "pelicula" id = "pelicula" class = "selectsesion">
                             $opciones
                         </select>
             EOS;
@@ -73,7 +73,7 @@
                     </div>
                     <div>
                         <label for = "sala">Sala:</label>
-                        <select name = "sala" id = "sala">
+                        <select name = "sala" id = "sala" class = "selectsesion">
                             $opciones
                         </select>
             EOS;

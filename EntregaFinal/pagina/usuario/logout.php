@@ -9,6 +9,7 @@
 
     $contenidoPrincipal = <<< EOS
         <div class="containerLogout">
+            <br> <!-- Insertar un salto de línea antes del enlace -->
             <h1>Hasta la próxima!!</h1>
             <img src="$urlImagen" alt="Imagen de ejemplo" width="200" height="200" class="gif">
             <br> <!-- Insertar un salto de línea antes del enlace -->

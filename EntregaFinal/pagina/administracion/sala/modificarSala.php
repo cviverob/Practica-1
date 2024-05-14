@@ -41,6 +41,7 @@
             }
 
             $contenidoPrincipal .= <<< EOS
+                <p></p>
                 <fieldset class="fieldset-custom">
                     <legend>Significado del color de las butacas</legend>
                     <div class="leyenda">
