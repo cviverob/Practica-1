@@ -85,7 +85,7 @@
         public static function buscarComprasDeUsuario($idUsuario) {
             $conn = aplicacion::getInstance()->getConexionBd();
             $query = sprintf("SELECT * FROM compras WHERE Id_usuario = '%d' AND 
-                Pendiente = '%d'", 
+                Pendiente = '%d' ORDER BY Fecha DESC", 
                 $conn->real_escape_string($idUsuario),
                 '0'
             );

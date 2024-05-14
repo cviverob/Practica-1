@@ -18,7 +18,7 @@
                 if ($url_actual == RUTA_APP . RUTA_HST) {
                     echo '<a href="' . RUTA_APP . RUTA_INDX . '" class="RegisterUserButton">Menú principal</a>';
                 } else {
-                    echo '<a href="' . RUTA_APP . RUTA_HST . '" class="RegisterUserButton"><img src="'. RUTA_APP . RUTA_BTN . '/carro.png" width = "20" height = "20"></a>';
+                    echo '<a href="' . RUTA_APP . RUTA_HST . '" class="CarritoUserButton"><img src="'. RUTA_APP . RUTA_BTN . '/carro.png" width = "20" height = "20" class = "FotoCarrito"></a>';
                 }
             }
         }

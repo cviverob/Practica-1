@@ -75,7 +75,7 @@ ARCHIVO: cabecera.php:
     float: right;
     margin-right: 4%;
     margin-top: 1%;
-    padding: 5px 20px;
+    padding: 8px 20px;
     text-decoration: none;
     color: #333;
     background-color: beige;
@@ -92,7 +92,7 @@ ARCHIVO: cabecera.php:
     float: right;
     margin-right: 1%;
     margin-top: 1%;
-    padding: 5px 20px;
+    padding: 8px 20px;
     text-decoration: none;
     color: black;
     background-color: #4CAF50;
@@ -102,6 +102,19 @@ ARCHIVO: cabecera.php:
     cursor: pointer;
 }
 
+.CarritoUserButton {
+    float: right;
+    margin-right: 1%;
+    margin-top: 1%;
+    padding: 5px 20px;
+    text-decoration: none;
+    color: black;
+    background-color: #4CAF50;
+    border: 2px solid #266d2a;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
 .RegisterUserButton:hover {
     background-color: #266d2a;
 }
@@ -110,7 +123,7 @@ ARCHIVO: cabecera.php:
     float: right;
     margin-right: 4%;
     margin-top: 1%;
-    padding: 5px 20px;
+    padding: 8px 20px;
     text-decoration: none;
     color: black;
     background-color: crimson;
@@ -170,112 +183,6 @@ ARCHIVO: cabecera.php:
     cursor: pointer;
 }
 
-@media screen and (max-width: 400px) {
-
-    .fotoElmoCines {
-        display: none;
-    }
-
-    .fotoElmo img {
-        width: 50px;
-        height: auto;
-    }
-
-    .ExitUserButton, .RegisterUserButton, .LogUserButton, .botonFormulario {
-        padding: 2px 8px;
-        font-size: 10px;
-        margin-right: 10%;
-        margin-top: 1%;
-    }
-
-    .pelicula p {
-        font-size: 50%;
-    }
-
-    .Formulario input {
-        font-size: 50%;
-    }
-
-    .Formulario {
-        font-size: 50%;
-        margin: 25px auto;
-        padding: 10px;
-    }
-
-    .Formulario div {
-        margin-top: 5px;
-        align-items: center;
-    }
-
-    .Formulario legend {
-        font-size: 0.6em;
-        margin-bottom: 5px;
-    }
-
-    .botonFormulario, .seleccionarPelicula{
-        font-size: 50%;
-    }
-
-    button.botonButaca {
-        width: 9px;
-        height: 5px;
-        font-size: 3px;
-        padding: 3px 5px;
-        margin: auto;
-        font-size: 1px;
-        text-align: center;
-    }
-}
-
-@media print{
-    @page {
-        size: landscape;
-    }
-
-    .ExitUserButton, .RegisterUserButton, .LogUserButton, .botonFormulario{
-        display: none;
-    }
-    .seleccionarPelicula {
-        visibility: hidden;
-    }
-
-    .infoTicket {
-        display: grid; /* Usar CSS Grid */
-        grid-template-columns: auto; /* Una sola columna */
-        grid-template-rows: auto auto; /* Dos filas */
-        grid-row-gap: 20px; /* Espacio entre filas */
-        border: 4px solid #6382ae; /* Borde exterior más grueso */
-        border-radius: 15px; /* Bordes redondeados */
-        page-break-after: auto; /* Salto de página después de cada infoTicket */
-    }
-
-    .infoTicket .entrada {
-        grid-row: 1; /* Primera fila */
-        grid-column: 1; /* Única columna */
-    }
-
-    .infoTicket .descripcion {
-        grid-row: 2; /* Segunda fila */
-        grid-column: 1; /* Única columna */
-    }
-
-    header{
-        display: none;
-
-    }
-
-    footer{
-        display: none;
-    }
-
-    .Ticket-columna{
-        display: none;
-    }
-
-    .adios{
-        display: none;
-    }
-}
 
 /*
 ARCHIVO: index.php
@@ -559,6 +466,11 @@ legend {
 .align-right li{
     font-size: 20px;
 }
+
+.carrito-right {
+    padding: 100px 80px;
+}
+
 .historial-compras {
     display: flex;
 }
@@ -590,6 +502,7 @@ legend {
 }
 
 .Ticket-columna p{
+    text-align: justify;
     font-size: larger;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -644,13 +557,14 @@ legend {
 }
 
 .infoTicket .descripcion p {
+    text-align: justify;
+    margin-right: 25px;
     color: #666; /* Color del texto */
     font-size: 20px; /* Tamaño de la fuente */
     line-height: 1.5; /* Altura de línea para una mejor legibilidad */
 }
 
 .infoTicket .descripcion .subliminal {
-    
     font-size: 10px; /* Tamaño de la fuente */
     opacity: 0.7; /* Texto ligeramente translúcido */
 }
@@ -669,44 +583,21 @@ legend {
 .peli1 {
     display: inline-block;
     align-items: center;
-    justify-content: space-between;
 }
 
 .peli1 .peli1_1 {
-    margin-right: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .peli1 .peli1_2 {
-    margin-left: 15px;
+    margin-left: 23px;
     display: flex;
     align-items: center;
 }
 
 .peli1 .peli1_2 form {
     margin-right: 5px;
-}
-
-.peli1 .peli1_2 form:last-child {
-    margin-right: 0;
-}
-
-.Ticket-columna p{
-    text-align: justify;
-    font-size: larger;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.infoTicket .descripcion p {
-    text-align: justify;
-    margin-right: 25px;
-    color: #666; /* Color del texto */
-    font-size: 20px; /* Tamaño de la fuente */
-    line-height: 1.5; /* Altura de línea para una mejor legibilidad */
-}
-
-.infoTicket .entrada {
-    margin-left: 15px;
-    flex: 1; /* Ocupar todo el espacio disponible */
 }
 
 
@@ -718,7 +609,6 @@ legend {
 
 .leyenda {
     justify-content: center;
-    display: flex;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -753,4 +643,215 @@ legend {
 
 .separar {
     margin-top: 10px;
+}
+
+
+
+.CarritoButton {
+    float: right;
+    margin-left: 200px;
+    padding: 8px 20px;
+    text-decoration: none;
+    color: #333;
+    background-color: #4CAF50;
+    border: 2px solid #266d2a;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 400px) {
+
+    h1{
+        margin-top: 1px;
+        margin-bottom: 10px;
+        font-size: 10px;
+    }
+
+    .fotoElmoCines {
+        display: none;
+    }
+
+    .fotoElmo img {
+        width: 50px;
+        height: auto;
+    }
+
+    .ExitUserButton, .RegisterUserButton, .LogUserButton, .botonFormulario, .CarritoUserButton {
+        padding: 2px 8px;
+        font-size: 10px;
+        margin-right: 10%;
+        margin-top: 1%;
+    }
+
+
+    .CarritoUserButton img{
+        width: 10px;
+        height: auto;
+    }
+
+    .pelicula p {
+        font-size: 50%;
+        text-align: justify;
+    }
+
+    .Formulario input {
+        font-size: 50%;
+    }
+
+    .Formulario {
+        font-size: 50%;
+        margin: 25px auto;
+        padding: 10px;
+    }
+
+    .Formulario div {
+        margin-top: 5px;
+        align-items: center;
+    }
+
+    .Formulario legend {
+        font-size: 0.6em;
+        margin-bottom: 5px;
+    }
+
+    .botonFormulario, .seleccionarPelicula{
+        font-size: 50%;
+    }
+
+    button.botonButaca {
+        width: 9px;
+        height: 5px;
+        font-size: 3px;
+        padding: 3px 5px;
+        margin: auto;
+        font-size: 1px;
+        text-align: center;
+    }
+
+
+    .peli1 {
+        display: inline-block;
+        align-items: center;
+    }
+    
+    .peli1 .peli1_1 {
+        padding-top: 20px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    
+    .peli1 .peli1_2 {
+        margin: 0px 0px 0px 0px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .peli1 .peli1_2 form {
+        margin-right: 5px;
+    }
+
+    .peli1_2 .ExitUserButton, .RegisterUserButton{
+        margin-left: 20px;
+        margin-right: 0px;
+        margin-bottom: 10px;
+    }
+
+    .fieldset-custom {
+        font-size: 40%;
+    }
+
+    .cuadro {
+        width: 5px; /* Reducir tamaño a la mitad */
+        height: 5px; /* Reducir tamaño a la mitad */
+        margin-right: 7.5px; /* Reducir margen a la mitad */
+        margin-left: 7.5px; /* Reducir margen a la mitad */
+        border-width: 1px; /* Reducir ancho del borde a la mitad */
+    }
+
+
+    .align-left {
+        text-align: center;
+        padding: 0px; /* Se redujo a la mitad */
+    }
+    
+    .align-right {
+        text-align: center;
+        padding: 0px; /* Se redujo a la mitad */
+    }
+    .align-right p {
+        font-size: 10px; /* Se redujo a la mitad */
+    }
+    
+    .carrito-right {
+        padding: 0px; /* Se redujo a la mitad */
+    }
+
+    .fotitoHistorial{
+        height: 100px;
+        width: 75px;
+    }
+
+    .CarritoButton{
+        margin: 10px;
+        padding: 3px;
+    }
+
+    .CarritoButton img{
+        height: 20px;
+        width: 20px;
+
+    }
+    
+}
+
+@media print{
+    @page {
+        size: landscape;
+    }
+
+    .ExitUserButton, .RegisterUserButton, .LogUserButton, .botonFormulario{
+        display: none;
+    }
+    .seleccionarPelicula {
+        visibility: hidden;
+    }
+
+    .infoTicket {
+        display: grid; /* Usar CSS Grid */
+        grid-template-columns: auto; /* Una sola columna */
+        grid-template-rows: auto auto; /* Dos filas */
+        grid-row-gap: 20px; /* Espacio entre filas */
+        border: 4px solid #6382ae; /* Borde exterior más grueso */
+        border-radius: 15px; /* Bordes redondeados */
+        page-break-after: auto; /* Salto de página después de cada infoTicket */
+    }
+
+    .infoTicket .entrada {
+        grid-row: 1; /* Primera fila */
+        grid-column: 1; /* Única columna */
+    }
+
+    .infoTicket .descripcion {
+        grid-row: 2; /* Segunda fila */
+        grid-column: 1; /* Única columna */
+    }
+
+    header{
+        display: none;
+
+    }
+
+    footer{
+        display: none;
+    }
+
+    .Ticket-columna{
+        display: none;
+    }
+
+    .adios{
+        display: none;
+    }
 }

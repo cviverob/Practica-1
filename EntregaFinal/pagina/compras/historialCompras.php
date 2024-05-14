@@ -24,8 +24,10 @@
         $sala = es\ucm\fdi\aw\salas::buscar($sesion->getIdSala());
         $pelicula = es\ucm\fdi\aw\pelicula::buscar($c->getIdPeli());
         $num_sala = $sala->getNumSala();
-        $fecha = \DateTime::createFromFormat('d/m/y', $c->getFecha()); // Seguir aquí
-        $hora = \DateTime::createFromFormat('H:i:s', $c->getFecha());
+        $fechaHora = \DateTime::createFromFormat('Y-m-d H:i:s', $c->getFecha());
+        $fecha = $fechaHora->format('d/m/Y');
+        $hora = $fechaHora->format('H:i:s');
+
         $numEntradas = count($c->getButacas());
         $butacas = $c->getButacas();
         $tituloPeli = $pelicula->getTitulo();
@@ -49,8 +51,13 @@
         foreach ($butacas as $b) {
             $contenidoPrincipal .= "$b ";
         }
-    
+
+        $ruta = RUTA_APP . RUTA_PDF; 
+        $rutaBotonDes = RUTA_APP . RUTA_BTN . '/descarga.png';
         $contenidoPrincipal .= <<<EOS
+                </div>
+                <div class='carrito-right'>
+                <a href="$ruta?id={$c->getId()}" class = "CarritoButton"><img src = $rutaBotonDes width = '40' height = '40'></a>
                 </div>
             </div>
             EOS;
