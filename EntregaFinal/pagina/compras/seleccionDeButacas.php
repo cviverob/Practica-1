@@ -42,6 +42,7 @@
                     $contenidoPrincipal .= "</div>";
                 }
                 $contenidoPrincipal .= <<< EOS
+                    <p></p>
                     <fieldset class="fieldset-custom">
                         <legend>Significado del color de las butacas</legend>
                         <div class="leyenda">
@@ -63,6 +64,7 @@
 
                 $formularioCompra = new es\ucm\fdi\aw\formularioCompra($sesion->getId());
                 $contenidoPrincipal .= <<< EOS
+
                         </fieldset>
                     </div>
                     <div class="separar">

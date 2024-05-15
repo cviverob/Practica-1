@@ -694,6 +694,7 @@ legend {
 }
 
 .separar {
+    text-align: center;
     margin-top: 10px;
 }
 
@@ -996,4 +997,9 @@ legend {
     .texte{
         font-size: 7px;
     }
+
+}
+
+.fila {
+    display: inline-flex;
 }

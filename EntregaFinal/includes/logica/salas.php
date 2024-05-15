@@ -56,6 +56,32 @@
         }
 
         /**
+         * Método que busca una sala según su id y que no este archivado
+         * @param int $id Identificador de la sala a buscar
+         */
+        public static function buscarNoArchivado($id) {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM salas WHERE id = '%s' AND archivado = %d", $conn->real_escape_string($id), false);
+            $rs = $conn->query($query);
+            if ($rs) {
+                $sala = $rs->fetch_assoc();
+                if ($sala) {
+                    $id = $sala['Id'];
+                    $num_sala = $sala['Num_sala'];
+                    $num_filas = $sala['Num_filas'];
+                    $num_columnas = $sala['Num_columnas'];
+                    $butacas = json_decode($sala['Butacas'], true);
+                    $sala = new salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
+                    $rs->free();
+                    return $sala;
+                }
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return null;
+        }
+
+        /**
          * Método que busca una sala según su id
          * @param int $id Identificador de la sala a buscar
          */

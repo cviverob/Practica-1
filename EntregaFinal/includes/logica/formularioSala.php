@@ -16,7 +16,7 @@
             parent::__construct('formSala', ['urlRedireccion' => RUTA_APP . RUTA_MOD_SALA, 
                 'enctype' => 'multipart/form-data']
             );
-            $this->sala = $idSala != null ? salas::buscar($idSala) : null;
+            $this->sala = $idSala != null ? salas::buscarNoArchivado($idSala) : null;
         }
 
         public function generaCamposFormulario(&$datos) {
@@ -97,8 +97,8 @@
             else if (!is_numeric($num_filas)) {
                 $this->errores['num_filas'] = 'El número de filas debe ser un número';
             }
-            else if ($num_filas < 1 || $num_filas > MAX_FILAS) {
-                $this->errores['num_filas'] = 'El número de filas debe ser un número entre 1 y ' . MAX_FILAS;
+            else if ($num_filas < 12 || $num_filas > MAX_FILAS) {
+                $this->errores['num_filas'] = 'El número de filas debe ser un número entre 12 y ' . MAX_FILAS;
             }
             /* Valdiación del número de columnas */
             $num_columnas = trim($datos['num_columnas'] ?? '');
@@ -109,8 +109,8 @@
             else if (!is_numeric($num_columnas)) {
                 $this->errores['num_columnas'] = 'El número de columnas debe ser un número';
             }
-            else if ($num_columnas < 1 || $num_columnas > MAX_COLS) {
-                $this->errores['num_columnas'] = 'El número de columnas debe ser un número entre 1 y ' . MAX_COLS;
+            else if ($num_columnas < 12 || $num_columnas > MAX_COLS) {
+                $this->errores['num_columnas'] = 'El número de columnas debe ser un número entre 12 y ' . MAX_COLS;
             }
             /* Intentamos subir la sala */
             if (count($this->errores) === 0) {
