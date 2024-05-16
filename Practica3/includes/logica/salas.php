@@ -247,7 +247,7 @@
          * @param Sala $sala Sala a insertar
          */
         private static function insertar($sala) {
-            if (!buscarPorNumero($sala->num_sala)) {
+            if (!self::buscarPorNumero($sala->num_sala)) {
                 $conn = aplicacion::getInstance()->getConexionBd();
                 $id = 1;
                 for ($i = 1; $i <= $sala->num_filas; $i++) {

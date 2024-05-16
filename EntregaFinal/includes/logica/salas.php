@@ -51,8 +51,11 @@
          * @param int $num_columnas
          */
         public static function crear($num_sala, $num_filas, $num_columnas) {
-            $sala = new salas($num_sala, $num_filas, $num_columnas);
-            return self::insertar($sala);
+            if (!self::buscarPorNumero($num_sala)) {
+                $sala = new salas($num_sala, $num_filas, $num_columnas);
+                return self::insertar($sala);
+            }
+            return false;
         }
 
         /**
@@ -61,7 +64,7 @@
          */
         public static function buscarNoArchivado($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM salas WHERE id = '%s' AND archivado = %d", $conn->real_escape_string($id), false);
+            $query = sprintf("SELECT * FROM salas WHERE Id = '%d' AND archivado = %d", $conn->real_escape_string($id), false);
             $rs = $conn->query($query);
             if ($rs) {
                 $sala = $rs->fetch_assoc();
@@ -87,7 +90,33 @@
          */
         public static function buscar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM salas WHERE id = '%s'", $conn->real_escape_string($id));
+            $query = sprintf("SELECT * FROM salas WHERE Id = '%d'", $conn->real_escape_string($id));
+            $rs = $conn->query($query);
+            if ($rs) {
+                $sala = $rs->fetch_assoc();
+                if ($sala) {
+                    $id = $sala['Id'];
+                    $num_sala = $sala['Num_sala'];
+                    $num_filas = $sala['Num_filas'];
+                    $num_columnas = $sala['Num_columnas'];
+                    $butacas = json_decode($sala['Butacas'], true);
+                    $sala = new salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
+                    $rs->free();
+                    return $sala;
+                }
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return null;
+        }
+
+        /**
+         * Método que busca una sala según su número
+         * @param int $numero Número de la sala a buscar
+         */
+        public static function buscarPorNumero($numero) {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM salas WHERE Num_sala = '%d'", $conn->real_escape_string($numero));
             $rs = $conn->query($query);
             if ($rs) {
                 $sala = $rs->fetch_assoc();
@@ -114,24 +143,26 @@
          * @param int $num_columnas
          */
         public function modificar($num_sala, $num_filas, $num_columnas) {
-            $conn = aplicacion::getInstance()->getConexionBd();
-            $this->num_sala = $num_sala;
-            $this->num_filas = $num_filas;
-            $this->num_columnas = $num_columnas;
-            $this->modificarButacas();
-            $query = sprintf("UPDATE salas SET Num_sala = '%d', Num_filas = '%d', 
-                Num_columnas = '%d', Butacas = '%s' WHERE Id = %s",
-                $conn->real_escape_string($this->num_sala),
-                $conn->real_escape_string($this->num_filas),
-                $conn->real_escape_string($this->num_columnas),
-                $conn->real_escape_string(json_encode($this->butacas)),
-                $conn->real_escape_string($this->id)
-            );
-            if ($conn->query($query)) {
-                return $this;
-            } 
-            else {
-                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            if ($this->num_sala != $num_sala && !self::buscarPorNumero($sala->num_sala)) {
+                $conn = aplicacion::getInstance()->getConexionBd();
+                $this->num_sala = $num_sala;
+                $this->num_filas = $num_filas;
+                $this->num_columnas = $num_columnas;
+                $this->modificarButacas();
+                $query = sprintf("UPDATE salas SET Num_sala = '%d', Num_filas = '%d', 
+                    Num_columnas = '%d', Butacas = '%s' WHERE Id = %s",
+                    $conn->real_escape_string($this->num_sala),
+                    $conn->real_escape_string($this->num_filas),
+                    $conn->real_escape_string($this->num_columnas),
+                    $conn->real_escape_string(json_encode($this->butacas)),
+                    $conn->real_escape_string($this->id)
+                );
+                if ($conn->query($query)) {
+                    return $this;
+                } 
+                else {
+                    error_log("Error BD ({$conn->errno}): {$conn->error}");
+                }
             }
             return false;
         }
@@ -258,8 +289,6 @@
                 for ($j = 1; $j <= $sala->num_columnas; $j++) {
                     $id = "$i-$j";
                     $butacas[$id] = array(
-                        "fila" => $i,
-                        "columna" => $j,
                         "estado" => "disponible"
                     );  
                 }
