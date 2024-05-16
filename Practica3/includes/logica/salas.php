@@ -61,7 +61,33 @@
          */
         public static function buscar($id) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM salas WHERE id = '%s'", $conn->real_escape_string($id));
+            $query = sprintf("SELECT * FROM salas WHERE Id = '%d'", $conn->real_escape_string($id));
+            $rs = $conn->query($query);
+            if ($rs) {
+                $sala = $rs->fetch_assoc();
+                if ($sala) {
+                    $id = $sala['Id'];
+                    $num_sala = $sala['Num_sala'];
+                    $num_filas = $sala['Num_filas'];
+                    $num_columnas = $sala['Num_columnas'];
+                    $butacas = json_decode($sala['Butacas'], true);
+                    $sala = new salas($num_sala, $num_filas, $num_columnas, $butacas, $id);
+                    $rs->free();
+                    return $sala;
+                }
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+            return null;
+        }
+
+        /**
+         * Método que busca una sala según su número
+         * @param int $numero Número de la sala a buscar
+         */
+        public static function buscarPorNumero($numero) {
+            $conn = aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM salas WHERE Num_sala = '%d'", $conn->real_escape_string($numero));
             $rs = $conn->query($query);
             if ($rs) {
                 $sala = $rs->fetch_assoc();
@@ -221,32 +247,34 @@
          * @param Sala $sala Sala a insertar
          */
         private static function insertar($sala) {
-            $conn = aplicacion::getInstance()->getConexionBd();
-            $id = 1;
-            for ($i = 1; $i <= $sala->num_filas; $i++) {
-                for ($j = 1; $j <= $sala->num_columnas; $j++) {
-                    $butacas[$id] = array(
-                        "fila" => $i,
-                        "columna" => $j,
-                        "estado" => "disponible"
-                    );  
-                    $id++;
+            if (!buscarPorNumero($sala->num_sala)) {
+                $conn = aplicacion::getInstance()->getConexionBd();
+                $id = 1;
+                for ($i = 1; $i <= $sala->num_filas; $i++) {
+                    for ($j = 1; $j <= $sala->num_columnas; $j++) {
+                        $butacas[$id] = array(
+                            "fila" => $i,
+                            "columna" => $j,
+                            "estado" => "disponible"
+                        );  
+                        $id++;
+                    }
                 }
-            }
-            $sala->butacas = $butacas;
-            $query=sprintf("INSERT INTO salas(Num_sala, Num_filas, Num_columnas, Butacas) VALUES ('%s','%s','%s','%s')",
-                $conn->real_escape_string($sala->num_sala),
-                $conn->real_escape_string($sala->num_filas),
-                $conn->real_escape_string($sala->num_columnas),
-                $conn->real_escape_string(json_encode($sala->butacas))
-            );
-            if ($conn->query($query)) {
-                $id = $conn->insert_id;
-                $sala->setId($id);
-                return $sala;
-            } 
-            else {
-                error_log("Error BD ({$conn->errno}): {$conn->error}");
+                $sala->butacas = $butacas;
+                $query=sprintf("INSERT INTO salas(Num_sala, Num_filas, Num_columnas, Butacas) VALUES ('%s','%s','%s','%s')",
+                    $conn->real_escape_string($sala->num_sala),
+                    $conn->real_escape_string($sala->num_filas),
+                    $conn->real_escape_string($sala->num_columnas),
+                    $conn->real_escape_string(json_encode($sala->butacas))
+                );
+                if ($conn->query($query)) {
+                    $id = $conn->insert_id;
+                    $sala->setId($id);
+                    return $sala;
+                } 
+                else {
+                    error_log("Error BD ({$conn->errno}): {$conn->error}");
+                }
             }
             return false;
         }
