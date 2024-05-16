@@ -116,7 +116,10 @@
          */
         public static function buscarPorNumero($numero) {
             $conn = aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM salas WHERE Num_sala = '%d'", $conn->real_escape_string($numero));
+            $query = sprintf("SELECT * FROM salas WHERE Num_sala = '%d' AND archivado = '%d'", 
+            $conn->real_escape_string($numero), 
+            false
+        );
             $rs = $conn->query($query);
             if ($rs) {
                 $sala = $rs->fetch_assoc();
@@ -143,7 +146,7 @@
          * @param int $num_columnas
          */
         public function modificar($num_sala, $num_filas, $num_columnas) {
-            if ($this->num_sala != $num_sala && !self::buscarPorNumero($sala->num_sala)) {
+            if ($this->num_sala == $num_sala || !self::buscarPorNumero($num_sala)) {
                 $conn = aplicacion::getInstance()->getConexionBd();
                 $this->num_sala = $num_sala;
                 $this->num_filas = $num_filas;
@@ -289,6 +292,8 @@
                 for ($j = 1; $j <= $sala->num_columnas; $j++) {
                     $id = "$i-$j";
                     $butacas[$id] = array(
+                        "fila" => $i,
+                        "columna" => $j,
                         "estado" => "disponible"
                     );  
                 }
@@ -308,7 +313,6 @@
             else {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
-        }
         return false;
         }
 

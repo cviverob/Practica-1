@@ -48,11 +48,12 @@
             $html .= $this->mostrarError('num_sala');
             /* Número de filas */
             $max = MAX_FILAS;
+            $min = MIN_FILAS;
             $html .= <<<EOS
                     </div>
                     <div>
                         <label for = "num_filas">Número de Filas: </label>
-                        <input id = "num_filas" type = "number" name = "num_filas" value = "$num_filas" min = 1 max = $max required />
+                        <input id = "num_filas" type = "number" name = "num_filas" value = "$num_filas" min = 12 max = $max required />
                         <span id = "validezFilas"></span>
             EOS;
             $html.= $this->mostrarError('num_filas');
@@ -62,7 +63,7 @@
                     </div>
                     <div>
                         <label for = "num_columnas">Número de Columnas: </label>
-                        <input id = "num_columnas" type = "number" name = "num_columnas" value = "$num_columnas" min = 1 max = $max required />
+                        <input id = "num_columnas" type = "number" name = "num_columnas" value = "$num_columnas" min = 12 max = $max required />
                         <span id = "validezColumnas"></span>
             EOS;
             $html .= $this->mostrarError('num_columnas');
@@ -97,8 +98,8 @@
             else if (!is_numeric($num_filas)) {
                 $this->errores['num_filas'] = 'El número de filas debe ser un número';
             }
-            else if ($num_filas < 12 || $num_filas > MAX_FILAS) {
-                $this->errores['num_filas'] = 'El número de filas debe ser un número entre 12 y ' . MAX_FILAS;
+            else if ($num_filas < MIN_FILAS || $num_filas > MAX_FILAS) {
+                $this->errores['num_filas'] = 'El número de filas debe ser un número entre ' . MIN_FILAS . ' y ' . MAX_FILAS;
             }
             /* Valdiación del número de columnas */
             $num_columnas = trim($datos['num_columnas'] ?? '');
@@ -109,12 +110,12 @@
             else if (!is_numeric($num_columnas)) {
                 $this->errores['num_columnas'] = 'El número de columnas debe ser un número';
             }
-            else if ($num_columnas < 12 || $num_columnas > MAX_COLS) {
-                $this->errores['num_columnas'] = 'El número de columnas debe ser un número entre 12 y ' . MAX_COLS;
+            else if ($num_columnas < MIN_COLS || $num_columnas > MAX_COLS) {
+                $this->errores['num_columnas'] = 'El número de columnas debe ser un número entre ' . MIN_COLS . ' y ' . MAX_COLS;
             }
             /* Intentamos subir la sala */
             if (count($this->errores) === 0) {
-                try {
+                
                     /* Caso de modificar la sala */
                     if ($this->sala) {
                         if ($this->sala->modificar($num_sala, $num_filas, $num_columnas)) {
@@ -131,11 +132,7 @@
                     else {
                         $this->errores[] = "Error al subir la sala";
                     }
-                } catch (\mysqli_sql_exception $e) {
-                    if ($e->getCode() == 1062) {
-                        $this->errores["num_sala"] = "El número de sala ya existe";
-                    }
-                }
+                
             }
         }
     }

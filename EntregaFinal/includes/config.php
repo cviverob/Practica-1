@@ -157,3 +157,5 @@
      */
     define("MAX_FILAS", 20);
     define("MAX_COLS", 20);
+    define("MIN_FILAS", 1);
+    define("MIN_COLS", 12);
