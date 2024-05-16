@@ -293,7 +293,23 @@
                     );  
                 }
             }
-            return false;
+            $sala->butacas = $butacas;
+            $query=sprintf("INSERT INTO salas(Num_sala, Num_filas, Num_columnas, Butacas) VALUES ('%s','%s','%s','%s')",
+                $conn->real_escape_string($sala->num_sala),
+                $conn->real_escape_string($sala->num_filas),
+                $conn->real_escape_string($sala->num_columnas),
+                $conn->real_escape_string(json_encode($sala->butacas))
+            );
+            if ($conn->query($query)) {
+                $id = $conn->insert_id;
+                $sala->setId($id);
+                return $sala;
+            } 
+            else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+        }
+        return false;
         }
 
         /**
